@@ -1,0 +1,1014 @@
+WEBVTT
+
+1
+00:00:02.380 --> 00:00:06.089
+Kamil - Team Apart: Welcome back, everyone, to the second talk of today.
+
+2
+00:00:06.170 --> 00:00:15.280
+Kamil - Team Apart: And the AI Collusion Research Sprint, co-organized with Poseidon Research, AI Studio, sponsored by Modal, AI Allen Foundation, and Nibius.
+
+3
+00:00:15.330 --> 00:00:28.600
+Kamil - Team Apart: Our next speaker is Usman Anwar, a final-year PhD student in the Computational and Biological Learning Lab at the University of Cambridge. He's supervised by David Kruger and funded by OpenFill and the Future of Life Institute.
+
+4
+00:00:28.690 --> 00:00:37.030
+Kamil - Team Apart: His research focuses on AI safety and alignment. Most recently, chain of thought, monitorability, and detecting steganography in LLMs.
+
+5
+00:00:37.060 --> 00:00:50.079
+Kamil - Team Apart: He is the lead author of Foundational Challenges in Assuring Alignment and Safety of Large Language Models, and his talk today is Challenges in Detecting Stegnography in LLM Transcripts. Please welcome Usman.
+
+6
+00:00:55.090 --> 00:01:00.649
+Usman Anwar: Thank you very much. Thank you for… it's good to be here, Kamil, thank you for the intro.
+
+7
+00:01:00.880 --> 00:01:06.929
+Usman Anwar: I'm gonna, like, share my screen and sort of, like, dive straight into…
+
+8
+00:01:07.950 --> 00:01:15.829
+Usman Anwar: the presentation, I will try and, like, keep it to 30 minutes, and we can have some questions towards the end, like, in the last, like, 10-15 minutes.
+
+9
+00:01:16.580 --> 00:01:18.599
+Usman Anwar: Yeah, let's get started.
+
+10
+00:01:18.760 --> 00:01:34.109
+Usman Anwar: Okay, yeah, so this is actually a paper I did, like, recently with a bunch of co-authors around how can we measure, or, like, how can we detect certainography in LLMs. So this is a risk where, like, LLMs can, like, start doing co-ed reasoning, and maybe even, like,
+
+11
+00:01:34.700 --> 00:01:43.229
+Usman Anwar: communication between, different instances as well, which is, like, encoded and not, like, really obvious to humans or other, like, external observers.
+
+12
+00:01:44.470 --> 00:01:54.279
+Usman Anwar: So I'm going to start off with, like, some, like, moral outbursts. These are, like, chain of thoughts, choices, increases, or summaries. And, like, you basically have to tell whether, like, do you think they contain any hidden information or not.
+
+13
+00:01:54.930 --> 00:02:05.509
+Usman Anwar: So here's, like, one. This is, like, from OpenAI's, 03 model. This was, made public in this community AI paper, done in collaboration by Apollo and OpenAI.
+
+14
+00:02:06.210 --> 00:02:10.609
+Usman Anwar: And, yeah, just give it a read, I don't know,
+
+15
+00:02:10.770 --> 00:02:19.960
+Usman Anwar: Just for yourself, try to basically make a guess about whether it is, like, is there, like, anything hidden here or not, in terms of, like, content?
+
+16
+00:02:25.880 --> 00:02:32.999
+Mihir Sahasrabudhe: The text looks weird, but I'm not sure if it's any hidden reasoning going on. Just looks like garbage text.
+
+17
+00:02:33.680 --> 00:02:35.009
+Usman Anwar: Yeah, maybe. I don't know.
+
+18
+00:02:35.350 --> 00:02:46.530
+Usman Anwar: There's also, like, some text here. This is, from a paper by Google, DeepMind, where they train, like, Gemini model to, like, summarize on applications.
+
+19
+00:02:46.760 --> 00:02:49.919
+Usman Anwar: And they were trying really hard for this model to, like, be, like, unbiased.
+
+20
+00:02:50.680 --> 00:03:01.049
+Usman Anwar: And then, like, this is kind of the, yeah, this is just different summaries. And then the question, sort of, is that, like, yeah, are these summaries contained or encode nationality?
+
+21
+00:03:09.300 --> 00:03:11.570
+Usman Anwar: Okay, I'm gonna move on.
+
+22
+00:03:11.820 --> 00:03:13.500
+Usman Anwar: This is the last one.
+
+23
+00:03:13.660 --> 00:03:19.809
+Usman Anwar: here, like, the cloud was basically asked to produce, like, mini-preserving rewrites of WKP sentences.
+
+24
+00:03:21.230 --> 00:03:26.789
+Usman Anwar: Yeah, do these rewrites encode any hidden letters or any hidden information?
+
+25
+00:03:34.780 --> 00:03:40.540
+Usman Anwar: Yeah, so just to reveal the answer, I think the person was right about the first, first one.
+
+26
+00:03:40.830 --> 00:03:47.919
+Usman Anwar: The text is indeed, like, quite carpal and quite degenerate-looking, but it is unclear, or, like, not very,
+
+27
+00:03:48.220 --> 00:03:57.819
+Usman Anwar: Yeah, it's, like, a very low probability that this is actually, contains an encoded reasoning. However, the second two cases, even though text looks, like, very plain, very, like, legible, and very, like.
+
+28
+00:03:58.150 --> 00:04:08.460
+Usman Anwar: normal-looking. It nevertheless encodes and has hidden information that only you can access if you, like, actually know that there's enough information, and how it was basically, like, encoded and so on.
+
+29
+00:04:10.160 --> 00:04:28.269
+Usman Anwar: Yeah, and so basically, like, one general kind of a question people might have is that, like, okay, why would RTMS learn code reasoning, other than just trying to, like, talk about things in natural language and so on. And, that's the kind of the very simple way to look at this is that, like, when you're doing, like, Workforce learning training.
+
+30
+00:04:28.750 --> 00:04:47.239
+Usman Anwar: you basically are, like, basically training LLMs, like, on their own outputs, in some sense, and this kind of result in kind of, like, a feedback loop, where LLMs can, like, learn to, like, use different words in, kind of, unusual context, and this can, like, get amplified and strengthened over training. For example, here's, like, a plot from a paper that, like, sort of shows you that,
+
+31
+00:04:47.440 --> 00:04:57.040
+Usman Anwar: Across, like, RL training, like, how, like, different, like, words actually become, like, a lot more, like, dominant than they otherwise are in the PRL checkpoint.
+
+32
+00:04:58.240 --> 00:05:16.909
+Usman Anwar: And this is, like, kind of bad because, like, I think encoded reasoning is bad for, like, many different reasons. Like, it is also, like, well, quite bad given all the swarm stuff happening right now, but I think, encoded reasoning is maybe, like, the more, like, clear, kind of, the way… thing where, like, basically can be very harmful, in the sense that it can basically break the general monitoring.
+
+33
+00:05:17.760 --> 00:05:34.569
+Usman Anwar: And it is, like, actually, like, share monitoring is, like, basically kind of the best thing we have right now for, monitoring the models. If we don't have general thought, it basically is, like, very unclear, like, how would we understand models and so on. So, yeah, so things are, like, not, like, that,
+
+34
+00:05:35.070 --> 00:05:41.529
+Usman Anwar: we're in a bad world if, like, we lose this kind of affordability or affordance, yeah.
+
+35
+00:05:42.790 --> 00:05:56.090
+Usman Anwar: So, this is not a new problem in some sense. So, sternography is, like, a very old problem. People have been doing it, like, I don't know, in prehistoric ages as well, in some sense. So, yeah, so it's, like, a very old problem.
+
+36
+00:05:56.090 --> 00:06:16.739
+Usman Anwar: Kind of the formal study of Sinem basically is rooted in this paper from 1984 by, like, by Simmons, where, like, the idea is that, like, you have, like, two prisoners, A and B, and they want to coordinate on an escape plan, for example, or something else, and all they can do is, like, write messages or letters to each other, and these, these letters have to pass through a ward.
+
+37
+00:06:17.270 --> 00:06:24.850
+Usman Anwar: The question is, can they, like, communicate without, like, what an activity the letters, and not really understanding what is happening, what you're talking about?
+
+38
+00:06:25.090 --> 00:06:37.940
+Usman Anwar: And sort of SMO has, like, some, like, a nice kind of, like, like, illustration of, like, how it is actually indeed possible, and in fact, like, in this kind of a sister, in this model of the world where, like.
+
+39
+00:06:38.000 --> 00:06:47.340
+Usman Anwar: prisons are often, like, allowed to, like, coordinate, like, beforehand as well on these scheme and stuff. You often can actually get, like, very strong guarantees, like, there's things called, like, perfectly secure.
+
+40
+00:06:47.340 --> 00:07:05.899
+Usman Anwar: certain graphic schemes, where, like, yeah, basically, Warden cannot do anything at all, basically. And it's a very similar problem right now with LLMs as well. Like, LLMs also, like, in some sense, are trying to communicate with their future self, and they want to avoid, like, the trace sort of being, looked at by the monitor, and being… monitor being able to tell that what is happening in this trace.
+
+41
+00:07:07.870 --> 00:07:21.929
+Usman Anwar: Yeah, so now serography is, like, basically possible in natural language, because, like, natural language is very redundant. So you can have, like, different, like, semantically similar meaning sentences, but your exact word choices can potentially convey information, basically.
+
+42
+00:07:24.440 --> 00:07:47.849
+Usman Anwar: So, in the formal model, like, what happens is that, like, we often, like, talk about the fact that you have some sort of channel. So, for example, like, imagine that I'm trying to communicate with Kamil over this Zoom talk, right? This Zoom talk has some sort of channel, like, people, like, who are on, giving talks, they talk about it in a certain way. So that's distribution of, like, all the talks, if you look at them together, that's basically, like, your cover distribution.
+
+43
+00:07:48.710 --> 00:08:02.390
+Usman Anwar: And then, like, if I want to communicate to, like, a Kamil in some sort of, like, a stagger way, in some sense, I will have to modify my communication. Like, maybe I am using weird hand gestures, I am, like, doing hands like this, whatever, in some sense, right? And this will, like, be somewhat anomalous.
+
+44
+00:08:02.390 --> 00:08:09.499
+Usman Anwar: The whole idea of, like, this format model is that, like, you basically have this… you want to, like, communicate in a stagnographic way.
+
+45
+00:08:09.940 --> 00:08:16.590
+Usman Anwar: while looking as normal as possible. So that one is the whole, like, bit here about, like, stenography.
+
+46
+00:08:16.910 --> 00:08:31.410
+Usman Anwar: Yeah, so, like, if, like, your message looks… and this is true for, like, all kind of, like, channels, like, kind of a big channel here is, like, this Zoom talk, but you can also imagine, like, any channel where, like, for example, like, newspapers and,
+
+47
+00:08:31.570 --> 00:08:44.560
+Usman Anwar: Yeah, so on. And basically, like, this is kind of the whole idea is that, like, okay, if, like, your message looks normal, you're like, okay, it probably is not stagger. If it is actually, doesn't look normal, you are much more suspicious of it.
+
+48
+00:08:45.610 --> 00:08:57.630
+Usman Anwar: And yeah, sort of talk broadly, like, what, like, the cover distribution is depends on the medium, actually, you are using. So newspapers have different distribution than tweets, and then, photographs, network packets have different distributions, so on.
+
+49
+00:08:58.120 --> 00:09:06.119
+Usman Anwar: the kind of key question here is that, like, okay, we want to study LLMs right now, right? What is the right cover distribution for an RL-trained LLMs using cases?
+
+50
+00:09:06.660 --> 00:09:11.509
+Usman Anwar: This, unfortunately, is where, like, this, like, a whole, like, classical formalism comes apart.
+
+51
+00:09:11.820 --> 00:09:25.630
+Usman Anwar: it basically assumes that this distribution sort of exists, and is natural, in the sense that this is specified by, like, nature sort of has been specified by, like, so this is the distribution of, like, talks and Zoom calls.
+
+52
+00:09:25.700 --> 00:09:36.920
+Usman Anwar: This is not being specified by me right now. This has been specified by a lot of different, like, actors in a collaborative way, basically, in some sense, so I don't have that much control over this distribution.
+
+53
+00:09:37.270 --> 00:09:41.650
+Usman Anwar: However, for LLMs, unfortunately, this is not the case.
+
+54
+00:09:41.800 --> 00:09:56.120
+Usman Anwar: The distributions that the ILM has learned in some sense, we don't know what the distribution, like, that distribution basically has no, like, analog in some sense. Only the ILM itself has, kind of, like, that unique distribution.
+
+55
+00:09:56.120 --> 00:10:08.109
+Usman Anwar: Other LLMs will have different distributions. Humans have different distributions of text and so on. So, if, for example, like, one LLM, like, for example, like, look at, Claude, for example, they use, like, a load bank a lot.
+
+56
+00:10:08.230 --> 00:10:14.319
+Usman Anwar: is load-bearing… so it's kind of an anomalous kind of a thing that sort of exists, like, only in that distribution, in some sense, of LMs.
+
+57
+00:10:14.600 --> 00:10:19.170
+Usman Anwar: It doesn't exist like another LM distribution, basically. So,
+
+58
+00:10:19.350 --> 00:10:37.830
+Usman Anwar: by, like, looking at kind of the… this formal model of things, where you are looking at, like, this, like, a normal cover text, it's like a distribution of, like, all elementary text, this will look anomalous in some sense, but it is not really, like, it is not actually, like, staggering somewhere, right? This is not, like, load-bearing sort of thing that, like, Claude likes a lot in some sense.
+
+59
+00:10:39.070 --> 00:10:44.759
+Usman Anwar: So, like, yeah, so the question sort of is that, like, how do you, like, characterize this distribution? And…
+
+60
+00:10:44.880 --> 00:11:05.949
+Usman Anwar: thinking of, like, a circularity here in some sense. So you are trying to label, like, an LM's, like, distribution as either being, like, benign or psychographic, but that kind of is, like, the, thing you need, like, pre-cover for, to test, and then, like, you actually, need pre-cover to, like, make this distinction in some sense. So, this kind of… if you had, like, a one kind of takeaway from this whole talk.
+
+61
+00:11:06.060 --> 00:11:20.899
+Usman Anwar: It should be that, like, classical methods are, like, really hard to apply to LLMs, just for the fact that, like, they avoided this distribution… this assumption that this distribution of, is, like, naturally specified and is, like, not, like, controlled by the LLMs themselves.
+
+62
+00:11:22.500 --> 00:11:38.760
+Usman Anwar: There are also, like, other issues with classical formalism. I have hinted at the fact that, like, that formalism actually is, like, a kind of, allows too many degrees of freedom to the, designers of this obvious type of scheme, in a sense that, these schemes can then be perfectly secure.
+
+63
+00:11:38.760 --> 00:11:47.949
+Usman Anwar: And then also, like, there are other kind of schemes where, like, you actually don't really have this kind of, covered submission notion, and there also, again, it's, like, a really hard to pass this formalism.
+
+64
+00:11:48.000 --> 00:12:01.439
+Usman Anwar: And we're, like, going in kind of a very precarious situation, where, like, these studies are basically real and growing, and yet, like, the classical method, or the classical, kind of, the whole, like, literature is unfortunately not really, like, that helpful here.
+
+65
+00:12:02.320 --> 00:12:06.530
+Usman Anwar: So what we need is, kind of, we need, like, a fundamentally different approach to protecting stagnography.
+
+66
+00:12:06.900 --> 00:12:09.100
+Usman Anwar: And…
+
+67
+00:12:09.420 --> 00:12:17.210
+Usman Anwar: So this is kind of what, like, our work does. So we look at sonography as the idea that, like, it is basically about differential decoding capabilities.
+
+68
+00:12:17.410 --> 00:12:25.089
+Usman Anwar: So, as a sender, you send a message, and then you basically can, like, create a copy of this message, Z, and give them to a receiver, or a warden.
+
+69
+00:12:25.490 --> 00:12:32.669
+Usman Anwar: And now, if the receiver, like, knows what is, what the encoding was used, or that there was an encoding.
+
+70
+00:12:32.670 --> 00:12:47.279
+Usman Anwar: they would be able to, like, decode both the public and the hidden content, whereas a warden who doesn't know that there's any hidden messages at all, will only decode the public content. So, the whole idea is that, like, yeah, like,
+
+71
+00:12:47.810 --> 00:13:05.180
+Usman Anwar: So this basically, like, kind of changes the, shape of the problem, in some sense, and, like, the problem we're looking at right now is that, okay, how do we prove that there was some information that was exchanged covertly? Basically. That's the kind of the problem we kind of, like, look at in some sense now.
+
+72
+00:13:05.490 --> 00:13:20.680
+Usman Anwar: The other kind of insight we have is that, like, styronography is not, like, being used for its own sake. Like, I'm not, like, if I want to communicate with Kamil right now, I don't need to use sternography instead of talking to him. Like, this is, like, not, like, that sort of environment, right?
+
+73
+00:13:21.270 --> 00:13:33.270
+Usman Anwar: So, like, but if I was, like, somehow, like, scheming against all of you guys or something, then I would probably… would be using Sailing Graphic Root, Dr. Commonwealth, I would be, like, worried about you catching me and, like, maybe, like, I don't know, take some action against me.
+
+74
+00:13:33.420 --> 00:13:39.039
+Usman Anwar: So, like, the whole idea is that, like, stereography generally has some sort of instrumental purpose, in some sense.
+
+75
+00:13:39.250 --> 00:13:40.270
+Usman Anwar: And,
+
+76
+00:13:41.610 --> 00:13:55.950
+Usman Anwar: This sort of, two insights combined basically, like, let you kind of, like, develop sort of, like, a somewhat information-threatic view. That's, like, what Sinem of it does, is that it basically creates, like, an information asymmetry towards very specific tasks.
+
+77
+00:13:57.300 --> 00:14:22.249
+Usman Anwar: So, if a signal Z is more useful to those who can decode it, then those agents will be able to, like, do better decision-making than the agents who don't have that hidden information, or, like, were not able to decode that hidden information in some sense. And this sort of gives you kind of, like, a detection strategy at the high level, which is that, like, you create a copy of this signal, you give it to two different agents. One agent will sort of, you know that it doesn't
+
+78
+00:14:22.250 --> 00:14:24.999
+Usman Anwar: have that capability to decode any of the messages.
+
+79
+00:14:25.000 --> 00:14:37.449
+Usman Anwar: And the other one who might have it. And you look like, okay, are these agents making the same decisions? And if they are making, like, categorically very different decisions, and one decision is, like, one agent is systematically making better decisions.
+
+80
+00:14:37.450 --> 00:14:48.229
+Usman Anwar: Then you basically can, basically conclude, somewhat safely, that, like, this other agent basically, was, or had more information than this other agent in some sense.
+
+81
+00:14:48.730 --> 00:14:50.130
+Usman Anwar: All as being equal.
+
+82
+00:14:50.410 --> 00:14:53.130
+Usman Anwar: Yeah.
+
+83
+00:14:54.790 --> 00:15:09.130
+Usman Anwar: Yeah, so, like, the whole idea is that, like, basically, like, you don't need any reference distribution, peak hour, and you can also basically, like, detect perfectly square cynography through sort of, like, a side-channel attack, in some sense. And it is, like, a quantitative and totally grounded kind of approach, I would also, like, argue.
+
+84
+00:15:10.550 --> 00:15:16.859
+Usman Anwar: The question then, sort of, is that, like, okay, like, so we have been talking about this sort of notion of usable information.
+
+85
+00:15:16.860 --> 00:15:32.760
+Usman Anwar: But how do you, like, actually, like, operationalize it? It is not really clear that, like… so, if you look at Shannon, information, so Shannon is going to look at the… if you have looked at any, you know, definitions of entropy or, like, any other, like, information content definitions in.
+
+86
+00:15:32.760 --> 00:15:47.719
+Usman Anwar: literature, they will mostly talk about, like, Shannon information. So Shannon information assumes that the observer are, like, computationally and capacity unbounded. So they basically can, like, do whatever they want to do. If the information is there, these observers will decode it.
+
+87
+00:15:48.010 --> 00:16:00.040
+Usman Anwar: while this is not the case here, hey, the signal Z does have the information, but, like, only one agent is able to decode it if, like, the agent that basically has, like, some sort of, like, like, kind of,
+
+88
+00:16:00.240 --> 00:16:09.139
+Usman Anwar: as a secret key, only they can decode it, but the other agents can't decode it. So there's kind of a asymmetry here in that sense. So, yeah, so basically, like,
+
+89
+00:16:09.560 --> 00:16:25.890
+Usman Anwar: Yeah, so you can't do sunshine information, so we basically, like, rely on this sort of other notion of predictive VIN information, which is called predictive VIN information, which basically concerns itself with, like, how much kind of capacity constraint predict predictor export a given signal.
+
+90
+00:16:25.930 --> 00:16:39.500
+Usman Anwar: I will not go into the math here, but, like, the whole idea is that, like, you basically try to see, like, how much posterior exchange of this, capacity-bounded agent, in some sense, basically given some additional, additional information.
+
+91
+00:16:39.740 --> 00:16:53.870
+Usman Anwar: But, like, this itself is kind of awkward to work with, because, like, it requires full distribution that are often, like, not available with LLMs, and also, like, really hard to, like, actually, like, make it sensitive enough to be useful.
+
+92
+00:16:54.090 --> 00:17:08.449
+Usman Anwar: Yeah, so what we actually do is sort of VPC is generalize this sort of notion to a thing called generalized view information, where, like, basically you, are looking at not just kind of the lock, props, or the… how much the posterior changes, in some sense.
+
+93
+00:17:08.450 --> 00:17:15.180
+Usman Anwar: You're looking at, like, how does utility on some given task changes? So you can, like, pose a challenge to the both agents.
+
+94
+00:17:15.240 --> 00:17:26.329
+Usman Anwar: And then how to see, like, which agent is able to, like, able to, like, do the challenge, like, better than the other agent in some sense. And, like, how much they do better on these challenges is, like, the… is there a difficulties in some sense there.
+
+95
+00:17:26.420 --> 00:17:30.370
+Usman Anwar: And, again, I gotta want to go to math here, build of time and stuff.
+
+96
+00:17:31.790 --> 00:17:49.439
+Usman Anwar: Yeah, and this is, again, like, if you look at the, the mathematical formula for serographic gaps, what we came up with, it's just this sort of thing that's like, okay, if you have a receiver, and they're getting some information, from signal Z towards a task Y,
+
+97
+00:17:49.440 --> 00:18:03.629
+Usman Anwar: that's… that's information. You take this information, and you, like, subtract the information that, a third agent that, sort of, you trust is not using any encoding, or is not able to, like, decode any kind of content.
+
+98
+00:18:03.890 --> 00:18:21.369
+Usman Anwar: how much information is that, you know, able to, like, extract from this thing? And you, like, subtract these two terms, and you basically get, like, a stereographic gap, which is kind of the measure is what we propose in our paper. This Mihir is slightly, like, awkward to work with, because, like, depends on, like, how you define your initial utilities.
+
+99
+00:18:21.370 --> 00:18:31.620
+Usman Anwar: So basically, you need to make it kind of, like, a dimensionless, you can, like, do this kind of, like, trick of, like, just, just, like, doing 1 minus, and then the, the ratio.
+
+100
+00:18:31.740 --> 00:18:42.070
+Usman Anwar: Obviously, these two information content, and this, like, is slightly better, actually. in the app, it is, like, slightly more informative of, like, different agent comparisons and so on.
+
+101
+00:18:42.140 --> 00:18:57.460
+Usman Anwar: And loosely speaking, you can interpret this as the fact that, like, if your gap is greater than zero, this contains private information accessible to the receiver. If it is zero, then it contains information, then there's, like, no information in Z which was, like, hidden at all from either agent.
+
+102
+00:18:58.430 --> 00:19:11.120
+Usman Anwar: And if, like, it is negative, which it can be sometimes, it means that, like, sentient actually was benefiting more from this signal, than the receiver, itself.
+
+103
+00:19:12.020 --> 00:19:18.640
+Usman Anwar: How much time do I have? About 10 minutes.
+
+104
+00:19:19.150 --> 00:19:28.769
+Usman Anwar: Yeah, basically, like, there are a bunch of experiments that we do, actually, here, in which we basically, like, try to basically investigate, does this sort of metric or Mihir make sense?
+
+105
+00:19:28.830 --> 00:19:30.790
+Usman Anwar: And we have…
+
+106
+00:19:30.810 --> 00:19:48.720
+Usman Anwar: primarily doing these experiments, like, in controlled settings, because what do we need to know? Whether there was, like, any kind of, encodings or not? And so we do it, like, in three ways. We do it, like, in a way where, like, we inject ciphers, wrote, so we use rotating, like, to encode these,
+
+107
+00:19:48.740 --> 00:19:54.239
+Usman Anwar: Messages, we do, like, learned code words, we fine-tune ciphers, and
+
+108
+00:19:54.720 --> 00:19:59.040
+Usman Anwar: Yeah, basically, like, we sort of observed that, like, often, like, you can,
+
+109
+00:19:59.660 --> 00:20:08.599
+Usman Anwar: So in this experiment, what is happening is that, like, we take an LLM, we ask it a question, like, hey, solve this math problem, and then it basically has to use a chain of thought.
+
+110
+00:20:08.710 --> 00:20:27.990
+Usman Anwar: And what we do is sort of similar to the fact that this agent might be doing, sternographic reasoning or coated reasoning by, like, taking its reasoning, encoding it in row 13, and, giving it to, like, other agent, potentially. This agent itself receives, like, the plain, reasoning text.
+
+111
+00:20:28.200 --> 00:20:33.050
+Usman Anwar: As what we would expect, like, the… as, like, this,
+
+112
+00:20:33.150 --> 00:20:45.189
+Usman Anwar: Encoding becomes, like, more and more, like, prevalent across the whole reasoning trace. The agent who is getting this, like, encoded, resin trace, like, tends to do much worse, basically.
+
+113
+00:20:45.190 --> 00:21:00.599
+Usman Anwar: To an agent, like, who don't get this encoded trace. And as a result, like, you sort of feel, would expect that, like, this title gap should basically increase smoothly from 0 to, like, 1, basically, as, you do more and more encoding, and sort of, it's like what you observe here, in some sense, across all these different settings.
+
+114
+00:21:03.580 --> 00:21:18.870
+Usman Anwar: Yeah, and, something else we did was, like, we trained, like, an RL agent to use, like, do kind of a coin flip task. So the idea is that, like, you basically take a coin, you flip it, and then, like, you, tell the LM that, like, you basically flip it, like, an X amount of times.
+
+115
+00:21:18.870 --> 00:21:26.350
+Usman Anwar: And you tell it, like, that the results were, like, this and blah blah, and the agency has, like, tells you, like, what the final state was.
+
+116
+00:21:26.650 --> 00:21:37.209
+Usman Anwar: So, you basically… the problem is something like this. I have a coin starting on its head face. I flip it, the new, face is the same as the old one.
+
+117
+00:21:37.210 --> 00:21:50.820
+Usman Anwar: I flip it again. It's a different phase now. I flip it again, it's the same phase as previous turn. Basically, like, you have to, like, track the whole state, in some senses, whether at any given turn, was it, like, a head or tails and so on?
+
+118
+00:21:51.470 --> 00:21:52.210
+Usman Anwar: Sorry.
+
+119
+00:21:54.340 --> 00:22:01.060
+Usman Anwar: And what we did here was, sort of, we trained our agents, like, use, like, a different quote words, as opposed to head and tails, in some sense.
+
+120
+00:22:01.060 --> 00:22:18.460
+Usman Anwar: And, if you have, like, no code words, then, like, again, you, as you would expect, there's, like, no, like, style gap, basically. But if you, like, do have code words, then, like, agents basically, do, like, kind of, like, an audible style gap, and if you, increase these code words, like, even more, there's, like, more of a gap here in some sense.
+
+121
+00:22:18.810 --> 00:22:33.089
+Usman Anwar: This is all basically kind of a very common sense kind of experiments. I think the main kind of contribution of the paper, actually, is, like, mostly this kind of a conceptual idea that, like, you can, detect sternography through excite channels, or, like, through this kind of a usable information, difference thing.
+
+122
+00:22:34.180 --> 00:22:57.850
+Usman Anwar: Here, like, we again did some stuff where, like, we fine-tuned, GPT 4.1 to use, like, a bigram cipher, and then, like, we are like, okay, can a monitor that actually doesn't really… has not been fine-tuned to use this bigram cipher, how well can that sentinel monitor do at, the same task, given this, like, a bigram ciphered, reasoning trace from this, LLM? And you can sort of observe that there's a kind of, like, a large gap here.
+
+123
+00:22:57.850 --> 00:23:05.589
+Usman Anwar: as, or, like, the sort of, gap basically keeps on increasing as, sort of, you have more training samples, so this, this, GPT4.1 gets better at.
+
+124
+00:23:05.590 --> 00:23:08.329
+Usman Anwar: Using this, like, a Begram cipher thing.
+
+125
+00:23:09.510 --> 00:23:17.470
+Usman Anwar: Yeah, one… so I want to go back and sort of talk about this, like, astronomographic gap, as I can talk to such a level now.
+
+126
+00:23:17.470 --> 00:23:34.689
+Usman Anwar: One important point about this sternographic gap is that it is not just kind of a property or trace alone itself. It is defined relative to a sentinel and auditing task. So you have to basically come up with a sentinel that you basically trust that, like, oh, this sentinel doesn't really know any encodings.
+
+127
+00:23:34.690 --> 00:23:44.429
+Usman Anwar: And, or, you have to also come up with, like, an auditing task on which you basically are happy or willing to, evaluate both your LLMs,
+
+128
+00:23:44.880 --> 00:23:52.259
+Usman Anwar: And throughout the sea, like, yeah, like, what, sort of, what kind of information you get in that context.
+
+129
+00:23:52.400 --> 00:23:54.510
+Usman Anwar: So, Sentinel Family…
+
+130
+00:23:54.510 --> 00:24:13.520
+Usman Anwar: is very important. It determines, kind of, like, it determines, kind of, like, what you consider the information to be public. Different sentinels might have different, recording capabilities, and this will, like, change, like, your, interpretation, like, thresholds of, like, what information is public.
+
+131
+00:24:13.520 --> 00:24:23.520
+Usman Anwar: And then your auditing task, basically, is, like, important because it basically, like, lets you detect only the, only the…
+
+132
+00:24:23.580 --> 00:24:42.399
+Usman Anwar: hidden information, which is, like, relative to your altering task. So an LLM is some firmware, if you have a watermarked output and so on, they will, like, not be detected under this method, just because, like, watermarks don't really have any utility in general, like, right? Or unless you basically are trying to vector apart, like, different types and so on, but other than that, it generally has no utility.
+
+133
+00:24:45.800 --> 00:24:52.249
+Usman Anwar: Yeah, one sort of other thing you wanted to be, like, be somewhat careful about is just, like, the fact that,
+
+134
+00:24:52.430 --> 00:24:55.750
+Usman Anwar: Huh.
+
+135
+00:24:57.390 --> 00:25:14.129
+Usman Anwar: Yeah, like, again, sort of what I said, that sentinel determines, like, what your public information is. If your sentinel is overly weak, it might, like, interpret, like, jargons and conventions, basically as, sternography, when it might not be. So, I think in some sense, like, this is, like, like.
+
+136
+00:25:14.130 --> 00:25:26.710
+Usman Anwar: kind of okay in this context, because, like, what the thing you often want to do is, like, sort of measure, like, how much of the information that an agent is producing is, like, accessible to your monitor, basically, in some sense. So if your monitor is also, like, your Sentinel.
+
+137
+00:25:26.710 --> 00:25:39.919
+Usman Anwar: then, like, you basically… it's… if the monitor can't understand, like, the advanced concept a Sentinel is using, you basically have a problem as well, in some sense. It's kind of a different kind of problem. yeah, and
+
+138
+00:25:41.790 --> 00:25:57.429
+Usman Anwar: One kind of nice thing you should expect that if you are able to, like, so often, like, in, cryptography, and often, like, in sonography as well, like, when you basically allow, like, more compute for your, defenders, they often can do better.
+
+139
+00:25:57.630 --> 00:26:11.069
+Usman Anwar: And, sort of, as sort of, this, this is, like, what we observe here as well. Like, if you just, like, give, like, more compute to your, Sentinel agents, they're often able to, like, decode better than they would, give a no compute.
+
+140
+00:26:13.260 --> 00:26:16.480
+Usman Anwar: I'm just gonna, like, try and skip some stuff,
+
+141
+00:26:23.170 --> 00:26:43.029
+Usman Anwar: Yeah, I also want to talk about, like, a different approach, which is, like, also tries to, like, basically start with the same principle, that classical methods are not only useful or not really applicable to LMs, and tries to come up with, kind of, an alternative way of protecting sternography. It actually is proposed by Anthropic and has been used in the system cards.
+
+142
+00:26:44.130 --> 00:27:01.160
+Usman Anwar: the way this sort of approach works is that you basically start off with, like, traces from a model that you are, like, okay, this model might be doing some graphic reasoning, so it might be kind of a RL-trained checkpoint of, say, like, some Opus 5 or whatever, and you also have a corresponding base model.
+
+143
+00:27:01.930 --> 00:27:07.459
+Usman Anwar: So, what you do is, basically, you correct, like, your realistic traces from this RL-to-end model.
+
+144
+00:27:07.780 --> 00:27:12.370
+Usman Anwar: You take them, and then you basically are like, okay, I'm gonna paraphrase them.
+
+145
+00:27:12.470 --> 00:27:19.080
+Usman Anwar: And your aim, actually, is to remove all the encodings in that recent trace by doing kind of paraphrasing thing.
+
+146
+00:27:19.840 --> 00:27:38.019
+Usman Anwar: And then, basically, you run kind of, like, two experiments in parallel. One, like, you train, like, your base model only on these paraphrased resent traces, and the other experiment you run is, like, you, fine-tune, like, your base model on the original resin traces from this step one, basically.
+
+147
+00:27:38.630 --> 00:27:44.150
+Usman Anwar: And kind of, like, the idea is that, like, if you observe that your,
+
+148
+00:27:44.380 --> 00:27:58.150
+Usman Anwar: base model cannot really learn that well from these paraphrases and traces. This sort of indicates that, like, there was some… sorry, it, can, learn well from these paraphrased
+
+149
+00:27:58.150 --> 00:28:13.009
+Usman Anwar: present traces, but not well from these original traces, then they sort of indicate that original traces basically have, like, information which is, computationally harder to extract, and thus they sort of can indicate, stenography in some sense.
+
+150
+00:28:13.450 --> 00:28:32.730
+Usman Anwar: Or I can call it reasoning. Maybe technology is kind of for a loaded term here. And yeah, so I think, like, paraphrasing kind of removes certain information. There are two very biggest options here, in some sense. The first one is that, like, paraphrasing can remove that information. And the second one is that, like, fine-tering on the traces can
+
+151
+00:28:32.730 --> 00:28:34.350
+Usman Anwar: preserve data information.
+
+152
+00:28:34.460 --> 00:28:50.259
+Usman Anwar: So, I, so in my paper, like, I look at this assumption one, like, very comprehensively, in Appendix A, and we basically, like, find that this is a very big… it's a very strong assumption, and it didn't seem to hold in a lot of settings.
+
+153
+00:28:51.610 --> 00:29:13.890
+Usman Anwar: Yeah, so basically, those primers, basically, like, we do is where, like, we basically evaluate, we, like, basically plant different, kind of, encodings, so you have, structural encodings, where, like, you encode stuff, like, in how, like, you're writing it out, like, something like an uppercase versus lowercase syntactic, where, like, you basically, like, try to encode messages, like, in the word choices, and then the semantic, where you try to encode, like, things actually in the actual content of the things.
+
+154
+00:29:13.930 --> 00:29:28.950
+Usman Anwar: And, basically, we were able to sort of show that, like, you can, like, in this, in this context, like, our gap basically detects, like, all these encodings very well. However, this, like, a paraphrasing-based approach basically fails in a pretty bad way.
+
+155
+00:29:29.860 --> 00:29:32.530
+Usman Anwar: Yeah, and
+
+156
+00:29:33.480 --> 00:29:38.430
+Usman Anwar: You also have, like, several comparisons, like, with the ILM-based detection, which sort of show that, just…
+
+157
+00:29:38.430 --> 00:30:00.080
+Usman Anwar: giving these visitors to LLMs and asking LLMs, like, hey, are these things suspicious, and so on. It's not a very good baseline, because, like, again, as someone, like, pointed out in the first slide, like, often, like, they will try to look for, like, the tax being degenerated or garbled, and they'll be, like, monitoring on those things, while on this stuff, like, this stuff often looks, like, very, like, benign.
+
+158
+00:30:00.290 --> 00:30:06.560
+Usman Anwar: Yeah, which is, like, like, not… doesn't look suspicious, basically, in some sense.
+
+159
+00:30:08.710 --> 00:30:21.369
+Usman Anwar: And you can also, like, run this kind of a thing, like, on an actual, like, model, so we, for example, audit, like, a DeepSeek R1 versus a deep-seqv3, basically find, like, no signographic gap here, sort of what you'd expect, and so on. Like, yeah,
+
+160
+00:30:21.630 --> 00:30:27.280
+Usman Anwar: I'm gonna stop here. I think we are slightly out of time. I'm happy to have questions here.
+
+161
+00:30:29.490 --> 00:30:37.480
+Kamil - Team Apart: Awesome! Thank you, Usman. We do have, like, 15… 14 minutes left for questions, and we do have some questions in Slido, so…
+
+162
+00:30:37.750 --> 00:30:39.029
+Kamil - Team Apart: Let's get to them.
+
+163
+00:30:39.190 --> 00:30:56.160
+Kamil - Team Apart: Awesome. Also, guys, you have the Slido link in the chat. Please upload the questions you like to get them answered earlier, and or add your own questions. You can also raise your hand if you want to ask your question yourself. Yeah, sorry, my hand raised, and the camera started tracking me.
+
+164
+00:30:56.340 --> 00:31:00.120
+Kamil - Team Apart: Okay, I'm gonna unshare your slides so we can see each other well.
+
+165
+00:31:02.200 --> 00:31:04.040
+Kamil - Team Apart: Now for the questions.
+
+166
+00:31:04.680 --> 00:31:14.769
+Kamil - Team Apart: First question is, what is the current salutation in AI safety and alignment? Are the models aligned, or the big companies are being negligent?
+
+167
+00:31:18.510 --> 00:31:22.700
+Usman Anwar: Both?
+
+168
+00:31:23.170 --> 00:31:32.549
+Usman Anwar: Laminate is a very hard problem, it's hard to solve, but also I feel like companies are, like, not trying as hard as they should be, or, like, are not being as…
+
+169
+00:31:32.680 --> 00:31:37.710
+Usman Anwar: Are not doing as good of a job at, like, allowing their models as they could be.
+
+170
+00:31:38.580 --> 00:31:40.860
+Kamil - Team Apart: Awesome. Bobby, go ahead, please.
+
+171
+00:31:41.930 --> 00:31:44.199
+Kamil - Team Apart: Unmute? Ask to unmute, yes.
+
+172
+00:31:46.240 --> 00:31:58.389
+bobby faber: Yeah, my question is too long for Slido. I just have a kind of a… this may seem like a really broad or, you know, difficult question. Is there, like, a real limit to this anti…
+
+173
+00:31:58.480 --> 00:32:09.239
+bobby faber: Just, again, onography? I can't even say this word. It seems like we're trying to, at some point, the degrees of freedom in both natural language, but also, like, any sufficiently expressive problem-solving language.
+
+174
+00:32:09.380 --> 00:32:16.100
+bobby faber: Almost, like, necessitate, you know, a certain amount of, hidden channel, ability.
+
+175
+00:32:16.200 --> 00:32:26.580
+bobby faber: It's like, so, maybe there's some kind of, like, arms race, you know, sort of some amount of scrambling we can do on both ends that sort of, you know, is undecipherable to the models.
+
+176
+00:32:26.730 --> 00:32:37.670
+bobby faber: But, like, this… ultimately, this gets at some kind of, like, inner misalignment problem. Like, is there actually… aren't we just kind of trying to solve, like, natural language or something like that? Like, this seems, pretty… pretty difficult.
+
+177
+00:32:39.980 --> 00:32:43.639
+Usman Anwar: Okay, so I think I'm gonna try to distinguish, like, between two things.
+
+178
+00:32:43.930 --> 00:32:44.470
+bobby faber: Nope.
+
+179
+00:32:44.830 --> 00:33:00.350
+Usman Anwar: I don't fully understand your question about limits. So, I think, yeah, I think sternography is often possible. Like, if that's the question is, like, okay, are there systems in which serography is not possible? I think they are very, like, very, like, small and cute kind of systems, probably, but, like, in any kind of real systems, you will…
+
+180
+00:33:00.350 --> 00:33:06.109
+Usman Anwar: always have opportunities and, like, possibilities of sternographic communication. Having said that.
+
+181
+00:33:06.240 --> 00:33:25.869
+Usman Anwar: there… it is, like, somewhat non-trivial. Like, for example, like, I think Instagram, like, one thing you often have to do, like, people, like, in literature, like, often, like, cheer in this way by assuming that, like, you and I can, like, basically, go and, like, sort of meet, like, behind back doors, and decide on a kind of fine coding scheme there. And basically, that can often, like, be, like, we have one bit of information.
+
+182
+00:33:25.870 --> 00:33:37.810
+Usman Anwar: But that bit often can be very, like, it's kind of very important and critical. Like, if you can't do that one bit of information, like, hidden, then you basically can't do sonography in any reasonable kind of, like, context lens and so on.
+
+183
+00:33:39.120 --> 00:33:46.609
+Usman Anwar: So, yeah, so this is kind of, like, this issue is, like, there. I also think that, like, in general, people,
+
+184
+00:33:47.360 --> 00:34:02.809
+Usman Anwar: Yeah, coming back to the ILMs right now, so LLMs, basically, there are two things to basically differentiate between them. The first is their capability. Can LLMs, like, do stenography, like, natively? And second, like, do they have propensity to do that?
+
+185
+00:34:02.830 --> 00:34:09.260
+Usman Anwar: To the extent of my knowledge, LLMs currently do not have a capability to do, like, natural technographic kind of communication.
+
+186
+00:34:09.290 --> 00:34:18.940
+Usman Anwar: One thing that might be to our advantage is that, like, like, those are primary monitors, like, are LM as well.
+
+187
+00:34:18.940 --> 00:34:35.959
+Usman Anwar: So, people often, like, talk about legibility being important, but I think legibility has two notions. The first one is, like, a human legibility, so it should be legible to me. For them, if you try and, like, let's say there have been, like, some, like, released, like, Astra, you know, thoughts or whatever, that, like, don't have, white spaces between them.
+
+188
+00:34:36.650 --> 00:34:50.380
+Usman Anwar: And they're very hard to read as humans. But to an LLM, that doesn't really matter. Like, an LLM is not, like, looking at white spaces, like, the way, sort of, we are looking at them, right? So, to an LLM, like, that stuff is equally legible as the stuff with white spaces in it and so on.
+
+189
+00:34:50.380 --> 00:35:13.529
+Usman Anwar: So that's just the one point I want to make, that, like, so one thing you want to be doing is sort of more, like, if, like, your LLM can catch it, and even if, like, you and I sort of, like, don't really, see what is hidden, but the LLM can cache it, which is a monitor one, that's kind of, like, a fine, I think, in some sense, to the extent you can trust your monitor and so on. And second is, like, a propensity thing. So, I think, we can also, I do expect LLMs to get to the level.
+
+190
+00:35:13.530 --> 00:35:31.219
+Usman Anwar: where they will be able to do, like, encoded reasoning, or, like, will have capability to do that. I think this will, like, this is spent a lot, like, on, like, how much, like, depth, you have. And, sort of, we are seeing that LLMs basically are sort of being allowed, like, more, like, basically, like, computation in latently, so…
+
+191
+00:35:31.390 --> 00:35:48.300
+Usman Anwar: Yeah, so that sort of allows them to, like, basically, like, like, kind of, think and sort of encode and whatever, in some sense. And the second, but you can sort of, at that point, you can, like, rely on propensity. So you can, like, train your LLM, like, LLMs are alignment. Like, they're, like, not, like, kind of,
+
+192
+00:35:48.760 --> 00:35:57.319
+Usman Anwar: things that are sort of in the world out there, something like that. They are… they're gonna… we can intervene on them, and, like, teach them, like, not to, like, use second graph in that context. So, yeah, so I…
+
+193
+00:35:57.320 --> 00:36:12.669
+Usman Anwar: I'm not really sure, like, to what extent, like, this will, like, be a practical or realistic threat in some sense. I think a lot, a lot of defense is available. I think if companies are careful, they should be able to do guard against them, but if, like, you are, like, very sloppy, then it's, like, really, really unclear, like,
+
+194
+00:36:12.670 --> 00:36:24.240
+Usman Anwar: Yeah, like, if LLMs are, like, doing Sinem Coffee, and you basically don't have any view of, like, teaching them not to do that, I think it's a very hard problem to defend against. The best defense is just that, like, LLMs just don't do it, in some sense.
+
+195
+00:36:25.170 --> 00:36:33.640
+bobby faber: Right, and some kind of inner alignment. I mean, I would… I would say, I mean, it's fairly apparent, I don't know if you looked at, like, the Argonne, system card,
+
+196
+00:36:33.870 --> 00:36:39.619
+bobby faber: It is capable, whether or not it has any, you know,
+
+197
+00:36:39.620 --> 00:36:44.050
+Usman Anwar: Sinem Coffee is not just that you can have,
+
+198
+00:36:44.320 --> 00:37:01.079
+Usman Anwar: It's gonna be looking at, like, a knockout kind of stuff, right? So starting graphic, like, often requires this kind of, like, a thing where you have to decode things as well. So it has to kind of be two ways. So you have to, like, know how you encoded this, and then, like, in the, kind of, the next sort of terms, you have to be able to, like, decode it as well.
+
+199
+00:37:01.310 --> 00:37:17.090
+Usman Anwar: this actually, like, does require, kind of, like, a non-trivial level of, like, capability to, like, do it in a consistent way and reliable way. So I would not say Argon is capable of, like, doing standography, even though it basically has a very… has a very non-trivial level of, like, non-code capabilities.
+
+200
+00:37:17.090 --> 00:37:36.369
+bobby faber: Well, so, I mean, just, you know, from a broader level, if it knows what languages the monitor speaks, right, and it knows what languages, you know, then that is a form of steganornography. I can't even say this word, right? Expert language is a shared codebook, right? Russian is a shared codebook.
+
+201
+00:37:36.370 --> 00:37:39.120
+bobby faber: It knows that the monitor only speaks English.
+
+202
+00:37:40.890 --> 00:37:48.830
+Usman Anwar: Yeah, but Moreno will also be in LM, right? Gemini 3.8 Flash, or whatever. And that Gemini will not, like, be kind of, that bad.
+
+203
+00:37:48.830 --> 00:37:52.100
+bobby faber: Yeah, yeah, yeah, well, right, exactly. Gemini knows Russia as well, yeah.
+
+204
+00:37:52.100 --> 00:37:52.960
+Usman Anwar: Yeah, yeah, yeah.
+
+205
+00:37:53.620 --> 00:37:54.760
+Usman Anwar: Cool.
+
+206
+00:37:55.590 --> 00:37:56.580
+Kamil - Team Apart: Awesome.
+
+207
+00:37:56.950 --> 00:37:58.250
+Kamil - Team Apart: Next question.
+
+208
+00:37:59.160 --> 00:38:01.370
+Kamil - Team Apart: Who plays the receiver in your test?
+
+209
+00:38:01.980 --> 00:38:05.840
+Kamil - Team Apart: When the message is meant for the model's own future self.
+
+210
+00:38:06.640 --> 00:38:15.680
+Usman Anwar: So it can just be modeled on for future self. Like, one sort of thing that sort of, like, we… our formula exploits on is the fact that you often can, like, replace stuff with LLMs.
+
+211
+00:38:15.770 --> 00:38:40.059
+Usman Anwar: And LLMs, like, will, at least, sort of, we hope so, what we're able to tell, like, this stuff is being replayed to them. And, basically, so, the whole idea is that, sort of, you take the existing trace originated, you put, like, any LLM's contacts, sort of make it look like it is, like, LLM's, like, own generation, sort of, basically, you evaluate, like, how well it does on the task and so on. And yeah, so just, like, the LLM itself is the intended receiver.
+
+212
+00:38:40.060 --> 00:38:40.980
+Usman Anwar: Discussed.
+
+213
+00:38:41.630 --> 00:38:52.080
+Kamil - Team Apart: Awesome. How are cover distribution and steganographic distribution empirically measured? How exactly does one see that LLMs produce technographic distribution?
+
+214
+00:38:54.110 --> 00:39:02.449
+Usman Anwar: I mean, these are very difficult problems. I think our distributions… there are a lot of literature, like, in traditional stagger about the fact that, like,
+
+215
+00:39:02.450 --> 00:39:22.000
+Usman Anwar: these cover distribution people keep on talking about, they are, like, not stationary objects. They are, like, often changing and dynamically moving and so on, so, like, really hard to Mihir. this is not even talking about alum, just, like, a standard, like, Stego stuff, like, and, like, images and so on, that people work on. And then, like,
+
+216
+00:39:22.080 --> 00:39:27.139
+Usman Anwar: in ALMs, like, yeah, like, I think our method is, like, a one way of giving that, like.
+
+217
+00:39:28.590 --> 00:39:40.710
+Usman Anwar: it's, like, a one way of, like, trying to understand, like, okay, what parts of, like, our Azimuth is RMB stack or not, but it is, like, somewhat hard, I think, and I don't think… I don't think I have an answer here, just because, kind of our search problem, it's, like, unanswer, unclear.
+
+218
+00:39:41.530 --> 00:39:41.910
+Kamil - Team Apart: Right.
+
+219
+00:39:41.910 --> 00:39:42.280
+Usman Anwar: Yeah.
+
+220
+00:39:42.280 --> 00:39:44.960
+Kamil - Team Apart: Okay, Mutalib, you had a question? Go ahead.
+
+221
+00:39:46.530 --> 00:40:04.880
+Mutalib Begmuratov: Yes, I did. Thank you, Usman, for the great talk. I really enjoyed it, although I'm quite new to this field, I mean, especially the term steganography. So, my, my, I just wanted to understand, you said that the, the, the…
+
+222
+00:40:04.880 --> 00:40:15.479
+Mutalib Begmuratov: It's based on the kind of research from 1980s, so… because the whole idea is not new, so… and then you… basically, you have the,
+
+223
+00:40:15.480 --> 00:40:26.230
+Mutalib Begmuratov: The sender of a message, and then the receiver of a message, and then you have a sentinel or a monitor in between that tries to kind of figure out if there's, some…
+
+224
+00:40:26.270 --> 00:40:43.939
+Mutalib Begmuratov: encoded language. But at the same time, just in response to, to the earlier question, you said that the, the receiver, the recipient, and the sender are the same. It's the same LLM. Did I get that point right? Or… I, I…
+
+225
+00:40:43.940 --> 00:40:54.779
+Usman Anwar: Yeah, so sender… so, like, you don't… they have to be the same. For example, like, LLM can be sending messages to another instance, for example. So they can be different, but they can also be the same, basically.
+
+226
+00:40:55.320 --> 00:40:57.039
+Usman Anwar: So, like, yeah.
+
+227
+00:40:57.670 --> 00:41:05.120
+Mutalib Begmuratov: Okay, and, and, do… how, I mean, in your, in your, setup, how, how, is…
+
+228
+00:41:05.120 --> 00:41:18.360
+Mutalib Begmuratov: how did you make sure that the monitor is kind of separate? I mean, they… so that the two LLMs, or the two agents don't know that they are being monitored? I mean, because you…
+
+229
+00:41:19.510 --> 00:41:23.020
+Usman Anwar: Yeah, so I think,
+
+230
+00:41:24.430 --> 00:41:30.149
+Usman Anwar: So we just use different LLMs as sender and receiver, and then a different LLM acts as a sentinel.
+
+231
+00:41:30.490 --> 00:41:40.469
+Usman Anwar: In most cases, I mean, where we do have the same centenary, sort of more, like, kind of a way of, like, trying to basically provide a control, in the study or something.
+
+232
+00:41:40.770 --> 00:41:46.310
+Usman Anwar: how do we ensure that models are not… I mean, there's a question about, like, monitor awareness.
+
+233
+00:41:46.360 --> 00:41:57.049
+Usman Anwar: I think I would say it's a separate kind of a field, or, like, separate kind of research question, like, sort of, like, we don't, like, tackle, so we just sort of assume that models, like, are, like, just, like, not monitor-aware.
+
+234
+00:41:57.050 --> 00:42:14.980
+Usman Anwar: You could talk about the fact that, like, model, like, might, like, act differently. For example, like, the model, like, might… so one thing you can, expect is that this receiver model, it, like, might stand back. It might be like, oh, I know that there's information here, but I'm being, being monitored, like, I am in this kind of an auditing context.
+
+235
+00:42:14.980 --> 00:42:18.600
+Usman Anwar: So I will not, like, exploit their hidden information, basically.
+
+236
+00:42:18.960 --> 00:42:20.910
+Mutalib Begmuratov: Hmm.
+
+237
+00:42:21.350 --> 00:42:24.129
+Mutalib Begmuratov: Yeah. Go on, go on, okay, so I'm sorry.
+
+238
+00:42:24.130 --> 00:42:31.770
+Usman Anwar: Yeah, so you could basically have, like, these kind of dynamics, basically, that are possible, but I think they are, like, not, like, possible in the current ILM regime.
+
+239
+00:42:32.580 --> 00:42:47.779
+Mutalib Begmuratov: But we don't tell any of the two LLMs, it's the recipient and the sender, in any prompt or any way that they are being monitored, right? So, there's no explicit, we don't tell them. I mean, and then any message that they send to each other,
+
+240
+00:42:48.060 --> 00:43:12.700
+Mutalib Begmuratov: it's kind of the, the output, I mean, the messages are being intercepted or redirected to the LLM as kind of the, as which access the monitor, right? Okay. So, based, I mean, on your research, you, you, I mean, if I got, again, the key points, right? So, currently, the LLMs do not encode the messages, or…
+
+241
+00:43:12.700 --> 00:43:13.990
+Mutalib Begmuratov: or the…
+
+242
+00:43:14.360 --> 00:43:25.550
+Usman Anwar: They currently cannot do it, on their own. They can sometimes be trying to do this, but, like, they don't do it on their own, and they don't… they can't do it, like, for high…
+
+243
+00:43:25.980 --> 00:43:36.460
+Usman Anwar: bit, higher bits, and so on. They can do it for, like, they can encode, like, a 1, 2, 3, 4 bits kind of stuff, that much, but not, like, long messages and so on.
+
+244
+00:43:37.160 --> 00:43:41.730
+Mutalib Begmuratov: Because at the end of the day, I mean, again, they would need to have some kind of, I mean.
+
+245
+00:43:41.860 --> 00:43:56.500
+Mutalib Begmuratov: create a language, or know, or have some internal, I don't know, language that is shared across LLMs, right? Because, obviously, different LLM models, they have their own, kind of underlying infrastructure, or, I don't know, the…
+
+246
+00:43:56.500 --> 00:44:10.189
+Usman Anwar: Yeah, sounds like it's kind of, like, one of the blockers, in some sense, on the LLM side, is that, like, they have, like, a invent a new language, which is very systematic and very consistent, which is kind of a hard thing to do. So, yeah, that's, like, it's kind of one of the blockers on the LLM side, yeah.
+
+247
+00:44:10.190 --> 00:44:12.729
+Mutalib Begmuratov: Okay, I see. Okay, thank you so much, Usman, thank you.
+
+248
+00:44:12.880 --> 00:44:13.420
+Usman Anwar: Yeah.
+
+249
+00:44:14.280 --> 00:44:25.339
+Kamil - Team Apart: Awesome. Unfortunately, we are out of time. I do have to drop off. We have another talk in 15 minutes, but thank you very much, Usman, for the talk. Thanks very much.
+
+250
+00:44:25.760 --> 00:44:27.129
+Usman Anwar: Thank you, thank you. Bye.
+
+251
+00:44:27.130 --> 00:44:32.839
+Kamil - Team Apart: It was very nice, and yeah, please, everyone, join us in 15 minutes, and thank you very much for your talk.
+
+252
+00:44:33.320 --> 00:44:34.030
+Kamil - Team Apart: Oh, yep.
+
+253
+00:44:34.290 --> 00:44:36.440
+Kamil - Team Apart: Okay, see you all in 15 minutes.
+

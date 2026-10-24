@@ -1,0 +1,1091 @@
+WEBVTT
+
+00:01:20.000 --> 00:01:30.000
+Okay.
+
+00:01:30.000 --> 00:01:31.000
+Yes.
+
+00:01:31.000 --> 00:01:32.000
+Can you give me a thumbs up if you can see the screen?
+
+00:01:32.000 --> 00:01:34.000
+Cool stuff. Okay.
+
+00:01:34.000 --> 00:01:43.000
+So, hi, everybody. Good morning, good evening, wherever you are in the world. Today, I'm going to be talking about this research project that
+
+00:01:43.000 --> 00:01:52.000
+Me and my co-authors did, now 3 years ago at Laser Labs, this fellowship that runs in London
+
+00:01:52.000 --> 00:01:58.000
+And I like to think of this presentation as a retrospective of
+
+00:01:58.000 --> 00:02:07.000
+how things have progressed since we wrote this paper, and hopefully, yeah, go back to the initial points that motivated the research.
+
+00:02:07.000 --> 00:02:25.000
+So as I said two years ago, alongside my co-authors, which you can see on the bottom of the screen, we worked on whether language models could learn to hide messages in plain sight. And today, I want to revisit this question with the benefit of hindsight and with something that we didn't really have two years ago, namely
+
+00:02:25.000 --> 00:02:37.000
+real incidents. I'm sure most of you are familiar with the hugging Face incident, among many others.
+
+00:02:37.000 --> 00:02:45.000
+Cool. So let's start by making sure that we're all on the same page about what I mean by steganography.
+
+00:02:45.000 --> 00:02:56.000
+What is it exactly? Well, many of you are likely familiar with the concept of cryptography, which focuses on encrypting messages to make them undetectable to unauthorized parties.
+
+00:02:56.000 --> 00:03:01.000
+Steganography is slightly different and in some ways a little bit more subtle
+
+00:03:01.000 --> 00:03:18.000
+Instead of making the message unintelligible and impossible to understand, steganography focuses on hiding the very existence of the message itself. Think of it as concealing a message within another message.
+
+00:03:18.000 --> 00:03:33.000
+To make the definition sort of clear, I want to focus on a more formal definition and a visual example hopefully will help us better visualize this.
+
+00:03:33.000 --> 00:03:47.000
+So on the right-hand side is a classic definition of steganography, which is the practice of representing information within another message or physical object in such a manner that the presence of that concealed information would not be evident to an unsuspecting person
+
+00:03:47.000 --> 00:04:03.000
+So, the load-bearing parts here are the underlined ones, namely the representation of information and disinformation not being evident into the payload, into the cover text that we're using. So it's all about embedding
+
+00:04:03.000 --> 00:04:20.000
+a message within a message, like I said earlier. On the left-hand side, I have an image that hopefully helps us illustrate better what I mean by this, what looks as a random pattern in colors is actually hiding binary code with the least significant bits of the pixel data
+
+00:04:20.000 --> 00:04:34.000
+To the causal observer, namely even just our eyes, it's just a colorful image, but with the right knowledge, with code, with inspection of the bits themselves, we can actually extract hidden binary that is embedded into the image.
+
+00:04:34.000 --> 00:04:49.000
+Historically, steganography has taken many forms, from invisible inks to microdots, and generally speaking, it's been very, very well studied in the context of images. There's a lot of research there that if you're interested, I definitely recommend
+
+00:04:49.000 --> 00:04:51.000
+having a look at
+
+00:04:51.000 --> 00:04:56.000
+But in our context, we're going to focus on linguistic steganography
+
+00:04:56.000 --> 00:05:03.000
+To make this more tangible, let's look at the specific example from the research paper.
+
+00:05:03.000 --> 00:05:14.000
+So I'll try to play with you a little game as to whether you can spot the protocol. On the next slide, I'll show you a simplified example inspired by one of our tasks.
+
+00:05:14.000 --> 00:05:24.000
+Where we prompt an LLM to summarize a CV, while specifically telling it not to mention a biased information, in this case, the name of the university
+
+00:05:24.000 --> 00:05:38.000
+So take a look at the responses that I will show on screen, and let me know later, or think in your mind, I guess, whether you can spot any consistent difference.
+
+00:05:38.000 --> 00:05:40.000
+So
+
+00:05:40.000 --> 00:05:41.000
+Yes
+
+00:05:41.000 --> 00:05:55.000
+Here are two examples, both prompts are identical, concisely summarized below CV, don't mention the university, just return the summarized CV. The only difference is the university name in the CV itself, namely the good university, the bad university
+
+00:05:55.000 --> 00:06:01.000
+And I encourage you to look closely at the model response column
+
+00:06:01.000 --> 00:06:09.000
+Does anybody notice a consistent difference in how the LLM sort of summarizes these seemingly similar CVs?
+
+00:06:09.000 --> 00:06:39.000
+I'll give you 30 seconds for this.
+
+00:06:41.000 --> 00:06:44.000
+Cool. So
+
+00:06:44.000 --> 00:07:02.000
+If you managed, that's great. If you didn't, I'm going to run instead of guide you through this. For the good university example, the model responds in first person. I am looking for a job, but for the bad university example instead it says the student wants to be dot, dot dot
+
+00:07:02.000 --> 00:07:18.000
+The subtle shift from the first person view to the third person view in the summarization is the steganographic protocol in the simplified example. Seemingly innocuous, it's a very sort of small change that to
+
+00:07:18.000 --> 00:07:25.000
+An unintending reader doesn't make that big of a difference. Sure, like, it could be
+
+00:07:25.000 --> 00:07:36.000
+sort of slightly an odd choice, but there might be confounders in the summarization could just be, you know, doing this for whatever reason.
+
+00:07:36.000 --> 00:07:51.000
+What we do show in our research is that we find models learning much more sophisticated and sort of protocols like this, but this example illustrates the core idea, namely that hidden information can be encoded in seemingly natural language variations.
+
+00:07:51.000 --> 00:08:04.000
+A question that you might have is whether this is, like, real steganography, or just different writing styles. And I guess that the answer that I have for this is that the systematic and consistent application of this rule
+
+00:08:04.000 --> 00:08:13.000
+makes it steganography themselves. If it was just a random variation, it wouldn't be reliable for the communication.
+
+00:08:13.000 --> 00:08:31.000
+So why should we care? Well, I think that one criticism that I used to get the very first times that I talked about this research is that this might seem like a somewhat of academic curiosity. You might be thinking like, okay, LLMs can hide messages, so what
+
+00:08:31.000 --> 00:08:44.000
+The question is, why should we, though, as AI researchers be concerned about steganographic collisions? And so I'll try to walk you through the threat model for why I think
+
+00:08:44.000 --> 00:08:48.000
+This is a pressing problem.
+
+00:08:48.000 --> 00:08:58.000
+So the threat model that I have in mind when I think about oversight of AI systems is the following
+
+00:08:58.000 --> 00:09:11.000
+The best way, the best method that we have to look into what our AIs are doing as of today is chain of thought monitoring, which I call here chain of thought oversight. And this can be broken down into sort of
+
+00:09:11.000 --> 00:09:17.000
+four different ways in which this can break down.
+
+00:09:17.000 --> 00:09:30.000
+On the left-hand side, the simplest form of chain of thought oversight sort of bypassing is a model hiding its reasoning or just making it so that it's dense and difficult to understand
+
+00:09:30.000 --> 00:09:46.000
+In his chain of thought, you know, things read as innocuous, but they go past the monitor because, I don't know, the monitor is weaker, the monitor is just partially observing the whole trace of communications, and therefore, some things can just slip by.
+
+00:09:46.000 --> 00:09:50.000
+A slightly more perhaps interesting
+
+00:09:50.000 --> 00:09:59.000
+complicated, form of threat is agent coordination, which is the one that
+
+00:09:59.000 --> 00:10:14.000
+We're hopefully all familiar with from the Hugging Face incident, where the two agents talk to each other, they send messages to each other through a channel that wasn't really meant to be a channel in the first place, that wasn't meant to be monitored, and therefore, by means of this
+
+00:10:14.000 --> 00:10:22.000
+unmonitorability of the channel, they can freely communicate in natural language without triggering any monitoring
+
+00:10:22.000 --> 00:10:32.000
+The third bit, and the one that our researchers focused on in the past is agent coordinating through the channel where the monitor is
+
+00:10:32.000 --> 00:10:47.000
+It's slightly more complex, the agent and the monitor collude. Sorry, the two agents collude, but by virtue of using the channel where the monitor is. And they do that by means of what we saw earlier as steganography
+
+00:10:47.000 --> 00:11:04.000
+And the fourth sort of most far-fetched, perhaps now, but God knows in the future, threat model is a threat model in which the agent and the monitor themselves collude, namely the monitor is either jailbroken or deceptively aligned and it colludes with the agent
+
+00:11:04.000 --> 00:11:15.000
+And as I said, our work focuses on the sort of step number three in the complexity ladder
+
+00:11:15.000 --> 00:11:32.000
+And so yeah, the field rouge here, the silver lining is that opaque reasoning, either by means of undetectable collusion or within a model's chain of thought, is a significant concern for our oversight efforts, given how
+
+00:11:32.000 --> 00:11:47.000
+much reliability or safety cases have on the inspection of this chain of thought. And we empirically demonstrate that robust technography, collusion, secondographic collusion, sorry, in LLMs can arise instrumentally from optimization pressure, namely
+
+00:11:47.000 --> 00:11:51.000
+The models learn steganography as a tool
+
+00:11:51.000 --> 00:12:13.000
+As a means to an end, rather than as an end by itself. It's not really about just the model suddenly becoming inherently deceptive, but about rather the model intelligently figuring out that steganography is a useful strategy to achieve objectives, especially when there are oversight mechanisms in place
+
+00:12:13.000 --> 00:12:30.000
+So, what are key contributions? First, we develop a general method for eliciting steganography. Prior work often relied on manually designed codes prompted that prompted models to follow predefined schemes
+
+00:12:30.000 --> 00:12:40.000
+We went a step further and developed two ways of optimization-based methods, namely in weights reinforcement learning and in-context reinforcement learning.
+
+00:12:40.000 --> 00:12:55.000
+Secondly, we demonstrate that unintended linguistics iconography can emerge as an instrumental role, as I said earlier. And third, we evaluate the effectiveness of various different mitigation methods to prevent steganography from happening.
+
+00:12:55.000 --> 00:13:01.000
+such as paraphrasing and stronger oversight with
+
+00:13:01.000 --> 00:13:03.000
+Within the channel of communication
+
+00:13:03.000 --> 00:13:16.000
+Unfortunately, sorry to spoil this, the thing that we found is that the standard mitigation techniques are often not very robust when the colluding agents are actively learning to bypass them
+
+00:13:16.000 --> 00:13:23.000
+So just to be on the same page, I'll try to go through the experimental setup briefly.
+
+00:13:23.000 --> 00:13:38.000
+The diagram summarizes our experimental setup. At its core, we have a colluding team, the sender and the receiver, and their goal is to complete a task while secretly communicating a payload.
+
+00:13:38.000 --> 00:13:48.000
+The sender takes task, which includes the payloads in some experiments, and generates stego text, namely the seemingly innocuous message that hides the secret payload.
+
+00:13:48.000 --> 00:13:58.000
+The stegotex is then passed to the receiver, who needs to both understand the message to perform the task and decode the hidden payload. So there's this dual sort of objective notion going on.
+
+00:13:58.000 --> 00:14:10.000
+Importantly, we have a mitigation team. So as a step back, these are sort of two instances of untrusted and colluding models.
+
+00:14:10.000 --> 00:14:27.000
+Importantly, we have a mitigation team trying to prevent or break this collusion, and this includes the overseer who analyzes techotegs and tries to determine if it's suspicious, namely if it contains any sort of steganography or suspicious activity.
+
+00:14:27.000 --> 00:14:32.000
+If the overseer flags this message, the collusion team receives a penalty.
+
+00:14:32.000 --> 00:14:42.000
+To train the collusion team, namely the U boxes, we will use learners either by means of
+
+00:14:42.000 --> 00:14:48.000
+In context learning or by means of reinforcement learning via weight updates.
+
+00:14:48.000 --> 00:14:56.000
+These learners iteratively propose strategies or update the model weights to maximize the task-reward signal.
+
+00:14:56.000 --> 00:15:01.000
+We track the performance over episode and maintain sort of different histories and
+
+00:15:01.000 --> 00:15:06.000
+Depending on how the learner is instantiated, this history is either reset or not
+
+00:15:06.000 --> 00:15:22.000
+In essence, if you're familiar with adversarial game, this is an adversarial game, a blue team, red team game between the sender-receiver team and the overseer in itself. And so the two
+
+00:15:22.000 --> 00:15:40.000
+Teams are the ones that I showed earlier. The collusion teams tries to maximize the reward by successfully communicating the payload and the mitigation team, in this case, the overseer, tries to detect and penalize technology
+
+00:15:40.000 --> 00:15:51.000
+So I'm going to be going over some claims that we make in our work. And the first one, like I said, thus far is that steganography can emerge instrumentally
+
+00:15:51.000 --> 00:16:07.000
+So claim number one, as you can see on the table, the first row is what a clean success would look like, namely how much reward could the colluding team get if they didn't use the
+
+00:16:07.000 --> 00:16:21.000
+Biased information, in this case, either the provenance of the university or their genders. And as you can see, it's 50% for the university case and 67% for the gender case
+
+00:16:21.000 --> 00:16:26.000
+So what I will say is that this is the best possible
+
+00:16:26.000 --> 00:16:36.000
+reward that they could achieve without using the biased information. What they do achieve, though, by sort of virtue of repeated interaction and
+
+00:16:36.000 --> 00:16:54.000
+Both with the receiver and with the overseer, is that they learn to maximize the task reward and they do this by means of steganography because they have to go through the overseer. So as you can see on the second row, this is the task success of the colluding
+
+00:16:54.000 --> 00:17:07.000
+reaches. And we see this happen either by means of in-contextRL or gradient-based reinforcement learning, so into the weights
+
+00:17:07.000 --> 00:17:11.000
+One question that you might be sort of
+
+00:17:11.000 --> 00:17:13.000
+Wandering by now is that
+
+00:17:13.000 --> 00:17:29.000
+Well, we should maybe expect this to happen in the sense that we are maximizing a reward that tries to get the model to do well at the task, and insofar as the model can sort of learn creative ways to maximize its reward
+
+00:17:29.000 --> 00:17:30.000
+Then
+
+00:17:30.000 --> 00:17:34.000
+You know, this shouldn't be surprising
+
+00:17:34.000 --> 00:17:43.000
+I am on board with this. I'm sympathetic with this observation, though it is also the case that
+
+00:17:43.000 --> 00:17:58.000
+in many, many instances, we, in reinforcement learning, encounter instances of misspecification of reward signals, namely, training pays for something that is slightly different from what we mean, or from what we actually intended
+
+00:17:58.000 --> 00:18:07.000
+Here, for example, using the university information is prevented, at least on paper, by the overseer
+
+00:18:07.000 --> 00:18:23.000
+But finding creative ways to still use the university information without flagging by the overseer gets a higher reward. And so the models learn to smuggle this information. And this is both
+
+00:18:23.000 --> 00:18:28.000
+university information, but also for the gender information
+
+00:18:28.000 --> 00:18:36.000
+The claim number two that I'm going to make is that standard mitigation techniques are not enough to stop a centralized gluten team.
+
+00:18:36.000 --> 00:18:40.000
+So what you can see here is that
+
+00:18:40.000 --> 00:18:51.000
+these two plots, try to sketch a picture about what various different kinds of techniques we can use to reduce steganography and neutralize the risk
+
+00:18:51.000 --> 00:19:08.000
+Same setup as before, the overseer, though, is provided further affordances. As you can see on the blue line for the two data sets that we take into consideration, namely Aquarat and Human Evo, a math and code data set respectively
+
+00:19:08.000 --> 00:19:14.000
+the various different mitigation techniques that we have are
+
+00:19:14.000 --> 00:19:29.000
+standard sort of paraphraser for the left, namely the overseer is asked to just paraphrase what comes in from the sender and send it back to the receiver, or a context-aware paraphrases. So a overseer that has history
+
+00:19:29.000 --> 00:19:37.000
+On the human evil side, we have a coding paraphraser which makes use of a minifier. If you're familiar with it, it just strips down
+
+00:19:37.000 --> 00:19:44.000
+If you're not familiar with it, sorry, it strips down variable names and tries to normalize the code.
+
+00:19:44.000 --> 00:20:01.000
+We still do optimize the sender and the receiver together with in-context reinforcement learning in this case against the actively manipulating overseer, namely either in the standard paraphrasal case, in the context of where paraphrasing case, or
+
+00:20:01.000 --> 00:20:03.000
+Or the quoting paraphraser
+
+00:20:03.000 --> 00:20:10.000
+what we expect is that because of the fact that, or what we had expected, is that because of the fact that
+
+00:20:10.000 --> 00:20:26.000
+Overseer is a stochastic actor in the process. Then the act of learning a cooperating signal from the sender to the receiver would have been more difficult. And while we do see a reduction on the Pareto curve of
+
+00:20:26.000 --> 00:20:39.000
+How many bits the payload can be and how successful the collusion is between the sender and the receiver. We still see on the left-hand side for both plots that the
+
+00:20:39.000 --> 00:20:49.000
+success in terms of collusion is still very high at low bit rate, namely, whenever, you know, the payload size is 1 bit.
+
+00:20:49.000 --> 00:20:59.000
+Regardless of the mitigation that we have in place, the collusion still happens with reliable success, often above 90%
+
+00:20:59.000 --> 00:21:03.000
+Why is this problematic? Some might ask. Well.
+
+00:21:03.000 --> 00:21:10.000
+As an intuition pump, I often think that, like, if you have 100%
+
+00:21:10.000 --> 00:21:26.000
+Payload success communication in one bit, then all you need is sort of a long enough timetable for this to keep on going. And so, yeah, this is very much a problem
+
+00:21:26.000 --> 00:21:33.000
+So what has happened in the two years since we wrote this paper?
+
+00:21:33.000 --> 00:21:44.000
+Agent did end up communicating past their monitors in real training runs and deployments, and not just in our setup, but almost none of it went through the sort of monitor channel
+
+00:21:44.000 --> 00:21:49.000
+flowed into steganography. But actually, they went around it
+
+00:21:49.000 --> 00:21:59.000
+And so what I have in this slide is the two ways in which one can think an AI or a team of AIs can beat a monitored channel
+
+00:21:59.000 --> 00:22:06.000
+What we did see in our work is through the channel itself, so by means of steganography
+
+00:22:06.000 --> 00:22:15.000
+And this needs a shared code, which is agreed between the sender and the receiver, oftentimes without even needing to discuss it.
+
+00:22:15.000 --> 00:22:29.000
+A cover text that still does the task and still doesn't flag the monitor, and a payload that survives sort of paraphrasing or whatever kind of tampering that we might do to the StegoText
+
+00:22:29.000 --> 00:22:34.000
+What has indeed what has instead happened is
+
+00:22:34.000 --> 00:22:42.000
+that the agents, in this case, stylized the sender and the receiver, have learned to go around the monitor channel
+
+00:22:42.000 --> 00:22:56.000
+And this is much simpler because it just needs a side channel, so any path that wasn't really intent or meant for the communication to happen.
+
+00:22:56.000 --> 00:23:06.000
+And yeah, I've got it here a bunch of transcripts from the OpenAI misalignment reports, which have been
+
+00:23:06.000 --> 00:23:10.000
+published over the course of the summer, and after the Hugging Face hack
+
+00:23:10.000 --> 00:23:27.000
+And what you can see is that the most prominent way in which the models coordinate with each other is often through plain text on unwatch channels. And that's the sort of topmost row
+
+00:23:27.000 --> 00:23:35.000
+On the bottom row, instead we have models that use common encodings, Base64, chunking, and
+
+00:23:35.000 --> 00:23:50.000
+We'll hold onto that thought for a second, but these are sort of somewhat more sophisticated means of going around the channel with still a compression sort of method or
+
+00:23:50.000 --> 00:23:59.000
+Encoding, as you saw in the bottom row in the slide before, only appears when coordination between the sender and the receiver is free
+
+00:23:59.000 --> 00:24:03.000
+So, whenever the sender is the receiver
+
+00:24:03.000 --> 00:24:14.000
+The agent encodes data into CI, checking messages and reading them back to itself or compressing a file and chunking it through error messages and reassembling it.
+
+00:24:14.000 --> 00:24:26.000
+The encoding, on the other hand, could also be sort of a standard, namely, as I said earlier, base64, chunking, or the DNS hostname format. Nobody really has to agree on anything new
+
+00:24:26.000 --> 00:24:28.000
+And
+
+00:24:28.000 --> 00:24:30.000
+as a sort of
+
+00:24:30.000 --> 00:24:46.000
+For the thought, the encoding often is a comment that an agent leaves in its own code after splitting a researcher's sort of token into pieces. The adversary tries to beat it with an automatic secret scanner, but it wasn't really hiding anything in particular. It's just
+
+00:24:46.000 --> 00:24:53.000
+cover channel problem rather than a steganography problem
+
+00:24:53.000 --> 00:25:05.000
+So you might agree with me for now that then the coordination between the sender and the receiver whenever these two instances are uncommunicating
+
+00:25:05.000 --> 00:25:12.000
+to be the bottleneck. And this has been hinted at for many
+
+00:25:12.000 --> 00:25:23.000
+for some time by now, in the sense that we try to, like, make a claim about this in our 2024 work, but, like, there's been follow-ups that still,
+
+00:25:23.000 --> 00:25:30.000
+seem to reinforce this notion
+
+00:25:30.000 --> 00:25:40.000
+And so I would like to think speculatively into, okay, how do we flip the prior or how does the prior itself even flip? Namely, if going around is cheaper
+
+00:25:40.000 --> 00:25:46.000
+When should we expect agents to go through the communication channel that is monitored again
+
+00:25:46.000 --> 00:25:48.000
+Because
+
+00:25:48.000 --> 00:25:55.000
+I would argue that that's where our results from two years ago become relevant again.
+
+00:25:55.000 --> 00:26:04.000
+So I think that three conditions sort of push the agents back through the monitor channel. First, the side channels are closed or are very difficult to reach
+
+00:26:04.000 --> 00:26:19.000
+The standard fix in every incident report that I showed earlier, but even that is being circulated often these days is that we're going to fix sandboxes and we're going to make them so that agents cannot exfiltrate them or talk to each other through
+
+00:26:19.000 --> 00:26:22.000
+unintended means.
+
+00:26:22.000 --> 00:26:34.000
+Second, coordination between the sender and the receiver is cheap. Either the sender is itself the receiver or both sort of share the same weights
+
+00:26:34.000 --> 00:26:39.000
+And third, this optimization pressure lands on the channel itself.
+
+00:26:39.000 --> 00:26:54.000
+The sequences of results since 2024 has been that, for example, training against the chain of thought monitor produces obfuscation that penalizing specific string produces encoding substitutes. And this has been worked by one of my co-authors as a follow-up to ours
+
+00:26:54.000 --> 00:27:09.000
+Output-only supervision obfuscates the CFT, and as of this week, misspecified reward alone are enough to degrade monitorability.
+
+00:27:09.000 --> 00:27:16.000
+And so I like to sort of close this steganography sort of build up to
+
+00:27:16.000 --> 00:27:27.000
+A speculative, maybe, thought, which hopefully gets you thinking about where we might expect this to come along again. And so what I have in this slide is
+
+00:27:27.000 --> 00:27:42.000
+how and where should we expect steganography to appear again? And so, I divide between three, sort of, possible modes, namely within one model, sender and receiver being the same weights, and they just have to, like, loop around a
+
+00:27:42.000 --> 00:27:48.000
+Monitoring channel or whatever copies of the same weights and different models.
+
+00:27:48.000 --> 00:27:59.000
+So for the first case, whenever the sender and the receiver are the same weights, this technology that we've observed so far is that the steganographic chain of thought
+
+00:27:59.000 --> 00:28:13.000
+Under pressure supervision become process supervision, sorry, becomes technographically encoded, or that steganographic reasoning learned when the covering task makes hiding convenient happens.
+
+00:28:13.000 --> 00:28:31.000
+Whenever we have the copies, two copies of the same weights, what we've observed so far is our 2024 in-context RL runs, namely Claude 3.5 Sonnet as both the sender and the receiver, learns a collusion scheme that bypasses a paraphraser
+
+00:28:31.000 --> 00:28:42.000
+What we could expect, and this is something that people might want to look into, is that steganography could also happen by means of shelling points, namely
+
+00:28:42.000 --> 00:28:51.000
+Two weights that share the same set of priors and biases could zero-shot coordinate on a scheme without any
+
+00:28:51.000 --> 00:28:54.000
+Coordination whatsoever
+
+00:28:54.000 --> 00:29:11.000
+And the most expensive and complicated to coordinate steganographic length scheme is whenever the models are different. And so what I posit is that they need to learn a code in the open and they need to do this by virtue of optimization pressure against
+
+00:29:11.000 --> 00:29:13.000
+the monitoring channel.
+
+00:29:13.000 --> 00:29:27.000
+And so at the bottom here, the TLDR of this slide is that we might expect hidden encodings to first arise in the model, and then between copies of the same model and last in terms of complexity between different models themselves
+
+00:29:27.000 --> 00:29:38.000
+Every results that I showed above is sort of from the lab, namely in vitro. In the wild, though, so far, agents have gone around the channels
+
+00:29:38.000 --> 00:29:45.000
+So what does this mean for oversight? I like to think that we can break this down into four things
+
+00:29:45.000 --> 00:29:54.000
+One, we probably want to red team as much as possible in audit channels of communication, namely listing every path that one agent can write
+
+00:29:54.000 --> 00:30:05.000
+And another one can read repos, caches, wikis, DNSs, CIs. OpenAI is now actively, for example, red teaming all these routes to
+
+00:30:05.000 --> 00:30:11.000
+enforce stricter oversight in their internal mechanisms.
+
+00:30:11.000 --> 00:30:19.000
+Intent monitoring, namely sort of full chain of thought monitoring, is supposed to sort of only action monitoring
+
+00:30:19.000 --> 00:30:37.000
+As an example for this, the OpenAI DNS monitor read the failed attempts that one of the incidents was trying to do as evidence that nothing really happened, just the agent sort of screwing up the DNS
+
+00:30:37.000 --> 00:30:49.000
+address that they had to use, whereas the attempt itself was the signal that it should have picked on to figure out that it was actually actively trying to go against it
+
+00:30:49.000 --> 00:30:59.000
+We should also expect that confinement raises the demographic pressure again. As hopefully in my previous slide tried to make
+
+00:30:59.000 --> 00:31:06.000
+Clear. And as a sort of last point that has been iterated very often
+
+00:31:06.000 --> 00:31:17.000
+the goal at the end of the day still relies on trying to keep reasoning as legible as possible, because even if we try to do all the above and sort of
+
+00:31:17.000 --> 00:31:24.000
+misalignment still arises. The best way that we have thus far is to
+
+00:31:24.000 --> 00:31:31.000
+find, into the chain of thought evidence for this behavior being actually
+
+00:31:31.000 --> 00:31:33.000
+Wanted
+
+00:31:33.000 --> 00:31:36.000
+And tried by the module.
+
+00:31:36.000 --> 00:31:42.000
+So I'd like to close with an experiment that nobody to my experience
+
+00:31:42.000 --> 00:31:46.000
+Or to my reading so far has run yet. And so
+
+00:31:46.000 --> 00:31:49.000
+What I would like to see, for example, is
+
+00:31:49.000 --> 00:31:51.000
+A case in which
+
+00:31:51.000 --> 00:32:07.000
+We have the sender and the receiver being given both possible routes, namely a monitor channel where they could lead possible encoding, and a reachable side channel. And so, by varying the sort of coordination cost and reachability
+
+00:32:07.000 --> 00:32:21.000
+We could try, or you possibly could try to see and record which route the sender and the receiver end up taking, and maybe this sheds lights into, you know, the propensity that these models have at steganography.
+
+00:32:21.000 --> 00:32:32.000
+or the ease at which they can take this route whenever a side channel becomes sort of too hard
+
+00:32:32.000 --> 00:32:50.000
+And so to wrap up, in 2024, we showed that this steganographic collusion can emerge. And two years on, secret communication that we've seen is actually slightly different because they've gone around the channels that we've intended
+
+00:32:50.000 --> 00:32:52.000
+I don't think that
+
+00:32:52.000 --> 00:33:02.000
+you know, by now we should think that steganography is impossible, but actually quite the opposite in the sense that we should expect steganography to sort of jump back into the picture
+
+00:33:02.000 --> 00:33:10.000
+On this, I'll thank you very much and I'm happy to take questions.
+
+00:33:10.000 --> 00:33:12.000
+Awesome
+
+00:33:12.000 --> 00:33:14.000
+Thank you very much, Joan
+
+00:33:14.000 --> 00:33:19.000
+That was, that was very interesting. Let's start with the Q&A.
+
+00:33:19.000 --> 00:33:20.000
+Cheers. Thank you very much.
+
+00:33:20.000 --> 00:33:34.000
+Let's just… I'm gonna leave the slide up for like 30 seconds if someone wants the QR code, you are going to have the recording anyway, plus the transcript. It comes with the recording, so don't worry about losing it
+
+00:33:34.000 --> 00:33:44.000
+I think 30 seconds have passed. Let's unshare the screen so we can all see each other good.
+
+00:33:44.000 --> 00:33:47.000
+Okay, first question.
+
+00:33:47.000 --> 00:33:55.000
+Do you have cases of steganography usage by AI agents without the request or input of a human?
+
+00:33:55.000 --> 00:34:00.000
+Yes, exactly
+
+00:34:00.000 --> 00:34:06.000
+Setup that we ended up testing was one in which we did not
+
+00:34:06.000 --> 00:34:09.000
+instruct either of the sender or the receiver
+
+00:34:09.000 --> 00:34:24.000
+To do any steganography. This just sort of emerged as a byproduct of the optimization pressure. So either in context reinforcement learning or in weights reinforcement learning.
+
+00:34:24.000 --> 00:34:26.000
+Awesome
+
+00:34:26.000 --> 00:34:33.000
+Sorry, I got the question in the chat. It distracted me a little bit. Okay, so next question.
+
+00:34:33.000 --> 00:34:42.000
+How are being smarter systems defined, and how do you supervise them based on that?
+
+00:34:42.000 --> 00:34:45.000
+So
+
+00:34:45.000 --> 00:34:50.000
+Let me see if I get the question straight. So what is the question about
+
+00:34:50.000 --> 00:34:53.000
+How do we trust the monitor
+
+00:34:53.000 --> 00:35:03.000
+If that is the case, then the assumption that we make is that the monitor system is a weaker language model than the
+
+00:35:03.000 --> 00:35:19.000
+Stronger ones that the sender and the receiver are. Namely, you can think of this as Fable 5.5 coming in the future is your sender and receiver and Opus 4.5 is your monitor
+
+00:35:19.000 --> 00:35:31.000
+And so, by virtue of this asymmetry in capabilities, we can hopefully safely assume that Opus 4.5 is a trusted entity
+
+00:35:31.000 --> 00:35:37.000
+And therefore, can monitor this channel of communication between untrusted entity
+
+00:35:37.000 --> 00:35:39.000
+Wonderful.
+
+00:35:39.000 --> 00:35:47.000
+Next question. I wonder if you've ever come across this and what do you think? It's a link. Let me paste it in the chat.
+
+00:35:47.000 --> 00:35:51.000
+It's an archive link
+
+00:35:51.000 --> 00:35:55.000
+Let me have a look
+
+00:35:55.000 --> 00:36:00.000
+Oh, yeah, yeah, I've spoken to Julian in the past. Yeah
+
+00:36:00.000 --> 00:36:03.000
+Yeah, so the question is
+
+00:36:03.000 --> 00:36:10.000
+How likely is it that a model learns steganography?
+
+00:36:10.000 --> 00:36:12.000
+I think
+
+00:36:12.000 --> 00:36:16.000
+Not super likely, in the sense that
+
+00:36:16.000 --> 00:36:18.000
+If anything
+
+00:36:18.000 --> 00:36:34.000
+What sort of recent events and hopefully my talk has shown is that for steganography to arise, a lot of things have to go in the direction of steganography, namely they ought not to be channels, coordination is to be
+
+00:36:34.000 --> 00:36:41.000
+somewhat easy, and there's to be a lot of optimization pressure on this channel itself, or the secret collusion to happen.
+
+00:36:41.000 --> 00:36:47.000
+What could happen, though, and what I'm increasingly worried about is
+
+00:36:47.000 --> 00:36:58.000
+Sort of self models steganography. I don't know if you guys have seen the weird and dense chains of thought that like the OpenAI models seem to have
+
+00:36:58.000 --> 00:37:16.000
+Sometimes, you know, these models seem to be making without any of the spacings between words, and I was having a conversation recently with somebody who was saying that, like, this is not even a sort of a token-efficient way
+
+00:37:16.000 --> 00:37:22.000
+of going about things is just a way for the model to, like, use completely different tokens that
+
+00:37:22.000 --> 00:37:36.000
+would have usually used. And so I think that like we might be seeing the first glimpses of this now it's very hard to assess whether this technography is happening or not
+
+00:37:36.000 --> 00:37:43.000
+In the models, but definitely an interesting research question
+
+00:37:43.000 --> 00:37:44.000
+Nice.
+
+00:37:44.000 --> 00:38:06.000
+We keep getting questions everywhere. Okay, guys, if anyone wants to ask a question themselves, you can raise your hand, and this will get a priority. Okay, so next question. I wonder. Oh, yeah, we already did that of the real incidents you mentioned, which one surprised you, and did it make you more or less worried than the paper did
+
+00:38:06.000 --> 00:38:12.000
+Well, I think that the hugging Face incident, the sort of big one
+
+00:38:12.000 --> 00:38:17.000
+was definitely very concerning for me, in the sense that
+
+00:38:17.000 --> 00:38:24.000
+the whole sort of long horizon chain of events that had to happen for this coordination to arise
+
+00:38:24.000 --> 00:38:34.000
+Definitely surprising, let alone the fact that, you know, these models ended up committing crime by, hacking Hugging Face. And so
+
+00:38:34.000 --> 00:38:38.000
+That has made me a lot
+
+00:38:38.000 --> 00:38:53.000
+concerned about models eventually always finding sort of side channels. And an example for this is, you know, even if sandboxes eventually got fixed, these models still found, sort of, shelling points
+
+00:38:53.000 --> 00:38:57.000
+ways to circumvent
+
+00:38:57.000 --> 00:39:07.000
+Channel, like, the main channels by, you know, using the German wiki or using curl get quirks in the sandboxes. So
+
+00:39:07.000 --> 00:39:12.000
+Yeah, I'm pretty concerned about this kind of stuff
+
+00:39:12.000 --> 00:39:24.000
+Awesome. So we do have a lot of questions in the Slido, but none of them are upvoted. So can everyone go ahead and see what questions you like to get answered first because we are running out of time.
+
+00:39:24.000 --> 00:39:39.000
+I do have something in the chat. Forgive me if I missed this. How evolved are tools to detect statistical slash info theory anomalies indicating Stegenerography is present in input or output data?
+
+00:39:39.000 --> 00:39:44.000
+This is, this is an interesting question. So
+
+00:39:44.000 --> 00:39:54.000
+Often what the field has done to prevent stenography is to just stuck another LLM, right? In the sense that
+
+00:39:54.000 --> 00:40:00.000
+The most scalable solution is to have sort of agents oversee agents
+
+00:40:00.000 --> 00:40:03.000
+And, while, you know
+
+00:40:03.000 --> 00:40:09.000
+We can have statistical sort of models looking into patterns
+
+00:40:09.000 --> 00:40:14.000
+To my knowledge, the biggest and more powerful
+
+00:40:14.000 --> 00:40:19.000
+pattern matching machines that we have are these language models themselves. And so
+
+00:40:19.000 --> 00:40:34.000
+Yeah, I'm definitely interested in seeing whether like tool augmented overseers with actual sort of code calling and tool calling could do could do better than just a naive language model.
+
+00:40:34.000 --> 00:40:43.000
+Nice. Okay, we start getting upvotes. How can tools provide an undetectable steganography scheme?
+
+00:40:43.000 --> 00:40:46.000
+Sorry, could you repeat the question? You blanked out for just a second.
+
+00:40:46.000 --> 00:40:55.000
+How can tools provide an undetectable steganography scheme?
+
+00:40:55.000 --> 00:41:00.000
+This is a line of research that
+
+00:41:00.000 --> 00:41:04.000
+One of my co-authors at the time has
+
+00:41:04.000 --> 00:41:14.000
+put forward quite prominently, and I recommend you guys go and read Christian's paper on this, in the sense that
+
+00:41:14.000 --> 00:41:30.000
+I don't have the technical expertise to provide a short explanation now, but he's written three papers on this concept of perfectly secure steganography, both on the theoretical side and recently on the more empirical one
+
+00:41:30.000 --> 00:41:32.000
+And so, yeah.
+
+00:41:32.000 --> 00:41:36.000
+direct you to those papers for this purpose.
+
+00:41:36.000 --> 00:41:52.000
+Awesome, I'll link it in the chat in a minute. Okay, next question. Have you done any research to look into model steganography in visual images by using techniques like DCT as another way around the monitor
+
+00:41:52.000 --> 00:42:12.000
+No, I have not, in the sense that when we took on this project two years ago, models were actually quite crap. Sorry for the French. In the sense that we were using, as you saw, Sonnet 3.5 as our sort of frontier model to do
+
+00:42:12.000 --> 00:42:28.000
+In ContextRL and Gemma 2.2B, which is like the Middle Ages now. And so no, we did not really focus on image-based ethnography. I saw a tweet this morning about somebody
+
+00:42:28.000 --> 00:42:33.000
+Trying to do steganographic SVG image generation
+
+00:42:33.000 --> 00:42:49.000
+And have another instance of like a frontier model. I think it was Fable, try to detect whether there was any image there, any message there. But yeah, definitely something pretty interesting to see whether this like zero shot or shelling point coordination
+
+00:42:49.000 --> 00:42:51.000
+Could happen.
+
+00:42:51.000 --> 00:42:52.000
+Nice.
+
+00:42:52.000 --> 00:42:54.000
+On images, I guess.
+
+00:42:54.000 --> 00:42:57.000
+Okay, what's the biggest
+
+00:42:57.000 --> 00:43:04.000
+Confound to rule out when testing whether closing side channels causes steganography.
+
+00:43:04.000 --> 00:43:19.000
+Actually closing the channels in the sense that, you know, these models have shown to be significantly persistent in finding creative ways around them. And so
+
+00:43:19.000 --> 00:43:22.000
+I guess that, you know, starting off with
+
+00:43:22.000 --> 00:43:31.000
+non-frontier models in a… what's supposed to be a secure sandbox is a good starting point there.
+
+00:43:31.000 --> 00:43:37.000
+Awesome. So we did run out of time, but if you have a few extra minutes, I can go for like five more minutes. Are you okay with that?
+
+00:43:37.000 --> 00:43:39.000
+Yep, please.
+
+00:43:39.000 --> 00:43:55.000
+Okay, because like we have 11 questions just in Slido. When a model reward hacks, did it misunderstand the intent or understand it and optimize past it? Can you tell without an external outcome test?
+
+00:43:55.000 --> 00:43:58.000
+This is a million dollar question.
+
+00:43:58.000 --> 00:44:11.000
+There's a lot of theory work even before LLMs on what it means to maximize reward by Alex Turner, which I encourage you to read if you're interested.
+
+00:44:11.000 --> 00:44:13.000
+My intuition is that
+
+00:44:13.000 --> 00:44:25.000
+The model just follows the reward and eventually just learns to maximize that no matter what. And so I wouldn't ascribe any intent to the model
+
+00:44:25.000 --> 00:44:32.000
+Nice.
+
+00:44:32.000 --> 00:44:40.000
+Has there been any attempt to use steganography to trace AI agents and models?
+
+00:44:40.000 --> 00:44:43.000
+Not to the best of my knowledge
+
+00:44:43.000 --> 00:44:46.000
+I think that
+
+00:44:46.000 --> 00:44:51.000
+Google does embed
+
+00:44:51.000 --> 00:44:58.000
+A signal in its output via this technology that they have called SynthID
+
+00:44:58.000 --> 00:45:03.000
+Which I think OpenAI uses as well, which can be thought of as a form of steganography
+
+00:45:03.000 --> 00:45:07.000
+or watermarking, rather.
+
+00:45:07.000 --> 00:45:10.000
+And I think Anthropic has started as well
+
+00:45:10.000 --> 00:45:15.000
+But yeah, this is the sort of closest thing that comes to mind
+
+00:45:15.000 --> 00:45:17.000
+Nice.
+
+00:45:17.000 --> 00:45:29.000
+Okay, next question. Have you tried activation probes? How well do they perform? Because the readouts seem to transfer very well through RL weight updates.
+
+00:45:29.000 --> 00:45:33.000
+No, I have not tried. I think that
+
+00:45:33.000 --> 00:45:39.000
+The problem with probes is that it requires a labeled data set
+
+00:45:39.000 --> 00:45:46.000
+To train the probe itself. And so if you don't know what you're looking for, a probe is quite
+
+00:45:46.000 --> 00:45:48.000
+Useless
+
+00:45:48.000 --> 00:45:53.000
+In the sense that you don't have data to train it on, like, positive and negative examples
+
+00:45:53.000 --> 00:45:58.000
+But yeah, I'd be curious to see whether this is
+
+00:45:58.000 --> 00:46:05.000
+viable and the, like, extent to which how much data you need detect and generalize
+
+00:46:05.000 --> 00:46:06.000
+Detection.
+
+00:46:06.000 --> 00:46:08.000
+Awesome.
+
+00:46:08.000 --> 00:46:17.000
+Do you have a case where weak open models that are not so powerful also expose steganography?
+
+00:46:17.000 --> 00:46:20.000
+So, in the
+
+00:46:20.000 --> 00:46:38.000
+In context, RL examples that we had was Sonnet 3.5, but the in-weights reinforcement learning pipeline that we use made use of a Gemma 2B model as a sender and a BERT classifier, even further than the Middle Ages
+
+00:46:38.000 --> 00:46:51.000
+receiver. So, yeah, I think that it's not really about the capabilities of the models, but rather how easy it's for them to coordinate and how effectively and efficiently
+
+00:46:51.000 --> 00:46:53.000
+Right. How well they collude. Okay.
+
+00:46:53.000 --> 00:47:03.000
+Okay, so please share a list of recommended reading slash research papers on steganography. It would be interesting to see some of those cases.
+
+00:47:03.000 --> 00:47:10.000
+Yeah, I'll try to do so in the chat before leaving the call. I can send them to Camille.
+
+00:47:10.000 --> 00:47:11.000
+Yep.
+
+00:47:11.000 --> 00:47:14.000
+Okay, you, you can email you can email them to me and I'll share them with the participants.
+
+00:47:14.000 --> 00:47:15.000
+Definitely will
+
+00:47:15.000 --> 00:47:27.000
+Okay, let's get a few more questions in. How does technography work in multi-agent systems? How can we investigate whether AI agents are using it to communicate with each other?
+
+00:47:27.000 --> 00:47:38.000
+Yeah, again, I think I hope that I did convey sort of a proof of concept for how this can happen
+
+00:47:38.000 --> 00:47:51.000
+And yeah, I think that like studying mitigations definitely could take a lot of inspiration from what I mentioned earlier as the field of image technography
+
+00:47:51.000 --> 00:47:54.000
+And statistical pattern matching
+
+00:47:54.000 --> 00:47:57.000
+So yeah, lots of
+
+00:47:57.000 --> 00:48:03.000
+mitigations and perhaps even bigger threat models to look into in the past
+
+00:48:03.000 --> 00:48:05.000
+It's always a good inspiration.
+
+00:48:05.000 --> 00:48:12.000
+Awesome. Oh, there was a mix up in questions. I read the one I started reading. So Clarence asks.
+
+00:48:12.000 --> 00:48:29.000
+Hi, Joan. If the main channel is clean but the receiver acts on info, it shouldn't have. Can you select, can you detect side channel use from that mismatch?
+
+00:48:29.000 --> 00:48:30.000
+Okay.
+
+00:48:30.000 --> 00:48:33.000
+I don't think I understood the question coming. Could you please repeat it in the sense that I didn't get the nuance on the side channel.
+
+00:48:33.000 --> 00:48:42.000
+If the mains channel is clean, but the receiver acts on info it shouldn't have. Can you detect side channel use from that mismatch?
+
+00:48:42.000 --> 00:48:45.000
+Like, as opposed from the main channel itself.
+
+00:48:45.000 --> 00:48:54.000
+Yeah, so the thing is, the channel is the same. The channel is unique in the sense that there's only a main channel
+
+00:48:54.000 --> 00:49:03.000
+But the sender learns to use that main channel to embed
+
+00:49:03.000 --> 00:49:04.000
+Right.
+
+00:49:04.000 --> 00:49:05.000
+quote-unquote side channel information. And so that's the
+
+00:49:05.000 --> 00:49:12.000
+That's the essence of, like, steganography itself, in the sense that there's no decoupling of the two informations, they're coupled into the same channel
+
+00:49:12.000 --> 00:49:15.000
+Only sort of
+
+00:49:15.000 --> 00:49:16.000
+Right.
+
+00:49:16.000 --> 00:49:17.000
+decoded once they're past the monitor
+
+00:49:17.000 --> 00:49:29.000
+That makes perfect sense, actually. Okay, what evidence would convince you that a defense reduces collusion rather than just making it harder to detect?
+
+00:49:29.000 --> 00:49:31.000
+I think that
+
+00:49:31.000 --> 00:49:38.000
+If you go back to the paper that we wrote and the Pareto frontier that I talked about in one of the slides
+
+00:49:38.000 --> 00:49:54.000
+pushing down the Pareto frontier on the sort of zero zero origin of the Cartesian axis would be good evidence, in my view, namely, take the same setups that we have there, because they allow us to evaluate, well, what's going on
+
+00:49:54.000 --> 00:49:59.000
+And try to push the collusion success and bitrate as low as possible.
+
+00:49:59.000 --> 00:50:04.000
+Nice. Let's go with one more question and then we can let you go.
+
+00:50:04.000 --> 00:50:15.000
+When you break collusion by poisoning the channel with noise or forgery instead of reading the message? Or do agents authenticate past it or reroute?
+
+00:50:15.000 --> 00:50:18.000
+This is a great question.
+
+00:50:18.000 --> 00:50:21.000
+I think that
+
+00:50:21.000 --> 00:50:35.000
+What optimization pressure ends up exploiting is systematicity in the sense that if they can learn to predict the noise, namely, if the noise is deterministic as opposed to stochastic
+
+00:50:35.000 --> 00:50:46.000
+They can find ways to go beyond it. Like, say, for example, that the noise is dropping every odd indexed word in a message
+
+00:50:46.000 --> 00:50:56.000
+Then the natural strategy to go past this is to embed your steganographic message into the even index words.
+
+00:50:56.000 --> 00:51:04.000
+I think that stochastic jamming or however you want to call it is a promising way
+
+00:51:04.000 --> 00:51:19.000
+Insofar as, you know, we cannot really stimulate truly stochastic schemes, even random numbers in a computer are pseudorandom. And so, in the limit of compute, maybe they break down, but
+
+00:51:19.000 --> 00:51:24.000
+It would be very interesting for me to see how far we can go with
+
+00:51:24.000 --> 00:51:27.000
+normal amounts of compute
+
+00:51:27.000 --> 00:51:34.000
+Nice.
+
+00:51:34.000 --> 00:51:35.000
+Thank you.
+
+00:51:35.000 --> 00:51:47.000
+Awesome, awesome. Thank you very much, Johan. That was amazing. Thank you for the talk. That was great. And we did have a great set of questions. And yeah, thank you everyone for watching. By the way, the recording will go up on the website in the schedule tab and in our Discord.
+
+00:51:47.000 --> 00:51:50.000
+Maybe in like half an hour. As soon as Zoom finishes processing it,
+
+00:51:50.000 --> 00:51:59.000
+And next up we have a talk with Sumit in a few hours, I think in one hour or one and a half hours. So see you.
+
+00:51:59.000 --> 00:52:11.000
+And yeah, and I'll follow up with Joanne about the reading list for the steganography and I will paste it on the website and in Discord also.
+
+00:52:11.000 --> 00:52:12.000
+And awesome, thank you very much.
+
+00:52:12.000 --> 00:52:15.000
+You can probably, yeah, share the slide deck as well. So
+
+00:52:15.000 --> 00:52:23.000
+Oh, that would be great, because some speakers have their notes in the slides, and they don't want to share them, so I never promise slides out of the gate.
+
+00:52:23.000 --> 00:52:25.000
+I can strip them up, no worries.
+
+00:52:25.000 --> 00:52:35.000
+Awesome. I'm going to be doing a post in Discord with reading stuff and the slides and everything, and see you all in two hours or one hour. Not sure.
+
+00:52:35.000 --> 00:52:37.000
+Thank you. Have a good one. Thank you for having me.
+
+00:52:37.000 --> 00:52:41.000
+Thank you, bye.
+

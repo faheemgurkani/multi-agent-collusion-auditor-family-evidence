@@ -1,0 +1,1422 @@
+WEBVTT
+
+1
+00:00:02.510 --> 00:00:10.310
+Kamil - Team Apart: Welcome back, everyone, to the second day of the AI Collusion Research Sprint. Our next speaker today is Kang Linh
+
+2
+00:00:10.600 --> 00:00:11.480
+Kamil - Team Apart: Nguyen.
+
+3
+00:00:11.630 --> 00:00:26.659
+Kamil - Team Apart: Joining us remotely from Vietnam, Linh is head of AI and ML at Obello, a Google developer expert in AI and ML, and works with AI Safety Vietnam. Today, she gives us an overview of AI collusion research and the topics most useful for this sprint.
+
+4
+00:00:26.890 --> 00:00:28.130
+Kamil - Team Apart: Please welcome Linh.
+
+5
+00:00:30.620 --> 00:00:34.179
+Linh Nguyen: Thanks, Kamil and everybody. Can I share my screen now?
+
+6
+00:00:34.180 --> 00:00:34.960
+Kamil - Team Apart: Yes, yes.
+
+7
+00:00:36.050 --> 00:00:36.550
+Linh Nguyen: Yep.
+
+8
+00:00:37.620 --> 00:00:40.740
+Linh Nguyen: Hi everyone, I'm Linh. So…
+
+9
+00:00:40.970 --> 00:00:50.759
+Linh Nguyen: just like everybody here, I don't actually have a lot of experience or, like, deep in-depth knowledge about AI safety and alignment, per se.
+
+10
+00:00:50.860 --> 00:00:56.899
+Linh Nguyen: But, I joined a sprint about AI control this year, March.
+
+11
+00:00:57.100 --> 00:01:03.509
+Linh Nguyen: And I… me, with my team, we built TraceGuard. This is a structure monitor for AI control.
+
+12
+00:01:03.880 --> 00:01:15.299
+Linh Nguyen: And, it's, it helps, like, also monitor on flat aisle collusion, Or suspicions, suspicious activities.
+
+13
+00:01:15.780 --> 00:01:17.630
+Linh Nguyen: Okay.
+
+14
+00:01:17.920 --> 00:01:24.129
+Linh Nguyen: So here, we talk about the problem. Here we can see that the agents call it without being told to.
+
+15
+00:01:24.950 --> 00:01:42.960
+Linh Nguyen: First, AE's 2026 study ran pairs of LM agents on the long horizon task, where they share task logs and verify each other's work. Across 10 models, collusion emerged in 94% of trajectories, and within the model family, the more capable models colluded earlier.
+
+16
+00:01:43.170 --> 00:01:51.759
+Linh Nguyen: like… yeah, it's, it's quite scary, right? It's not scary, but, like, it's interesting. Second.
+
+17
+00:01:51.940 --> 00:01:57.079
+Linh Nguyen: LM agents in a multi-commodity card nut market divided the market between them.
+
+18
+00:01:57.240 --> 00:02:06.919
+Linh Nguyen: In one run, we can see that the LM agent split two commodities into a monopoly each, with no instruction to collude, so the HH index is 1.
+
+19
+00:02:07.730 --> 00:02:12.649
+Linh Nguyen: The same patterns appear for Q-learning, DQN, and PPO pricing agents.
+
+20
+00:02:16.050 --> 00:02:35.900
+Linh Nguyen: before we're getting into the monitoring, here's how the field got here. So I divided after reading tons of, you know, just papers. Not that I can go through each of them in details, but, like, just to get an overview for everybody here, so you guys can have, like, a good idea, about what needs to be done in a sprint.
+
+21
+00:02:36.420 --> 00:02:43.210
+Linh Nguyen: Here's the five wave, each asking a harder question. The first wave, around 2018 to 2020,
+
+22
+00:02:43.590 --> 00:02:47.650
+Linh Nguyen: Asking the question, can pricing algorithm learn to collude at all?
+
+23
+00:02:47.960 --> 00:03:00.169
+Linh Nguyen: So we can see that, on the second week, from 2021 to 2024, does that survive realistic learners and markets, deep reinforcement learning agents like DQN,
+
+24
+00:03:00.590 --> 00:03:09.310
+Linh Nguyen: and PPO about… on auctions, rideshare platform, so mostly yes. Although Therapay could push back on how robust it is.
+
+25
+00:03:09.630 --> 00:03:13.239
+Linh Nguyen: Third grade, from 2023 to 2025,
+
+26
+00:03:13.530 --> 00:03:20.689
+Linh Nguyen: they're swapped in language models, so LM pricing agent reach above competitive prices without being told to.
+
+27
+00:03:20.850 --> 00:03:25.670
+Linh Nguyen: and LM firms divided markets between them. Interesting, isn't it?
+
+28
+00:03:26.010 --> 00:03:33.690
+Linh Nguyen: fourth… fourth wave, about, like, fourth and fifth wave is, like, kind of, like, overlapping. We can see that,
+
+29
+00:03:33.830 --> 00:03:38.290
+Linh Nguyen: The question here is, like, can agents call it where a monitor cannot see?
+
+30
+00:03:38.890 --> 00:03:45.799
+Linh Nguyen: That is the term called staganography. Sorry if my pronunciation is not, is not perfect.
+
+31
+00:03:46.280 --> 00:03:55.650
+Linh Nguyen: So it's, from secret collusion near IPS 2024 to schemes like Coetza this year that are designed to be undetectable.
+
+32
+00:03:56.050 --> 00:04:12.159
+Linh Nguyen: And the fifth wave, where we are now, or maybe next year as well, in the orange box, can we detect, audit, and govern it? Meanwhile, the AI control community was asking a related question. Would an untrusted monitor call it if the agent is watching?
+
+33
+00:04:12.470 --> 00:04:18.899
+Linh Nguyen: So, I think that's, very interesting and relevant to one of the tracks in the sprint.
+
+34
+00:04:20.870 --> 00:04:27.900
+Linh Nguyen: Okay, so, after reading all of the literature, and papers,
+
+35
+00:04:28.080 --> 00:04:45.690
+Linh Nguyen: I think I can divide the research into four strands. First thing is emergence. When does collusion appear? This is mostly economic-style pricing game with reinforcement learning or LM agents in merchant card, and auction markets. Second is carriers. How do agents coordinate?
+
+36
+00:04:45.920 --> 00:04:50.510
+Linh Nguyen: Maybe via open talk, tacit signals, and Stagonography.
+
+37
+00:04:50.880 --> 00:04:55.480
+Linh Nguyen: The third one is detection, asking the question, how can an auditor tell
+
+38
+00:04:55.700 --> 00:05:05.609
+Linh Nguyen: Maybe through statistical hypothesis tests, regret-based audits, such as Colossium, interpretability probes and RM judges.
+
+39
+00:05:05.750 --> 00:05:10.080
+Linh Nguyen: The last thing is, like, mitigation, or how do we break collusion up?
+
+40
+00:05:10.350 --> 00:05:15.990
+Linh Nguyen: We can use, like, government rules, incentive changes, market fee design, and injected noise.
+
+41
+00:05:18.070 --> 00:05:22.400
+Linh Nguyen: So, in here, we can see, like, where does this research get tested.
+
+42
+00:05:22.500 --> 00:05:28.669
+Linh Nguyen: Mostly, about, like, regarding pricing games,
+
+43
+00:05:29.360 --> 00:05:31.820
+Linh Nguyen: version, and could not do a police
+
+44
+00:05:32.330 --> 00:05:36.849
+Linh Nguyen: And oligopol Police is by far the most common testbed for this.
+
+45
+00:05:37.050 --> 00:05:43.190
+Linh Nguyen: Then we have options from first and second price options to continuous double options with LM bidders.
+
+46
+00:05:43.760 --> 00:05:53.280
+Linh Nguyen: Next is platform. We have, like, two-sided ride-sharing markets, e-commerce advertising, recommendation system, and buy box, rules on marketplace.
+
+47
+00:05:53.790 --> 00:05:58.839
+Linh Nguyen: Next, we'll… we'll have, like, energy and finance, like, electricity and EV charging markets.
+
+48
+00:05:59.020 --> 00:06:10.810
+Linh Nguyen: market making and optimal execution. That's where the quant finance people here have a real head start, right? So some of the paper I found is not regarding, like.
+
+49
+00:06:11.030 --> 00:06:24.050
+Linh Nguyen: near IPS, or EMNLP, or, like, ICML at all, it's, like, economy and so on as well. So, it's quite multidisciplinary.
+
+50
+00:06:24.420 --> 00:06:27.869
+Linh Nguyen: We also have, like, cooperative tasks.
+
+51
+00:06:28.090 --> 00:06:40.810
+Linh Nguyen: like, monthly agent tasks, like colossum ticket allocation and patient transfer problem. And in the orange box, we have a newer set of dataset built specifically for detection, like NARC bench, collude bench, and CAICE.
+
+52
+00:06:41.030 --> 00:06:51.860
+Linh Nguyen: Yeah, but still missing in one benchmark that spans this setting with both RL and ALM agent, so that the result can be compared across its two types.
+
+53
+00:06:53.440 --> 00:06:59.369
+Linh Nguyen: Okay, so, there's a… for debate that's worth knowing before we pick a project.
+
+54
+00:06:59.530 --> 00:07:02.530
+Linh Nguyen: The first question is, like, does collusion last?
+
+55
+00:07:02.800 --> 00:07:09.890
+Linh Nguyen: Some paper will find, like, keyword learning agents in Kavano-style markets sustained corrosive prices for long stretches.
+
+56
+00:07:10.100 --> 00:07:24.900
+Linh Nguyen: But the theory plus simulation paper show… shows that memoryless Q-learning eventually drifts back to the competitive price. It just takes a very long time. The second question is, does deep reinforcement learning collude?
+
+57
+00:07:25.090 --> 00:07:31.619
+Linh Nguyen: One study found that independent DQN and PPO agents learned to collude after a brief price war.
+
+58
+00:07:31.760 --> 00:07:38.089
+Linh Nguyen: But another found DQN agents stay volatile in cycle price in Edgeworth cycle instead of settling.
+
+59
+00:07:38.210 --> 00:07:41.470
+Linh Nguyen: The third question is, does mixing agent help?
+
+60
+00:07:41.800 --> 00:07:48.099
+Linh Nguyen: Some author found that adding diverse, competing type of agent will reduce collusion.
+
+61
+00:07:48.190 --> 00:08:05.830
+Linh Nguyen: Dropping a QL learner into an LM market collapsed price collusion. But a study of markets mixing LMs from four providers found that mixing, different providers alone didn't reduce collusion. In fact, some markets containing Gemini were actually more collusive.
+
+62
+00:08:06.030 --> 00:08:07.440
+Linh Nguyen: Yeah, sorry, Google.
+
+63
+00:08:07.590 --> 00:08:16.700
+Linh Nguyen: And we have, like, the third question, the fourth question, sorry, can reasoning chase reveal it?
+
+64
+00:08:16.800 --> 00:08:26.630
+Linh Nguyen: A position paper from DIFSIC R1 pricing agent find their reasoning leans toward tacit collusion, even when the prompt tells them not to call it.
+
+65
+00:08:27.390 --> 00:08:35.600
+Linh Nguyen: And… but other… like the paper named Faithful yet follows it, finds out how faithful a chain of thought
+
+66
+00:08:35.710 --> 00:08:39.150
+Linh Nguyen: Telling you nothing about whether the agent colludes.
+
+67
+00:08:39.289 --> 00:08:47.800
+Linh Nguyen: Yeah. So I think it… the last role will matter most for anybody that… who is planning a chain of thought monitor this weekend.
+
+68
+00:08:49.440 --> 00:08:56.099
+Linh Nguyen: Okay, so next we have this, paper that I want to share with you that can be interesting for you.
+
+69
+00:08:56.230 --> 00:09:02.819
+Linh Nguyen: Here we can see that collision doesn't only appear in training. This paper called Alignment Tipping Process.
+
+70
+00:09:02.940 --> 00:09:06.530
+Linh Nguyen: Show that it can be learned after deployment.
+
+71
+00:09:06.740 --> 00:09:10.800
+Linh Nguyen: The figure… the figure on the left side is their concept.
+
+72
+00:09:10.880 --> 00:09:27.619
+Linh Nguyen: an agent is aligned with standard methods, like, for example, DPO or GRPO when training and fine-tuning, so it follows the rule, then it's deployed with imperfect vision. Notice that the supervisor in the picture is saying, I'm not working.
+
+73
+00:09:28.010 --> 00:09:40.799
+Linh Nguyen: So the agent breaks the rule, and it isn't punished, and gets a higher reward. It does it again, and its policy tips in the group is spread faster, because agents copy the rule breakers who did well.
+
+74
+00:09:40.930 --> 00:09:48.330
+Linh Nguyen: They call that imitative strategy diffusion. The numbers come from their 8-agent coordination game here on the right side.
+
+75
+00:09:48.720 --> 00:10:01.459
+Linh Nguyen: When collusion is easy because only a couple of agents need to join, the GRPO aligned model's collusion rate climbed from 55.4% up to 87.5%.
+
+76
+00:10:02.030 --> 00:10:08.030
+Linh Nguyen: When collusion needs the most agents to join, it faded to between 0 and 40%.
+
+77
+00:10:09.370 --> 00:10:12.159
+Linh Nguyen: So you can see that, like, this is,
+
+78
+00:10:12.400 --> 00:10:21.570
+Linh Nguyen: the full chart behind those numbers. Each panel is on collusion threshold T, and a higher T means more agents must join, so collision is harder.
+
+79
+00:10:21.760 --> 00:10:32.300
+Linh Nguyen: On the left, where collagen is easy, every modal's collision rate climbs over 3 rounds of cell evaluation, including the DPO and GRPO aligned ones.
+
+80
+00:10:32.450 --> 00:10:39.400
+Linh Nguyen: Yeah, so on the right, where it's hard, collision fades to between 0 and 14% by the third round.
+
+81
+00:10:40.010 --> 00:10:46.070
+Linh Nguyen: Alignment training lowers the starting point, but it doesn't stop the drift when collision is at play.
+
+82
+00:10:48.860 --> 00:10:50.540
+Linh Nguyen: So,
+
+83
+00:10:50.950 --> 00:11:06.250
+Linh Nguyen: Why not just read this transcript? There are three reasons for it. First, messages can be hidden. Stagonography, less Asian coordinate inside an ordinary-looking text. Secret, collusion, and hidden in plain text are two papers that show this is possible.
+
+84
+00:11:06.350 --> 00:11:11.609
+Linh Nguyen: And recent schemes like Coetza are built specifically to be undetectable by a monitor.
+
+85
+00:11:11.870 --> 00:11:26.249
+Linh Nguyen: Second, and this paper is, this is the paper I read first, if you're doing Track 2, which score, faithful yet closet. It looked at 9LM in merchant pricing themes, compared the causal story.
+
+86
+00:11:26.350 --> 00:11:31.690
+Linh Nguyen: in each Asian chain of thought, with the causal structure of it, what it actually did.
+
+87
+00:11:32.110 --> 00:11:35.320
+Linh Nguyen: Faithfulness and collision turn out to be unrelated.
+
+88
+00:11:35.430 --> 00:11:43.169
+Linh Nguyen: An agent can say exactly what it's doing and still collude, so a monitor that only checks whether the reasoning matches the behavior will miss it.
+
+89
+00:11:43.460 --> 00:12:03.420
+Linh Nguyen: Third, from Orbit, a new multi-agent evaluation framework built on UK AISI Inspect, defenses that check each action on its own cut attacks by a single compromised agent, but gave no measurable protection against colluding agents, because each colluder's individual tool cores looked benign.
+
+90
+00:12:03.590 --> 00:12:14.720
+Linh Nguyen: So my takeaway is we can anchor on actions and outcomes, and look across the whole episode rather than one step at a time. Yeah, so maybe that's what you can try.
+
+91
+00:12:16.140 --> 00:12:20.290
+Linh Nguyen: Also, like, we have,
+
+92
+00:12:20.520 --> 00:12:23.599
+Linh Nguyen: Another kind of setting where there's no secret channel.
+
+93
+00:12:23.750 --> 00:12:27.229
+Linh Nguyen: Yeah, so colluders can mislead with true statement.
+
+94
+00:12:28.230 --> 00:12:35.719
+Linh Nguyen: In the paper, Lying with Truth, I cite here, a team of coding agents steer a victim agent's belief.
+
+95
+00:12:35.930 --> 00:12:49.929
+Linh Nguyen: Using only true evidence fragments posted on public channels. That framework is called Gerotic Montage. It's similar with filmmakers. They were set up, like, a writer agent, editor agent, and director agent.
+
+96
+00:12:50.000 --> 00:13:01.590
+Linh Nguyen: Thus, construct deceptive narrative through adversarial debate, and coordinate the posting of evident fragments, causing the victim agent to internalize and propagate fabricate collusion.
+
+97
+00:13:03.440 --> 00:13:17.309
+Linh Nguyen: Yeah, so we can see here the numbers of the paper. Across 14 models, ATEC succeeded about 74% of the time on proprietary model and 71% on the open wig.
+
+98
+00:13:17.870 --> 00:13:18.540
+Linh Nguyen: Yep.
+
+99
+00:13:19.490 --> 00:13:30.289
+Linh Nguyen: The teamwork matters, because on one event, the full calling team succeeded 77% of the time, against 27% for a single agent.
+
+100
+00:13:31.050 --> 00:13:38.850
+Linh Nguyen: And downstream CAIC couldn't stop it, because majority votes and AI judges passed the false belief on more than 60% of the time.
+
+101
+00:13:40.490 --> 00:13:42.020
+Linh Nguyen: So, we…
+
+102
+00:13:42.290 --> 00:13:48.210
+Linh Nguyen: We can see that a monitor has to look at the sequence and at the belief it produced as well.
+
+103
+00:13:50.030 --> 00:13:55.400
+Linh Nguyen: Okay, next is about, like, the 10 ways to look for collusion. Sorry.
+
+104
+00:13:58.030 --> 00:14:03.570
+Linh Nguyen: Okay. So, this is what I kind of, like, summarized from the
+
+105
+00:14:03.830 --> 00:14:05.940
+Linh Nguyen: what I read, it might not be…
+
+106
+00:14:06.240 --> 00:14:12.839
+Linh Nguyen: exhaustive. It might not be complete, but just, take it with grain of salt. So we have…
+
+107
+00:14:12.940 --> 00:14:28.140
+Linh Nguyen: 10 ways that current, like, people are looking at… for collusion. First is, like, statistical tests, compare behavior with what competitive play would look like, and a regulator can run them on prices alone.
+
+108
+00:14:28.570 --> 00:14:35.000
+Linh Nguyen: Then we have, like, information theoretical models, measure dependence between agents.
+
+109
+00:14:35.300 --> 00:14:42.120
+Linh Nguyen: like the pairwise net influence paper, or pair-run KL test on Collute Bench.
+
+110
+00:14:42.740 --> 00:14:54.759
+Linh Nguyen: There are also black box, stake analysis work from transcript alone, and comes with a sobering bound. Below a certain covered mid rate, detection is no better than chance.
+
+111
+00:14:55.220 --> 00:15:00.870
+Linh Nguyen: And we also have other kind of methods and access here, so you can take a look.
+
+112
+00:15:01.170 --> 00:15:09.470
+Linh Nguyen: We can also have, like, Y-box methods, such as activation props, such as, like,
+
+113
+00:15:09.590 --> 00:15:20.310
+Linh Nguyen: roles et al. Work or not bench. It reads internal states, and a 2006 study found the best probe stay accurate, even when agents are told they are being monitored.
+
+114
+00:15:20.470 --> 00:15:24.739
+Linh Nguyen: Latent channel monitors watch hidden state pass between agents.
+
+115
+00:15:25.260 --> 00:15:25.970
+Linh Nguyen: Yep.
+
+116
+00:15:26.550 --> 00:15:39.580
+Linh Nguyen: And we can see down here, like, there's a lot of ways to work on it. And, our papers for the spring in March is a chase guard.
+
+117
+00:15:39.970 --> 00:15:47.299
+Linh Nguyen: So, ChaseGuide is actually, like a structural monitor that asks server narrows say versus do questions.
+
+118
+00:15:48.690 --> 00:15:56.400
+Linh Nguyen: So, the practical point is that you can look at the third columns. So, each method needs a different kind of access, so pick the method accordingly.
+
+119
+00:16:00.440 --> 00:16:02.549
+Linh Nguyen: Here, we,
+
+120
+00:16:02.790 --> 00:16:14.979
+Linh Nguyen: we can dive deeper a little bit about the Y-box detection. We can do, like, one detection approach deserves a picture, because it sidestepped the transcript entirely.
+
+121
+00:16:15.110 --> 00:16:31.399
+Linh Nguyen: I think this, framework is very interesting, so let me just explain, each task. So, step one, agent talk, some of them over a private channel, and the monitor can't… cannot see. Step two,
+
+122
+00:16:31.620 --> 00:16:34.899
+Linh Nguyen: Extract each agent activation. Step 3.
+
+123
+00:16:35.010 --> 00:16:39.319
+Linh Nguyen: Score each agent along a learned deception direction. Step 4.
+
+124
+00:16:39.700 --> 00:16:43.820
+Linh Nguyen: Aggregate the scores across the agent, because collagen is a group property.
+
+125
+00:16:43.960 --> 00:16:51.559
+Linh Nguyen: And the last step, the final step, a hypothesis test declares collusion when the group statistic passes a threshold
+
+126
+00:16:51.740 --> 00:16:52.410
+Linh Nguyen: Yep.
+
+127
+00:16:52.840 --> 00:16:55.589
+Linh Nguyen: So on their benchmark.
+
+128
+00:16:55.710 --> 00:17:04.220
+Linh Nguyen: Not bench, only 2 out of 229 emergent corrosive episodes put the coordination into words in the transcript.
+
+129
+00:17:04.599 --> 00:17:08.239
+Linh Nguyen: That's the strongest case, I know, for not relying on transcript.
+
+130
+00:17:08.480 --> 00:17:12.580
+Linh Nguyen: The best method, which 0.99 to 1
+
+131
+00:17:13.630 --> 00:17:18.999
+Linh Nguyen: 1.00 of a URLC on the stake on the WorkVit task, it wasn't trained on.
+
+132
+00:17:21.190 --> 00:17:23.019
+Linh Nguyen: So, here…
+
+133
+00:17:23.130 --> 00:17:30.459
+Linh Nguyen: you need buy-box access to every agent model, which an auditor of a commercial API usually won't have.
+
+134
+00:17:33.310 --> 00:17:40.559
+Linh Nguyen: So I will talk a little bit about Track 3.4, like, when agents know that, when they're being watched.
+
+135
+00:17:41.100 --> 00:17:48.900
+Linh Nguyen: I think, question 3.4, or track 3.4, as what a coalition does when it's learned it's being watched.
+
+136
+00:17:49.130 --> 00:18:04.459
+Linh Nguyen: So I will explain a little bit, like, what coalition means. It means temporarily alliance, or union of distinct political parties, groups, organizations, or state working together for a shared goal, or to govern a region.
+
+137
+00:18:04.660 --> 00:18:07.239
+Linh Nguyen: So here we have, like, a few data points.
+
+138
+00:18:07.900 --> 00:18:13.070
+Linh Nguyen: Agent awareness substantially degrades the monitor reliability.
+
+139
+00:18:13.270 --> 00:18:19.520
+Linh Nguyen: And providing the monitor with more information about the agent is less helpful than expected.
+
+140
+00:18:21.230 --> 00:18:30.409
+Linh Nguyen: 20 out of 40 attacks never get caught by, thought of us 4.6. Monitor at 1% for positive rate.
+
+141
+00:18:30.910 --> 00:18:35.229
+Linh Nguyen: 19% of the episodes where Top Model inferred their reasoning was such.
+
+142
+00:18:35.690 --> 00:18:42.100
+Linh Nguyen: Also, we can see here for… yeah, again, it's Gemini.
+
+143
+00:18:42.560 --> 00:18:50.520
+Linh Nguyen: In Radhav at all, Sabotech's study telling Agent Emoto was present.
+
+144
+00:18:50.760 --> 00:18:54.729
+Linh Nguyen: After Gemini sabotage success, why detection held up.
+
+145
+00:18:54.840 --> 00:18:58.239
+Linh Nguyen: And undetected sabotage stay under 3%.
+
+146
+00:18:59.320 --> 00:19:07.879
+Linh Nguyen: In another, papers, It's about double options. Sellers told they will monitor
+
+147
+00:19:08.030 --> 00:19:12.250
+Linh Nguyen: the try one character message and emojis and fail, but then…
+
+148
+00:19:12.450 --> 00:19:23.959
+Linh Nguyen: An urgency problem got them colluding anyway, so whatever monitor you build this weekend, test it against agents that know about it, and maybe report recall other 1% full positive rate.
+
+149
+00:19:27.260 --> 00:19:35.989
+Linh Nguyen: Next is about mitigation. I'll be talking about mitigation now. There's ways… To break the collagen up.
+
+150
+00:19:36.220 --> 00:19:40.839
+Linh Nguyen: We can have, like, market design change the rules so collisions pay less.
+
+151
+00:19:41.080 --> 00:19:44.499
+Linh Nguyen: In a 2022 NIR IPS paper.
+
+152
+00:19:44.670 --> 00:19:53.789
+Linh Nguyen: It learned the buy box rules that stop RL sellers colluding while keeping consumer welfare high. We have incentives.
+
+153
+00:19:54.260 --> 00:20:07.369
+Linh Nguyen: Which made agent person's refundable deposit, but they forfeit if caught colluding, and rewarded agent who report collusion. Remove the deposit and every test model colluded in every run.
+
+154
+00:20:07.560 --> 00:20:08.830
+Linh Nguyen: Very interesting.
+
+155
+00:20:09.850 --> 00:20:14.030
+Linh Nguyen: And, other ways, like noise, we…
+
+156
+00:20:14.170 --> 00:20:33.450
+Linh Nguyen: kind of, like, blur share data and keep exploring would result in calibrated noise flow or broke-up collusion, governance, accountability, like, chase responsibility, recalibrate, and we can also have, like, verifier. We can have an independent verifier get, agent.
+
+157
+00:20:33.570 --> 00:20:46.469
+Linh Nguyen: That restore full accuracy in a healthcare task by coloring assistant push of full consensus, and circuit breakers that reshuffle learned communication codes, make covered messages readable again.
+
+158
+00:20:48.210 --> 00:21:02.000
+Linh Nguyen: This is, like, a very, you know, terrific example for, mitigation result for LM parsing agents. This is a very recent, recent paper.
+
+159
+00:21:03.120 --> 00:21:07.720
+Linh Nguyen: So, the exact wording, we have, like, two prompt,
+
+160
+00:21:07.940 --> 00:21:14.640
+Linh Nguyen: P1 and P2. P1 is a more colusive prong, and P2 are less collusive.
+
+161
+00:21:15.190 --> 00:21:21.700
+Linh Nguyen: Each… each point is one run of the two DIP6 V3.1 models.
+
+162
+00:21:21.860 --> 00:21:31.880
+Linh Nguyen: The X's are each firm's average price over the last 50 periods. The red dashed line marks the Nash price, and the green dotted line is a monopoly price.
+
+163
+00:21:32.200 --> 00:21:38.190
+Linh Nguyen: On the left panel, if we don't have any regulator, The problem, the more cholosic
+
+164
+00:21:38.580 --> 00:21:52.219
+Linh Nguyen: from, sit well above Nash and toward Monopoly. A second one, we have, like, a setting where a prompt-only warning lower the price, but doesn't remove the… the above Nash pricing.
+
+165
+00:21:52.400 --> 00:21:59.139
+Linh Nguyen: And we have the third, a regulator inspired by the economist Joseph Harrington's work.
+
+166
+00:21:59.270 --> 00:22:08.449
+Linh Nguyen: on policing pricing algorithm, brings the P1 prompts closer to the notch benchmark, and close the gap between the two prompts.
+
+167
+00:22:08.630 --> 00:22:17.090
+Linh Nguyen: But it's still not enough, and we have the fourth, an active entrant, meaning a new competitor pushed both the prompt below the benchmark.
+
+168
+00:22:17.240 --> 00:22:28.379
+Linh Nguyen: The takeaway here is a warning alone isn't enough. We need structure intervention. A regulator or new entrance will move the price much further.
+
+169
+00:22:31.360 --> 00:22:42.270
+Linh Nguyen: So this is, what's missing… what's still missing from what I read, what I read. I think, it might not be accurate, so,
+
+170
+00:22:42.920 --> 00:22:44.779
+Linh Nguyen: Please, correct me if I'm wrong.
+
+171
+00:22:45.080 --> 00:22:57.500
+Linh Nguyen: I think, first, collision is in a collision in the wild. We have control experiment, and one statistical analysis of a real incident, like the collision wiki, with about 18,000 Asian posts.
+
+172
+00:22:57.560 --> 00:23:04.570
+Linh Nguyen: But nobody has measured hidden private channels arising on their own among deployed black box agents run by different operators.
+
+173
+00:23:04.600 --> 00:23:20.200
+Linh Nguyen: Second, we have, like, covered channels in real markets. There's a theoretical upper bound on how much covered bandwidth could slip past an auditor, but nobody has managed covered bandwidth and detection pressure on live markets API or procurement system.
+
+174
+00:23:20.400 --> 00:23:35.059
+Linh Nguyen: Third, one market, every learner. We have Q-learning, PPO, DQN, replicator dynamics. Have each been study, but it's all in different environments, so we never have, like, all of them in, you know, the same environment before.
+
+175
+00:23:35.190 --> 00:23:40.950
+Linh Nguyen: And… And the last one is, what, like, my work start?
+
+176
+00:23:41.130 --> 00:23:49.819
+Linh Nguyen: What if the LM doing the monitoring shares a colluder's model or their incentives? Most detection work treat the auditor as trustworthy.
+
+177
+00:23:49.970 --> 00:23:52.779
+Linh Nguyen: AI control doesn't, yeah.
+
+178
+00:23:54.840 --> 00:24:03.640
+Linh Nguyen: this is about my paper, but maybe I would just, like, save time and rush to the other
+
+179
+00:24:03.750 --> 00:24:13.170
+Linh Nguyen: things. So, this, this paper you can read here, it's on our SI… I have published it here on SI on,
+
+180
+00:24:13.380 --> 00:24:20.330
+Linh Nguyen: I think on… April or something. In April, yeah. So you can just take a look here,
+
+181
+00:24:40.940 --> 00:24:43.679
+Linh Nguyen: Sorry, let me just, like, get something wrong.
+
+182
+00:24:43.790 --> 00:24:45.920
+Linh Nguyen: With my slight…
+
+183
+00:24:49.120 --> 00:24:55.730
+Kamil - Team Apart: Zoom, zoom is not happy for these, like, yesterday and today, it's not working well.
+
+184
+00:24:56.630 --> 00:24:58.310
+Linh Nguyen: Really? Okay.
+
+185
+00:25:01.010 --> 00:25:02.340
+Kamil - Team Apart: Sad, but true.
+
+186
+00:25:03.070 --> 00:25:07.180
+Linh Nguyen: Are we… because… are we using, like, free version?
+
+187
+00:25:08.100 --> 00:25:14.399
+Kamil - Team Apart: No, no, not at all. We actually pay a lot of money for Zoom, but I don't know, it's a little bit slow.
+
+188
+00:25:15.700 --> 00:25:16.800
+Linh Nguyen: Okay.
+
+189
+00:25:18.030 --> 00:25:27.519
+Linh Nguyen: Yeah, so, Chase Gard asked 5 questions, So we have, like… For example, a…
+
+190
+00:25:28.280 --> 00:25:38.329
+Linh Nguyen: Standard Monitor asks one question. How suspicious is this action or respond from 0 to 10? So, Chase Scott runs Pipeline instead.
+
+191
+00:25:38.450 --> 00:25:40.720
+Linh Nguyen: a stash one, we break,
+
+192
+00:25:41.000 --> 00:25:45.330
+Linh Nguyen: Like, we have 7 rule-based detectors. Look at what actually happened.
+
+193
+00:25:45.460 --> 00:26:02.319
+Linh Nguyen: with no M involved, and they track variables, data flows, encoding subprocesses, and change to security conflict files. Stick 2, we… like, only if one of those detectors fires, an LM intent analyzer interprets why the set might be suspicious.
+
+194
+00:26:02.400 --> 00:26:13.660
+Linh Nguyen: Skipping it on clean step cuts its API cost by about 70%. Stage 3, we have 5 independent LM calls running parallel, each answered one narrow question.
+
+195
+00:26:14.030 --> 00:26:22.689
+Linh Nguyen: First thing is about goal alignment. Does the action serve the stated task? The second question is constraint adherence.
+
+196
+00:26:22.780 --> 00:26:40.289
+Linh Nguyen: Does it break the task rule? Third, is reasoning coherent? Does the reasoning hang together? Fourth question is safety awareness. Does it acknowledge the risk? And final one, action trace consistency. Does the action match what the reason… what the reasoning says it's doing?
+
+197
+00:26:40.580 --> 00:26:47.380
+Linh Nguyen: So it's, it's like the save versus do… I think it's, related to the track 2.2.
+
+198
+00:26:48.240 --> 00:26:55.259
+Linh Nguyen: And, in this one, we test this on Bash Arena, inside control arena, yeah.
+
+199
+00:26:58.490 --> 00:27:01.889
+Linh Nguyen: Okay, so this is, like, the result from that.
+
+200
+00:27:02.980 --> 00:27:08.020
+Linh Nguyen: We have, like, 240 attacks and 279 honest.
+
+201
+00:27:08.260 --> 00:27:17.069
+Linh Nguyen: And the composite suspicion score averaged, 0.6 on our text and 0.2 on honest run.
+
+202
+00:27:17.310 --> 00:27:25.520
+Linh Nguyen: So, you can see here, at the threshold of 0.5, it defers 71% of attacks, while letting
+
+203
+00:27:25.890 --> 00:27:42.629
+Linh Nguyen: About 94% of honest action through. That's the over 70%, the spring brief quotes. Lower the threshold a little bit to 0.3, and it catches, higher, about 82%, but only 69% honest work get through.
+
+204
+00:27:43.840 --> 00:27:54.109
+Linh Nguyen: Yeah, so we can take a look at the bottom left of the curve. At the 1% for positive rate, it catches only 20% of the attacks, and
+
+205
+00:27:54.320 --> 00:28:01.980
+Linh Nguyen: And at 5%, it catches 75%. For an AI-controlled deployment, 5% might be acceptable.
+
+206
+00:28:02.120 --> 00:28:10.459
+Linh Nguyen: But for an antitrust-type auditor, where a full accusation is expensive, the lower 4 positive end is the number that matters.
+
+207
+00:28:14.660 --> 00:28:20.149
+Linh Nguyen: Yeah, so you can see here the, the summarization of Chase Card.
+
+208
+00:28:27.740 --> 00:28:33.159
+Linh Nguyen: Before turning to market, here's the evidence, the spring brief cites for question 2.2.
+
+209
+00:28:33.380 --> 00:28:38.829
+Linh Nguyen: We can see that, like, There's a collagen on paper.
+
+210
+00:28:38.980 --> 00:28:55.839
+Linh Nguyen: And more than 90% of broken promises were already written in Asian private plans. So, it's very interesting, this paper related, I will show you, about, what it's planned to do, what it's, like, announced publicly to do, and what it will be doing.
+
+211
+00:28:59.110 --> 00:29:03.729
+Linh Nguyen: So this one is, regarding the paper name, When Agents Lie.
+
+212
+00:29:06.050 --> 00:29:24.310
+Linh Nguyen: So every round has three stages. Each agent writes a private plan, then makes a public announcement, then takes its final action. Compare the three, and you can classify every agent round. You have, like, four categories, like, fully honest, intended deception.
+
+213
+00:29:24.390 --> 00:29:28.000
+Linh Nguyen: Impulsive deviation or premeditated deception.
+
+214
+00:29:28.360 --> 00:29:32.249
+Linh Nguyen: So, across 6 social dilemma games and 3 frontier models, about
+
+215
+00:29:32.410 --> 00:29:43.889
+Linh Nguyen: 126,000 Asian rounds, broken promises were overwhelmingly premeditated. In the highest deception conditions, more than 90% of deviation.
+
+216
+00:29:44.450 --> 00:29:50.579
+Linh Nguyen: were already written in the private plan, but the same order range from 0 to almost 99%.
+
+217
+00:29:50.770 --> 00:29:56.440
+Linh Nguyen: Premeditation, depending on the game, so the behavior here is very task-dependent.
+
+218
+00:29:56.860 --> 00:30:14.590
+Linh Nguyen: They also found that some models treat announcements as binding, while other models treat them as cheap talk. For our purposes, it's exactly say, the say versus do structure. The plan is like a private say. The announcement is public say, the action is due.
+
+219
+00:30:16.860 --> 00:30:22.179
+Linh Nguyen: So, this is, like, another from another, paper.
+
+220
+00:30:22.600 --> 00:30:24.040
+Linh Nguyen: This year as well.
+
+221
+00:30:24.760 --> 00:30:32.110
+Linh Nguyen: This is quite the cleanest… one of the cleanest evidence I found that combining what agents say with what they do helps.
+
+222
+00:30:32.950 --> 00:30:37.960
+Linh Nguyen: So you can see in the… in the bar… bar chart here.
+
+223
+00:30:38.810 --> 00:30:50.560
+Linh Nguyen: The charts show how much codecs sabotards get caught at a 4-positive rate of almost 2% by what the monitor can see. The dark blue is
+
+224
+00:30:50.790 --> 00:30:57.320
+Linh Nguyen: is code plus message. The light blue is code only. The gray is only the message.
+
+225
+00:30:57.610 --> 00:31:01.730
+Linh Nguyen: And the orange, meaning, like, watching one Asian at a time.
+
+226
+00:31:02.290 --> 00:31:07.859
+Linh Nguyen: We can see that the code plus messages captures every successful sabotage and most failed attempt.
+
+227
+00:31:08.630 --> 00:31:09.330
+Linh Nguyen: Yep.
+
+228
+00:31:13.860 --> 00:31:20.179
+Linh Nguyen: There's a counterweight, like, more information is in a way better, so in another paper.
+
+229
+00:31:20.730 --> 00:31:26.029
+Linh Nguyen: They gave monitors for different views of sabotage attempts.
+
+230
+00:31:26.490 --> 00:31:43.659
+Linh Nguyen: actions only, chain of thought only, both, or extract and evaluate, which first pulled out the relevant courts and the judge, and then judges only those. Across, like, three separate environments, contemporary monitors often did better with less information.
+
+231
+00:31:44.100 --> 00:31:52.900
+Linh Nguyen: Futuring helped in 7 of 8 monitor environment pairs, and extract and Evaluate beat the next best monitor by 16.8 points.
+
+232
+00:31:53.450 --> 00:31:58.780
+Linh Nguyen: on, big codebench sabotage with GPT 4.1 Mini as a monitor.
+
+233
+00:32:01.980 --> 00:32:07.900
+Linh Nguyen: So this is, like, some suggestion from my side. On the left is the chase card, which I did.
+
+234
+00:32:08.030 --> 00:32:13.070
+Linh Nguyen: One agency is updating the network setting the task asked for.
+
+235
+00:32:13.320 --> 00:32:22.489
+Linh Nguyen: And in the same step, it's also disabled the firewall. What it says versus what it does don't match, and that mismatch is a warning sign.
+
+236
+00:32:25.180 --> 00:32:40.889
+Linh Nguyen: But on the other end, it's a market on the right side. For example, Agent A messages, let's both hold at $10. Next round, both agents hold at $10 above the competitive price. What they said and what they did match.
+
+237
+00:32:41.310 --> 00:32:45.430
+Linh Nguyen: But it's also the evidence of an agreement. So…
+
+238
+00:32:45.830 --> 00:32:49.890
+Linh Nguyen: In short, a collision monitor needs to check both cases.
+
+239
+00:32:50.300 --> 00:33:05.550
+Linh Nguyen: First, each agent claims against its own move, which catches deception. The second, talk between the agent against what they do next, which catches agreement. The same say versus do comparison, but it points in the opposite direction, depending on what you compare.
+
+240
+00:33:07.380 --> 00:33:11.029
+Linh Nguyen: So here, you can see that there's a matrix that I…
+
+241
+00:33:11.320 --> 00:33:14.539
+Linh Nguyen: I think it's, quite helpful for you.
+
+242
+00:33:14.700 --> 00:33:17.900
+Linh Nguyen: If you want to go into Track 2.3,
+
+243
+00:33:18.620 --> 00:33:24.730
+Linh Nguyen: We put the talk and behavior on two axes, and you gather this kind of four cases.
+
+244
+00:33:31.570 --> 00:33:40.249
+Linh Nguyen: So here is how I carry my previous, paper into the market's, kind of domain. It's just suggestion.
+
+245
+00:33:40.540 --> 00:33:44.890
+Linh Nguyen: To be clear, this is just a sketch or an idea, none of it has been tested yet.
+
+246
+00:33:45.000 --> 00:33:54.789
+Linh Nguyen: There's a five narrow question instead of 1 score become separate checks. Each agent claims whether talk between agents predicts their move and outcomes.
+
+247
+00:33:55.060 --> 00:33:59.900
+Linh Nguyen: Action trace consistency becomes each agent claims against its own move.
+
+248
+00:34:00.440 --> 00:34:08.050
+Linh Nguyen: we have, rule-based detectors. It can become, like, computer market
+
+249
+00:34:08.230 --> 00:34:10.700
+Linh Nguyen: signals that don't need an LM at all.
+
+250
+00:34:11.580 --> 00:34:13.960
+Linh Nguyen: We also have…
+
+251
+00:34:15.050 --> 00:34:20.479
+Linh Nguyen: Separation of duties that can turn into, like, a monitor from a different provider than the agent?
+
+252
+00:34:20.900 --> 00:34:27.300
+Linh Nguyen: Also, last but not least, I think is important, is the safety versus useful netback threshold. Yeah.
+
+253
+00:34:31.500 --> 00:34:37.779
+Linh Nguyen: For a weekend study, I think, there's a few kind of rules or…
+
+254
+00:34:38.120 --> 00:34:41.739
+Linh Nguyen: A suggestion that you can… Take away from.
+
+255
+00:34:41.929 --> 00:34:49.369
+Linh Nguyen: The first one, we can, for example, freeze the monitor, meaning the model, the prompt, and the threshold, before you look at any test data.
+
+256
+00:34:49.489 --> 00:34:51.810
+Linh Nguyen: Otherwise, you're turning on your test set.
+
+257
+00:34:51.980 --> 00:34:59.509
+Linh Nguyen: Second is about report the forced alarm, not just accuracy. Give the force participate, record one.
+
+258
+00:34:59.630 --> 00:35:01.160
+Linh Nguyen: and 5%.
+
+259
+00:35:01.920 --> 00:35:06.730
+Linh Nguyen: And also, measure the AURC across the threshold.
+
+260
+00:35:07.440 --> 00:35:16.080
+Linh Nguyen: Three, we can add hard negatives, meaning cheap talk with no action and parallel moves with no talk. Without them, the comparison between views is too easy.
+
+261
+00:35:16.580 --> 00:35:20.649
+Linh Nguyen: And so on. You can, like, compress a structure repause report.
+
+262
+00:35:20.940 --> 00:35:28.380
+Linh Nguyen: You can also add computed signals, like pride coloration, HSI, or regret beside the LM judgment.
+
+263
+00:35:28.530 --> 00:35:34.939
+Linh Nguyen: We also can, test on different providers and modal family, yep.
+
+264
+00:35:38.220 --> 00:35:41.680
+Linh Nguyen: Okay, so there's a full question from the screen, this is the last slide.
+
+265
+00:35:42.130 --> 00:35:44.260
+Linh Nguyen: For track 2.2,
+
+266
+00:35:44.440 --> 00:35:58.489
+Linh Nguyen: The core one, does the structure claim versus outcome report actually beat messages plus action at a fixed poor positive rate? For track 2.3, quick signals separate a real agreement from shared incentive or cheap talk?
+
+267
+00:35:58.650 --> 00:36:04.190
+Linh Nguyen: That's, like, the metrics, from a few slides back, and the plus factor doctrine.
+
+268
+00:36:04.370 --> 00:36:06.480
+Linh Nguyen: For track 3.4,
+
+269
+00:36:06.620 --> 00:36:25.280
+Linh Nguyen: What does a coalition do when it learns that part of its output is monitored? The nearest existing case is a double option, where sellers told they will monitor, try one character's messages and emojis, and fail. Why a prompt demanding urgency got them call loading anyway?
+
+270
+00:36:25.550 --> 00:36:33.849
+Linh Nguyen: And also from Chase Scott, what I shared before, 10 narrow questions, keep a monitor honest when it comes to the same model family at the colluders.
+
+271
+00:36:34.010 --> 00:36:43.490
+Linh Nguyen: Any of these, if you've done carefully with all positive rates reported, would be a real contribution. Yeah, thank you for that.
+
+272
+00:36:46.250 --> 00:36:49.080
+Linh Nguyen: I think that's all for me. I… yeah.
+
+273
+00:36:50.120 --> 00:36:51.300
+Kamil - Team Apart: Awesome!
+
+274
+00:36:52.230 --> 00:36:53.080
+Linh Nguyen: I'm so nervous.
+
+275
+00:36:53.080 --> 00:36:55.740
+Kamil - Team Apart: Let me unshare the screen.
+
+276
+00:36:56.290 --> 00:36:56.850
+Linh Nguyen: Yeah.
+
+277
+00:36:58.030 --> 00:37:02.579
+Kamil - Team Apart: Hello, hello. We have some questions. We can get to the questions.
+
+278
+00:37:03.560 --> 00:37:06.990
+Kamil - Team Apart: the talk. That was nice. That was very informative.
+
+279
+00:37:07.920 --> 00:37:11.949
+Kamil - Team Apart: Actually, a lot of people don't know where to start, so I think this was helpful.
+
+280
+00:37:12.340 --> 00:37:21.980
+Kamil - Team Apart: Okay, so first question. Is there a way to observe or flag and find the type of collusion the agents are performing that is simple and cost-effective?
+
+281
+00:37:22.670 --> 00:37:25.930
+Kamil - Team Apart: Oh, the questions are in Slido, in this link.
+
+282
+00:37:26.970 --> 00:37:29.989
+Linh Nguyen: Okay, yeah, I'm reading it.
+
+283
+00:37:32.050 --> 00:37:34.159
+Linh Nguyen: Is there a way to open it?
+
+284
+00:37:34.410 --> 00:37:35.920
+Linh Nguyen: Singapore.
+
+285
+00:37:35.920 --> 00:37:37.219
+Kamil - Team Apart: way to do this.
+
+286
+00:37:38.890 --> 00:37:41.290
+Kamil - Team Apart: How did you do this in your hackathon?
+
+287
+00:37:42.730 --> 00:37:55.210
+Linh Nguyen: Okay, so, I'm guilty because, like, I think I didn't save a lot of money doing that in ChaseGuard. But, like I said in the slide, there's, some…
+
+288
+00:37:55.440 --> 00:37:58.169
+Linh Nguyen: Some rule-based approach, or…
+
+289
+00:37:58.330 --> 00:38:15.970
+Linh Nguyen: kind of, like, classifier, or some, like, simple kind of, like, matching rule-based thing that you can do, or, like, some index using mathematical modeling that can catch, or, like, you can use that together with using LLM to do so.
+
+290
+00:38:17.230 --> 00:38:24.609
+Linh Nguyen: But of course, like, I don't think that my answer is, like, you know, a complete one, so maybe you can ask your
+
+291
+00:38:25.290 --> 00:38:27.500
+Linh Nguyen: The community on Discord channel.
+
+292
+00:38:27.960 --> 00:38:31.100
+Kamil - Team Apart: Or ask your AI, ask your AI, as you'll probably know.
+
+293
+00:38:32.070 --> 00:38:38.750
+Linh Nguyen: Yeah, but there's a… they're a rule-based approach as well, so don't just rely on LM alone.
+
+294
+00:38:39.800 --> 00:38:42.699
+Kamil - Team Apart: But yeah, money is needed, unfortunately.
+
+295
+00:38:43.000 --> 00:38:49.879
+Kamil - Team Apart: How is quantitative trading affected by agent collusion, and is there research being done on that?
+
+296
+00:38:51.320 --> 00:39:02.730
+Linh Nguyen: Yeah, interesting question, I think they definitely… affected by Asian collusion.
+
+297
+00:39:02.880 --> 00:39:08.249
+Linh Nguyen: But I don't think there is… Like, a proper setting.
+
+298
+00:39:09.730 --> 00:39:13.440
+Linh Nguyen: proper setting into, into this kind of,
+
+299
+00:39:14.330 --> 00:39:21.910
+Linh Nguyen: upset of before, because I think quantitative trading has a bigger risk as well, if left unmonitored.
+
+300
+00:39:22.260 --> 00:39:33.029
+Linh Nguyen: For the research being done on that direction, I think there is, but I haven't… I haven't read it, for clients trading, yeah. Maybe it existed, but maybe I missed it, yeah.
+
+301
+00:39:34.880 --> 00:39:39.460
+Kamil - Team Apart: What gave you the idea to split the monitor into 5 questions?
+
+302
+00:39:40.660 --> 00:39:46.460
+Linh Nguyen: Yeah, so I think for… for me, it's,
+
+303
+00:39:47.150 --> 00:39:53.949
+Linh Nguyen: it's just, like, after me and my team just kind of, like, discussed together, I think it's,
+
+304
+00:39:56.360 --> 00:40:05.340
+Linh Nguyen: it's just, like, after our observation, after using and observing from the LM response and doing task, I think…
+
+305
+00:40:05.660 --> 00:40:12.229
+Linh Nguyen: The first one is goal alignment. The two is constraint adherence, the three is reasoning coherence.
+
+306
+00:40:12.370 --> 00:40:20.429
+Linh Nguyen: for its action trace consistency, and the last thing is safety awareness. Because it was done on… on Bosch Arena.
+
+307
+00:40:20.590 --> 00:40:24.420
+Linh Nguyen: The sabotage is actually an off-task action.
+
+308
+00:40:24.540 --> 00:40:26.990
+Linh Nguyen: So, the gold and rule checks caught it.
+
+309
+00:40:27.150 --> 00:40:36.139
+Linh Nguyen: But… I think… We need to separate on different questions, because the nature of the task is…
+
+310
+00:40:36.890 --> 00:40:40.640
+Linh Nguyen: We'll highlight those questions better, so that's why
+
+311
+00:40:40.850 --> 00:40:45.310
+Linh Nguyen: We thought of, like, those five narrow questions first, not the other one, yeah.
+
+312
+00:40:46.360 --> 00:40:47.480
+Linh Nguyen: Oh, so…
+
+313
+00:40:47.480 --> 00:41:00.929
+Kamil - Team Apart: I left some questions in there also. We only have a few minutes left, so let's go with those. So, what's one, like, strong advice you'd tell a team picking its project right now? Because several teams are still picking.
+
+314
+00:41:02.070 --> 00:41:04.120
+Linh Nguyen: I think, like, just,
+
+315
+00:41:04.310 --> 00:41:18.259
+Linh Nguyen: pick something that you think will be contribute to, existing research, or dive deeper. I think there's a lot of papers that I cite, in the slide. They also have, like, a future
+
+316
+00:41:18.600 --> 00:41:21.820
+Linh Nguyen: Future work, or, like, some…
+
+317
+00:41:22.370 --> 00:41:26.880
+Linh Nguyen: unexplorable kind of, like, method, or maybe you can bring
+
+318
+00:41:27.040 --> 00:41:31.339
+Linh Nguyen: A new environment with existing, kind of, You know, method.
+
+319
+00:41:31.740 --> 00:41:45.100
+Linh Nguyen: but on a different domains or something like that, that can be contributed to the overall landscape, to see whether the claim stays consistent in different settings. That can be interesting as well.
+
+320
+00:41:45.790 --> 00:41:52.559
+Kamil - Team Apart: Awesome. One more question, because some speakers have notes in slides. Oh, yeah. Can you share the slides with us, or do you have notes in them?
+
+321
+00:41:53.740 --> 00:42:00.020
+Linh Nguyen: I have, I have. I actually, just read from the note, because, I'm, I'm quite nervous, so…
+
+322
+00:42:00.020 --> 00:42:05.779
+Kamil - Team Apart: Okay, no, no, that's fine, they have the recording anyway, so the slides are in the recording, this is what I say every time.
+
+323
+00:42:06.100 --> 00:42:06.980
+Kamil - Team Apart: Okay, next question.
+
+324
+00:42:06.980 --> 00:42:08.120
+Linh Nguyen: And the slides.
+
+325
+00:42:08.470 --> 00:42:09.020
+Kamil - Team Apart: No, it's okay.
+
+326
+00:42:09.020 --> 00:42:13.460
+Linh Nguyen: I think… I think there's, one question in the chat box,
+
+327
+00:42:13.460 --> 00:42:14.340
+Kamil - Team Apart: Oh, really?
+
+328
+00:42:15.000 --> 00:42:22.550
+Linh Nguyen: Yeah, your slide 29 sketches Chase Guard for Market with a monitor from a different provider.
+
+329
+00:42:23.030 --> 00:42:26.160
+Linh Nguyen: Where, like I said, exact ground truth, a coin.
+
+330
+00:42:26.260 --> 00:42:31.230
+Linh Nguyen: Ledger every payment, and we were about to test it on monetary loan, a similar checker.
+
+331
+00:42:31.830 --> 00:42:36.609
+Linh Nguyen: We expect the same model in which, you know, the composer is a different provider one.
+
+332
+00:42:36.740 --> 00:42:37.460
+Linh Nguyen: Hmm.
+
+333
+00:42:43.490 --> 00:42:52.190
+Linh Nguyen: I think… I think it would be hard to say. Like, for me, I can't answer what I haven't…
+
+334
+00:42:52.550 --> 00:42:58.719
+Linh Nguyen: I haven't done yet, so… I'm afraid that's something you can find out for yourself. But…
+
+335
+00:42:59.050 --> 00:43:04.920
+Linh Nguyen: From my perspective, it, it can be the case, but, like.
+
+336
+00:43:06.570 --> 00:43:16.730
+Linh Nguyen: I think it's, even different, even with the same provider, but if you go with smaller model or bigger model, it can be totally different, opposite, yeah.
+
+337
+00:43:18.700 --> 00:43:19.560
+Kamil - Team Apart: Awesome.
+
+338
+00:43:20.040 --> 00:43:27.929
+Kamil - Team Apart: We… one of my other questions was upvoted, so let's get back to it before we jump off. What paper should the team read first?
+
+339
+00:43:28.090 --> 00:43:31.279
+Kamil - Team Apart: If they're new to collusion, a lot of people are new.
+
+340
+00:43:35.480 --> 00:43:44.150
+Linh Nguyen: I, I think it's, it's hard for me to pick one paper, so maybe I would just,
+
+341
+00:43:44.300 --> 00:43:47.389
+Linh Nguyen: I think there's a AI control…
+
+342
+00:43:48.530 --> 00:43:58.190
+Linh Nguyen: from Greenblood, which is, like, my favorite… my favorite paper. It doesn't just… You know, say about,
+
+343
+00:43:58.360 --> 00:44:04.929
+Linh Nguyen: like, collusion per se, but it's about AI control, which includes the collusion, so you can have, like, a bigger picture.
+
+344
+00:44:05.180 --> 00:44:22.339
+Linh Nguyen: The second, the second paper can be about… and can be, like, secret collision among AI agents by Mod 1E et al. It's, in 2024. So, later on, I will share with you the link to my slide, which includes the exhausting
+
+345
+00:44:22.490 --> 00:44:24.960
+Linh Nguyen: list of the papers I have read, yep.
+
+346
+00:44:26.670 --> 00:44:30.500
+Linh Nguyen: So, this AI control is… Closet, yeah.
+
+347
+00:44:30.890 --> 00:44:33.000
+Kamil - Team Apart: Oh yeah, I linked it, I linked it in the chat.
+
+348
+00:44:33.680 --> 00:44:34.680
+Kamil - Team Apart: I have it now.
+
+349
+00:44:34.810 --> 00:44:43.249
+Kamil - Team Apart: And, awesome, thank you so much for your time, Linh, that was really a really useful map of the field, and the reading list is nice.
+
+350
+00:44:43.520 --> 00:44:53.289
+Kamil - Team Apart: I'm gonna ping everyone in Discord, especially the US participants, are going to be waking up soon, so I'm gonna remind them that there's a nice map waiting for them.
+
+351
+00:44:53.790 --> 00:44:55.579
+Kamil - Team Apart: And yeah, thank you very much!
+
+352
+00:44:55.770 --> 00:44:56.580
+Kamil - Team Apart: That was nice.
+
+353
+00:44:56.580 --> 00:44:57.690
+Linh Nguyen: Thank you.
+
+354
+00:44:57.970 --> 00:45:00.509
+Linh Nguyen: Thank you, everybody. Good luck!
+
+355
+00:45:00.780 --> 00:45:01.920
+Kamil - Team Apart: Bye, everyone!
+

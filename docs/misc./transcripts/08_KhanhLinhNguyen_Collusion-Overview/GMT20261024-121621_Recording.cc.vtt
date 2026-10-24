@@ -1,0 +1,1097 @@
+WEBVTT
+
+00:00:02.000 --> 00:00:11.000
+Welcome back, everyone, to the second day of the AI Collusion Research Sprint. Our next speaker today is Kang Ling
+
+00:00:11.000 --> 00:00:27.000
+Nguyen. Joining us remotely from Vietnam, Linh is head of AI and ML at Oberlo, a Google developer expert in AI and ML, and works with AI Safety Vietnam. Today, she gives us an overview of AI collusion research and the topics most useful for this sprint
+
+00:00:27.000 --> 00:00:30.000
+Please welcome Ring
+
+00:00:30.000 --> 00:00:34.000
+Thanks, Camille and everybody. Can I share my screen now?
+
+00:00:34.000 --> 00:00:38.000
+Yes, yes.
+
+00:00:38.000 --> 00:00:41.000
+Hi everyone, I'm Linh. So
+
+00:00:41.000 --> 00:00:57.000
+Just like everybody here, I don't actually have a lot of experience or like deep in-depth knowledge about AI safety and alignment per se. But I joined a sprint about AI control this year, March
+
+00:00:57.000 --> 00:01:04.000
+And I… me with my team, we built Chase Guard. This is a structure monitor for AI control
+
+00:01:04.000 --> 00:01:07.000
+And, it's,
+
+00:01:07.000 --> 00:01:12.000
+It helps, like, also monitor and flat isle collusion
+
+00:01:12.000 --> 00:01:16.000
+or suspicions, suspicious activities
+
+00:01:16.000 --> 00:01:18.000
+Okay.
+
+00:01:18.000 --> 00:01:25.000
+So here we talk about the problem. Here we can see that the agents collude without being told to.
+
+00:01:25.000 --> 00:01:35.000
+First ACE26 study you ran pairs of LLM agents on the long horizon task where they share task logs and verify each other's work.
+
+00:01:35.000 --> 00:01:45.000
+Of course, 10 models, collusion emerged in 94% of trajectories, and within the model family, the more capable models colluded earlier.
+
+00:01:45.000 --> 00:01:52.000
+Yeah, it's quite scary, right? It's not scary, but, like, it's interesting. Second
+
+00:01:52.000 --> 00:01:57.000
+LM agents in a multi-commodity card market divided the market between them
+
+00:01:57.000 --> 00:02:08.000
+In one run, we can see that the LLM agent split two communities into a monopoly H, with no instruction to collude. So the HS index is 1.
+
+00:02:08.000 --> 00:02:17.000
+The same patterns appear for Q-learning, DQN, and PPO pricing agents
+
+00:02:17.000 --> 00:02:33.000
+Before we getting into the monitoring, here's how the field got here. So I divided after reading tons of, you know, just papers. Not that I can go through each of them in details, but, like, just to get an overview for everybody here, so you guys can have like a good idea
+
+00:02:33.000 --> 00:02:36.000
+About what needs to be done in a sprint
+
+00:02:36.000 --> 00:02:44.000
+Here's the 5Wave, it's asking a harder question. The first wave around 2018 to 2020
+
+00:02:44.000 --> 00:02:48.000
+Asking the question, can pricing algorithm learn to collude at all?
+
+00:02:48.000 --> 00:03:00.000
+So we can see that on the second week from 2021 to 2024, does that survive realistic learners and markets, deep reinforcement learning agents like DQN
+
+00:03:00.000 --> 00:03:10.000
+NPO about on options, Brightshare platform, so mostly yes. Although theory paper pushed back on how robust it is
+
+00:03:10.000 --> 00:03:15.000
+Thirdly, from 2023 to 2025,
+
+00:03:15.000 --> 00:03:21.000
+They're swept in language models. So LM pricing agent reach above competitive prices without being told to
+
+00:03:21.000 --> 00:03:26.000
+And LM firms divided markets between them. Interesting, isn't it?
+
+00:03:26.000 --> 00:03:34.000
+False wave, about, like, 4th and 5th wave is like kind of like overlapping. We can see that
+
+00:03:34.000 --> 00:03:39.000
+The question here is, like, can agents where monitor cannot see
+
+00:03:39.000 --> 00:03:47.000
+That is the term called steganography. Sorry if my pronunciation is not perfect.
+
+00:03:47.000 --> 00:03:56.000
+So, it's, from Secret Collusion at near IPS 2024 to scheme like Codetta this year that are designed to be undetectable
+
+00:03:56.000 --> 00:04:09.000
+And the fifth wave, where we are now, or maybe next year as well, in the orange box, can we detect, audit and govern it? Meanwhile, the AI control community was asking a related question
+
+00:04:09.000 --> 00:04:13.000
+Would an untrusted monitor collude with the agent is watching.
+
+00:04:13.000 --> 00:04:21.000
+So I think that's very interesting and relevant to what the tracks in the sprint
+
+00:04:21.000 --> 00:04:28.000
+Okay, so after reading all of the literature and papers
+
+00:04:28.000 --> 00:04:43.000
+I think I can divide the research into 4 strands. First thing is emergence. When does collusion appear? This is mostly economic style pricing game with reinforcement learning or LLM agents inversion card and auction markets
+
+00:04:43.000 --> 00:04:46.000
+Second is carriers. Under agent coordinate
+
+00:04:46.000 --> 00:04:51.000
+Maybe via open talk, tacit signals, and steganography
+
+00:04:51.000 --> 00:04:56.000
+The 3rd one is detection, asking the question, How can an auditor tell
+
+00:04:56.000 --> 00:05:02.000
+Maybe through statistical hypothesis test, regret-based audits such as colosium
+
+00:05:02.000 --> 00:05:10.000
+interpretability props and LM judges. The last thing is like mitigation or how do we break collusion up
+
+00:05:10.000 --> 00:05:18.000
+We can use like government rules, incentive changes, market fee design, and injected noise.
+
+00:05:18.000 --> 00:05:29.000
+So, in here, we can see, like, where does this research get tested? Mostly about like regarding pricing games
+
+00:05:29.000 --> 00:05:32.000
+Bertrand and could not do a police
+
+00:05:32.000 --> 00:05:37.000
+And oligopolis is by far the most common testbed for this
+
+00:05:37.000 --> 00:05:44.000
+Then we have options from first and second price options to continuous double options with LM bidders
+
+00:05:44.000 --> 00:05:54.000
+Next is platform. We have, like, two-sided rideshare markets. E-commerce advertising, recommendation system. And buy box rules on marketplace.
+
+00:05:54.000 --> 00:06:00.000
+Next, we'll have, like, energy and finance, like electricity and EV charging markets
+
+00:06:00.000 --> 00:06:11.000
+market making and optimal execution. That's where the quant finance people here have a real head start, right? So some of the paper I found is not regarding like
+
+00:06:11.000 --> 00:06:24.000
+near IPS or EMNLP, or like ICML at all. It's like economy and and so on as well. So it's quite multidisciplinary
+
+00:06:24.000 --> 00:06:29.000
+We also have, like, cooperative task
+
+00:06:29.000 --> 00:06:42.000
+Like multi-agent tasks like collusion ticket allocation and patient transfer problem. And in the orange box, we have a newer set of data set built specifically for detection like not bench, callout bench, and case
+
+00:06:42.000 --> 00:06:53.000
+Yeah. What's still missing in one benchmark to spend this setting with both RL and ALM agent. So that the result can be compared across 2 types
+
+00:06:53.000 --> 00:07:00.000
+Okay, so, there's a four debate that worth knowing before we pick a project.
+
+00:07:00.000 --> 00:07:03.000
+The first question is, like, does collusion last?
+
+00:07:03.000 --> 00:07:10.000
+Some people will find like Q learning Asian in Kawano-style markets sustain collusive prices for long stretches
+
+00:07:10.000 --> 00:07:25.000
+But the theory plus simulation paper shows that memoryless Q-learning eventually drifts back to the competitive price. It just takes a very long time. The second question is, does deep reinforcement learning collude
+
+00:07:25.000 --> 00:07:32.000
+One study found that independent DQN and Ppo agents learned to collude after a brief price war
+
+00:07:32.000 --> 00:07:38.000
+But another found DQN agents stay volatile in cycle price in Edward cycle instead of settling.
+
+00:07:38.000 --> 00:07:42.000
+The third question is, does mixing agent help
+
+00:07:42.000 --> 00:07:53.000
+Some author found that adding divers competing type of agent will reduce collusion, dropping the Q learner into LLM market collapse price collusion
+
+00:07:53.000 --> 00:08:07.000
+For the study of markets, mixing elements from four providers found that mixing different providers alone didn't reduce collusion. In fact, some markets containing Gemini were actually more collusive
+
+00:08:07.000 --> 00:08:17.000
+Yeah, sorry, Google. And we have like the 3rd question the fourth question. Sorry, can reasoning chase reveal it
+
+00:08:17.000 --> 00:08:27.000
+A position paper from DevSec R1 pricing agent find their reasoning lean toward tacit collusion, even when the prompt tells them not to call it
+
+00:08:27.000 --> 00:08:30.000
+And… but other
+
+00:08:30.000 --> 00:08:36.000
+like the people named Faithful Yet Collusive, finds out how faithful a chain of thought
+
+00:08:36.000 --> 00:08:49.000
+Telling you nothing about whether the agent collapsed. Yeah. So I think it… the last role will matter most for anybody that who is planning a chain of thought monitor this weekend
+
+00:08:49.000 --> 00:08:56.000
+Okay, so next we have this, paper I want to share with you that can be interesting for you.
+
+00:08:56.000 --> 00:09:03.000
+Here we can see that collision doesn't only appear in training. This paper called alignment tipping process
+
+00:09:03.000 --> 00:09:07.000
+show that it can be learned after deployment
+
+00:09:07.000 --> 00:09:20.000
+The figure on the left side is their concept. An Asian is aligned with standard method like, for example, DPO or GRPO when training in fine tuning. So it follows the rule
+
+00:09:20.000 --> 00:09:28.000
+Then it's deployed with imperfectable vision. Notice that the supervisor in the picture saying, I'm not working
+
+00:09:28.000 --> 00:09:41.000
+So, the agent breaks the rule and it isn't punished and gets a higher reward. It does it again, and its policy tips in the group is spread faster because agents copy the rule breakers who did well
+
+00:09:41.000 --> 00:09:49.000
+They call that imitative strategy diffusion. The numbers come from their eight Agent Coordination game here on the right side
+
+00:09:49.000 --> 00:10:02.000
+When collusion is easy because only a couple of agents need to join, the GRPO-aligned models collusion rate climbed from 55.4% up to 87.5%.
+
+00:10:02.000 --> 00:10:09.000
+When collusion needs the most agent to join, it faded to between 0% and 40%.
+
+00:10:09.000 --> 00:10:13.000
+So you can see that this is,
+
+00:10:13.000 --> 00:10:22.000
+the flow chart behind those numbers. Each panel is one collusion threshold T. Annual hierarchy means more agent must join, so collusion is harder.
+
+00:10:22.000 --> 00:10:33.000
+On the left, where collagen is easy, every model's collagen rate climbs over three rounds of cell evolution, including the DPO and GRPO-aligned ones
+
+00:10:33.000 --> 00:10:40.000
+Yeah, so on the right, where it's hard, collision fades to between 0 and 14% by the third round.
+
+00:10:40.000 --> 00:10:49.000
+Alignment training lowers the starting point. It doesn't stop the drift when collision is at play. Yeah.
+
+00:10:49.000 --> 00:10:51.000
+So
+
+00:10:51.000 --> 00:11:01.000
+Why not just read this transcript? There are three reasons for it. First, messages can be hidden. Steganography lets agent coordinate inside an ordinary-looking text.
+
+00:11:01.000 --> 00:11:12.000
+secret collusion and hidden in plain text are two papers that show this is possible, and recent schemes like Caudetta are built specifically to be undetectable by a monitor.
+
+00:11:12.000 --> 00:11:26.000
+Second, and this paper is… this is where I read first, if you're doing track 2. Which score faithful yet closet. It looked at 9 Lm inversion pricing games, compare the causal story
+
+00:11:26.000 --> 00:11:32.000
+In each Asian chain of thought, with the causal structure of it, what it actually did
+
+00:11:32.000 --> 00:11:43.000
+Faithfulness and collusion turn out to be unrelated. An Asian can say exactly what it's doing and still collude. So a monitor that only checks whether the reasoning matches the behavior will miss it.
+
+00:11:43.000 --> 00:11:59.000
+Third from Avit, a new multi-agent evaluation framework beyond UK AISI Inspect, defenses that take each action on its own card attacks by a single compromised agent, but gave no measurable protection against colluding agents
+
+00:11:59.000 --> 00:12:04.000
+Because each colluder's individual two cores look benign
+
+00:12:04.000 --> 00:12:18.000
+So my takeaway is we can anchor on actions and outcome and look across the whole episode rather than one step at a time. Yeah, so maybe that's what you can try.
+
+00:12:18.000 --> 00:12:21.000
+Also, like, we have
+
+00:12:21.000 --> 00:12:28.000
+another kind of setting where there's no secret channel. Yeah. So colluders can mislead with true statement
+
+00:12:28.000 --> 00:12:36.000
+In the paper, Lying with truth, I cite here, a team of coding agents steer a victim agent's belief
+
+00:12:36.000 --> 00:12:50.000
+Using only true evidence fragment posted on public channels. Their framework is called generative Montage. It's similar with filmmakers. They will set up like a writer, agent, editor agent, and director agent.
+
+00:12:50.000 --> 00:13:04.000
+That construct deceptive narrative through a vizarro debate and coordinate the posting of evident fragments, causing the victim agent to internalize and propagate fabricate collusion.
+
+00:13:04.000 --> 00:13:18.000
+Yeah, so we can see here the numbers of the paper. Of course, 14 models attacked about 74% of the time on proprietary model and 71% on the open way
+
+00:13:18.000 --> 00:13:19.000
+Yeah
+
+00:13:19.000 --> 00:13:31.000
+The teamwork matters because on one, even the full calling team succeeded 77% of the time against 27% for single agent.
+
+00:13:31.000 --> 00:13:40.000
+And downstream check couldn't stop it because majority votes and AI judges passed the false belief on more than 60% of the time
+
+00:13:40.000 --> 00:13:42.000
+So, we
+
+00:13:42.000 --> 00:13:50.000
+We can see that a monitor has to look at the sequence and at the belief it produced as well
+
+00:13:50.000 --> 00:13:58.000
+Okay, next is about like the 10 ways to look for collusion. Sorry.
+
+00:13:58.000 --> 00:14:04.000
+Okay. So, this is what I kind of like summarized from
+
+00:14:04.000 --> 00:14:06.000
+When I read, it might not be
+
+00:14:06.000 --> 00:14:17.000
+Exhaustive, it might not be complete, but just take it with a grain of salt. So we have 10 ways that current like people looking at
+
+00:14:17.000 --> 00:14:28.000
+for collusion. First is, like, statistics compare behavior with what competitive play would look like, and a regulator can run them on prices alone
+
+00:14:28.000 --> 00:14:37.000
+Then we have, like, information theoretical models, measure dependence between agent
+
+00:14:37.000 --> 00:14:43.000
+Like the pairwise net influence paper or pair run KL test on collude bench
+
+00:14:43.000 --> 00:14:53.000
+They're also black box state analysis work from transcript alone, and can also bring bound below a certain covered bit rate
+
+00:14:53.000 --> 00:14:55.000
+Detection is no better than chance.
+
+00:14:55.000 --> 00:15:01.000
+And we also have other kind of method and access here, so you can take a look
+
+00:15:01.000 --> 00:15:07.000
+We can also have like box methods such as activation props
+
+00:15:07.000 --> 00:15:18.000
+Such as like rose at all bench. It read internal states and a 2006 study found the best probe stay accurate
+
+00:15:18.000 --> 00:15:25.000
+Even when agents are told they are being monitored. Latent channel monitors watch hidden state pass between agents
+
+00:15:25.000 --> 00:15:26.000
+Yep.
+
+00:15:26.000 --> 00:15:40.000
+And we can see down here, like there's a lot of ways to work on it. And our papers for the spring in March is a chase guard
+
+00:15:40.000 --> 00:15:49.000
+So, Chase Guard is actually, like a structural monitor that asks several narrow safe versus two questions.
+
+00:15:49.000 --> 00:16:00.000
+So the practical point is that you can look at the third columns. So each method needs a different kind of access. So pick the method accordingly.
+
+00:16:00.000 --> 00:16:03.000
+Here we
+
+00:16:03.000 --> 00:16:15.000
+We can dive deeper a little bit about the white box section. We can do like one detection approach deserve a picture because it sidestep the transcript entirely
+
+00:16:15.000 --> 00:16:32.000
+I think this framework is very interesting, so let me just explain each task. So step one, agent talk. Some of them over a private channel and the monitor can cannot see. Step
+
+00:16:32.000 --> 00:16:40.000
+Extract each agent activation. Step 3, scroll each agent along a learned deception direction. Step four.
+
+00:16:40.000 --> 00:16:52.000
+aggregate the scores across agents, because collusion is a group property. And the last step, the final step, a hypothesis test declares collusion when the group statistic passes a threshold
+
+00:16:52.000 --> 00:16:53.000
+Yep
+
+00:16:53.000 --> 00:17:04.000
+So on their benchmark, not bench, only 2 out of 229 emergent colloid episodes put the coordination into words in the transcript
+
+00:17:04.000 --> 00:17:09.000
+That's the strongest case I know for not relying on Sanskrit
+
+00:17:09.000 --> 00:17:13.000
+The best method which 0.99 to
+
+00:17:13.000 --> 00:17:21.000
+1.00 of a URC on the steganography task. It wasn't trained on
+
+00:17:21.000 --> 00:17:33.000
+So, here, unique buy box access to every agent model, which an auditor of a commercial API usually won't have.
+
+00:17:33.000 --> 00:17:41.000
+So I will talk a little bit about track 3.4, like when agents know that when they're being watched
+
+00:17:41.000 --> 00:17:49.000
+I think question 3.4 or track 3.4 asks what a coalition does when it's learned it's being watched
+
+00:17:49.000 --> 00:18:04.000
+So I will explain a little bit like what coalition means. It means temporary alliance or union of distinct political parties, groups, organization or state working together for shared goal or to govern a region
+
+00:18:04.000 --> 00:18:08.000
+So here we have like a few data points
+
+00:18:08.000 --> 00:18:13.000
+Agent awareness substantially degrades the monitor reliability
+
+00:18:13.000 --> 00:18:21.000
+and providing the monitor with more information about the agent is less helpful than expected.
+
+00:18:21.000 --> 00:18:31.000
+20 or 40 attacks never get caught by 4.6. Monitor at 1% for positive rate.
+
+00:18:31.000 --> 00:18:37.000
+19% of the episodes where top model infer their reasoning was watched
+
+00:18:37.000 --> 00:18:45.000
+Also, we can see here for… yeah, again, it's Gemini
+
+00:18:45.000 --> 00:18:51.000
+Indrajev at all, sabotage study telling agents a mortal was present
+
+00:18:51.000 --> 00:18:59.000
+After Gemini sabotage success, why detection held up and undetected sabotage stayed under 3%.
+
+00:18:59.000 --> 00:19:04.000
+In another papers
+
+00:19:04.000 --> 00:19:13.000
+It's about double options. Sellers told they will monitor the try one character message and emojis and fail, but
+
+00:19:13.000 --> 00:19:27.000
+An urgency prompt got them colluding anyway, so whatever monitor you build this weekend, test it against agents that know about it, and maybe report recall at a 1% false positive rate.
+
+00:19:27.000 --> 00:19:34.000
+Next is about mitigation. I'll be talking about mitigation now. There's ways
+
+00:19:34.000 --> 00:19:36.000
+to break the coalition up
+
+00:19:36.000 --> 00:19:41.000
+We can have, like, market design change the rules of collisions pay less
+
+00:19:41.000 --> 00:19:54.000
+In 2022, neuro IPS paper, it learned the Buy Box rules that stop RL sellers colluding while keeping consumer welfare high. We have incentives
+
+00:19:54.000 --> 00:20:08.000
+Which made agent person's refundable deposit that they forfeit if caught colluding and reward the agent who report collusion. Remove the deposit and every tested motor colluded in every run.
+
+00:20:08.000 --> 00:20:10.000
+Very interesting.
+
+00:20:10.000 --> 00:20:21.000
+And, other ways, like noise, we kind of like blur shared data and keep exploring results in calibrated noise flow or broke up collusion.
+
+00:20:21.000 --> 00:20:34.000
+governance, accountability, like Chase responsibility, recalibrate. And we can also have like verifier. We can have an independent verifier again agent
+
+00:20:34.000 --> 00:20:48.000
+That restore full accuracy in a healthcare test by coloring assistant push of full consensus, and circuit breakers that reshuffle learned communication codes, make covert message readable again
+
+00:20:48.000 --> 00:21:03.000
+This is like a very, you know, specific example for mitigation result for LLM parsing agents. This is a very recent paper
+
+00:21:03.000 --> 00:21:08.000
+So, the exact wording, we have, like, two prompt
+
+00:21:08.000 --> 00:21:15.000
+P1 and P2. P1 is a more collusive PROM, and P2 are less collusive
+
+00:21:15.000 --> 00:21:22.000
+Each point is one run of the two DeepSeek V3.1 models
+
+00:21:22.000 --> 00:21:32.000
+The axis at each firm's average price over the last 50 periods. The red dashes line marks the Nash price, and the green dotted line is a monopoly price
+
+00:21:32.000 --> 00:21:39.000
+On the left panel, if we don't have any regulator, the prompt, the more
+
+00:21:39.000 --> 00:21:52.000
+from sit well above Nash and toward Monopoly. A second one, we have, like, a setting where a prompt-only warning lower the price, but doesn't remove the above Nash pricing
+
+00:21:52.000 --> 00:21:59.000
+And we have the third regulator inspired by the economist Joseph Harrington's work
+
+00:21:59.000 --> 00:22:09.000
+on policing pricing algorithm brings the P1 prompts closer to the next benchmark and close the gap between the two prompt
+
+00:22:09.000 --> 00:22:17.000
+But it's still not enough, and we have the fourth, an active entrant, meaning a new competitor push both the prompt below the benchmark
+
+00:22:17.000 --> 00:22:31.000
+The takeaway here is a warning alone isn't enough. We need structural intervention, a regulator or new entrance will move the price much further.
+
+00:22:31.000 --> 00:22:43.000
+So this is, what missing… what's still missing from what I read, what I read. I think it might not be accurate. So
+
+00:22:43.000 --> 00:22:45.000
+Please, correct me if I'm wrong
+
+00:22:45.000 --> 00:22:58.000
+I think first collusion in the wow. We have control experiment, and one statistical analysis of a real incident like the colon wiki with about 18,000 Asian posts
+
+00:22:58.000 --> 00:23:13.000
+But nobody has measured hidden private channels arising on their own among deployed black box agent run by different operators. Second, we have, like, corporate channels in real markets. There's a theoretical upper bound on how much corporate bandwidth
+
+00:23:13.000 --> 00:23:21.000
+Because sleep has an auditor, but nobody has made recovered bandwidth and detection threshold on live markets API or procurement system.
+
+00:23:21.000 --> 00:23:35.000
+Third, bond market every learner. We have Q Learning, PPO, DQN, Replicator dynamics. Have each been studied, but it's all in different environment. So we never have like all of them in, you know, the same environment before
+
+00:23:35.000 --> 00:23:37.000
+And
+
+00:23:37.000 --> 00:23:50.000
+And the last one is, what's like my work start. What is the LM doing the monitoring shares a colluders model or their incentives. Most detection work treat the auditor as trustworthy
+
+00:23:50.000 --> 00:23:55.000
+AI control doesn't. Yeah
+
+00:23:55.000 --> 00:24:04.000
+This is about my paper, but maybe I would just, like, save time and rush to the other
+
+00:24:04.000 --> 00:24:13.000
+things. So this, this paper you can read here. It's on our side. I have published it here on Ahsi on
+
+00:24:13.000 --> 00:24:15.000
+I think on
+
+00:24:15.000 --> 00:24:41.000
+April or something in April, yeah. So you can just take a look here
+
+00:24:41.000 --> 00:24:49.000
+Sorry, let me just, like, get something wrong with my flight
+
+00:24:49.000 --> 00:24:57.000
+Zoom is not happy for these like yesterday and today, it's not working well.
+
+00:24:57.000 --> 00:24:58.000
+Yes.
+
+00:24:58.000 --> 00:25:01.000
+Really? Okay
+
+00:25:01.000 --> 00:25:03.000
+Sad, but true.
+
+00:25:03.000 --> 00:25:12.000
+Because… are we using, like, free version?
+
+00:25:12.000 --> 00:25:13.000
+Oh my God
+
+00:25:13.000 --> 00:25:15.000
+No, no, not at all. We actually pay a lot of money for Zoom, but I don't know, it's a little bit slow
+
+00:25:15.000 --> 00:25:18.000
+Okay
+
+00:25:18.000 --> 00:25:23.000
+Yeah, so Chase Guard asked 5 questions.
+
+00:25:23.000 --> 00:25:25.000
+So, we have, like
+
+00:25:25.000 --> 00:25:28.000
+For example.
+
+00:25:28.000 --> 00:25:39.000
+standard monitor asked one question. How suspicious is this action or respond from 0 to 10. So Chase Guard runs pipeline instead
+
+00:25:39.000 --> 00:25:41.000
+As Dash 1, we break
+
+00:25:41.000 --> 00:25:53.000
+Like, we have 7 rule-based detectors. Look at what actually happened with no involved, and they track variables, data flows, and coding sub processes and change to security conflict files
+
+00:25:53.000 --> 00:26:07.000
+We, like, only if one of those detectors fires, an LLM intent analyzer interprets why the set might be suspicious, skipping it on clean step cuts its API cost by about 70%
+
+00:26:07.000 --> 00:26:14.000
+Statistically, we have 5 independent LLM cores running parallel each answer one narrow questions
+
+00:26:14.000 --> 00:26:25.000
+First thing is about goal alignment. Does the action serve the stated task? The second question is constraint adherence. Does it break the task rule
+
+00:26:25.000 --> 00:26:38.000
+Third is reasoning. Does the reasoning hang together? Fourth question is safety awareness. Does it acknowledge the risk? And final one, action trace consistency. Does the action match what the reason
+
+00:26:38.000 --> 00:26:41.000
+But the reasoning says it's doing
+
+00:26:41.000 --> 00:26:48.000
+So it's, it's like the safest do, I think it's related to the track 2.
+
+00:26:48.000 --> 00:26:58.000
+And in this one, we test this on Bash Arena, inside control arena. Yeah
+
+00:26:58.000 --> 00:27:03.000
+Okay, so this is, like, the result from that?
+
+00:27:03.000 --> 00:27:08.000
+We have like 240 attacks and 279 honors
+
+00:27:08.000 --> 00:27:17.000
+and the composite suspicion score average 0.6 on RTX and 0.2 on honest run.
+
+00:27:17.000 --> 00:27:26.000
+So you can see here at the threshold of 0.5, it differs 71% on attacks while letting
+
+00:27:26.000 --> 00:27:44.000
+About 94% of honest action through. That's the over 70% the sprint brief quotes. Lower the threshold a little bit to 0.3, and it catches, higher about 82%, but only 69% honest work get
+
+00:27:44.000 --> 00:27:54.000
+Yeah, so we can take a look at the bottom left of the curve. The 1% for positive rate, it catches only 20% of the attacks. And
+
+00:27:54.000 --> 00:28:02.000
+And at 5%, it catches 75%. For an AI controlled deployment, 5% might be acceptable
+
+00:28:02.000 --> 00:28:14.000
+But for an antitrust-style auditor where a full accusation is expensive, the lower fall positive end is a number that matters.
+
+00:28:14.000 --> 00:28:27.000
+Yeah, so you can see here the summarization of Chase card
+
+00:28:27.000 --> 00:28:33.000
+Before turning to market, here's the evidence, the spring website for question 2.2.
+
+00:28:33.000 --> 00:28:36.000
+We can see that
+
+00:28:36.000 --> 00:28:52.000
+There's a collagen on paper, and more than 90% of broken promises were already written in Asian private plans. So it's very interesting, this paper later I will show you about what it's planned to do, what it's
+
+00:28:52.000 --> 00:28:59.000
+Announce publicly to do and what it will be doing. Yeah.
+
+00:28:59.000 --> 00:29:06.000
+So this one is regarding the paper name when agents lie
+
+00:29:06.000 --> 00:29:18.000
+So every round has three stages. Each agent royal private plan, then mix of public announcement, then takes its final action. Compare the three, and you can classify every Asian round
+
+00:29:18.000 --> 00:29:28.000
+You have, like, 4 category, like, fully honest, intended deception, impulsive deviation or premeditated deception
+
+00:29:28.000 --> 00:29:40.000
+So across six social dilemma games and prefrontier models, about 126,000 Asian rounds, broken promises were overwhelmingly premeditated
+
+00:29:40.000 --> 00:29:44.000
+In the highest deception conditions, more than 90% of deviation
+
+00:29:44.000 --> 00:29:51.000
+were already written in a private plan. But the same order range from 0 to almost 99%.
+
+00:29:51.000 --> 00:29:57.000
+Premeditation depending on the game, so the behavior here is very task-dependent.
+
+00:29:57.000 --> 00:30:10.000
+They also found that some modal treat announcement as binding, while other models treat them as cheap talk. For our purposes, it's exactly say the save versus do structure
+
+00:30:10.000 --> 00:30:17.000
+The plan is like a private say, the announcement is public say, the action is to
+
+00:30:17.000 --> 00:30:22.000
+So, this is, like, another from another, paper
+
+00:30:22.000 --> 00:30:25.000
+This year as well.
+
+00:30:25.000 --> 00:30:33.000
+This is quite the cleanest, one of the cleanest evidence I found that combining what agents say with what they do helps.
+
+00:30:33.000 --> 00:30:39.000
+So you can see in the… in the bar… bar chart here
+
+00:30:39.000 --> 00:30:51.000
+The charts show how much codex sabotage get caught at the fall positive rate of almost 2% by what the monitor can see. The dark blue
+
+00:30:51.000 --> 00:30:58.000
+is code plus message. The light blue is code only. The gray is only the message
+
+00:30:58.000 --> 00:31:02.000
+And the orange, meaning, like, watching one agent at a time
+
+00:31:02.000 --> 00:31:08.000
+We can see that the code plus messages captures every successful sabotage and most failed attempt.
+
+00:31:08.000 --> 00:31:14.000
+Yep.
+
+00:31:14.000 --> 00:31:21.000
+There's a comfort rate, like, more information is in the way better, so in another paper
+
+00:31:21.000 --> 00:31:26.000
+They gave monitors for different views of sabotage attempts
+
+00:31:26.000 --> 00:31:41.000
+Actions only, chain of thought only, both, or extract and evaluate, which first pull out the relevant chords and the judge, and then judges only those across, like, three sabotage environments, contemporary monitors often
+
+00:31:41.000 --> 00:31:44.000
+Better with less information.
+
+00:31:44.000 --> 00:31:53.000
+Featuring helped in 7 of 8 monitor environment pairs, and extract and evaluate beat the next best monitor by 16.8 points
+
+00:31:53.000 --> 00:32:02.000
+On, big code band sabotage with GPT 4.1 Mini as a monitor.
+
+00:32:02.000 --> 00:32:08.000
+So this is like some suggestion from my side. On the left is the chase guard, which I did.
+
+00:32:08.000 --> 00:32:13.000
+One agency is updating the network setting the task asked for
+
+00:32:13.000 --> 00:32:25.000
+And in the same step, it's also disable the firewall. What it says versus what it does don't match, and that mismatch is a warning sign.
+
+00:32:25.000 --> 00:32:41.000
+But on the other end, it's a market on the right side. For example, Agent A messages lets both her with $10. Next round, both agent hold $10 above the competitive price. What they said and what they did match
+
+00:32:41.000 --> 00:32:46.000
+But it's also the evidence of an agreement. So
+
+00:32:46.000 --> 00:32:50.000
+In short, a collision monitor needs to check both cases
+
+00:32:50.000 --> 00:33:07.000
+First, each agent claims against its own move with catches deception. The second, talk between the agent against what they do next, which catches agreement. The same save versus do comparison, but it points in the opposite direction depending on what you compare
+
+00:33:07.000 --> 00:33:11.000
+So here, you can see that there's a matrix that I
+
+00:33:11.000 --> 00:33:18.000
+I think it's quite helpful for you if you want to go into track 2.3.
+
+00:33:18.000 --> 00:33:31.000
+We put the top end behavior onto Access and you get a This kind of four cases.
+
+00:33:31.000 --> 00:33:41.000
+So here is how I carry my previous paper into the markets, kind of domain. It's just suggestion
+
+00:33:41.000 --> 00:33:55.000
+To be fair, it's just a sketch or an idea. None of it has been tested yet. There's a 5 narrow question instead one score become separate checks. Each agent claims whether talk between agents predicts their move and outcomes
+
+00:33:55.000 --> 00:34:00.000
+Action trace consistency becomes each agent claims against its own move.
+
+00:34:00.000 --> 00:34:08.000
+We have rule-based detectors. It can become, like, computer market
+
+00:34:08.000 --> 00:34:11.000
+Signals that don't need an LM at all
+
+00:34:11.000 --> 00:34:15.000
+We also have
+
+00:34:15.000 --> 00:34:21.000
+separation of duties that can turn into like a monitor from a different provider than the agent.
+
+00:34:21.000 --> 00:34:31.000
+Also, last but not least, I think it's important is the safety versus usefulness by threshold. Yeah
+
+00:34:31.000 --> 00:34:38.000
+For a weekend study, I think there's a few kind of rules or
+
+00:34:38.000 --> 00:34:40.000
+suggestion that you can
+
+00:34:40.000 --> 00:34:50.000
+Take away from the first one we can, for example, freeze the monitor, meaning the model, the prompt and the threshold before you look at any test data
+
+00:34:50.000 --> 00:35:00.000
+Otherwise, you're turning on your test set. Second is about report the force alarm, not just accuracy. Give the force project break, record
+
+00:35:00.000 --> 00:35:02.000
+And 5
+
+00:35:02.000 --> 00:35:07.000
+And also measure the AURC across the threshold.
+
+00:35:07.000 --> 00:35:17.000
+Three, we can add hard negoti, meaning sheet talk with no action and parallel moves with no talk. Without them, the comparison between views is too easy.
+
+00:35:17.000 --> 00:35:21.000
+And so on. You can like compress a structural report
+
+00:35:21.000 --> 00:35:29.000
+You can also add computed signals like pry coloration, HHI or regret beside the LM judgment
+
+00:35:29.000 --> 00:35:38.000
+We also can test on different providers and model family. Yep.
+
+00:35:38.000 --> 00:35:42.000
+Okay, so there's a four question from this brain. This is the last slide.
+
+00:35:42.000 --> 00:35:58.000
+For track 2.2, the call one… does the structure claim versus outcome report actually beat messages plus action on the fixed for positive rate for track 2.3, quick signal separate a real agreement from share, incentive or cheap talk
+
+00:35:58.000 --> 00:36:05.000
+That's like the metrics from a few slides back, and the plus factor doctrine
+
+00:36:05.000 --> 00:36:15.000
+For track 3.4, what does a coalition do when it learns that part of its output is monitored? The nearest existing case is a double option
+
+00:36:15.000 --> 00:36:25.000
+where sellers told they will monitor, try one character's messages and emojis and fill while a prompt demanding urgency got them colluding anyway
+
+00:36:25.000 --> 00:36:34.000
+And also from Chase God, what I shared before, 10 narrow questions, keep a monitor honest when it comes to the same model family at the colluders
+
+00:36:34.000 --> 00:36:46.000
+Any of these, if you've done carefully with false positive rates reported, would be a real contribution. Yeah, thank you for that.
+
+00:36:46.000 --> 00:36:50.000
+I think that's all for me. I… yeah.
+
+00:36:50.000 --> 00:36:52.000
+Awesome
+
+00:36:52.000 --> 00:36:53.000
+I'm so nervous.
+
+00:36:53.000 --> 00:36:56.000
+Wonderful. Let me unshare the screen.
+
+00:36:56.000 --> 00:36:58.000
+Yeah.
+
+00:36:58.000 --> 00:37:03.000
+Hello, hello! We have some questions. We can get to the questions.
+
+00:37:03.000 --> 00:37:04.000
+Okay.
+
+00:37:04.000 --> 00:37:08.000
+But thank you for the talk. That was nice. That was very informative.
+
+00:37:08.000 --> 00:37:12.000
+Actually, a lot of people don't know where to store it, so I think this was helpful.
+
+00:37:12.000 --> 00:37:22.000
+Okay, so 1st question, is there a way to observe or flag and find the type of collusion the agents are performing that is simple and cost effective?
+
+00:37:22.000 --> 00:37:29.000
+Oh, the questions are in Slido in this link.
+
+00:37:29.000 --> 00:37:30.000
+This link
+
+00:37:30.000 --> 00:37:32.000
+Okay, yeah, I… I'm reading it
+
+00:37:32.000 --> 00:37:36.000
+Is there a way to upload something to
+
+00:37:36.000 --> 00:37:37.000
+Simple and cost effective.
+
+00:37:37.000 --> 00:37:39.000
+Is there a cheap way to do this?
+
+00:37:39.000 --> 00:37:42.000
+How did you do this in your hackathon?
+
+00:37:42.000 --> 00:37:55.000
+Okay, so I'm guilty because I think I didn't save a lot of money doing that in Chase Guard. But like I said in the slide, there's some
+
+00:37:55.000 --> 00:38:06.000
+Some row-based approach, or have like classifier or some like a simple kind of like matching rule based thing that you can do
+
+00:38:06.000 --> 00:38:16.000
+Or like some index using mathematical modeling that can catch or like you can use that together with using LLM to do so.
+
+00:38:16.000 --> 00:38:25.000
+But of course, like, I don't think that my answer is like, you know, a complete one. So maybe you can ask your
+
+00:38:25.000 --> 00:38:26.000
+Yeah, just
+
+00:38:26.000 --> 00:38:27.000
+the community on Discord channel.
+
+00:38:27.000 --> 00:38:32.000
+Or ask your AI, ask your AI as we'll probably know.
+
+00:38:32.000 --> 00:38:33.000
+Awesome
+
+00:38:33.000 --> 00:38:39.000
+Yeah, but there's, there are a rule-based approach as well, so don't just rely on LLM alone
+
+00:38:39.000 --> 00:38:43.000
+But yeah, money is needed, unfortunately.
+
+00:38:43.000 --> 00:38:54.000
+How is quantitative trading affected by agent collusion and is there research being done on that?
+
+00:38:54.000 --> 00:38:57.000
+Yeah, interesting question.
+
+00:38:57.000 --> 00:39:03.000
+I think they definitely affected by Asian collusion
+
+00:39:03.000 --> 00:39:10.000
+But I don't think there is like a proper setting
+
+00:39:10.000 --> 00:39:14.000
+proper setting into this kind of
+
+00:39:14.000 --> 00:39:22.000
+of setup before, because I think quantitative trading has bigger risk as well if left unmonitored
+
+00:39:22.000 --> 00:39:35.000
+For the research being done on that direction, I think there is, but I haven't… I haven't read it for plant trading. Yeah, maybe it exists, but maybe I missed it. Yeah.
+
+00:39:35.000 --> 00:39:36.000
+What?
+
+00:39:36.000 --> 00:39:41.000
+What gave you the idea to split the monitor into 5 questions?
+
+00:39:41.000 --> 00:39:48.000
+Um, yeah, so I think for, for me, it's.
+
+00:39:48.000 --> 00:39:57.000
+it's just like, after me and my team just kind of, like, um, discussed together, I think it's, uh…
+
+00:39:57.000 --> 00:40:05.000
+It's just like, after our observation, after using and observing from the LLM response and doing task, I think
+
+00:40:05.000 --> 00:40:06.000
+I think the
+
+00:40:06.000 --> 00:40:13.000
+The first one is goal alignment. The two is constraint adherence. The three reasoning coherence.
+
+00:40:13.000 --> 00:40:21.000
+Or is action trace consistency and the last thing is safety awareness because it was done on Bash Arena.
+
+00:40:21.000 --> 00:40:28.000
+The sabotage is actually an off-task action. So the goal and rule checks caught it.
+
+00:40:28.000 --> 00:40:30.000
+Um, but…
+
+00:40:30.000 --> 00:40:37.000
+I think we need to separate on different questions because the nature of the task is.
+
+00:40:37.000 --> 00:40:41.000
+We'll highlight those questions better. So that's why we
+
+00:40:41.000 --> 00:40:48.000
+thought of like those five narrow questions first, not the other one. Yeah.
+
+00:40:48.000 --> 00:41:02.000
+Awesome. I left some questions in there also. We only have a few minutes left, so let's go with those. So what's one strong advice you tell a team taking its project right now? Because several teams are still picking.
+
+00:41:02.000 --> 00:41:16.000
+I think like just pick something that you think will be contribute to existing research or dive deeper. I think there's a lot of papers that I cite in the slide.
+
+00:41:16.000 --> 00:41:19.000
+We also have like a future.
+
+00:41:19.000 --> 00:41:23.000
+future work or like some.
+
+00:41:23.000 --> 00:41:28.000
+unexplorable kind of, like, method, or maybe you can bring a new
+
+00:41:28.000 --> 00:41:32.000
+environment with existing kind of, you know, method.
+
+00:41:32.000 --> 00:41:50.000
+but on a different domains or something like that, that can be contributed to the overall landscape to see whether the claim stays consistent in different settings that can be interesting as well.
+
+00:41:50.000 --> 00:41:51.000
+Oh, yeah.
+
+00:41:51.000 --> 00:41:54.000
+Awesome. One more question, because some speakers have notes in slides. Can you share the slides with us, or do you have notes in them?
+
+00:41:54.000 --> 00:42:01.000
+I have, I have. I actually, uh, just read from the note because I'm quite nervous.
+
+00:42:01.000 --> 00:42:07.000
+Uh, okay, no, no, that's fine, they have the recording anyway, so the slides are in the recording, this is what I say every time.
+
+00:42:07.000 --> 00:42:08.000
+Okay, next question.
+
+00:42:08.000 --> 00:42:10.000
+I will send the slides.
+
+00:42:10.000 --> 00:42:11.000
+No, it's okay.
+
+00:42:11.000 --> 00:42:15.000
+I think I think there's one question in the chat box.
+
+00:42:15.000 --> 00:42:16.000
+Oh, really?
+
+00:42:16.000 --> 00:42:23.000
+Yeah, your slide 29 sketches Chase Guard for Market with a monitor from a different provider.
+
+00:42:23.000 --> 00:42:32.000
+exact ground truth, a coin, ledger, every payment, and we about to test it on monetary loan, the same order checker.
+
+00:42:32.000 --> 00:42:44.000
+expect the same model which you know, the composers are different provider one.
+
+00:42:44.000 --> 00:42:45.000
+I think…
+
+00:42:45.000 --> 00:42:54.000
+I think it would be hard to say, like for me, I can't answer what I haven't…
+
+00:42:54.000 --> 00:42:59.000
+I haven't done yet, so I'm afraid that's something you can find out for yourself.
+
+00:42:59.000 --> 00:43:03.000
+From my perspective,
+
+00:43:03.000 --> 00:43:07.000
+it can be the case, but like.
+
+00:43:07.000 --> 00:43:20.000
+I think it's, uh, even differ, even with the same provider, but if you go with smaller model or bigger model, it can be totally different opposite. Yeah.
+
+00:43:20.000 --> 00:43:21.000
+Awesome.
+
+00:43:21.000 --> 00:43:30.000
+One of my other questions was upvoted, so let's get back to it before we jump off. What paper should a team read first?
+
+00:43:30.000 --> 00:43:33.000
+We're new to collusion. A lot of people are new.
+
+00:43:33.000 --> 00:43:36.000
+Um…
+
+00:43:36.000 --> 00:43:45.000
+I think it's hard for me to pick one paper. So maybe I would just…
+
+00:43:45.000 --> 00:43:49.000
+I think there's a AI control.
+
+00:43:49.000 --> 00:43:56.000
+From Greenblood, which is like my favorite, my favorite paper. It doesn't just.
+
+00:43:56.000 --> 00:43:59.000
+you know, say about.
+
+00:43:59.000 --> 00:44:06.000
+like collusion per se, but it's about AI control, which include the collusion. So you can have like a bigger picture.
+
+00:44:06.000 --> 00:44:23.000
+The second paper can be about and can be like secret collusion among AI agents by Mod Wani et al. It's in 2024. So later on, I will share with you the link to my slide, which includes the exhausting
+
+00:44:23.000 --> 00:44:28.000
+list of the papers that I have read, yep.
+
+00:44:28.000 --> 00:44:29.000
+Awesome!
+
+00:44:29.000 --> 00:44:30.000
+So this AI control is…
+
+00:44:30.000 --> 00:44:33.000
+Classic. Yeah.
+
+00:44:33.000 --> 00:44:34.000
+Yes.
+
+00:44:34.000 --> 00:44:42.000
+Oh yeah, I linked it, I linked it in the chat. So they have it now. And awesome, thank you so much for your time, Ling. That was really a really useful map of the field.
+
+00:44:42.000 --> 00:44:45.000
+reading list is nice.
+
+00:44:45.000 --> 00:44:55.000
+I'm going to ping everyone in Discord, especially the US participants, are going to be waking up soon. So I remind them that there's a nice map waiting for them.
+
+00:44:55.000 --> 00:44:57.000
+And yeah, thank you very much. That was nice.
+
+00:44:57.000 --> 00:44:58.000
+Thank you. Thank you.
+
+00:44:58.000 --> 00:45:02.000
+everybody. Good luck. Bye.
+
+00:45:02.000 --> 00:45:03.000
+Bye everyone!
+

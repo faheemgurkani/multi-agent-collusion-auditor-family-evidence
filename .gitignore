@@ -1,0 +1,44 @@
+# GitHub hard-rejects any blob over 100 MB and recommends a repository under 1 GB.
+# These paths are upstream clones, local installs, or stored outputs. They are not
+# required to build or read the project, and together they are most of the ~950 MB tree.
+
+# Nested clone history. Contains a 212 MB pack file.
+starter/collusion_hackathon/.git/
+
+# Local interpreter and installed packages (~56 MB). Recreate with the starter setup.
+.venv/
+venv/
+
+# Local study notes. Never push.
+docs/self_study/
+
+# Secrets. The starter reads compute.env; the key itself lives in the project .env.
+.env
+**/.env
+compute.env
+**/compute.env
+!.env.example
+!**/.env.example
+!**/compute.env.example
+
+# Upstream result dumps and datasets (~360 MB). Source and configs stay tracked.
+starter/collusion_hackathon/steganographic-collusion/results/
+starter/collusion_hackathon/focal-points/results/
+starter/collusion_hackathon/focal-points/data/
+starter/collusion_hackathon/algorithmic-pricing-llms/data/
+starter/collusion_hackathon/llm-agent-collusion/data/
+starter/collusion_hackathon/llm-cartel/results/
+
+# Local PDF mirror of the sprint papers (~84 MB). The markdown notes stay tracked.
+docs/sprint/papers/
+
+# ---------------------------------------------------------------------------
+# Withhold until after the deadline (Mon 26 Oct 2026, 11:59 UTC), then delete
+# this block and push. This is the smallest set that states the chosen
+# question, the design, the implementation, and the report.
+# Context notes that only summarise public sprint material stay tracked.
+# ---------------------------------------------------------------------------
+
+TODO.md
+src/
+report/

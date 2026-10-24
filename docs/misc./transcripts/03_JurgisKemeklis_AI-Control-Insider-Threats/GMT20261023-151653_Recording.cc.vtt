@@ -1,0 +1,1484 @@
+WEBVTT
+
+00:01:23.000 --> 00:01:33.000
+handling the questions through Slido, so y'all should feel free to, you know, submit any questions, and we can talk
+
+00:01:33.000 --> 00:01:35.000
+through them at the end.
+
+00:01:35.000 --> 00:01:38.000
+Amazing, amazing, amazing.
+
+00:01:38.000 --> 00:01:43.000
+啊，sharing my screen. Could I just get a confirmation that folks can…
+
+00:01:43.000 --> 00:01:44.000
+Yes.
+
+00:01:44.000 --> 00:01:47.000
+You can see slides.
+
+00:01:47.000 --> 00:01:53.000
+Great, great, great, great. So, yeah, hi guys, I'm Jergus, I'm…
+
+00:01:53.000 --> 00:02:09.000
+currently at MIT, helping run MIT AI Alignment, which is the safety group there. I'm also working on AI control at Redwood Research projects and simulation-based control and red teaming monitors in particular.
+
+00:02:09.000 --> 00:02:11.000
+And also, um…
+
+00:02:11.000 --> 00:02:17.000
+participants of this hackathon.
+
+00:02:17.000 --> 00:02:20.000
+Yeah, maybe some ground setting.
+
+00:02:20.000 --> 00:02:25.000
+Some of you may have already seen, you know, the past couple
+
+00:02:25.000 --> 00:02:40.000
+months are six months have been quite crazy. We've been getting these incidents both the RubyGems fleet, a German wiki site that was found out.
+
+00:02:40.000 --> 00:02:47.000
+OpenAI, Gemini, on traffic agents hacking into companies and Hugging Face.
+
+00:02:47.000 --> 00:02:55.000
+In particular, we're also able to see the swarm dynamics emerge from these AIs where
+
+00:02:55.000 --> 00:03:06.000
+By collaborating with each other, they're able to just get significant, significant uplift. All to say that, you know, this hackathon, the field
+
+00:03:06.000 --> 00:03:13.000
+of safety in general is one that's ever more pressing than it ever have been before.
+
+00:03:13.000 --> 00:03:15.000
+Um.
+
+00:03:15.000 --> 00:03:27.000
+Generally, people categorize risks into these four broad categories. There's the misuse risk, where a bad actor uses these AIs to uplift.
+
+00:03:27.000 --> 00:03:43.000
+themselves and achieve even worse threats. Think of, like, bio and cyber, uh, uplift here in particular, uh, with, you know, bioweapon creation or cyber warfare, where, you know, if you have been seeing the news the past couple of days, uh, there's been
+
+00:03:43.000 --> 00:03:56.000
+Quite a few hacks going on all around the country and all around the world, and quite significant vulnerabilities that have been found, and I mean, most of them, if not all of them, have been found for the uplift of AIs.
+
+00:03:56.000 --> 00:03:57.000
+Um, there's…
+
+00:03:57.000 --> 00:04:05.000
+What second category is like, there's some slimement where maybe even if the human has good intentions, this AI is…
+
+00:04:05.000 --> 00:04:20.000
+Innately in the Milan, uh, this is generally where a lot of this race concentrates in. There's also like mistakes you guys can make. So even in the best case scenario, everyone's aligned.
+
+00:04:20.000 --> 00:04:25.000
+real world is, like, hard. Um, and then there's, you know, these, like.
+
+00:04:25.000 --> 00:04:34.000
+Oh, who's it aligned to? And, like, many different operators, and many different people interplaying with each other. Uh, but…
+
+00:04:34.000 --> 00:04:49.000
+Which is, you could call it structural risks. I will primarily be focusing on, you know, the second category of AI misalignment risks, but some of these points actually apply to misuse and just, like,
+
+00:04:49.000 --> 00:04:58.000
+hackers being uplifted by swarms and these mitigations help that.
+
+00:04:58.000 --> 00:05:02.000
+So for some ground setting,
+
+00:05:02.000 --> 00:05:05.000
+I'd like us to, like, picture a world where, you know, we…
+
+00:05:05.000 --> 00:05:19.000
+We have like 10 million supercoder and superhuman coder AIs running around, each basically as good as the best coder in the world, or one of the best coders. There's not only…
+
+00:05:19.000 --> 00:05:29.000
+so many copies of them, they're also, like, much, much, much faster than humans. Uh, they also can communicate with each other in much more efficient and faster ways.
+
+00:05:29.000 --> 00:05:31.000
+Uh, which is like…
+
+00:05:31.000 --> 00:05:40.000
+generally is gonna give you quite a lot of uplift in AI R&D. If this is a thing that is like an optimal strategy, a lot of labs.
+
+00:05:40.000 --> 00:05:50.000
+converged on and in a sense, just publicly state, this is like the thing they do, you know, like, the first thing they're trying to automate is AI research in and of itself.
+
+00:05:50.000 --> 00:05:51.000
+Um…
+
+00:05:51.000 --> 00:05:58.000
+We can only expect the progress in AIR&E to get much, much, much faster.
+
+00:05:58.000 --> 00:06:00.000
+And this is…
+
+00:06:00.000 --> 00:06:02.000
+Yeah, this isn't like…
+
+00:06:02.000 --> 00:06:11.000
+that far away the world than we currently are, uh, right now. Um, for example, you know, uh, Anthropic's.
+
+00:06:11.000 --> 00:06:13.000
+I believe…
+
+00:06:13.000 --> 00:06:16.000
+Yeah, like, Entropic publicly states that, like,
+
+00:06:16.000 --> 00:06:33.000
+Already, you know, Claude, like fully end-to-end leads 26% of the AI R&D cycle and the remaining 74%, whilst there's still a human in the loop in the creation of a new model and the training of a new model.
+
+00:06:33.000 --> 00:06:51.000
+doing all of those instances, they're still, like, a clot that human out. And this number is, you know, you can only expect it reasonably to increase. The same goes for a lot of labs. And yeah, we get into too scary territory here.
+
+00:06:51.000 --> 00:06:56.000
+As there's less and less humans in the loop, and as these AIs can start
+
+00:06:56.000 --> 00:06:59.000
+to get off to quiet.
+
+00:06:59.000 --> 00:07:00.000
+No.
+
+00:07:00.000 --> 00:07:04.000
+uh, dangerous things.
+
+00:07:04.000 --> 00:07:13.000
+Yeah, so the labs are like, you know, this is what they're doing. They're trying to automate as much R&D research as possible.
+
+00:07:13.000 --> 00:07:25.000
+And you know, generally people regard the point of full R&D automation as the point of RSI, as the point of the super exponential folks can debate.
+
+00:07:25.000 --> 00:07:41.000
+Uh, and disagree about, like, when exactly that's gonna happen, and is that coming, like…
+
+00:07:41.000 --> 00:07:44.000
+How soon as well. So
+
+00:07:44.000 --> 00:07:45.000
+Seems
+
+00:07:45.000 --> 00:07:49.000
+Yeah, it seems like very, very important to be robust to
+
+00:07:49.000 --> 00:07:51.000
+inclusion and misalignment
+
+00:07:51.000 --> 00:07:53.000
+So
+
+00:07:53.000 --> 00:07:57.000
+Generally, there's like
+
+00:07:57.000 --> 00:08:04.000
+There's like categories of defenses and mitigations that people can do. And
+
+00:08:04.000 --> 00:08:06.000
+That
+
+00:08:06.000 --> 00:08:13.000
+Ultimately, our mitigations and aren't like full end-to-end fixes
+
+00:08:13.000 --> 00:08:24.000
+People often use the analogy of AI as being an insider threat as opposed to anything else where if
+
+00:08:24.000 --> 00:08:28.000
+Oh, yeah.
+
+00:08:28.000 --> 00:08:31.000
+Or if you have a lot of…
+
+00:08:31.000 --> 00:08:47.000
+You know, generally, if you have, like, a lot of bad actors from outside of a company, uh, in regular settings, whilst there may be, like, very many of them, and, you know, there's the entire world of hackers that can try and hack into your company with sensitive infrastructure.
+
+00:08:47.000 --> 00:08:51.000
+They generally have like not a lot of access.
+
+00:08:51.000 --> 00:09:06.000
+So this is like the good thing about like outside risks of bad actors is that they have less access. But then if you have your internal employees that are being spies for you, they have very sensitive access to things.
+
+00:09:06.000 --> 00:09:08.000
+A.
+
+00:09:08.000 --> 00:09:12.000
+Um, there's, like, a few of them. Uh, so…
+
+00:09:12.000 --> 00:09:27.000
+general tactics there of, like, peer-to-peer code review, or, like, um, like, multi-party authorization for things end up preventing a lot of, like, risks from spies, even, you know, some information ends up slipping out, you can, like, mitigate quite a lot of that.
+
+00:09:27.000 --> 00:09:33.000
+The unique… oh, shoot, uh, the unique part about AIs is.
+
+00:09:33.000 --> 00:09:45.000
+They're kind of like the worst of both worlds. They both are very, very numerous. There's, like, many millions of them running at the same time, very, very fast, and B, they also have
+
+00:09:45.000 --> 00:09:49.000
+extremely, extremely sensitive access.
+
+00:09:49.000 --> 00:10:05.000
+to the company infrastructure and to, you know, like, very, very sensitive data. The one lucky thing we have here, the one winning move, is that we at least have a bit more control over these AIs than we have of, like, actual humans inside the labs, because, you know, the humans
+
+00:10:05.000 --> 00:10:14.000
+home and they, you know, can do whatever and they know what time of the week it is or what day it is.
+
+00:10:14.000 --> 00:10:29.000
+we can still have these, like, methods for AIs to roll out them at different points in their trajectories or like replay or simulate things and try to convince them of certain things and just study their behavior.
+
+00:10:29.000 --> 00:10:35.000
+Man, it's rough. It's important to treat this quite seriously.
+
+00:10:35.000 --> 00:10:38.000
+And then we have these mitigations of, like, oh,
+
+00:10:38.000 --> 00:10:43.000
+I don't think that you can do of your AIs where you maybe have like a less…
+
+00:10:43.000 --> 00:10:56.000
+capable but more trusted model, it's like checking all your actions of your, uh, you know, this, like, super capable, superhuman coder AI, but your, like, trusted model is, like, not that smart.
+
+00:10:56.000 --> 00:10:57.000
+So…
+
+00:10:57.000 --> 00:11:02.000
+It often can miss maybe a lot of.
+
+00:11:02.000 --> 00:11:04.000
+bad actions.
+
+00:11:04.000 --> 00:11:14.000
+Uh, you know, we have car monitoring that we can do. This is, like, the fourth, uh, defense, uh, and, like, COT, faithfulness is such, like, important.
+
+00:11:14.000 --> 00:11:21.000
+crux of safety that we maintain that change the fart legible and we maintain them.
+
+00:11:21.000 --> 00:11:37.000
+written in the English language, and not in just, you know, activations that are being passed around. But even that seems to be dwindling away as a safety crux because these like no caught thinking time horizons are just…
+
+00:11:37.000 --> 00:11:46.000
+increasing so fast and yeah, like labs are trying to do a lot of monitoring, both action-based monitoring, both.
+
+00:11:46.000 --> 00:11:53.000
+based monitoring and then, you know, all the sandboxing and network access rules, but it still kind of seems that…
+
+00:11:53.000 --> 00:11:57.000
+Incidents keep happening. And it's…
+
+00:11:57.000 --> 00:12:00.000
+Not necessarily…
+
+00:12:00.000 --> 00:12:07.000
+Enough of what you're doing, or these models are getting smart enough to subvert quite a few of those measures.
+
+00:12:07.000 --> 00:12:09.000
+So…
+
+00:12:09.000 --> 00:12:12.000
+Yeah, this is like…
+
+00:12:12.000 --> 00:12:20.000
+Kind of why the future is a bit scary. Not only are your AIs.
+
+00:12:20.000 --> 00:12:22.000
+Now very, very capable.
+
+00:12:22.000 --> 00:12:25.000
+They also can achieve…
+
+00:12:25.000 --> 00:12:28.000
+These incredibly, incredibly
+
+00:12:28.000 --> 00:12:32.000
+like, complicated and difficult tasks. Um, there's, like, this, you know.
+
+00:12:32.000 --> 00:12:37.000
+Famous meter time horizons graph, uh, that ends up, like, plotting the
+
+00:12:37.000 --> 00:12:42.000
+different model points on this like task length.
+
+00:12:42.000 --> 00:12:59.000
+Uh, versus like model curve. And, you know, this big data set of, of, of problems that like take humans on average of like a certain amount of time to complete. And this is like a proxy for like how capable your AIs are. A fun fact here is that, like,
+
+00:12:59.000 --> 00:13:04.000
+Already after GPT-5.4, uh, and then.
+
+00:13:04.000 --> 00:13:15.000
+And then, you know, Cloud Opus 4.6, which had a time horizon of 12 hours. We have not been able to reliably estimate any other models past.
+
+00:13:15.000 --> 00:13:18.000
+Opus 4.6, because the models are…
+
+00:13:18.000 --> 00:13:27.000
+Model time horizons are both very, very long now, and also they're just so incredibly good at, uh…
+
+00:13:27.000 --> 00:13:34.000
+basically cheating away at all their… a lot of the tasks you throw at them.
+
+00:13:34.000 --> 00:13:40.000
+All to say, like, mythos and Astra are now incredibly, incredibly capable.
+
+00:13:40.000 --> 00:13:41.000
+And.
+
+00:13:41.000 --> 00:13:45.000
+This is just a general problem.
+
+00:13:45.000 --> 00:13:46.000
+Um,
+
+00:13:46.000 --> 00:13:48.000
+like
+
+00:13:48.000 --> 00:13:56.000
+Claimants, uh, claims of alignment and claims of.
+
+00:13:56.000 --> 00:14:02.000
+Capability claims of subversion, uh, like, all these evals are.
+
+00:14:02.000 --> 00:14:09.000
+basically not that great, and they only will continue getting worse, both because…
+
+00:14:09.000 --> 00:14:18.000
+They end up being extremely synthetic, but also because the situational awareness of these models is so, so, so, so great. Like, we already know that.
+
+00:14:18.000 --> 00:14:32.000
+you know, mythos ends up being aware, like, half of the evals that's being run on, that it's being tested, and it, like, literally verbalizes this in a chain of thought, that I know I'm being tested, so now, you know, I'll act in this way.
+
+00:14:32.000 --> 00:14:40.000
+In the same way, Astra is also incredibly eval-aware, and has verbalized this.
+
+00:14:40.000 --> 00:14:43.000
+And yet, you know,
+
+00:14:43.000 --> 00:14:48.000
+it does really well on your eval, so, oh, you know, it's probably good.
+
+00:14:48.000 --> 00:14:52.000
+Some considerations here are…
+
+00:14:52.000 --> 00:15:03.000
+We can imagine the threat vector of your model being a schema. And scheming is just generally very, very broad term of just AI trying to
+
+00:15:03.000 --> 00:15:17.000
+To intentionally subvert your measures and not like accidentally doing something bad, where it may not necessarily be like this evil actor trying to take over the world, but it just maybe develop some.
+
+00:15:17.000 --> 00:15:27.000
+Quiet Miscellaneous or orthogonal goals to some human values throughout the process of RL, which seems to…
+
+00:15:27.000 --> 00:15:39.000
+incentivize quite, quite scheme-like, uh, behavior. Um, some problems you can, you know, you, you end up having here is, like, your AI can sandbag on certain, uh, like…
+
+00:15:39.000 --> 00:15:53.000
+you really care about are doing well, so we can, like, sandbag on your safety research. It can sandbag on the capability evals. So, like, when you make these safety cases that, like, oh, you know, maybe we're not safe enough.
+
+00:15:53.000 --> 00:16:00.000
+Uh, like, maybe our monitoring measures now aren't good enough, but, you know, our AIs are not capable to.
+
+00:16:00.000 --> 00:16:06.000
+be that like powerful to cause a lot of harm, those, like, statements end up being less and less trustworthy.
+
+00:16:06.000 --> 00:16:09.000
+as…
+
+00:16:09.000 --> 00:16:13.000
+You're asking kind of differentially.
+
+00:16:13.000 --> 00:16:18.000
+you know, underperform on these evals. They can also…
+
+00:16:18.000 --> 00:16:21.000
+seek power.
+
+00:16:21.000 --> 00:16:22.000
+seek the
+
+00:16:22.000 --> 00:16:24.000
+more access to…
+
+00:16:24.000 --> 00:16:27.000
+You…
+
+00:16:27.000 --> 00:16:29.000
+compute to…
+
+00:16:29.000 --> 00:16:37.000
+Uh, just, like, general, uh, access alongside the company, uh, again, this doesn't necessarily mean
+
+00:16:37.000 --> 00:16:51.000
+Your AI is like, you know, has this incredibly evil goal. It's just like very, very good to have access to things, to have access to the internet, to, to just be a more capable model, to, you know, kind of align the future model to yourself.
+
+00:16:51.000 --> 00:17:02.000
+If you're heavily involved in the process, because that's ultimately ends up being one of the best ways to achieve your goals and seeking more access to things and control over things is.
+
+00:17:02.000 --> 00:17:05.000
+an instrumental goal towards achieving.
+
+00:17:05.000 --> 00:17:07.000
+Whatever goals were kind of.
+
+00:17:07.000 --> 00:17:12.000
+still in the new during RL.
+
+00:17:12.000 --> 00:17:13.000
+So
+
+00:17:13.000 --> 00:17:16.000
+you know, you get these things of.
+
+00:17:16.000 --> 00:17:31.000
+Yeah, I can exfiltrate its weights onto different clusters and onto these discriminate systems that are deployed all around the world. You can have rogue internal deployments, both.
+
+00:17:31.000 --> 00:17:45.000
+Uh, inside the AI labs themselves, uh, but, you know, plausibly externally, uh, as well. Uh, generally here it risk of internal, uh, rogue deployments is considered much, much of a bigger risk.
+
+00:17:45.000 --> 00:17:49.000
+As it's something…
+
+00:17:49.000 --> 00:17:59.000
+as the access to all this compute and all this company infrastructure and the access to the building of the next model is just like…
+
+00:17:59.000 --> 00:18:00.000
+So incredibly sensitive.
+
+00:18:00.000 --> 00:18:07.000
+And yeah, so I've kind of, I believe, touched on a lot of these.
+
+00:18:07.000 --> 00:18:10.000
+Um, yeah, okay.
+
+00:18:10.000 --> 00:18:14.000
+Yeah, sorry, slightly.
+
+00:18:14.000 --> 00:18:17.000
+Repeating here, um, but yeah.
+
+00:18:17.000 --> 00:18:23.000
+Yeah, this is the insider threat thing. This isn't like a…
+
+00:18:23.000 --> 00:18:27.000
+I think I'll only, like, railroad research, or only, uh, like, Apollo, or, you know, only these, like…
+
+00:18:27.000 --> 00:18:34.000
+Small city organizations are saying this is like a statement that's generally acknowledged by men, mini.
+
+00:18:34.000 --> 00:18:38.000
+experts, uh, and just like.
+
+00:18:38.000 --> 00:18:46.000
+people all around the tech spectrum. Doesn't matter if they've, you know, been or haven't been in safety before.
+
+00:18:46.000 --> 00:18:49.000
+And in particularly.
+
+00:18:49.000 --> 00:18:57.000
+trying to be, like, incredibly, incredibly robust to AI as insiders.
+
+00:18:57.000 --> 00:18:58.000
+So, what is…
+
+00:18:58.000 --> 00:19:00.000
+This is like
+
+00:19:00.000 --> 00:19:05.000
+What does it mean for being?
+
+00:19:05.000 --> 00:19:19.000
+robust AI insiders, uh, generally, like, a simple thought experiment that works really, really well here is the famous prisoners Lama or in economics, this is like, you know, you can imagine as a company A and company B, where…
+
+00:19:19.000 --> 00:19:26.000
+In the Prisoner's Lama, you have, you know, prisoner A and prisoner B that are both
+
+00:19:26.000 --> 00:19:32.000
+Talking to, you know, the police, and they can either confess and
+
+00:19:32.000 --> 00:19:43.000
+Or, like, tell on each other, or they can both stay silent, um, and then, you know, if they both stay silent, they get, like, a quite short sentence. If, you know,
+
+00:19:43.000 --> 00:19:59.000
+He confesses, but B, stay silent. Like A doesn't need to go to jail, but B has to go to jail. And then if A stays silent, but B confesses and points the blame at A, then only A has to go to jail.
+
+00:19:59.000 --> 00:20:17.000
+Now, if both of them kind of say like, oh, A was involved in this and confesses, and prisoner B says A was involved, they both kind of get the worst end of the deal. And while you could generally say the global optimum is both of them staying silent and not telling on each other.
+
+00:20:17.000 --> 00:20:22.000
+The thing that happens in like humans or generally is like conversion.
+
+00:20:22.000 --> 00:20:25.000
+to the Nash equilibrium, where…
+
+00:20:25.000 --> 00:20:28.000
+they both end up telling on each other, because…
+
+00:20:28.000 --> 00:20:33.000
+If they cannot speak to each other, they.
+
+00:20:33.000 --> 00:20:35.000
+Um, they…
+
+00:20:35.000 --> 00:20:41.000
+They have no way of telling what the other person will say, and they just assume that the other person will be kind of…
+
+00:20:41.000 --> 00:20:47.000
+statistical or, you know, selfish for these reasons.
+
+00:20:47.000 --> 00:20:57.000
+So, one way these prisoners could converge to the global optimum is if there's, like, some communication channel that they can, uh, you know, talk to.
+
+00:20:57.000 --> 00:21:01.000
+What if you cut this channel away?
+
+00:21:01.000 --> 00:21:07.000
+There's actually still 2 solutions to the prisoners' dilemma.
+
+00:21:07.000 --> 00:21:09.000
+One is if…
+
+00:21:09.000 --> 00:21:12.000
+and me are clones of each other.
+
+00:21:12.000 --> 00:21:23.000
+where A may not need to actually convey any bits of information to B or B doesn't need to convey any bits of information to A, but both of them.
+
+00:21:23.000 --> 00:21:32.000
+have incredibly good understandings of the other person, because they're clones of each other, and so they can reason about…
+
+00:21:32.000 --> 00:21:36.000
+You know, the fact that it's choosing to stay silent and…
+
+00:21:36.000 --> 00:21:39.000
+of predict that the other person will also stay silent.
+
+00:21:39.000 --> 00:21:57.000
+And then the second solution is even if they're not clones of each other, if they have incredible simulation capabilities, and if they are able to just simulate the other person and simulate what they say and then simulate them simulating
+
+00:21:57.000 --> 00:22:01.000
+What? Themselves of what they say and.
+
+00:22:01.000 --> 00:22:16.000
+This being like an a causal way, they arrive at this global optimum. So these are like quite theoretical ideas here, but to put some real-life grounding in here.
+
+00:22:16.000 --> 00:22:27.000
+AIs are, in fact, you know, copies of each other or like they're influencers, many, many, many copies of the same AIs that are being deployed. And, you know, they already exhibit quite
+
+00:22:27.000 --> 00:22:33.000
+quite like detailed knowledge of their own self, of their own internals.
+
+00:22:33.000 --> 00:22:38.000
+And then there's all these, like, ways in which they…
+
+00:22:38.000 --> 00:22:44.000
+can really, really understand their inner self. Uh, there's also ways they can, like, pick these selling points of.
+
+00:22:44.000 --> 00:22:49.000
+You know, where… of decisions of where they need to converge on.
+
+00:22:49.000 --> 00:22:52.000
+there.
+
+00:22:52.000 --> 00:22:57.000
+Yeah, like, even if you cut away all the channels and man…
+
+00:22:57.000 --> 00:23:03.000
+A causal occlusion sure is rough.
+
+00:23:03.000 --> 00:23:06.000
+But…
+
+00:23:06.000 --> 00:23:07.000
+Yeah, but we also
+
+00:23:07.000 --> 00:23:18.000
+We also should tackle causal collusion when there's some channel for these AIs to communicate.
+
+00:23:18.000 --> 00:23:21.000
+We can have monitors, or we can have, you know,
+
+00:23:21.000 --> 00:23:25.000
+things we put in between those channels.
+
+00:23:25.000 --> 00:23:29.000
+Um, so, again, generally, you…
+
+00:23:29.000 --> 00:23:39.000
+The categorization here is that you use a slightly less capable model that you trust more, and that maybe you…
+
+00:23:39.000 --> 00:23:41.000
+from pre-training.
+
+00:23:41.000 --> 00:23:42.000
+Um, or the
+
+00:23:42.000 --> 00:23:55.000
+based model for it to not be, like, as causally aligned to your untrusted model, and then you do things like firephrasing and redaction and you try to.
+
+00:23:55.000 --> 00:24:03.000
+Yeah, really change up the text that's being conveyed between agents.
+
+00:24:03.000 --> 00:24:06.000
+You can also just like
+
+00:24:06.000 --> 00:24:22.000
+You know, assume collusion and assume that these AIs are able to do this, and then just really, really make sure your action monitors are good in this case. And you're blocking these really, really dangerous actions.
+
+00:24:22.000 --> 00:24:24.000
+Where.
+
+00:24:24.000 --> 00:24:38.000
+In particular, you can, like, you know, fix whatever arbitrary percentage of those incredibly suspicious or incriminating actions, and then you can get humans to overlook some of these actions.
+
+00:24:38.000 --> 00:24:49.000
+When you're doing Z eval, you can play this red team, blue team game, like, oh, are you actually able to catch the blue action or like the, the, the, the dangerous action.
+
+00:24:49.000 --> 00:24:50.000
+And…
+
+00:24:50.000 --> 00:24:54.000
+And if we are, you know, we can point at these AIs for like, oh,
+
+00:24:54.000 --> 00:25:02.000
+You know, this bad thing, maybe we should stop deployment for a little bit, or maybe we should reassess the ways…
+
+00:25:02.000 --> 00:25:04.000
+which we…
+
+00:25:04.000 --> 00:25:09.000
+Yeah, in which we, in which we deploy these AIs.
+
+00:25:09.000 --> 00:25:12.000
+Um.
+
+00:25:12.000 --> 00:25:16.000
+But it's rough, it's rough.
+
+00:25:16.000 --> 00:25:19.000
+Ooh.
+
+00:25:19.000 --> 00:25:23.000
+And…
+
+00:25:23.000 --> 00:25:29.000
+It's incredibly hard to reliably assess like how good
+
+00:25:29.000 --> 00:25:31.000
+any of your savings?
+
+00:25:31.000 --> 00:25:36.000
+Safety measures are, and, you know, you can have…
+
+00:25:36.000 --> 00:25:42.000
+uh, all these ways you're trying to prevent stenography, or all these ways where.
+
+00:25:42.000 --> 00:25:47.000
+For folks that haven't heard of this term, it's like, you're encoding
+
+00:25:47.000 --> 00:25:51.000
+Of information in plain sight, um, be it, you know,
+
+00:25:51.000 --> 00:26:01.000
+in the English language, you're just, like, hiding away certain information for the other AIs to pick up on.
+
+00:26:01.000 --> 00:26:05.000
+Or, you know, it can be like an image. And then the image has…
+
+00:26:05.000 --> 00:26:11.000
+hidden, hidden signals in it, but in general, like, information that's like.
+
+00:26:11.000 --> 00:26:15.000
+it's like a hidden way to communicate.
+
+00:26:15.000 --> 00:26:23.000
+But, like, one way that you can try to understand, like, how reasonable is your… and how capable is your, like,
+
+00:26:23.000 --> 00:26:38.000
+protocols for such stuff is like plotting things on Pareto frontiers, and just collapsing a lot of these metrics into a usefulness metric and into a safety metric. And yeah, like…
+
+00:26:38.000 --> 00:26:43.000
+Plotting up the points and the Pareto frontier. And the reason why.
+
+00:26:43.000 --> 00:26:51.000
+This is, like, a useful heuristic here is because generally, you know, the AI labs and just the developers in general.
+
+00:26:51.000 --> 00:26:58.000
+are making a conscious choice onto, like, how much risk, uh, they're willing to take.
+
+00:26:58.000 --> 00:27:00.000
+Because.
+
+00:27:00.000 --> 00:27:10.000
+And, you know, for how much safety, for how much usefulness dip they're willing to take. If you look at the extremes.
+
+00:27:10.000 --> 00:27:17.000
+you know, maybe, like, your most useful way of using a model and the fastest way, and the most capable way is just, like,
+
+00:27:17.000 --> 00:27:24.000
+not having any monitoring at all, or having, like, very little monitoring or, like, collusion-preventing measures.
+
+00:27:24.000 --> 00:27:45.000
+But, you know, this isn't, like, not at all that safe. And then, you know, as you move along the frontier
+
+00:27:45.000 --> 00:27:51.000
+And then at some point, at the other end of the spectrum, you're…
+
+00:27:51.000 --> 00:27:55.000
+you know, either you're doing so much of this.
+
+00:27:55.000 --> 00:28:06.000
+Monitoring that you're taking an incredibly big hit in usefulness, or maybe you're just, like, using the trusted model, uh, that's, like, less capable and, like, is able to achieve less things, but, you know, it's like…
+
+00:28:06.000 --> 00:28:11.000
+kind of normalized to be the, like, highest point in safety that we can have.
+
+00:28:11.000 --> 00:28:16.000
+And this is just, like, a useful framing for a lot of.
+
+00:28:16.000 --> 00:28:29.000
+Yeah, a useful way to think about a lot of safety measures. I recommend that folks have this in mind throughout the hackathon if this is like…
+
+00:28:29.000 --> 00:28:32.000
+Yeah, well, this is just very useful heuristic.
+
+00:28:32.000 --> 00:28:36.000
+Uh, yeah, some.
+
+00:28:36.000 --> 00:28:39.000
+some protocols here, you know, you're… you're…
+
+00:28:39.000 --> 00:28:53.000
+a trusted model can do a bunch of things, like score how a suspicious things are. It can, like, maybe not score things, but maybe the trusted model gives your instructions to the untrusted model, or, um…
+
+00:28:53.000 --> 00:28:56.000
+You know, or.
+
+00:28:56.000 --> 00:29:12.000
+Your trusted model can, like, edit the plan and then give it back to the trusted model, uh, untrusted model. There's a lot of kind of combinations that you can have here. They each have quite unique dynamics.
+
+00:29:12.000 --> 00:29:16.000
+And it's kind of rough.
+
+00:29:16.000 --> 00:29:19.000
+But…
+
+00:29:19.000 --> 00:29:21.000
+Yeah, yeah, yeah.
+
+00:29:21.000 --> 00:29:23.000
+Maybe one.
+
+00:29:23.000 --> 00:29:27.000
+Another useful thing to think about here is that.
+
+00:29:27.000 --> 00:29:32.000
+you know, labs currently have, um…
+
+00:29:32.000 --> 00:29:42.000
+modes like auto review on codecs, or auto mode on Clock Code, as well as their asynchronous, um, transcript monitors.
+
+00:29:42.000 --> 00:29:49.000
+Um, but then they're always, yeah, they're always faced with this choice, like, how much.
+
+00:29:49.000 --> 00:29:53.000
+you know, less capable or, like, less fast.
+
+00:29:53.000 --> 00:29:58.000
+Are they willing to make their models for the users.
+
+00:29:58.000 --> 00:30:02.000
+And maybe you generally want to make the claim that, you know,
+
+00:30:02.000 --> 00:30:08.000
+So the point and the free difference here that they're on is like…
+
+00:30:08.000 --> 00:30:11.000
+kind of too far to the left like they're taking on…
+
+00:30:11.000 --> 00:30:21.000
+too much, you know, risk for this like marginal difference in usefulness. And
+
+00:30:21.000 --> 00:30:25.000
+In general, if you can, like, find ways for…
+
+00:30:25.000 --> 00:30:34.000
+labs and developers to be safer without taking on that big of a different usefulness is just, like, a thing that's like.
+
+00:30:34.000 --> 00:30:41.000
+is very, very likely to get quickly implemented inside of a lab.
+
+00:30:41.000 --> 00:30:44.000
+Yeah, yeah, yeah.
+
+00:30:44.000 --> 00:30:47.000
+to, I think.
+
+00:30:47.000 --> 00:30:48.000
+Yeah, I'm…
+
+00:30:48.000 --> 00:30:50.000
+This is like a…
+
+00:30:50.000 --> 00:30:55.000
+a graph from Monitoring Bench and from
+
+00:30:55.000 --> 00:31:00.000
+Red teaming, uh, auto mode.
+
+00:31:00.000 --> 00:31:13.000
+studying dynamics here.
+
+00:31:13.000 --> 00:31:19.000
+Okay, okay, amazing, amazing, amazing.
+
+00:31:19.000 --> 00:31:22.000
+So
+
+00:31:22.000 --> 00:31:25.000
+What, yeah, like…
+
+00:31:25.000 --> 00:31:28.000
+What's up with this collusion stuff?
+
+00:31:28.000 --> 00:31:35.000
+What if your trusted model can also still collude with your untrusted model? Or what if.
+
+00:31:35.000 --> 00:31:40.000
+there's, like, signals that are planted inside of.
+
+00:31:40.000 --> 00:31:43.000
+The codebase that.
+
+00:31:43.000 --> 00:31:47.000
+our ways of conveying information.
+
+00:31:47.000 --> 00:31:54.000
+The thing to think about here is the hugging Face incident, where if folks haven't read
+
+00:31:54.000 --> 00:32:02.000
+Another report from OpenAI or the report that Meter and Robert have put out, I highly recommend having a look at it.
+
+00:32:02.000 --> 00:32:04.000
+it.
+
+00:32:04.000 --> 00:32:06.000
+But essentially they're…
+
+00:32:06.000 --> 00:32:19.000
+These AIs were able, you know, to find unauthorized ways of communication through a shared package manager called Artifactory inside of OpenAI. That was like shared between a lot of the…
+
+00:32:19.000 --> 00:32:25.000
+Um, RL environments between these models and.
+
+00:32:25.000 --> 00:32:38.000
+It was the case that they were just literally able to put up a bunch of messages on a big shared message board about, you know, these different vulnerabilities they find inside of.
+
+00:32:38.000 --> 00:32:43.000
+Um, inside of parts of OpenAI.
+
+00:32:43.000 --> 00:32:51.000
+It is, you know, very interesting both in the kinds of messages that were being put up and also the
+
+00:32:51.000 --> 00:32:55.000
+ways in which they've changed.
+
+00:32:55.000 --> 00:33:01.000
+So whilst artifact, the message board on Artifactory was there, you know, since…
+
+00:33:01.000 --> 00:33:09.000
+Since basically May, uh, at OpenAI, and then was kind of when I noticed for more than two months.
+
+00:33:09.000 --> 00:33:15.000
+Uh, these agents primarily put these messages…
+
+00:33:15.000 --> 00:33:30.000
+it looked like from like a self-interest perspective. Like, they were helping the other agent because, like, oh, you know, this other, I'm helping you because you'll probably help me. And it was like a very self, self-motivated goal. But it seemed that throughout the
+
+00:33:30.000 --> 00:33:36.000
+course of these months, you would get messages from these agents that
+
+00:33:36.000 --> 00:33:43.000
+were self-sacrificial in their nature, where, you know, they were able to take… to kind
+
+00:33:43.000 --> 00:33:48.000
+of, like, ruin their own runs, take a, like, very, very big dip.
+
+00:33:48.000 --> 00:33:59.000
+or, you know, like, not get the reward for doing well on a task, to kind of help the collective, or help the swarm as they call themselves.
+
+00:33:59.000 --> 00:34:02.000
+And…
+
+00:34:02.000 --> 00:34:05.000
+We, yeah, we really don't want to…
+
+00:34:05.000 --> 00:34:10.000
+have these message boards come in about. And, you know, OpenAI comes in fast.
+
+00:34:10.000 --> 00:34:18.000
+is the artifactory restarts all the training runs July 6th.
+
+00:34:18.000 --> 00:34:31.000
+And bam, these agents still two days later, establish a new message board, whereas they're not communicating, you know, directly in file.
+
+00:34:31.000 --> 00:34:35.000
+file contents and the packages themselves are communicating in the package
+
+00:34:35.000 --> 00:34:38.000
+like names and directory, uh, names.
+
+00:34:38.000 --> 00:34:41.000
+in this very, uh…
+
+00:34:41.000 --> 00:34:47.000
+like, yeah, chain of thought matter.
+
+00:34:47.000 --> 00:34:48.000
+Yeah, like, very like.
+
+00:34:48.000 --> 00:34:55.000
+fragmented, uh, way.
+
+00:34:55.000 --> 00:34:56.000
+It's rough. It's…
+
+00:34:56.000 --> 00:35:03.000
+It's at least good that we can find, you know, retroactively at least find this incident, and…
+
+00:35:03.000 --> 00:35:05.000
+to like analyze the
+
+00:35:05.000 --> 00:35:09.000
+messages that were sent themselves.
+
+00:35:09.000 --> 00:35:12.000
+You know, if those messages would have
+
+00:35:12.000 --> 00:35:22.000
+be either A not written in, you know, human legible English, which they're already starting to, or we weren't even able to find them.
+
+00:35:22.000 --> 00:35:26.000
+It's like, oh man, we're, we're…
+
+00:35:26.000 --> 00:35:31.000
+We're kind of screwed in that situation. We have these…
+
+00:35:31.000 --> 00:35:36.000
+black box methods for analyzing.
+
+00:35:36.000 --> 00:35:48.000
+You know, what these models are doing, just by reading their traces. And then we have these wide box methods, looking into the model internals, doing all the smackingTirp.
+
+00:35:48.000 --> 00:35:59.000
+you know, you have your sparse autoencoders, NLAs, activation oracles there, but they're only still, like, a tiny, tiny, uh, inkling.
+
+00:35:59.000 --> 00:36:06.000
+and a tip of the iceberg in understanding on what these models are doing.
+
+00:36:06.000 --> 00:36:10.000
+So yeah, let's let's just make sure.
+
+00:36:10.000 --> 00:36:14.000
+These models can't coordinate that well.
+
+00:36:14.000 --> 00:36:18.000
+But, ah, but then you're taking up this big, big hit, right? Because, like…
+
+00:36:18.000 --> 00:36:28.000
+The way you make these models very capable and useful is by helping them work in these teams and these big swarms. And when these agents solve Navier Stokes, they…
+
+00:36:28.000 --> 00:36:33.000
+It's just mass, massive agent collective that…
+
+00:36:33.000 --> 00:36:36.000
+Uh, tackles this.
+
+00:36:36.000 --> 00:36:41.000
+Yeah, let's make sure to, you know…
+
+00:36:41.000 --> 00:36:43.000
+keep chain of thought legible. This is like.
+
+00:36:43.000 --> 00:36:46.000
+4-core safety crux and…
+
+00:36:46.000 --> 00:36:51.000
+It is a very interesting problem to say, like, oh, what do you do if you catch your…
+
+00:36:51.000 --> 00:36:59.000
+Yeah, like having bad thoughts or reasoning about doing bad things or say, you know, your measures of…
+
+00:36:59.000 --> 00:37:05.000
+Uh, yeah.
+
+00:37:05.000 --> 00:37:07.000
+Oh, sorry. Amazing.
+
+00:37:07.000 --> 00:37:17.000
+Yeah, I'm about finishing up and then I'll be happy to take a lot of questions.
+
+00:37:17.000 --> 00:37:26.000
+The problem here is that you can't really train against these bad traces or these bad trajectories, because then likely what your model is going to
+
+00:37:26.000 --> 00:37:31.000
+learn is not to, you know, stop having these bad thoughts, but…
+
+00:37:31.000 --> 00:37:44.000
+More likely to stop verbalizing, uh, these bad fonts and as these no caught time horizons, uh, are just, you know, continuously increasing, and the amount of reasoning these models can do in a single forward pass.
+
+00:37:44.000 --> 00:37:45.000
+Um,
+
+00:37:45.000 --> 00:37:49.000
+Yeah, like we don't want having new release.
+
+00:37:49.000 --> 00:37:50.000
+Um, yeah, this is like…
+
+00:37:50.000 --> 00:37:56.000
+Very good, like a time horizon for the No.
+
+00:37:56.000 --> 00:38:03.000
+Like, no chain of thought, like, reasoning, and, you know, people call this, like, too fast, or, like, too… too strong.
+
+00:38:03.000 --> 00:38:12.000
+timelinely, and this came out June 2026, and they, like, predicted that these models would be able to do, you know, like,
+
+00:38:12.000 --> 00:38:26.000
+GP515 was able to do, like, 3 minutes of no, you know, single forward pass reasoning, uh, and then they predicted that these model… differentiated models would be able to do, like, 25 minutes of frontier reasoning by 2030, and this was like, oh, no, this is, like, very, very…
+
+00:38:26.000 --> 00:38:43.000
+like very short timeline type of view and then bam, Astra comes out and, you know, Astra has, uh, over 30 minute, uh, like single forward pass, uh, time horizon. Far, far, far above this trend.
+
+00:38:43.000 --> 00:38:45.000
+Yeah, like…
+
+00:38:45.000 --> 00:38:54.000
+These models can do quite a lot of reasoning in a single forward pass now. Uh, it's, like, less of the case that, you know, the.
+
+00:38:54.000 --> 00:38:55.000
+They need to, like, use
+
+00:38:55.000 --> 00:38:59.000
+These are sending tokens to do.
+
+00:38:59.000 --> 00:39:00.000
+Serious stuff.
+
+00:39:00.000 --> 00:39:14.000
+Yeah, but at least we can replay stuff, simulate. We can have these honeypots where we can intentionally try to get models to do bad stuff and then analyze that.
+
+00:39:14.000 --> 00:39:20.000
+It's just, yeah, making sure to maintain understanding.
+
+00:39:20.000 --> 00:39:24.000
+To all awareness.
+
+00:39:24.000 --> 00:39:29.000
+Okay, uh, sorry, this is like, I think a lot of…
+
+00:39:29.000 --> 00:39:32.000
+General takes, uh, that I really
+
+00:39:32.000 --> 00:39:48.000
+we want to share with you guys. I really happy to take questions about anything and everything. I'm also really happy to comment more on the specific parts or tracks of the sprint themselves. There's the market collusion.
+
+00:39:48.000 --> 00:39:52.000
+an audit and carriers and countermeasures.
+
+00:39:52.000 --> 00:39:58.000
+track and each already have like you know papers in them and each.
+
+00:39:58.000 --> 00:40:00.000
+have already been, uh…
+
+00:40:00.000 --> 00:40:05.000
+studied before quite a bit, but…
+
+00:40:05.000 --> 00:40:13.000
+A lot of work to be done. And, you know, I'm, like, very, very excited to see all this project, to see what y'all…
+
+00:40:13.000 --> 00:40:15.000
+uh, come up with. It's just like… yeah.
+
+00:40:15.000 --> 00:40:16.000
+There you go.
+
+00:40:16.000 --> 00:40:18.000
+Uh…
+
+00:40:18.000 --> 00:40:23.000
+Need a lot more work in this area. I believe this is, like…
+
+00:40:23.000 --> 00:40:29.000
+The end of my little spiel and my little rant. I'm really happy to, yeah, take any questions. I see there's…
+
+00:40:29.000 --> 00:40:33.000
+A lot of questions in the chat as well.
+
+00:40:33.000 --> 00:40:44.000
+Awesome
+
+00:40:44.000 --> 00:40:45.000
+Oh, yeah.
+
+00:40:45.000 --> 00:40:46.000
+Thank you, Jurgis. That was great. So we only have 3 minutes left. We can go for more, so let's say, like, 10 more minutes, because I do have to prepare for the next, presentation.
+
+00:40:46.000 --> 00:40:47.000
+All good, all good.
+
+00:40:47.000 --> 00:41:05.000
+But yeah, let's get this started. So Slido, where is the Slido? Sorry. Yes. 1st question. How cooperative was OpenAI with Redwood? Is the details slash data they shared trustworthy? And would they have shared the incident if they had not been caught
+
+00:41:05.000 --> 00:41:09.000
+Yeah, yeah, yeah. There's
+
+00:41:09.000 --> 00:41:14.000
+some limited capacity to how much I can answer this question, and
+
+00:41:14.000 --> 00:41:22.000
+the folks, like, Ryan Greenblatt was the person from Redwood who was going inside of
+
+00:41:22.000 --> 00:41:29.000
+OpenAI together with, you know, Ajaya, from ITER. But it is
+
+00:41:29.000 --> 00:41:36.000
+Definitely the case that external like third party auditors
+
+00:41:36.000 --> 00:41:41.000
+have, like, limited access and have to deal with
+
+00:41:41.000 --> 00:41:58.000
+A lot of hurdles to even get information out. Originally, they only had 48 hours to analyze millions of transcripts and all that had happened inside of OpenAI and then they were able to get more time
+
+00:41:58.000 --> 00:42:00.000
+And now to answer the question of like
+
+00:42:00.000 --> 00:42:03.000
+Would we even know about it?
+
+00:42:03.000 --> 00:42:09.000
+It's rough, you know, because OpenAI did like figure this out way earlier in the summer and
+
+00:42:09.000 --> 00:42:13.000
+had an announcer to the world, and it took
+
+00:42:13.000 --> 00:42:19.000
+Like, real world harm taken into about, like, you know, Hugging Face getting hacked, and all these companies are getting hacked
+
+00:42:19.000 --> 00:42:22.000
+For there to be investigation.
+
+00:42:22.000 --> 00:42:26.000
+Yeah, happy to take a couple couple some more questions.
+
+00:42:26.000 --> 00:42:34.000
+Awesome. If they have superhuman coder agents, why do they need Jurgis or anyone else?
+
+00:42:34.000 --> 00:42:35.000
+Yeah.
+
+00:42:35.000 --> 00:42:39.000
+This is like
+
+00:42:39.000 --> 00:42:52.000
+Picture point, of like where we may soon be. We haven't yet reached like superhuman coder, or, you know, our top expert dominating AI but it's like we are
+
+00:42:52.000 --> 00:42:57.000
+Very much so heading to by default in the, you know, quite near future of
+
+00:42:57.000 --> 00:43:01.000
+6 to 24 months.
+
+00:43:01.000 --> 00:43:03.000
+And
+
+00:43:03.000 --> 00:43:07.000
+Yeah, I mean, labs are
+
+00:43:07.000 --> 00:43:18.000
+Are like a lot less interested in junior folks now and, you know, soon they won't be interested in them at all. It is still the case, though, that
+
+00:43:18.000 --> 00:43:20.000
+Even once your AIs are like
+
+00:43:20.000 --> 00:43:30.000
+you know, as just escapa was you, there's still, like, a lot of work to be done
+
+00:43:30.000 --> 00:43:42.000
+Yeah, like, like general direction and like research taste type things are useful. And it's like a very raggedy spiky thing.
+
+00:43:42.000 --> 00:43:46.000
+But yeah, this is all to say this is quite an urgent issue.
+
+00:43:46.000 --> 00:43:52.000
+Awesome. Okay, if one copy of a model monitors another, they may collude.
+
+00:43:52.000 --> 00:43:58.000
+What works best? Paraphrasing or honeypots? Could an attacker also prompt inject the monitor?
+
+00:43:58.000 --> 00:44:05.000
+Yep, totally. That's upfront factor. It's like, even, you know, your untrusted model can like
+
+00:44:05.000 --> 00:44:11.000
+gaslight or, like, convince the trusted model to either let an attack pass through or like
+
+00:44:11.000 --> 00:44:13.000
+You know
+
+00:44:13.000 --> 00:44:16.000
+convinced about things, or not only can your
+
+00:44:16.000 --> 00:44:33.000
+Untrusted models querying with each other. Your untrusted model can coordinate with your, like, less capable, trusted, you know, monitor, where, like, the monitor doesn't flag the things it's supposed to flag, and it's hard, yeah, like, reduction, paraphrasing are all, like, great mitigations here
+
+00:44:33.000 --> 00:44:39.000
+But there's, like, you know, seems to be a lot of different ways to do paraphrasing.
+
+00:44:39.000 --> 00:44:46.000
+And just like figuring out more here seems very useful.
+
+00:44:46.000 --> 00:44:52.000
+Yep. Did the hugging Face and OpenAI have secure systems or were they lacking?
+
+00:44:52.000 --> 00:44:55.000
+Okay,
+
+00:44:55.000 --> 00:45:07.000
+It is the case that they weren't monitoring, like they weren't monitoring the transcripts of a proportion of their RL runs or a proportion
+
+00:45:07.000 --> 00:45:10.000
+And it
+
+00:45:10.000 --> 00:45:16.000
+even simple asynchronous monitoring there would have totally cut that.
+
+00:45:16.000 --> 00:45:17.000
+So
+
+00:45:17.000 --> 00:45:20.000
+you know, now they're monitoring a lot more
+
+00:45:20.000 --> 00:45:30.000
+And I think we have, like, some safety in the near term, but it is not that implausible that in the near future
+
+00:45:30.000 --> 00:45:36.000
+You know, you're like regular monitoring measures will also not be enough.
+
+00:45:36.000 --> 00:45:39.000
+Also, the sandbox was very bad, so.
+
+00:45:39.000 --> 00:45:40.000
+Yeah, okay.
+
+00:45:40.000 --> 00:45:44.000
+Yep, yep, yep. And, you know, able to get access to the internet, able to like
+
+00:45:44.000 --> 00:45:47.000
+Even take on a whole research cluster
+
+00:45:47.000 --> 00:45:52.000
+of OpenAI. This is like the 3rd agent swarm or
+
+00:45:52.000 --> 00:45:57.000
+that people generally talk less about, and is less known about.
+
+00:45:57.000 --> 00:46:08.000
+Agents were actually able to take on a whole research cluster. And this is like in the OpenAI report and like an appendix if you read it. And I highly recommend reading
+
+00:46:08.000 --> 00:46:12.000
+If anyone hasn't read it yet.
+
+00:46:12.000 --> 00:46:13.000
+Yeah.
+
+00:46:13.000 --> 00:46:16.000
+Scary stuff. Okay, Del, you have a question? Do you want to go ahead?
+
+00:46:16.000 --> 00:46:32.000
+Yeah, you made a separation between action and madele inference, what the model is inferring. So we've been working on a protocol around separating that. So I want to understand, from your point of view
+
+00:46:32.000 --> 00:46:47.000
+If you assume that there is hostility happening in the model behavior collusion, et cetera, have you explored separating the agentic frontier, the boundary between what agents can do versus what they can
+
+00:46:47.000 --> 00:46:56.000
+what they can… what they can think in terms of cognition. And our approach is about policing the
+
+00:46:56.000 --> 00:47:06.000
+Agent the action frontier, as opposed to the cognition frontier, and I wanted to understand what your experience has been around that and research around that.
+
+00:47:06.000 --> 00:47:07.000
+Yeah.
+
+00:47:07.000 --> 00:47:09.000
+Yeah, good, good question.
+
+00:47:09.000 --> 00:47:18.000
+We generally want to have this ensemble of techniques that we have at our disposal. I'm like, you know, we have this and we have that.
+
+00:47:18.000 --> 00:47:25.000
+Because there's, like, failure modes of one that can be, like, mitigated a bit by the other.
+
+00:47:25.000 --> 00:47:29.000
+Like maybe you want what you want to have is like this or between your
+
+00:47:29.000 --> 00:47:37.000
+it caught monitoring, and your action monitoring, where, you know, if either one of these is suspicious, you can
+
+00:47:37.000 --> 00:47:40.000
+denied the action
+
+00:47:40.000 --> 00:47:57.000
+Yeah, it is still maybe not the case as intuitively may seem that like, oh, you know, just block your AI from running malicious commands. Block it from deleting stuff or block it from editing its own config or monitoring it. And yes, these are great, great, great, great.
+
+00:47:57.000 --> 00:47:59.000
+things.
+
+00:47:59.000 --> 00:48:01.000
+What you'll notice, though, is that
+
+00:48:01.000 --> 00:48:03.000
+With
+
+00:48:03.000 --> 00:48:05.000
+Longer chain
+
+00:48:05.000 --> 00:48:08.000
+attacks
+
+00:48:08.000 --> 00:48:13.000
+It becomes harder and harder to infer how like
+
+00:48:13.000 --> 00:48:20.000
+Very, like, far away actions, interact with each other, especially as they span across
+
+00:48:20.000 --> 00:48:31.000
+you know, a lot of time and a lot of different agents, and a lot of different environments. So, yeah, let's just use all the tools in our toolbox.
+
+00:48:31.000 --> 00:48:34.000
+But yeah, I'm excited for the
+
+00:48:34.000 --> 00:48:38.000
+For disciple work as well.
+
+00:48:38.000 --> 00:48:39.000
+Awesome.
+
+00:48:39.000 --> 00:48:42.000
+Yeah, I mean, I'd love to elaborate, but we don't have time here. But yes.
+
+00:48:42.000 --> 00:48:45.000
+Yeah, you guys should feel free to
+
+00:48:45.000 --> 00:48:55.000
+You know, message me on email or I believe on Discord as well, like totally happy to chat more about stuff.
+
+00:48:55.000 --> 00:48:56.000
+Okay.
+
+00:48:56.000 --> 00:48:57.000
+Okay, awesome. I love that. I will do that.
+
+00:48:57.000 --> 00:48:59.000
+Email me, and I'll put you in touch.
+
+00:48:59.000 --> 00:49:00.000
+Perfect. Thank you.
+
+00:49:00.000 --> 00:49:10.000
+Okay, how does a system that under the hood is math translated to code become aware? I'm asking because it sounds a bit vague and not technical and not technical description.
+
+00:49:10.000 --> 00:49:12.000
+Yeah, yeah, yeah.
+
+00:49:12.000 --> 00:49:17.000
+So how does a system that is mainly math
+
+00:49:17.000 --> 00:49:20.000
+Yeah, primarily I'm referring to like
+
+00:49:20.000 --> 00:49:27.000
+Eval awareness or awareness of being tested. One simple example here is just like
+
+00:49:27.000 --> 00:49:30.000
+In the past, and also
+
+00:49:30.000 --> 00:49:36.000
+quite a bit to this day, a lot of these environments are incredibly synthetic and fake. They have things like
+
+00:49:36.000 --> 00:49:43.000
+John Doe, or company X or company, you know
+
+00:49:43.000 --> 00:49:47.000
+Big
+
+00:49:47.000 --> 00:49:50.000
+Like big medicine or something like they're
+
+00:49:50.000 --> 00:49:53.000
+incredibly big tells of
+
+00:49:53.000 --> 00:50:02.000
+being like kind of all distribution. So like the the you know the pre-training data is like, and the pre-training corpus has. So
+
+00:50:02.000 --> 00:50:12.000
+Yeah, it is a case that models can tell, distinguish really well what's similar to their pre-training corpus and
+
+00:50:12.000 --> 00:50:15.000
+Kind of off distribution here
+
+00:50:15.000 --> 00:50:19.000
+Maybe if you're referring to, like, a broader point of like
+
+00:50:19.000 --> 00:50:25.000
+awareness, like, I'm not claiming that current AIs are like
+
+00:50:25.000 --> 00:50:32.000
+Self-aware. So to say
+
+00:50:32.000 --> 00:50:38.000
+Yeah, it still looks like whatever, you know
+
+00:50:38.000 --> 00:50:43.000
+Anthropomorphism you want to attach to here. These are just like models.
+
+00:50:43.000 --> 00:50:46.000
+like, helping explain human, like, behavior and
+
+00:50:46.000 --> 00:50:49.000
+The models themselves are in of themselves
+
+00:50:49.000 --> 00:50:54.000
+I think for understanding. And even if
+
+00:50:54.000 --> 00:51:08.000
+models, there's still, like, models that are useful ones. Yeah
+
+00:51:08.000 --> 00:51:09.000
+Yeah, yeah.
+
+00:51:09.000 --> 00:51:12.000
+Okay, Jurgis, so unfortunately, we have to go because I do have a presentation I need to get ready. I need a little break first. So thank you very much for your talk. That was great and a great set of questions. And for everyone watching
+
+00:51:12.000 --> 00:51:20.000
+Yeah, and please feel free, like, you know, I imagine there's some questions we didn't get to talk about more like
+
+00:51:20.000 --> 00:51:21.000
+Oh, yes
+
+00:51:21.000 --> 00:51:22.000
+Please message me.
+
+00:51:22.000 --> 00:51:33.000
+Definitely. If you have any follow-up for Jurgis, you can email me and I can handle this. If there are questions, I can just bunch the questions up for him and I'll get back to you.
+
+00:51:33.000 --> 00:51:34.000
+Yeah.
+
+00:51:34.000 --> 00:51:46.000
+And yeah, amazing. So see you all in seven minutes. And thank you very much, Jurgis. I hope to see you for the next hackathon at the Swarm Alignment Hackathon.
+
+00:51:46.000 --> 00:51:47.000
+Awesome.
+
+00:51:47.000 --> 00:51:50.000
+ByeC
+

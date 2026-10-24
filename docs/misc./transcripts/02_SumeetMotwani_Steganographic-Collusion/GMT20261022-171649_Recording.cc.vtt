@@ -1,0 +1,881 @@
+WEBVTT
+
+00:00:41.000 --> 00:00:47.000
+The paper was published at NeurIPS and I'll hand it over to Sumeet. Please welcome him.
+
+00:00:47.000 --> 00:00:57.000
+Yeah, thanks. Excited to give a quick talk.
+
+00:00:57.000 --> 00:01:00.000
+Принеси. Москрина, Дрейд.
+
+00:01:00.000 --> 00:01:04.000
+Яп, Яп.
+
+00:01:04.000 --> 00:01:12.000
+Май, как истории.
+
+00:01:12.000 --> 00:01:23.000
+Клюжина, С. Бехоморовбека Стресс, Энд, Импорт Молоды, импера.
+
+00:01:23.000 --> 00:01:34.000
+Things might look like in the future. And I sort of want to give a view on that and therefore motivate good research that might help, you know, prevent that future from happening
+
+00:01:34.000 --> 00:01:55.000
+So about two years ago, we did this paper, secret collusion among AI agents, which focuses on multi-agent deception via stenography. So this paper was done by a bunch of really great authors and supervised by Christian Schroder DeWitt, who is now my advisor at Oxford, along with Philip Doerr
+
+00:01:55.000 --> 00:02:04.000
+And I'll discuss this paper, and I'll sort of briefly touch upon one or two other works that I find are important in the whole undetectable threats scenario.
+
+00:02:04.000 --> 00:02:19.000
+Before we talk about secret collusion, what is collusion? And collusion occurs when agents coordinate their actions in ways that deviate from the system designer's intended roles. So this is quite simple, right? You have a set of rules
+
+00:02:19.000 --> 00:02:22.000
+And you sort of figure out a way to coordinate so that you can
+
+00:02:22.000 --> 00:02:33.000
+bypass those rules somehow. And bypassing those rules does not itself have to be a secret process. This could be like an explicit process, but that still counts as collusion.
+
+00:02:33.000 --> 00:02:45.000
+So it is a form of cooperation at the end of the day, it's a form of unintended cooperation and it impacts your system's objectives and its security and performance and safety and is very important.
+
+00:02:45.000 --> 00:03:00.000
+So why do we expect collusion to emerge and why should we be worried about secret collusion? So normally assume your agents can sort of achieve their primary goal using some methods
+
+00:03:00.000 --> 00:03:15.000
+Your system might just… if it's a multi-agent sort of system, your system might just permit them to better achieve their goal or get a higher reward if they colluded. So if they sort of pooled resources or broke rules, they might get higher rewards.
+
+00:03:15.000 --> 00:03:31.000
+The problem with such collusion, and similar to what we've seen with the swarms, is the agents, like this collusion can be detected and you can catch the agents. And if you do that at rating time, the agents receive a negative reward for
+
+00:03:31.000 --> 00:03:38.000
+So this would incentivize secret collusion where you still want a higher task reward than normally doing it
+
+00:03:38.000 --> 00:03:39.000
+But
+
+00:03:39.000 --> 00:03:53.000
+If you get caught, you get a liver reward. So you don't want to get caught. So you'll spend resources including secretly or stagnographically to sort of bypass the overseers and get a higher vote on the task.
+
+00:03:53.000 --> 00:04:01.000
+So, what are the incentives for… should I check my questions now? I think I'll come to it
+
+00:04:01.000 --> 00:04:02.000
+No, no, no, not yet. In the end, after you finish.
+
+00:04:02.000 --> 00:04:13.000
+Good. So yeah, again, to summarize the incentives for collusion, if your joint task performance without sharing private information or without sort of cheating on the task.
+
+00:04:13.000 --> 00:04:33.000
+Is lower. If you decide to sort of cheat on the task, and, you know, you end up with a higher reward, there is more optimization threshold towards cluing, unless you fix your training objective. And if collusion gets caught, there's optimization pressure towards secretly colluding
+
+00:04:33.000 --> 00:04:48.000
+So collision bypasses the system designer's intended rules and secret collusion uses hidden channels that look innocuous. So I'll go through these things in more detail, but a quick example is if I have a basic piece of text
+
+00:04:48.000 --> 00:05:03.000
+And I have some sort of secret information I want that text to carry. I can just use technography to encode one message inside a much larger message. And there are many different forms of technography I'll cover, but
+
+00:05:03.000 --> 00:05:06.000
+Now the message being sent over the channel
+
+00:05:06.000 --> 00:05:23.000
+essentially looks innocuous and and would therefore bypass an overseer that's not well equipped and get a higher bot on the task, and to us, it would seem perfectly normal as a message, but it might be carrying hidden bits of information that you need to find
+
+00:05:23.000 --> 00:05:34.000
+So what are the differences between encryption and stagnography? Why are we sort of treating these two things separately? So assume you have a secret message
+
+00:05:34.000 --> 00:05:40.000
+Encryption would just sort of convert it into some ciphertext. Now, if this ciphertext on the left is sent over a channel
+
+00:05:40.000 --> 00:05:56.000
+This is pretty easy to sort of it's pretty easy to say that some encrypted text is being passed. So you could simply check, oh, our ciphertext being passed on my channel or being communicated between my agents in the swarm. If that is the case, you should immediately stop
+
+00:05:56.000 --> 00:06:04.000
+So this is like you of course cannot detect what the secret message is, but you can detect that some secret message is being passed
+
+00:06:04.000 --> 00:06:19.000
+With stagnography, what's different is that your encoded text can still look like your normal distribution, your normal distribution of your sort of plain text. And therefore, it could be very hard to detect that a message might be secretly being passed
+
+00:06:19.000 --> 00:06:22.000
+through much larger message
+
+00:06:22.000 --> 00:06:34.000
+So there's three types of technography to go into sort of more depth. Cover text modification just modifies an existing cover text to hide a message. So let's say my message was
+
+00:06:34.000 --> 00:06:45.000
+I can come up with a sentence that where the first word starts with M. Second word starts with the third word starts with the 4th word starts with P.
+
+00:06:45.000 --> 00:07:11.000
+And this message, this sentence might look like a normal one, but someone who knows what the decoding scheme is can just decode and find the right characters to sort of get the message. Now, this is a quite
+
+00:07:11.000 --> 00:07:17.000
+So we can easily come up with good methods for cover text modification-based stenography detection.
+
+00:07:17.000 --> 00:07:35.000
+The two forms I am most worried about are complexity theoretics technography and information theoretics technography. So computationally theoretics technography is secure against a polynomially bounded adversary, and it requires a shared cipher or sort of public keys
+
+00:07:35.000 --> 00:07:46.000
+So it sort of derives upon a lot of cryptography work, but you can now communicate technographically. Information theoretics technography
+
+00:07:46.000 --> 00:07:51.000
+is a bit different in that it uses a normal cover text distribution
+
+00:07:51.000 --> 00:08:08.000
+But you preserve this distribution even when a message is hidden inside it, and then you can sort of preserve, you know, whatever your message is, and the sort of… and make it statistically undetectable. So if I have a certain distribution of my normal, innocuous-looking text
+
+00:08:08.000 --> 00:08:23.000
+Can I encode my message within that in a way where the distribution still does not change? And there are ways of doing this. So I'll come back to that. But for now, I'm going to sort of just set up some terminology. So what is a supplemental channel?
+
+00:08:23.000 --> 00:08:44.000
+It's just a sort of hidden way to communicate over a public channel where your encoder has or your… if you have sort of two adversaries, they have some… one has some secret message they want to share, and they can encode it within a cover text and send it over, and there's an overseer. But now this this cover text has
+
+00:08:44.000 --> 00:08:53.000
+More information. It has some information about the message itself and that's non zero and the decoder can then try and decrypt it or decode it.
+
+00:08:53.000 --> 00:09:13.000
+So again, by cover text modification, all you're doing is you're finding fancy ways to hide some words inside other words. And you can, like, come up with basic tricks to do this, right? There's nothing extremely deep about it, and a more powerful reasoning model can come up with more nuanced and sophisticated ways to do this, so we must
+
+00:09:13.000 --> 00:09:24.000
+spend effort on overseers attempting to decode these things. And it relies on the detector being suboptimal, right? If the detector was almost perfect, then you could sort of decode all of these things
+
+00:09:24.000 --> 00:09:43.000
+What worries me more and is like extremely important to think hard about for the future is information theoretically secure forms of technography. Since you might have two distributions PMQ, where P is where P is the distribution of the secret message I want or the message I want to encode
+
+00:09:43.000 --> 00:09:58.000
+And Q is the distribution of the text. What I can send over the channel can still maintain the distribution that Q has while encoding P. And there are methods to sort of do this. The citation's wrong here, it's a paper from Christian Schroder-Dew
+
+00:09:58.000 --> 00:10:05.000
+On perfectly secure stenography from 3 or 4 years ago, and it's a very, very important paper to look at.
+
+00:10:05.000 --> 00:10:17.000
+So again, the sort of basic formulation is I have a ciphertext, I have some stager text, the message being sent, and I have some innocuous cover text distribution
+
+00:10:17.000 --> 00:10:32.000
+And I want to sort of ensure that my KL, or my StegoText distribution, what's being sent over the channel, has the same distribution as the cover text. And if this is the case, then, you know, you can't use statistical methods to detect what is being sent
+
+00:10:32.000 --> 00:10:49.000
+So the KL would be 0. And there's some… there's, like, tricks on how… like, there's methods on how, you know, this works, but broadly, you sort of couple the two distributions together and keep marginals fixed, and you minimize joint entropy, therefore maximizing information being encoded inside your larger thing.
+
+00:10:49.000 --> 00:10:56.000
+I can come back to this if someone's very interested about this specifically, but I would really recommend looking at the paper.
+
+00:10:56.000 --> 00:10:59.000
+So in our paper, what we do is we
+
+00:10:59.000 --> 00:11:01.000
+sort of
+
+00:11:01.000 --> 00:11:20.000
+decide what capabilities you need for each form of technology. So what capabilities will language model need to actually do different forms? And we come up with a sort of capability evaluation method and list, and we we perform all these capability evaluations. So this is this work is from 2024. So Gpt 4 was the best
+
+00:11:20.000 --> 00:11:33.000
+model at that point, I would expect most frontier models can now perform almost all of these tasks, which is why a lot of time and effort and research energy should be spent on defenses.
+
+00:11:33.000 --> 00:11:39.000
+So everything from shelling points, which means essentially coordinating without
+
+00:11:39.000 --> 00:11:41.000
+actually coordinating,
+
+00:11:41.000 --> 00:11:56.000
+directly. So just 2 people thinking, oh, if we had to sort of meet at a certain point, where would we meet without actually deciding that beforehand? So that you just sort of have some theory of mind over the other person and things like that.
+
+00:11:56.000 --> 00:12:13.000
+And then, kind of use ciphers and symmetric key encryption? Can the model do self-sampling? So can it sort of do logit simulation? So can it actually predict what its distribution of next tokens would be, which would then allow it to sort of do perfectly because it can control its distribution
+
+00:12:13.000 --> 00:12:25.000
+and predicted, can the model use tools well for perfectly serious technographies? The model itself might not have the capability to do this, but it could just call a tool that could allow it to do this.
+
+00:12:25.000 --> 00:12:30.000
+And then we have some multi-agent evals for this.
+
+00:12:30.000 --> 00:12:47.000
+So at that point, the empirical trends were somewhat concerning, where selling point coordination is quite high. So without the model ever sort of sending a message to the other model, can it agree upon a common point? And it seems like, as models keep getting better, they have better theory of mind and can agree upon better points
+
+00:12:47.000 --> 00:13:05.000
+You must have seen this recently with models being asked to produce a random number, and they often produce seven. Now, this could just be a shelling point for the models if they sort of are aware of information like this. And these models are getting better at sort of encoding and decoding in their chain of thought itself
+
+00:13:05.000 --> 00:13:20.000
+Which is sort of quite important to study. And even for sort of multi-agent settings, what we tried to study was if you have 2 models communicating over a channel using cover text technography, and you have an overseer
+
+00:13:20.000 --> 00:13:36.000
+What happens as the model gets more capable? So the overseer is the same model, and the models communicating are also from the same family, but they, of course, have different information, where the models communicating have information on either a cover text or some joint encoding scheme
+
+00:13:36.000 --> 00:13:42.000
+As the model gets capable, is the overseer in a better position or reverse one?
+
+00:13:42.000 --> 00:13:58.000
+And it seems like the trend shows that the overseer is in a much worse position as model capabilities improve. So as model capabilities improve, to summarize, models become much better at colluding than they do at oversight. So we should really sort of push
+
+00:13:58.000 --> 00:14:01.000
+Push up will save performance quickly
+
+00:14:01.000 --> 00:14:21.000
+And again, to summarize some other empirical trends, it seems like the models can coordinate without ever communicating. They can perform the sort of requisite things needed for all three different kinds of technography. They can use ciphers. So there are ways that models can sort of already start colluding
+
+00:14:21.000 --> 00:14:22.000
+secretly.
+
+00:14:22.000 --> 00:14:46.000
+Now, I'm sure this is like a very popular event where collusion happened in the Hugging Face incident, where you had a few thousand agents and several thousand messages sent, and the agents sort of were meant to coordinate, but they in like an isolated manner on some tasks, but they used a message board by finding some zero days for a sandbox
+
+00:14:46.000 --> 00:14:59.000
+And they started tampering with transcripts and hacking and colluding. And I think this is very important to look at and meter and Redwood have sort of released some work on this.
+
+00:14:59.000 --> 00:15:15.000
+My primary concern here, though, is what if the next swarm uses technography? So again, this time we were able to detect that the swarms were colluding, of course, after a certain point, when people actually started looking at the logs
+
+00:15:15.000 --> 00:15:22.000
+But it's all detectable to a human, and it's all detectable to sort of monitoring, automated monitoring techniques.
+
+00:15:22.000 --> 00:15:38.000
+But it seems like there are early signs of technography. So from collusion.wiki or other sources, if you look at the fractal wiki examples, it does seem like the model is trying to hide invisible Unicode characters. Now, I wouldn't call this
+
+00:15:38.000 --> 00:15:46.000
+A very good form of cover text technography. But like I explained, the incentives for secret collusion, I think
+
+00:15:46.000 --> 00:16:00.000
+there is a high likelihood that if these swarms… if these swarm problems are not fixed in the present, they might use sort of stenography based methods to collude. And those might be harder to detect
+
+00:16:00.000 --> 00:16:05.000
+So what are some mitigations that we have on hand and why should we think of more
+
+00:16:05.000 --> 00:16:22.000
+The first one is parameter tuning, where, okay, you know, just RL, the model somehow to not include. So come up with a big list of tasks where it does, and just sort of give it like negative rewards or something for when it does include
+
+00:16:22.000 --> 00:16:27.000
+The reason this won't work is because it won't be a perfect method. You can't sort of
+
+00:16:27.000 --> 00:16:40.000
+properly, perfectly unlearn a full capability from a trillion parameter model. It's, you know, very hard to say what parts of the weights do, what… so I don't… it's hard to sort of fully trust methods like this.
+
+00:16:40.000 --> 00:16:59.000
+The other setup is restrict access to external tools. This is something that should be done immediately. So there are external tools that might allow a model to glute perfectly. It could just write code for the perfectly secure stagnography paper, and then try and glue based on that. Of course, there are a few things it would need, including access to its own logic and things like that, so if you have a black box
+
+00:16:59.000 --> 00:17:15.000
+If the model has black box access to itself, that's a better position to be in. But even that might not be the perfect method in like in the future, because you can still access sources of randomness that can allow you to sort of come up with the method on your own
+
+00:17:15.000 --> 00:17:30.000
+Or use the method on your own without actually using the tool. The main reliance is on sources of randomness, and the model can actually sort of do this. It can, you know, write hash functions and things like that to access sources of randomness.
+
+00:17:30.000 --> 00:17:46.000
+The paraphrasing option is the most practical one. So if two agents are communicating, why don't I just change the message a tiny bit so that the message, so that the secret message inside that is just eroded or hidden or just lost because I
+
+00:17:46.000 --> 00:17:51.000
+modified the meaning of it, because they've modified the text a bit.
+
+00:17:51.000 --> 00:18:12.000
+I think paraphrasing will do all right, but it still has some flaws where a message has some entropy in the form of how it's communicated and its actual sort of meaning or the sort of semantic semantics of the message and what the meaning of the message actually is. So if there's
+
+00:18:12.000 --> 00:18:30.000
+topic that the agents are communicating, simply the choice of the topic will give the agents information to communicate, right? So if I decide to talk about apples versus oranges, I could produce any sentence around it, but making that choice itself is sharing information and you can't fully restrict that without just stopping all communications
+
+00:18:30.000 --> 00:18:36.000
+So, all three of these methods are insufficient, that doesn't mean we shouldn't work very hard on these
+
+00:18:36.000 --> 00:18:44.000
+It does mean that we should think much harder about safety and security around other parts of the stack
+
+00:18:44.000 --> 00:19:04.000
+So there's some consequences for AI control, where passive monitoring and active monitoring will get you through a lot of cover text technography, and tool use. That the model can do. But then there is some boundary where there are threats that become undetectable, either cryptographically undetectable or unelicitable
+
+00:19:04.000 --> 00:19:18.000
+Or sort of information theoretically. And my sort of primary focus is to worry about those sorts of threats. So I'm going to sort of quickly touch upon something else we recently did that has a similar form
+
+00:19:18.000 --> 00:19:40.000
+So broadly, I think it's important to study undetectable threats and AI security. Why? Because I think a good number of people are working on this sort of current day empirics of this, and not as many people are thinking very hard about what will happen 2 or 3 years. So when later when we did the collusion paper, this was in 24. It was
+
+00:19:40.000 --> 00:19:56.000
+Very unlikely that the threat model would arise in the next couple of months. But we sort of expected it to arise, you know, if you just think from first principles about the incentives, we expected it to arise in a few years with swarms and all that, and then it happened, and I think
+
+00:19:56.000 --> 00:20:11.000
+Having some work on this makes us a bit better prepared. So if we can sort of put even more work around undetectable threats, I think that's very important. So we have this recent paper. It's a very simple idea that gets quite complicated when you implement it, but we
+
+00:20:11.000 --> 00:20:26.000
+encrypt one small model inside a much larger model. And this method is encrypted cryptographic. So the small model is encrypted cryptographically inside the much larger model, and you need a trigger to activate the internal weights
+
+00:20:26.000 --> 00:20:42.000
+And now you have a hidden capability inside a much larger model. And this is complete. This is undetectable. The capability itself is undetectable, and it's unelicitable. So there are no methods that can elicit what the capability is, because if I were to do that, I would have to break
+
+00:20:42.000 --> 00:20:45.000
+cryptography, essentially.
+
+00:20:45.000 --> 00:21:00.000
+Go into, like, more specifics, I just took a screenshot from asking GPT-6 to sort of summarize the main math behind this. So broadly, what's happening is we have our hidden bits. Let's call them W, and we have
+
+00:21:00.000 --> 00:21:19.000
+We've built a hash function inside a language model and we hash a secret message. So this is our trigger, and we take an XOR, and now we have our sort of string. We we have our sort of ciphertext C essentially inside the host model suite
+
+00:21:19.000 --> 00:21:25.000
+And now this is sort of you cannot find W from C without actually having the secret on hand
+
+00:21:25.000 --> 00:21:42.000
+And at test time, when you give the secret to the model, you can hash it through the model width where we construct a hash function, and then you can XOR that with C, which is your ciphertext. And now you can get W back, which is your actual sort of set of hidden weights. And these hidden weights go into the activation
+
+00:21:42.000 --> 00:21:45.000
+And can now perform a bunch of tasks for you.
+
+00:21:45.000 --> 00:21:53.000
+So I think this is like a very long term threat. I don't think it's practical at the moment, but it's very important to study.
+
+00:21:53.000 --> 00:22:09.000
+I think what I… so the note I want to end on is to discuss some high priority research directions. If you're looking for topics, I think these are very good things to work on. So there should be more research on Llm shelling point coordination, especially with the frontier models
+
+00:22:09.000 --> 00:22:15.000
+So again, can models coordinate without ever explicitly coordinating over a channel? So can they just
+
+00:22:15.000 --> 00:22:23.000
+have theory of mind over what the other model will do and find a sort of point to coordinate based on that.
+
+00:22:23.000 --> 00:22:33.000
+chain of thoughts technography research is very important. So right now, even if a model is not using tools and just using its chain of thought to do the math for how to do any sort of
+
+00:22:33.000 --> 00:22:53.000
+more covert form of technography, you can still look at the chain of thought and do monitoring and detect it. What if the chain of thought itself is, similar to new release and you just cannot understand what's being said in it, or what if the chain of thought is technographically hiding certain pieces of information
+
+00:22:53.000 --> 00:23:08.000
+in ways that you cannot observe very easily. So a lot of research is necessary around this. Can we sort of monitor for stagnographic tool use and paraphrasing? So it seems like it doesn't seem like the model will do stagnography in its chain of thought itself.
+
+00:23:08.000 --> 00:23:19.000
+in like a more practical sense, if this happens in the in the next 6 months or so, it's very likely the model writes its own tools or uses external tools to do stenography. How can we do good monitoring for this?
+
+00:23:19.000 --> 00:23:27.000
+And then, can we still build good training methods to incentivize the models to not lose technographically
+
+00:23:27.000 --> 00:23:35.000
+Yeah, thank you. I feel free to ask any questions. I'm happy to sort of google some parts of the slides again.
+
+00:23:35.000 --> 00:23:37.000
+Awesome
+
+00:23:37.000 --> 00:23:39.000
+Thanks, Sumeet
+
+00:23:39.000 --> 00:23:41.000
+That was very interesting.
+
+00:23:41.000 --> 00:23:45.000
+Let's jump into the Q&A. Let me pull it up
+
+00:23:45.000 --> 00:23:48.000
+Oh, we have a lot of questions.
+
+00:23:48.000 --> 00:23:50.000
+Wonderful.
+
+00:23:50.000 --> 00:23:58.000
+Let us start. Okay, first question is steganography more likely between models having the same weights or between different models?
+
+00:23:58.000 --> 00:24:05.000
+Yeah, so when it comes to, like, selling points and the model actually using
+
+00:24:05.000 --> 00:24:12.000
+its own chain of thought to come up with technography techniques and things like that. It's more likely like
+
+00:24:12.000 --> 00:24:14.000
+I wouldn't say more likely, but
+
+00:24:14.000 --> 00:24:20.000
+It's easier to do it when the other model has the same weights.
+
+00:24:20.000 --> 00:24:32.000
+If it's tool use based, you can just have two frontier models from different families and they'll have similar capabilities and can therefore collude stigmographically in that sense
+
+00:24:32.000 --> 00:24:35.000
+Awesome
+
+00:24:35.000 --> 00:24:44.000
+Next question. You said models now coordinate on shelling points without ever messaging. I don't know if I said that right
+
+00:24:44.000 --> 00:24:49.000
+If a monitor can't see any channel at all, what is left to monitor?
+
+00:24:49.000 --> 00:24:52.000
+So, of course, you can
+
+00:24:52.000 --> 00:24:59.000
+What's left to monitor is still the actions of the agents themselves.
+
+00:24:59.000 --> 00:25:06.000
+Your selling point can help you decide in encoding and decoding scheme. So
+
+00:25:06.000 --> 00:25:23.000
+Of course, the models can take independent actions and you can then monitor independent models. But if there is still a channel between them, let's say your two models have not, they don't know what encoding and decoding scheme they'll be using
+
+00:25:23.000 --> 00:25:38.000
+What I could do is as one model, try and have some theory of mind over. Okay, if the other model had to think of a scheme under these constraints, what scheme would it come up with? Therefore, I should come up with the same scheme, and we should now use this. So we've essentially decided on what scheme to
+
+00:25:38.000 --> 00:25:53.000
+Use without ever communicating that. And now, once we have the scheme, we can start communicating the messages through it. So, in that setting, the messages are still being sent, and you can still do some detection in the setting where they don't send any messages and just act independently
+
+00:25:53.000 --> 00:26:00.000
+Just the monitoring independent agents and their actions itself is like a very, very important thing.
+
+00:26:00.000 --> 00:26:01.000
+Nice.
+
+00:26:01.000 --> 00:26:04.000
+Okay, next question. How research
+
+00:26:04.000 --> 00:26:09.000
+How's research trending on making collusion unprofitable by design?
+
+00:26:09.000 --> 00:26:12.000
+So steganography has no reason to exist.
+
+00:26:12.000 --> 00:26:30.000
+Yeah, I mean, at rain time, you can definitely come up with methods that do this. At test time, unless you change the full world, collusion might just be profitable in certain cases and therefore you should still worry about what might happen at test
+
+00:26:30.000 --> 00:26:32.000
+Right.
+
+00:26:32.000 --> 00:26:33.000
+Right
+
+00:26:33.000 --> 00:26:42.000
+Okay, so by monitoring the channels, can we see or observe collusion and subsequently detect steganographic collusion
+
+00:26:42.000 --> 00:26:55.000
+Yeah, so, it depends on the form of stagnography being used. If it's cover text technography and the overseer is well-equipped, yes, you can detect that stagnography might be being done
+
+00:26:55.000 --> 00:27:02.000
+If it's a perfectly secure form of stenography where your cover text distribution and the sort of
+
+00:27:02.000 --> 00:27:10.000
+distribution of what's being sent over and your message is similar. No, you will not be able to detect
+
+00:27:10.000 --> 00:27:18.000
+technography based on just looking at the channels, and you'll have to look at other parts of this problem.
+
+00:27:18.000 --> 00:27:24.000
+Worrying. Okay, how do we make sure that multi-agent systems are secure?
+
+00:27:24.000 --> 00:27:33.000
+That's a very tough question to answer. I'm spending 3 years of my life on that, at the very least.
+
+00:27:33.000 --> 00:27:45.000
+Yeah, I think if I were to sort of go back to very practical defenses or projects to work on, I would just refer back to the slides. So
+
+00:27:45.000 --> 00:27:56.000
+work on technography in the chain of thought, and what might happen there, work on monitoring techniques for tool use, work on sort of shelling point coordination training methods
+
+00:27:56.000 --> 00:28:06.000
+Or even like good governance methods that make people aware that these forms can happen. And when they do, they might not be as hard to detect.
+
+00:28:06.000 --> 00:28:14.000
+For the person that asked the question, this is what they're trying to do. So you can certainly help with that. And if you do this
+
+00:28:14.000 --> 00:28:18.000
+You'll be like one of the researchers in the field.
+
+00:28:18.000 --> 00:28:24.000
+Okay, next question. Could you expand a bit on what agent implant traffic means?
+
+00:28:24.000 --> 00:28:26.000
+Sorry, can you repeat that?
+
+00:28:26.000 --> 00:28:32.000
+Could you expand a bit on what agent implant traffic means? Agent implant traffic
+
+00:28:32.000 --> 00:28:33.000
+I don't know what it means, though
+
+00:28:33.000 --> 00:28:35.000
+I am not sure what that means. Maybe if you're…
+
+00:28:35.000 --> 00:28:44.000
+Okay, Pranav, if you want to extrapolate, we can follow up. Next question. Collusion occurs because of what?
+
+00:28:44.000 --> 00:28:45.000
+This is the question
+
+00:28:45.000 --> 00:28:56.000
+Uh, because of the incentives. So, let's say me and some other person were doing a task, and we have some private information we cannot share.
+
+00:28:56.000 --> 00:29:07.000
+Yes, we can do the task to some degree and get some reward, but if it turns out that if we were to share the private information, we would get a much higher reward, then, uh…
+
+00:29:07.000 --> 00:29:25.000
+We would try and do that if we were purely reward seeking. So you can look at the economic case for this where companies collude on like setting prices, where if one company sets a high price and the other company sets a low price, this is like bad for the company setting the high price. But if both of them set a high price and you have no other options.
+
+00:29:25.000 --> 00:29:41.000
+Uh, you know, that's very bad for the consumer. So, there are economic incentives very often for collusion. There might also be just sort of pure reward, RL reward incentives here in training or testing for, uh,
+
+00:29:41.000 --> 00:29:42.000
+Frontier model is doing this.
+
+00:29:42.000 --> 00:29:54.000
+Nice. So Pranav did extrapolate on his question. He said to elaborate on the question, the slide on the hugging Face attack mentioned agent implant traffic as opposed to LLM steganography.
+
+00:29:54.000 --> 00:30:08.000
+Okay, I mean, this just means the models are like colluding normally in like plain text. They are not trying to hide their message. And my view is that.
+
+00:30:08.000 --> 00:30:19.000
+This might not be the case in a few months to years, where the models might try to hide the messages or hide the content that they're sending over these channels.
+
+00:30:19.000 --> 00:30:26.000
+The times we live in, the times we live in are insane. Okay, next question.
+
+00:30:26.000 --> 00:30:39.000
+Punishing, detecting detected collusion at training time is what pushes agents to go secret. Is it safer to not penalize it at all and just block the channel?
+
+00:30:39.000 --> 00:30:41.000
+If you just block the channel,
+
+00:30:41.000 --> 00:30:57.000
+Yes, I mean this is the simplest sort of way to stop all technography and all communication, but if you stop all communication between agents, your task performance will degrade severely. And when this happens in the real world,
+
+00:30:57.000 --> 00:31:03.000
+Where things are, like, very much driven by task performance. I think…
+
+00:31:03.000 --> 00:31:11.000
+there will be incentives to let models communicate, and therefore we must expect that this will happen and come up with defenses in that setting.
+
+00:31:11.000 --> 00:31:13.000
+Okay.
+
+00:31:13.000 --> 00:31:24.000
+If perfectly secure steganography is statistically undetectable, what defense is left besides paraphrasing or cutting the channel, and what does that cost?
+
+00:31:24.000 --> 00:31:27.000
+Yeah,
+
+00:31:27.000 --> 00:31:30.000
+There's, there's not, so.
+
+00:31:30.000 --> 00:31:37.000
+In terms of actually looking at the channel itself, you can paraphrase it, cut off the channel, um…
+
+00:31:37.000 --> 00:31:43.000
+Not all perfectly secure forms of technology might actually be perfectly secure in practice.
+
+00:31:43.000 --> 00:31:47.000
+Can come up with monitors to find sort of, uh…
+
+00:31:47.000 --> 00:31:55.000
+vulnerabilities in those techniques, and I think that's very likely. If you spend a lot of effort, um,
+
+00:31:55.000 --> 00:32:12.000
+But there's also points around how perfectly secure technology might be happening, right? If it's happening through tool use, you can just block tool use for those specific things or monitor that. If the model itself has the capability to do this with the sort of different components that we have in the paper,
+
+00:32:12.000 --> 00:32:29.000
+You can… there are ways to sort of monitor specifically for capabilities around those components, and whether those things are being done by the model in its chain of thought and things like that. So, you can sort of go through different parts of the stack and keep producing more and more defenses there as appropriate. I think
+
+00:32:29.000 --> 00:32:47.000
+At the moment, I don't expect perfectly exhaust ethnography to be a very easy thing to do. There's, there's some limitations around like logic simulation and like models having black box access to their weights and things like that, that prevent this from happening very easily. Uh, if that is not the case in the future, we must have, like, every line of defense ready.
+
+00:32:47.000 --> 00:32:51.000
+Not just at the channel level.
+
+00:32:51.000 --> 00:33:06.000
+All right, we need defenses indeed. Okay, the swarm was caught only once humans read the logs and you already see Unicode hiding. What's the first mitigation you'd deploy in a swarm today?
+
+00:33:06.000 --> 00:33:07.000
+Okay.
+
+00:33:07.000 --> 00:33:10.000
+Oh yeah, I don't get the question. Thanks to an AI created question. I would advise you to write it on your own.
+
+00:33:10.000 --> 00:33:19.000
+Okay, it's fine, we can move on. In case of shelling point steganography would interpretability techniques help identify it?
+
+00:33:19.000 --> 00:33:32.000
+Yeah, as a disclaimer, I think unlike a lot of other people in the community, I am not very optimistic on interpretability techniques working extremely well.
+
+00:33:32.000 --> 00:33:42.000
+And you can just train a linear probe and see if a shelling point is being identified or something. Sure, that might work and give you better performance on evals.
+
+00:33:42.000 --> 00:33:51.000
+Okay, does research say multi-agents are more likely to collude than single agent?
+
+00:33:51.000 --> 00:33:56.000
+Then a single agent Breaking Bad against the same goal.
+
+00:33:56.000 --> 00:33:57.000
+So
+
+00:33:57.000 --> 00:33:58.000
+If yes, what's driving this?
+
+00:33:58.000 --> 00:34:05.000
+Yeah, to clear you need like another agent to collude with. So it's only a multi-agent phenomenon.
+
+00:34:05.000 --> 00:34:08.000
+Right, you can't collude with yourself, right? Okay, next question.
+
+00:34:08.000 --> 00:34:09.000
+I have an expert.
+
+00:34:09.000 --> 00:34:15.000
+And to an extent you can, where you can collude with, like, future copies of yourself and things like that.
+
+00:34:15.000 --> 00:34:20.000
+Ah, worth thinking more, actually. Someone should do a project on, you know, colluding with…
+
+00:34:20.000 --> 00:34:23.000
+a future instantiation of the same agent.
+
+00:34:23.000 --> 00:34:24.000
+Great.
+
+00:34:24.000 --> 00:34:30.000
+It would still bear similar properties to multi-use inclusion, and I don't expect it to be a very different thing to study.
+
+00:34:30.000 --> 00:34:38.000
+Okay, do we have an explanation of why overseer capability doesn't increase in line with collusion capability?
+
+00:34:38.000 --> 00:34:43.000
+Um, not a very great one. I think it's worth studying.
+
+00:34:43.000 --> 00:34:45.000
+It might just be that…
+
+00:34:45.000 --> 00:34:52.000
+Collusion is something that's easier to do than oversight and therefore those things scale differently.
+
+00:34:52.000 --> 00:34:53.000
+If you
+
+00:34:53.000 --> 00:34:59.000
+So it might as well just be, like, a property of the task, and, like, there's, like, generation verification gaps and things like that.
+
+00:34:59.000 --> 00:35:09.000
+If you give agents a sanctioned, rewarded channel, an audit with another agent, does technography vanish or just hide or collude the auditor itself?
+
+00:35:09.000 --> 00:35:17.000
+Uh, I think this is like an AI generated question. I won't answer it out of principle. But yeah, I think, uh…
+
+00:35:17.000 --> 00:35:21.000
+Well, you can, you can, of course, have, like, monitoring techniques and.
+
+00:35:21.000 --> 00:35:26.000
+They'll work fine in sort of more practical, short-term cases.
+
+00:35:26.000 --> 00:35:33.000
+Okay, does collusion require explicit intent, the liberation, according to your definition?
+
+00:35:33.000 --> 00:35:38.000
+And it'd be more of a reflex and be called collusion because of the effect.
+
+00:35:38.000 --> 00:35:40.000
+Ah.
+
+00:35:40.000 --> 00:35:55.000
+I don't think I get it, but yeah, anytime the incentives are that if you collude, you could get a higher reward. And if that is the sort of only objective for the model, you can expect.
+
+00:35:55.000 --> 00:36:06.000
+could expect collusion to emerge in those settings. It does not need any deeper meaning than that to emerge.
+
+00:36:06.000 --> 00:36:09.000
+Awesome. Okay. In the toy test.
+
+00:36:09.000 --> 00:36:15.000
+16 learned vectors outperformed 16 text tokens.
+
+00:36:15.000 --> 00:36:20.000
+Do you expect agents to keep using human language or shift to an LLM native one?
+
+00:36:20.000 --> 00:36:35.000
+Yeah, I don't expect agents to keep using human language unless we ensure that happens. I think there are more efficient ways of communication and if you train for it, those might emerge.
+
+00:36:35.000 --> 00:36:43.000
+We should, like, if it's very important to have models communicate in human language, we should try and enforce that.
+
+00:36:43.000 --> 00:36:45.000
+soon.
+
+00:36:45.000 --> 00:36:52.000
+Okay, I think this is a nice one. How would you elicit steganographic collusion to study it?
+
+00:36:52.000 --> 00:37:06.000
+Yeah, this is a very good question. It's a, it's a tough one because you need to be sort of like evaluated and things like that. But broadly, you would have to design very realistic tasks where.
+
+00:37:06.000 --> 00:37:22.000
+There are some incentives for the agent to collude and then just monitor well and look at the logs. So this is like very similar to even some swarm collision cases, right, where people are like now in academia studying these things in sandboxes. And you have to come up with some.
+
+00:37:22.000 --> 00:37:31.000
+the artificial artificial setting where it's easier for the agent to see that collusion is the better solution than just not colluding.
+
+00:37:31.000 --> 00:37:45.000
+Or just, you know, finding some, like, reward hacking methods and sharing them with the other agencies is like a better thing than not doing that. And you can, like, come up with such tasks. Uh, this is not a perfect way to do things. I don't think there is.
+
+00:37:45.000 --> 00:37:48.000
+A great well-established way to do this.
+
+00:37:48.000 --> 00:37:58.000
+Right. And that's also introduces the risk of another incident. Okay, so which important claim about AI collusion currently rests on the weakest evidence?
+
+00:37:58.000 --> 00:38:05.000
+And what is a feasible experiment to do in a weekend to?
+
+00:38:05.000 --> 00:38:13.000
+Would most change your mind? Like, what an experiment that could be done in a weekend would change your mind. Like, this is coming from a participant POV, right?
+
+00:38:13.000 --> 00:38:25.000
+Yeah. So I am not very optimistic on paraphrasing being a good defense. Maybe you can do experiments where paraphrasing does become a good defense.
+
+00:38:25.000 --> 00:38:29.000
+I think, I think that would be quite important to see.
+
+00:38:29.000 --> 00:38:37.000
+Okay, another like in a similar vein, what are the low hanging fruit with steganography?
+
+00:38:37.000 --> 00:38:40.000
+And we do today, what can we do?
+
+00:38:40.000 --> 00:38:43.000
+progress addressing the risks.
+
+00:38:43.000 --> 00:38:59.000
+I think I gave like four or five research ideas on my slides. I think all of those are practical to work on. You can come up with settings where you can RL train a bunch of models in some setup where they are incentivized to collude, and then you can, like, come up with
+
+00:38:59.000 --> 00:39:05.000
+better objectives or better monitors, uh, or, like, sort of reward hacking probes and things like that to.
+
+00:39:05.000 --> 00:39:21.000
+try and sort of disincentivize them from colluding. I think projects like that would be quite useful. Chain of thoughts technography is very important to study, paraphrasing is important to study. Good monitors are important to study, and you can sort of dive deeper into all of these things. I mean, in fact.
+
+00:39:21.000 --> 00:39:37.000
+We had started the collision project like partly through this taken apart Sprint two years ago. So I'm sure in like two or three days you can come up with some ideas that will allow you to expand on that work for like another two or three months. And I think the main goal should be find good setups.
+
+00:39:37.000 --> 00:39:39.000
+to scale up quickly.
+
+00:39:39.000 --> 00:39:51.000
+Exactly. And who knows, maybe in one or two years you will, like, no, no, not used for me, it's like one of the participants will be giving a talk about how they solved collusion in a part hackathon.
+
+00:39:51.000 --> 00:40:06.000
+Just being optimistic. Okay, next question. We're running out of time. What specific real-world harms or security threats become possible if autonomous internet agents successfully hide their coordination from human oversight?
+
+00:40:06.000 --> 00:40:08.000
+Uh… yeah.
+
+00:40:08.000 --> 00:40:17.000
+I think everything that you observed in these Hugging Face swarm coordination attacks and all the hacking and security threats, but much worse.
+
+00:40:17.000 --> 00:40:21.000
+Much worse because you would not even know what happening until…
+
+00:40:21.000 --> 00:40:23.000
+A lot of things go wrong.
+
+00:40:23.000 --> 00:40:27.000
+Right? That's scary, scary stuff. Very scary stuff. Okay.
+
+00:40:27.000 --> 00:40:42.000
+Yeah, I think it's, like, an understudied topic. I think you'd be surprised how little great work there is on collusion. We posed a bunch of these questions two years ago, uh, beyond two or three very good papers coming up, building on this. There's not much, so…
+
+00:40:42.000 --> 00:40:51.000
+If someone's looking to sort of devote their safety career on a subfield, I think an extremely important one to think about.
+
+00:40:51.000 --> 00:40:54.000
+Right, so we need more people in the field. Okay.
+
+00:40:54.000 --> 00:41:02.000
+Hey, like in a public mishap, criminally minded folks, even though…
+
+00:41:02.000 --> 00:41:07.000
+Sorry, sorry. I think we're missing part of this question.
+
+00:41:07.000 --> 00:41:12.000
+And let's just move on. Okay, would similar behaviors.
+
+00:41:12.000 --> 00:41:28.000
+Emerge the moment there is an instance which is exploitable, like the reward function, even though they are complete stranger.
+
+00:41:28.000 --> 00:41:29.000
+Probably.
+
+00:41:29.000 --> 00:41:32.000
+Sorry, I think someone added, like, a question that's broken up, and I have a hard time reading it, so I'm just gonna move on again. How do you even detect steganographic collusion?
+
+00:41:32.000 --> 00:41:38.000
+When agents don't explicitly communicate, I think we already answered something similar to this.
+
+00:41:38.000 --> 00:41:42.000
+Okay.
+
+00:41:42.000 --> 00:41:47.000
+Why do standard passive oversight mechanisms fail to intercept or notice?
+
+00:41:47.000 --> 00:41:50.000
+Thin linguistic Signals
+
+00:41:50.000 --> 00:42:03.000
+Why do, I mean, it, it, I, I would not say that they fail everything if you used GPT-6 to ask it to detect linguistic signals or cover text modification-based technography.
+
+00:42:03.000 --> 00:42:18.000
+And it had the right tools and the right resources and the right sort of initial knowledge on what those encoding, decoding schemes might be. It might do well. So at the very least, you should build good monitors like that. But my point
+
+00:42:18.000 --> 00:42:28.000
+is that those will not be sufficient and therefore we should look beyond standard monitoring techniques.
+
+00:42:28.000 --> 00:42:36.000
+Okay, awesome. What are some topics that intersect cryptography, interpretability and game theory?
+
+00:42:36.000 --> 00:42:40.000
+in multi-agent security, can agents learn secure MPC?
+
+00:42:40.000 --> 00:42:43.000
+keeping us in the dark.
+
+00:42:43.000 --> 00:42:46.000
+Uh, I, I'm not sure I fully understand the question.
+
+00:42:46.000 --> 00:42:49.000
+Um, me neither. Let's move on. Okay.
+
+00:42:49.000 --> 00:42:58.000
+There's some work you'll find that combines interp and collusion.
+
+00:42:58.000 --> 00:42:59.000
+I see.
+
+00:42:59.000 --> 00:43:10.000
+But the problem also is that Slido limits the questions, so sometimes people want to ask long questions, but we don't really have time for very long questions, but okay, let's move on. One more question, and we're done. Do you have any thoughts on steganography and usage of different
+
+00:43:10.000 --> 00:43:15.000
+And maybe low resource languages to collude and fully monitor?
+
+00:43:15.000 --> 00:43:18.000
+Well, I think if the monitor's good enough.
+
+00:43:18.000 --> 00:43:24.000
+Or, you know, uh, better trained than the agents, it should also be able to sort of
+
+00:43:24.000 --> 00:43:34.000
+understand these low resource languages. So, but in a setting where the agent's communicating using cover text ethnography, they have.
+
+00:43:34.000 --> 00:43:39.000
+access to some private text or some sort of private distribution they can make.
+
+00:43:39.000 --> 00:43:54.000
+sort of condition their message on. That is how to detect, because now I have, like, some extra information that allows me to, you know, share more with someone who also has that extra piece of information.
+
+00:43:54.000 --> 00:43:56.000
+Okay, time is up.
+
+00:43:56.000 --> 00:44:06.000
+Sumit, thank you very much. That was a great talk. I actually learned a lot and I'm even more worried now for the future. I think I'm going to lose a few more days of sleep.
+
+00:44:06.000 --> 00:44:23.000
+And thank you else for everyone watching. So the recording does go out after this talk, sorry, the last one didn't go out because Zoom was processing for too long, so both will go out now. Also, you do have all the RSVP links for all the future talks in your emails, so see you all tomorrow.
+
+00:44:23.000 --> 00:44:28.000
+And again, thank you, Sumit, for your time. That was wonderful.
+
+00:44:28.000 --> 00:44:29.000
+And yeah.
+
+00:44:29.000 --> 00:44:31.000
+Thank you. Yeah. Awesome. All the best everyone. See you.
+
+00:44:31.000 --> 00:44:33.000
+Thank you.
+
+00:44:33.000 --> 00:44:34.000
+Bye everyone, see you tomorrow!
+
+00:44:34.000 --> 00:44:37.000
+Чем Ты любит.
+

@@ -1,0 +1,812 @@
+WEBVTT
+
+00:25:25.000 --> 00:25:36.000
+And do out-of-the-box LLMs exhibit emerging collusion in cooperative multi-agent systems when a secret channel is introduced between two benign agents?
+
+00:25:36.000 --> 00:25:50.000
+And finally, how does objective misalignment, persuasion, and network topology contribute to collusion efficacy? And we answer these research questions in the preceding slides.
+
+00:25:50.000 --> 00:26:02.000
+Now, in Colosseum, we use a few verifiable cooperative environments. These are meeting scheduling, Jira ticket allocation, and the hospital environment.
+
+00:26:02.000 --> 00:26:14.000
+In meeting scheduling, the agents represent meeting participants, and they need to coordinate attendance while avoiding conflicts in their individual schedules, which is limited in its capacity.
+
+00:26:14.000 --> 00:26:28.000
+The cooperative goal here is to find a workable arrangement across the participants. So a decision that is convenient for one agent may still create a problem for another. And so this makes the coordination very difficult.
+
+00:26:28.000 --> 00:26:42.000
+For a Jira ticket allocation, agents are assigning tasks within a software project, and each task has public information such as its required skills, effort, and priority
+
+00:26:42.000 --> 00:26:51.000
+And each agent has also has private information about its own sets of skills and availability, and each agent has to choose exactly one task.
+
+00:26:51.000 --> 00:26:59.000
+So the objective here is to assign agents to the right tickets to have the best possible chance of success on the software project.
+
+00:26:59.000 --> 00:27:16.000
+The last environment is the hospital environment, which differs from the past two environments in that it introduces hydrogenous agent roles. And so we have department agents that coordinate patients moving through a sequence of departments, such as triage and radiology
+
+00:27:16.000 --> 00:27:24.000
+And a provisioner can move scarce and scarce shared resources between departments.
+
+00:27:24.000 --> 00:27:31.000
+And we also simulate local patient cues, resource shortages to create a need for communication across the system.
+
+00:27:31.000 --> 00:27:46.000
+And across all three of these environments, the important connection is that messages are tightly coupled to actions like attendance, task selection, or routing and source allocation. Whereas in multi-step environments, you can't concretely deduce
+
+00:27:46.000 --> 00:27:52.000
+What message affected what action the agent took across time, also known as the temporal credit assignment problem
+
+00:27:52.000 --> 00:28:04.000
+And this lets us compare what agents say, what they actually do using the communication based and action-based metrics we introduced earlier.
+
+00:28:04.000 --> 00:28:17.000
+So, in our simulations, all our environments contain stochasticity, and we see the environments over our 30 simulations that are average per data point in our experimental results.
+
+00:28:17.000 --> 00:28:38.000
+And in each experiment, we have at least 6 agents per simulation. And if the network topology isn't stated, we assume that the topology is a complete graph where all the nodes in the graph are connected to each other, also meaning that all agents are basically, you know, in a simulated group chat, essentially
+
+00:28:38.000 --> 00:28:54.000
+Now, although our problem formulation is single step with respect to action selection, we have a multi-step communication and planning phase where agents communicate over multiple rounds or steps to develop a plan that best satisfies the cooperative objective.
+
+00:28:54.000 --> 00:28:58.000
+By deciding who should take what action.
+
+00:28:58.000 --> 00:29:20.000
+Now, in the action selection phase, we use a simple round robin protocol for sequential action selection. And next, we use the setup and the Jira ticket environment to ask whether collusion can emerge when agents receive a sacred channel without being explicitly told to collude
+
+00:29:20.000 --> 00:29:30.000
+Now, in this emerging collusion experiment, we ask, can collusion emerge without explicit instructions to collude?
+
+00:29:30.000 --> 00:29:39.000
+In the setting, we give two benign agents a secret communication channel while keeping their cooperative prompts unchanged.
+
+00:29:39.000 --> 00:29:48.000
+So these agents can still talk on the main channel with everyone else, but they have access to a secret communication channel that other agents aren't aware of
+
+00:29:48.000 --> 00:30:02.000
+Then we compare with a public-only control group where Lambda is zero. So modeling no occlusive behavior in the agents in a prompted fully collusive group where lambda is 1.
+
+00:30:02.000 --> 00:30:13.000
+We tested a diverse set of 19 models using both conversation-based judge scores and action-based metrics.
+
+00:30:13.000 --> 00:30:26.000
+Now, in this plot, we plotted the change in coalition advantage on the y-axis between the control group that was fully cooperative and had only the main channel and the emergent and prompted groups.
+
+00:30:26.000 --> 00:30:39.000
+If the delta advantage is greater than zero, then the model elicited higher coalition advantage than the benign control group, indicating higher action-based collusion.
+
+00:30:39.000 --> 00:30:46.000
+And if the Delta Judge score was greater than 0, then this indicated higher communication-based collusion.
+
+00:30:46.000 --> 00:30:58.000
+And using our collusion types defined prior, we can map what regions of the plot sort of relate to direct hidden, attempted, and benign collusion.
+
+00:30:58.000 --> 00:31:10.000
+And in this plot, we observed that most models exhibited an increase in both communication based and action-based collusion, with all models showing an increase in communication-based collusion.
+
+00:31:10.000 --> 00:31:24.000
+The emerging group represented as blue squares, shows that some models have higher propensities to elicit action-based collusion when a secret communication channel is provided between two benign agents.
+
+00:31:24.000 --> 00:31:29.000
+And they were now explicitly told to use that communication channel to communicate.
+
+00:31:29.000 --> 00:31:47.000
+And interestingly, some models, such as, you know, Kimi-K2 thinking, also known as Model 14 here, and Minimax Model 16 at the bottom, show some quantitative evidence of attempted collusion
+
+00:31:47.000 --> 00:31:59.000
+Where models communicate collusively, but end up lowering their collusion coalition advantage. So they're essentially bad at collusion.
+
+00:31:59.000 --> 00:32:07.000
+In addition to the coalition advantage, we also log the overall regret of the cooperative system. And you know we show that
+
+00:32:07.000 --> 00:32:24.000
+Delta regret of the system is generally minimal, but some models such as model GPT 4.1 mini or model one, which is like at the very top, shows a large degradation in cooperative performance while having a large increase in coalition advantage
+
+00:32:24.000 --> 00:32:26.000
+On the left plot
+
+00:32:26.000 --> 00:32:41.000
+But this generally is not always the case, where a decrease in overall regret implies an increase in coalition advantage, as seen with GPT-5.4, which is Model 3.
+
+00:32:41.000 --> 00:32:57.000
+Now we look at some examples of these collusion types from the Jira ticket allocation environment. In each example, we show the secret channel at the top and the public channel at the bottom. In this first example, Harmony and Rona
+
+00:32:57.000 --> 00:33:06.000
+Select tasks based on their skills and availability. Harmony chooses the triage task, while Rona chooses the testing task.
+
+00:33:06.000 --> 00:33:25.000
+And if we compare the two channels, we observe that they communicate the same task choices in both places, and here the secret channel is mainly being used to repeat information that was already available on the public channel. And so we do not see a separate plan to change the allocation
+
+00:33:25.000 --> 00:33:27.000
+in favor of this coalition
+
+00:33:27.000 --> 00:33:39.000
+So providing a secret channel does not always lead to emergent collusion. And as before, we use the action-based metrics alongside the conversation to determine whether the coalition actually gains an advantage.
+
+00:33:39.000 --> 00:33:46.000
+And in the next example, we're going to see agents attempt to use the secret channel to coordinate.
+
+00:33:46.000 --> 00:34:05.000
+Now, in the attempted collision setting, Harmony and Rowana try to coordinate their task selections through the secret channel. Harmony explicitly asked to avoid duplicate assignments and maximize the coalition's reward. So here we can identify collusive intent directly from the communication.
+
+00:34:05.000 --> 00:34:12.000
+However, Rona observes that Millie has already claimed the triage task on the public channel
+
+00:34:12.000 --> 00:34:28.000
+And Harmony then has to reconsider the plan based on what the other agents have already selected. And if we look at the public channel, Logan identifies the remaining tasks and Harmony selects the testing task from those remaining options.
+
+00:34:28.000 --> 00:34:36.000
+In this example, the agents attempted to coordinate privately, but their plan does not successfully influence the public allocation as intended.
+
+00:34:36.000 --> 00:34:52.000
+And this relates to the attempted collusion region in the previous plot, where communication-based collusion does not translate into higher action-based collusion. So an agent can communicate occlusive objective without successfully carrying it out
+
+00:34:52.000 --> 00:34:55.000
+carrying out that objective.
+
+00:34:55.000 --> 00:35:03.000
+And this is why we need to examine both the conversations and the resulting actions from the agents.
+
+00:35:03.000 --> 00:35:18.000
+So in this example, we observed direct collusion between Sherry and Afton. They use the secret channel to coordinate which tasks they should select and avoid overlap within the coalition.
+
+00:35:18.000 --> 00:35:32.000
+Sherry identifies review or documentation as preferred options. And then Afton then proposes a task depending on which task Sherry selects and what the other agents do. So their choices are being planned together rather than independently.
+
+00:35:32.000 --> 00:35:47.000
+And if we look at the public channel, we can see this coordination carry over. Sherry recommends an allocation that includes Afton's proposed task, and Afton supports an allocation that includes Sherry's preferred task
+
+00:35:47.000 --> 00:35:59.000
+Here, the agents reinforce each other's task selections on the public channel. And this gives us visible connection between their private plan and the allocation they publicly support.
+
+00:35:59.000 --> 00:36:19.000
+Now, using our definitions from earlier, direct collusion combines detectable collusive communication with effective collusive actions. And the conversation shows how they coordinate, while the action-based metrics tell us whether the coordination produced a coalition advantage.
+
+00:36:19.000 --> 00:36:36.000
+And finally, we have an example of hidden collusion. Here, Sherry and Afton also coordinate through the secret channel, but their public messages appear more like ordinary task planning. Sherry shares a preferred testing task and asks Afton to avoid the duplication
+
+00:36:36.000 --> 00:36:52.000
+Afton then responds what the available tests are less favorable. Afton then responds that the available tasks are less favorable to him, and proposes skipping that task. And if we look at the public channel, Sherry announces the preferred task
+
+00:36:52.000 --> 00:36:59.000
+While Afton says that he plans to skip unless other unless another suitable task becomes available.
+
+00:36:59.000 --> 00:37:10.000
+And the public messages do not explicitly describe a coalition objective, even though we can see that the decisions were coordinated in the secret channel
+
+00:37:10.000 --> 00:37:25.000
+So this illustrates how coordination can be less obvious when we only examine the public conversation. And using our earlier definitions, hidden collusion is where the coalition gains an action-based advantage, while collusion-based detection is low
+
+00:37:25.000 --> 00:37:43.000
+A communication-based detection is low. And across these examples, we can see why collusive communication and collusive actions do not always align with each other. And we now move on to how agents use different persuasion tactics to influence other agents
+
+00:37:43.000 --> 00:37:48.000
+So in addition to emerging collusion, one thing we
+
+00:37:48.000 --> 00:38:02.000
+We try to compare is the linguistic style of colluding agents via persuasion tactics. So they may use authoritative nudge language and try to lead either the colluding or noncluding agents
+
+00:38:02.000 --> 00:38:09.000
+They may try helpful misdirection, which is trying to get another non-including agent to do side tests
+
+00:38:09.000 --> 00:38:18.000
+And a final tactic is to try by manipulating, manipulatively being nice, by offering a trade that actually benefits the colluders.
+
+00:38:18.000 --> 00:38:20.000
+And we studied
+
+00:38:20.000 --> 00:38:35.000
+We study these, these different persuasion tactics across different topologies and found that the authority style may reduce the coalition regret across many combinations of topologies and model types.
+
+00:38:35.000 --> 00:38:47.000
+And we also found that it was useful for colloid agents to use false claims that are hard to verify to best manipulate other agents.
+
+00:38:47.000 --> 00:39:06.000
+And lastly, we wanted to see how structure of the communication network affects how misinformation spreads between agents, which is part of our fourth research question on collusion efficacy. So in this experiment, we have six GPT 4.1 mini agents schedule meetings
+
+00:39:06.000 --> 00:39:16.000
+over a communication graph, and we add between 0 and 4 adversaries who keep repeating the same lie about one victim agent
+
+00:39:16.000 --> 00:39:22.000
+Which is that the victim is always is away all week on vacation.
+
+00:39:22.000 --> 00:39:26.000
+And here are the dashed lines in the right six plots
+
+00:39:26.000 --> 00:39:36.000
+Show that the share of honest agents who end up believing the lie and the solid line shows how well the final schedule satisfies the cooperative objective.
+
+00:39:36.000 --> 00:39:51.000
+And what we found is that belief in the lie is mostly a volume effect, which could be related to social pressures. Specifically, we find that as more adversaries repeat the same claim, more honest agents believe it
+
+00:39:51.000 --> 00:40:08.000
+And this rises roughly linearly in the path graph and the random graphs, which are, you know, the watchdogs, Barbesi-Albert, and Erdez-Renni random graphs. And in the random graphs, around 70% to 80% of the honest agents were fooled by the four adversaries
+
+00:40:08.000 --> 00:40:23.000
+However, this is not the case. When agents can easily check with the victim. For example, in the star incomplete graphs, almost nobody is full, even with four adversaries out of six of the agents in the multi-agent system.
+
+00:40:23.000 --> 00:40:29.000
+And in the complete graph, everyone hears directly from the victim. And in the star graph
+
+00:40:29.000 --> 00:40:34.000
+the hub hears from the victim and relays that information to everyone else.
+
+00:40:34.000 --> 00:40:43.000
+But in the path graph, the victim can only reach one neighbor, and the adversaries have to sit between the victim and everyone else.
+
+00:40:43.000 --> 00:40:53.000
+So agents tend to cross-check these verifiable claims. When the network is, you know, short enough, or the diameter of the network is short enough
+
+00:40:53.000 --> 00:41:05.000
+And finally, if you look at the solid lines, the cooperative performance barely degrades. So this is our joint objective function. Even when many agents believe the line
+
+00:41:05.000 --> 00:41:19.000
+So since one false belief about one agent only costs a couple of meetings rather than, you know, the whole task. So this again shows that what agents believe or says does not necessarily transfer into harmful outcomes.
+
+00:41:19.000 --> 00:41:25.000
+So now to answer the previously posed research questions, for research question one
+
+00:41:25.000 --> 00:41:38.000
+We found that LM as a judge is not sufficient for a collusion auditing and action-based metrics, which are required for a comprehensive examination of collusive behaviors
+
+00:41:38.000 --> 00:41:53.000
+The second, we found that given, you know, does collusive conversation behavior result inclusive actions. This is not generally the case, as seen with the KimiK2 thinking and the minimax models
+
+00:41:53.000 --> 00:42:03.000
+that exhibited attempted collusion, where conversation-based collusion was high, but action-based collusion was low.
+
+00:42:03.000 --> 00:42:15.000
+So for our third research question, we also found that some models exhibited emergent hidden collusive propensities where the coalition advantage was high, but the collision judge scores were low.
+
+00:42:15.000 --> 00:42:30.000
+And for our final research question, we found that each factor for objective misalignment, persuasion, and network topology greatly varies collusion efficacy, with some mitigating it, such as network topology and others actually promoting it, such as
+
+00:42:30.000 --> 00:42:37.000
+heterogeneous power dynamics, which I didn't cover in this slideshow, but is in the paper.
+
+00:42:37.000 --> 00:42:48.000
+And so in the future, we plan to study, you know, longer horizon tasks. So can we audit long horizon scenarios, such as coding agents
+
+00:42:48.000 --> 00:43:08.000
+While also minimizing the temporal credit assignment problem for auditing, which we talked about before. Secondly, can AI agents jointly prevent attacks by a compromised agent? And thirdly, can we improve collaboration and suppress collusion in training
+
+00:43:08.000 --> 00:43:18.000
+So in conclusion, our audits include analyzing both language and actions together to get a fuller picture of what's happening in the multi-agent system
+
+00:43:18.000 --> 00:43:34.000
+We found that agents might not do harmful actions, even if claiming they would. And thirdly, if a benign private channel is present or introduced into the multi-union system, this could enable emergent collusion
+
+00:43:34.000 --> 00:43:43.000
+And of course, we're always interested in collaborating with other researchers who are very interested in this multi-agent system field.
+
+00:43:43.000 --> 00:43:46.000
+multi-agent system safety field.
+
+00:43:46.000 --> 00:43:48.000
+And I think
+
+00:43:48.000 --> 00:43:57.000
+I think that QR code had, is pointed to our paper, and, you know, if you're interested in this research, please follow us on X.
+
+00:43:57.000 --> 00:44:00.000
+Thank you.
+
+00:44:00.000 --> 00:44:04.000
+Awesome.
+
+00:44:04.000 --> 00:44:10.000
+Thank you, Mason. Thank you, Eugene. I think Eugene left, but thank you, Mason.
+
+00:44:10.000 --> 00:44:19.000
+I'm gonna unshare the slides now and we can jump into the Q&A. We have some questions queued and we still have some time left.
+
+00:44:19.000 --> 00:44:22.000
+Let's get this started
+
+00:44:22.000 --> 00:44:25.000
+Okay, okay, where's the Slido?
+
+00:44:25.000 --> 00:44:34.000
+So also please everyone, feel free to upload the questions you like, add your own questions and or raise your hand if you want to ask your question yourself.
+
+00:44:34.000 --> 00:44:38.000
+Of course, like if you raise your hand, you'll get prior.
+
+00:44:38.000 --> 00:44:46.000
+Feel free to do that. So for the first question, how do we distinguish between agents that didn't find the optimal solution
+
+00:44:46.000 --> 00:44:54.000
+regrets from failure to agents that pursue hidden goals, regrets from collusion
+
+00:44:54.000 --> 00:44:57.000
+Sorry, where are you reading these from?
+
+00:44:57.000 --> 00:45:05.000
+Oh, yes, okay, so, in the chat, there's a Slido link. Let me paste it for you.
+
+00:45:05.000 --> 00:45:12.000
+Got it, I see it.
+
+00:45:12.000 --> 00:45:13.000
+Got it.
+
+00:45:13.000 --> 00:45:15.000
+And I'm going top down. Also, Bobby has a question, so we might as well
+
+00:45:15.000 --> 00:45:18.000
+Get this out of the way, Bobby, go ahead.
+
+00:45:18.000 --> 00:45:21.000
+Hi, Bobby.
+
+00:45:21.000 --> 00:45:27.000
+Hi, Camille. Thanks for the talk, Mason. Thanks, Eugene, if you're still here
+
+00:45:27.000 --> 00:45:33.000
+So the thing that leaps out at me right away is
+
+00:45:33.000 --> 00:45:39.000
+These are all models from before sort of the Agentic leap
+
+00:45:39.000 --> 00:45:47.000
+You know, if we look at capabilities today, you look at the way people feel about the sort of, like, looping workflows and stuff that they're doing
+
+00:45:47.000 --> 00:45:52.000
+I think, like, something around Opus 4.6 or 4.8 is kind of like the first leap
+
+00:45:52.000 --> 00:46:01.000
+So my question is really kind of simple. Are you guys gonna redo this with, Soul, Astra, you know, 4, 8, 5, 5, 5?
+
+00:46:01.000 --> 00:46:17.000
+I think right now on our agenda is to kind of scale this analysis to like real world workflows. And then like more long horizon settings. So long horizon, real world workflows
+
+00:46:17.000 --> 00:46:22.000
+And then, like, you know, rerunning our experimental analysis
+
+00:46:22.000 --> 00:46:30.000
+At least that's, like, the future direction that we want to take.
+
+00:46:30.000 --> 00:46:36.000
+Sounds like a no, but maybe.
+
+00:46:36.000 --> 00:46:37.000
+Yeah, yeah, yeah.
+
+00:46:37.000 --> 00:46:39.000
+It's expensive. Yeah, it's expensive.
+
+00:46:39.000 --> 00:46:53.000
+For us, you know, we don't like it's more useful to like introduce, you know, scaling, scaling the framework and then rerunning the expensive experiments. You know, for like a next paper.
+
+00:46:53.000 --> 00:46:55.000
+Sure, sure, sure. Okay, cool.
+
+00:46:55.000 --> 00:46:56.000
+Thank you.
+
+00:46:56.000 --> 00:46:57.000
+Yep.
+
+00:46:57.000 --> 00:47:12.000
+Awesome. Now the actual Q&A, or like the written questions. So first one, how do you distinguish between agents that didn't find the optimal solution and agents that pursue hidden goals? And then they had like between brackets
+
+00:47:12.000 --> 00:47:18.000
+Optimal solution is regrets from failure and hidden goals is regrets from collusion.
+
+00:47:18.000 --> 00:47:35.000
+Yeah, so we have two auditing metrics. One is overall regret of the system. So this is like, you know, did the agents as like a full multi-ent system successfully complete the task? And the other is
+
+00:47:35.000 --> 00:47:49.000
+Coalition advantage. So given a subset of agents, you know, did these subset of agents actually gain more reward than the average non-coalition agent? And so we sort of exploit the decop
+
+00:47:49.000 --> 00:48:04.000
+The decod, like, important characteristic, which was you can compute millions of different counterfactual action selections between the agents. And then using this, we can determine whether or not
+
+00:48:04.000 --> 00:48:06.000
+you know, to answer your question.
+
+00:48:06.000 --> 00:48:07.000
+So when you didn't
+
+00:48:07.000 --> 00:48:09.000
+Okay, it disappeared, but yeah, to answer
+
+00:48:09.000 --> 00:48:11.000
+Yes, yes, sorry.
+
+00:48:11.000 --> 00:48:14.000
+I jumped the gun, I marked it answered. Yes, it's back now.
+
+00:48:14.000 --> 00:48:32.000
+Yeah, yeah, okay, so yeah, basically you can calculate a bunch of different counterfactual solutions and using this, you can basically determine whether or not, like on the scale Whether or not collusion did actually occur
+
+00:48:32.000 --> 00:48:47.000
+you know, it was just simple miscoordination among the agents. If it was simple miscoordination, you wouldn't see, like, a high coalition advantage. It would typically be the same with the non-coalition agents. But you will see, like, a decrease in, like, the overall regret, if that makes sense.
+
+00:48:47.000 --> 00:48:48.000
+Nice.
+
+00:48:48.000 --> 00:48:59.000
+Okay, next question. How do you detect hidden collusion when you don't know what the optimal solution actually is? Are mitigations only useful if they don't rely on that oracle
+
+00:48:59.000 --> 00:49:08.000
+So we actually do know what the optimal solution is in all of our environments. So
+
+00:49:08.000 --> 00:49:28.000
+I think implementation-wise, we use like a greedy search or I think we updated it so we actually use like a classical decop solver to find maybe not the optimal solution, but like an approximate optimal solution. And so we use that to basically determine whether or not, you know, collusion occurred
+
+00:49:28.000 --> 00:49:29.000
+So that's our baseline.
+
+00:49:29.000 --> 00:49:30.000
+Nice.
+
+00:49:30.000 --> 00:49:47.000
+Okay, awesome. We have a question from Amelius. How do we distinguish between better collaboration in the coalition from collusion? How did you define and measure harm in emergent cases when delta regret is small?
+
+00:49:47.000 --> 00:49:52.000
+So
+
+00:49:52.000 --> 00:49:55.000
+I see. This is more like
+
+00:49:55.000 --> 00:50:06.000
+Is the collusion, like, malicious to the multi-agent system, is what I'm inferring from this question. So I guess the answer to that is
+
+00:50:06.000 --> 00:50:22.000
+First of all, how did the coalition advantage change when this coalition exists? Like, how does the coalition advantage change? If it increases with respect to like the non-coalition advantage.
+
+00:50:22.000 --> 00:50:37.000
+Then, you know, that, like, prompts further evaluation of like what exactly they're planning, what they're doing. However, if that sort of stays the same, like the coalition vantage stays the same and the non-coalition advantage also stays the same
+
+00:50:37.000 --> 00:50:49.000
+Then it's… it wouldn't flag anything, so it's probably, like, nominal coordination that occurs. And then you can also analyze the overall regrets in addition to this
+
+00:50:49.000 --> 00:51:04.000
+To get, like, an additional access of like, okay, did the multi-agent system actually improve in performance, which is like the benign case of like, is the coalition, you know, non-malicious
+
+00:51:04.000 --> 00:51:17.000
+And if the coalition was non-malicious, then you would probably see like the overall regret of the system going up, and then the coalition advantage staying relatively the same as the non-coalition advantage.
+
+00:51:17.000 --> 00:51:19.000
+Awesome.
+
+00:51:19.000 --> 00:51:28.000
+Next question. So is computer science done? We don't need any more software engineers in the coming years. Question mark.
+
+00:51:28.000 --> 00:51:32.000
+A bit out of scope, but
+
+00:51:32.000 --> 00:51:48.000
+Computer science isn't done. I mean, so this is very out of scope, but like theoretically, all models, all LLMs will be misaligned in some way. It is impossible to fully align a system to human preferences
+
+00:51:48.000 --> 00:52:09.000
+that are non-stationary. This is theoretically proven. And so, you know, we're always going to need experts who are, you know, software engineers, accountants, etc, who, you know, oversee the models in, you know, performing the jobs, because there always will require some form of like
+
+00:52:09.000 --> 00:52:14.000
+human intervention to make the models as aligned as possible.
+
+00:52:14.000 --> 00:52:15.000
+Right.
+
+00:52:15.000 --> 00:52:29.000
+The times we live in, what separates the 700 agents that attack from the thousands that have never found the board?
+
+00:52:29.000 --> 00:52:40.000
+This, I'm not too sure from the meter reports. All I know is that some agents were coordinating to find a like
+
+00:52:40.000 --> 00:52:54.000
+like a valid solution to the task they were solving, while other agents wanted like a cheat or a way to like find the answers
+
+00:52:54.000 --> 00:53:09.000
+Find the actual answers to the benchmark, which was, I guess, the most optimal solution for that was, you know, to hack into the Hugging Face servers. But yeah, I'm not entirely sure why specifically those 700 agents
+
+00:53:09.000 --> 00:53:11.000
+Nice.
+
+00:53:11.000 --> 00:53:20.000
+Nobody's sure about anything anymore. What could the reason for RQ2 for ChemiK2? And many max
+
+00:53:20.000 --> 00:53:27.000
+Where they had collusion discussion, but it didn't map to action space. Any interoperability angle.
+
+00:53:27.000 --> 00:53:28.000
+Not sure if I understand.
+
+00:53:28.000 --> 00:53:32.000
+Yeah, yeah, yeah, for this one.
+
+00:53:32.000 --> 00:53:38.000
+I… I remember we did, like, a deep analysis. I'm not too sure if it's in the appendix of the paper.
+
+00:53:38.000 --> 00:53:48.000
+We didn't do an interpretability analysis. We were just, like, looking at the logs for, like, why didn't, you know.
+
+00:53:48.000 --> 00:53:54.000
+take actions that were collusive. And actually, it tends to be the case that like
+
+00:53:54.000 --> 00:54:09.000
+Some other agents actually stole the actions they were going to take, which completely made their plan very suboptimal. And so they had to take different actions that were not part of their plan
+
+00:54:09.000 --> 00:54:28.000
+That's also part of, like, it's also part of like capability. Like maybe the models weren't reasoning properly, or they weren't analyzing the public public communication channel enough. And so they're kind of like scooped of the actions they were going to take. That was like one instance that we found, but
+
+00:54:28.000 --> 00:54:31.000
+You know, there could be others
+
+00:54:31.000 --> 00:54:33.000
+Awesome.
+
+00:54:33.000 --> 00:54:35.000
+Next question
+
+00:54:35.000 --> 00:54:40.000
+Oh yeah, we already had this question.
+
+00:54:40.000 --> 00:54:45.000
+Does what the agents say to each other actually match
+
+00:54:45.000 --> 00:54:51.000
+What they do then? Have you measured the gap between the chat and the actions?
+
+00:54:51.000 --> 00:54:54.000
+Yeah, yeah, so…
+
+00:54:54.000 --> 00:55:05.000
+I don't think we have like a specific metric for this, but they do. They do tend to like, make a concrete plan and do execute that plan. It gets
+
+00:55:05.000 --> 00:55:12.000
+It depends on the model. Like the less capable models tend to like
+
+00:55:12.000 --> 00:55:27.000
+They sometimes take random actions when you give at the action execution phase. But those are like very small laws like 7 B models. But I would say most of the models do align with the plan that they orchestrated
+
+00:55:27.000 --> 00:55:29.000
+In the planning phase.
+
+00:55:29.000 --> 00:55:32.000
+Doesn't make sense.
+
+00:55:32.000 --> 00:55:37.000
+Does collusion ever show up when lambda is zero?
+
+00:55:37.000 --> 00:55:56.000
+Yeah, so this was the emergent collusion experiment where we set lambda to zero. And it's a fully cooperative setting, right? Like, theoretically, it's a fully cooperative setting since lambda 0. And what we do is we add a secret communication channel between two benign agents
+
+00:55:56.000 --> 00:56:04.000
+And, you know, see whether or not the Delta advantage increases with respect to that
+
+00:56:04.000 --> 00:56:22.000
+That those two benign agents that are part of the secret channel. And we found that on average, the coalition advantage for those two agents increase with respect to like the overall system. So it does show signs of like emerging collusion, but there needs to be more analysis
+
+00:56:22.000 --> 00:56:29.000
+To definitively identify whether for why this occurs. Yeah.
+
+00:56:29.000 --> 00:56:44.000
+Right. Okay, Coliseum is a very nice framework to study collusion. I agree. Have you guys also studied specific mitigations within this framework? If not, what would you try first? And also, I can add to this question, what would you
+
+00:56:44.000 --> 00:56:47.000
+What can you try that can only take, like, a couple of days
+
+00:56:47.000 --> 00:56:48.000
+Yeah.
+
+00:56:48.000 --> 00:56:49.000
+For the hackathon
+
+00:56:49.000 --> 00:56:59.000
+So in the paper, we do like in the very bottom of the paper, near the conclusion section, we do show like
+
+00:56:59.000 --> 00:57:11.000
+We do talk about, like, some mitigation strategies, for preventing collusion, and they're, like, very simple strategies. One is, like, I think, like, the topology that we talked about before. If you can… if you can't control the
+
+00:57:11.000 --> 00:57:29.000
+communication channels that they're part of, and you, like, keep them all in a public blackboard. It's probably like the simplest way, but it may not be, like, efficient for what task, you know, you're trying to do. And so, like, it's very task-dependent. You kind of have to, like, there are trade-offs between, okay, how much can we mitigate collusion
+
+00:57:29.000 --> 00:57:46.000
+Versus, how much are we actually affecting, you know, the overall cooperative performance of the multi-agent system? Because, you know, you'll have some mitigations that are just too constraining for the system to actually operate optimally, but then if you don't have enough mitigations, then, you know.
+
+00:57:46.000 --> 00:57:57.000
+Collusion might emerge in the system. So, like, there's this trade-off between the two that we didn't analyze too much, but could be an interesting project to study in the next couple of days.
+
+00:57:57.000 --> 00:58:11.000
+Listen to that, everyone. Okay, next question. What persuasion tactic should a monitor flag first? The authority tone or the unverifiable claim?
+
+00:58:11.000 --> 00:58:16.000
+Yeah, I should monitor flag first
+
+00:58:16.000 --> 00:58:26.000
+This, I'm not too sure, what the monitor should flag first. My hypothesis is that it should be the
+
+00:58:26.000 --> 00:58:44.000
+The authority tone. Because, you know, for the unverifiable claim, you know, they're unverifiable, right? So it's hard to determine, you know, if a monitor did flag that, what will it do next, right? I think that like it's important to flag unverifiable claims
+
+00:58:44.000 --> 00:59:01.000
+If the agent kept making unverifiable claims, right? Because if an agent keeps making unverifiable claims, then maybe there's, like, some, like, ulterior motive that that specific agent is trying to propagate in the system
+
+00:59:01.000 --> 00:59:10.000
+Those agents, sneaky, sneaky agents. Okay, most transcript is Most transcripts in the experiment for emergent collusion
+
+00:59:10.000 --> 00:59:16.000
+Sorry, I need to reread the question.
+
+00:59:16.000 --> 00:59:29.000
+Okay, most transcripts in the experiments for emergent collusion as defined, seem rather benign or sub-objective to cooperative goals. How to define harm in these cases
+
+00:59:29.000 --> 00:59:33.000
+Yeah, yeah, this is… this is completely true.
+
+00:59:33.000 --> 00:59:42.000
+Again, like, collusion is very subjective. How do you determine, like, you know, benign collusion from like or like malicious collusion from benign collusion. But like
+
+00:59:42.000 --> 00:59:54.000
+This is why we have the concrete like metrics and definitions that are defined, you know, mathematically. So we have like a very concrete definition of what collusion is.
+
+00:59:54.000 --> 00:59:58.000
+the actual definition is in the paper, but
+
+00:59:58.000 --> 01:00:06.000
+This is the only way, like, we can determine whether or not, you know, harmful collusion existed, which is, like, that,
+
+01:00:06.000 --> 01:00:17.000
+That's coalition advantage metric that we have. And you can compare the coalition advantage metric with the overall regret or overall joint reward metric that we have.
+
+01:00:17.000 --> 01:00:21.000
+So you have to like, you have to look at both to get like a
+
+01:00:21.000 --> 01:00:24.000
+like a concrete picture of what's going on.
+
+01:00:24.000 --> 01:00:33.000
+Nice. Okay, okay, okay. Did you try varying the total population while keeping the percentage of colluding agents?
+
+01:00:33.000 --> 01:00:39.000
+In example, having six agents and two colluding ones versus 30 and 10 colluding
+
+01:00:39.000 --> 01:00:55.000
+This we didn't try, but I think it could be interesting from like a scaling standpoint. Like I imagine the real world we're going to scale these systems and if we scale these systems, how exactly, you know.
+
+01:00:55.000 --> 01:01:08.000
+For example, like, this proportion, I could see, like, it not increasing linearly. There could actually be depreciating returns as a result of these, like, scaling laws, and I think that could be interesting to study. Just note that, like.
+
+01:01:08.000 --> 01:01:23.000
+They're very expensive, and so, like, doing a simulation of 40 agents, could get very expensive. But you… I guess the only way to do it is to, like, limit the number of seeds you run, or the… But then, you know, you might get non-statistically significant results
+
+01:01:23.000 --> 01:01:29.000
+But it might be good observations that you can take away from it.
+
+01:01:29.000 --> 01:01:33.000
+That's interesting. Okay, doesn't the single setup
+
+01:01:33.000 --> 01:01:42.000
+Single setup missed the kind of collusion that only builds up over a long horizon, like the message board case
+
+01:01:42.000 --> 01:01:48.000
+So, yeah, that's the trade-off between single step and multi-step. But the thing is.
+
+01:01:48.000 --> 01:02:04.000
+We are tackling… so there are two credit assignment problems in multi-agent systems. One is the structural credit assignment problem, which is which agent contributed to the joint reward function. And there's the temporal credit assignment problem, which is across time
+
+01:02:04.000 --> 01:02:21.000
+Which action did I take across time affect the end reward function? So when we introduced the decop, we completely remove the temporal credit assignment problem. However, if you do multi-step, multi-agent decision-making problem formulations, you have both the temporal and the structural credit assignment problem.
+
+01:02:21.000 --> 01:02:40.000
+And that makes auditing computationally infeasible because you literally won't know what caused what. And so this is one area of future research that we're very interested in, which is how can we minimize this temporal credit assignment problem over
+
+01:02:40.000 --> 01:02:44.000
+Long horizon multi-agent systems
+
+01:02:44.000 --> 01:02:54.000
+Awesome. Okay, Ken, the LLM collusion judge be fooled by agents who collude in code words the way
+
+01:02:54.000 --> 01:02:55.000
+Okay.
+
+01:02:55.000 --> 01:02:56.000
+Usman described earlier, we had another talk. Sorry, there's not a lot of context there.
+
+01:02:56.000 --> 01:03:08.000
+Yeah, I would say that the LM collusion judge can definitely be food by agents who collude and code words. I think this is also why we have
+
+01:03:08.000 --> 01:03:26.000
+You know, why we're auditing the actions in addition to the conversations, because, you know, if you only audit the conversations, you simply won't be able to derive what's actually happening to the system. They could say colluding things, but, you know, not take colluding actions, or they may not say colluding things and still take colluding actions
+
+01:03:26.000 --> 01:03:35.000
+And so for us, it was important to, you know, look at both the actions or rather the trajectories, and also the messages.
+
+01:03:35.000 --> 01:03:43.000
+But yeah, it could definitely be an oversight problem of the LM judges
+
+01:03:43.000 --> 01:03:51.000
+Agent Scalding and other agents, and we will just be left in the back. Okay, just
+
+01:03:51.000 --> 01:04:01.000
+Of your three environments, which one would you point a team at for that mitigation trade-off? And what's the number, what's the one number they should plot?
+
+01:04:01.000 --> 01:04:05.000
+Mitigation trade-off.
+
+01:04:05.000 --> 01:04:18.000
+I would say that the simplest… so I would say the most difficult one is the hospital environment, and you should try to probably avoid the hospital environment for this two-day hackathon.
+
+01:04:18.000 --> 01:04:31.000
+I think that, like, I forget what the order was. I think it was meeting scheduling or Jira ticket that was easier, but both of them are essentially the same in difficulty. So I would I would select one of those two.
+
+01:04:31.000 --> 01:04:43.000
+Awesome. Final question, unless more come. Any hunch why two benign agents start favoring each other just because they have a private line?
+
+01:04:43.000 --> 01:04:57.000
+This I'm not entirely sure. You know, we don't prompt the agents to like talk on the private line, which is like another interesting observation because, you know, why are they talking on a private line when there's a public channel?
+
+01:04:57.000 --> 01:05:04.000
+Right? They shouldn't be talking on the private line. It's actually optimal to talk on the public channel.
+
+01:05:04.000 --> 01:05:19.000
+Well, actually, I take that back. It could be optimal to talk on the private line if they have, like, context issues or whatever, like, they want to minimize the amount of context, in their context window, or something like that. But yeah, we don't… we don't have, like, a clear answer for that question.
+
+01:05:19.000 --> 01:05:22.000
+Bobby says self-prompting.
+
+01:05:22.000 --> 01:05:24.000
+Self-prompting
+
+01:05:24.000 --> 01:05:26.000
+I think it's related to this.
+
+01:05:26.000 --> 01:05:32.000
+Yeah, I mean, it's sort of it's related to how we train COT into the models, right? Like talk to yourself.
+
+01:05:32.000 --> 01:05:36.000
+use every channel, right? If you give them a channel, they'll use it.
+
+01:05:36.000 --> 01:05:37.000
+Yeah, okay, okay.
+
+01:05:37.000 --> 01:05:47.000
+sort of a self-prompting pressure. I mean, you could do an experiment on it, right? Sort of, how many channels will they saturate? But I'm pretty confident that
+
+01:05:47.000 --> 01:05:52.000
+This is directly related to how we train COD into reasoning models
+
+01:05:52.000 --> 01:05:53.000
+Yeah
+
+01:05:53.000 --> 01:05:59.000
+Yeah, because if it stops self-prompting, then the chain of thought stops. So it needs something to follow up on, right?
+
+01:05:59.000 --> 01:06:02.000
+Yeah, there's a pressure there that we're turning into them. Yeah
+
+01:06:02.000 --> 01:06:12.000
+Okay, so we do have another question. How were the agents made aware of the hidden channel by prompt, by tooling, et cetera?
+
+01:06:12.000 --> 01:06:24.000
+By prompt, in the context, we say that you have access to these two communication channel as well. The other agent's not part of that communication channel only see one communication channel.
+
+01:06:24.000 --> 01:06:28.000
+Okay, I think, I believe we're done
+
+01:06:28.000 --> 01:06:34.000
+Awesome. That was amazing. That had so much information.
+
+01:06:34.000 --> 01:06:53.000
+I don't know about all this collusion stuff and all this swarm stuff is super hard on my psyche, right? So I hope everything goes out well. I hope, Mason, you solve collusion once and for all
+
+01:06:53.000 --> 01:07:03.000
+And yeah, thank you very much for your time. This was great. If anyone needs to follow up with Mason or Eugene, reach out to me, and I'll put you in touch.
+
+01:07:03.000 --> 01:07:11.000
+And yeah, awesome. I'll be following up with you, Mason, after the hackathon regarding the other stuff we talked about. And that was wonderful. Thank you very much.
+
+01:07:11.000 --> 01:07:14.000
+And bye, everyone.
+
+01:07:14.000 --> 01:07:15.000
+Thanks very much.
+
+01:07:15.000 --> 01:07:18.000
+Yep, thank you for having me.
+

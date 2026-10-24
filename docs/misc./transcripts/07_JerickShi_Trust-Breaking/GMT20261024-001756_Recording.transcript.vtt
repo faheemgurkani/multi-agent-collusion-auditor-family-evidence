@@ -1,0 +1,746 @@
+WEBVTT
+
+1
+00:00:02.430 --> 00:00:05.640
+Kamil - Team Apart: Welcome, everyone, to the last talk of tonight.
+
+2
+00:00:05.950 --> 00:00:16.059
+Kamil - Team Apart: at the AI Collusion Sprint, co-organized with Poseidon Research, A&E Studio, and sponsored by Model, AI Language Foundation, and Nebius.
+
+3
+00:00:16.430 --> 00:00:21.499
+Kamil - Team Apart: For our last speaker tonight is Jerick Shi, a software engineer at the Volian Group in Berkeley.
+
+4
+00:00:21.600 --> 00:00:30.160
+Kamil - Team Apart: He graduated this year from Carnegie Mellon Master's in Computer Science, where he researched multi-agent LLM systems and AI safety.
+
+5
+00:00:30.630 --> 00:00:46.729
+Kamil - Team Apart: Co-advised by Vincent Konitzer at CMU, and Shi Jing Jin at the University of Toronto. He is co-author of When Agents Lie, Premeditation, Persistent, and Exploitation in Repeated Games. Please welcome Jerick.
+
+6
+00:00:49.050 --> 00:00:52.749
+Jerick Shi: Wait, thank you, Kamil, for the intro, and…
+
+7
+00:00:52.760 --> 00:01:07.549
+Jerick Shi: Yeah, without further ado, let's get started. Hopefully, the hackathon is going well for everyone. I think this is, like, what, the beginning of the hackathon, so… yeah, hope everyone is doing well, and yeah, my goal for this talk is just to give, like.
+
+8
+00:01:07.550 --> 00:01:16.180
+Jerick Shi: a bit more insight, or maybe some more ideas that people can work on based on, like, just some of, like, the different research themes that I have been working on, so…
+
+9
+00:01:16.180 --> 00:01:35.649
+Jerick Shi: Yeah, as Kamil mentioned, I study at Carnegie Mellon, I focused on computer science, they were my masters, my research was mostly focused on multi-agent LLM systems and AI safety, where I was advised by Vincent Knitzer and Ching, and currently I work as a software engineer in the Bay, and I still work remotely with the Genesis Lab.
+
+10
+00:01:35.980 --> 00:01:49.649
+Jerick Shi: So, going back to the overall context on why we're working on collusion, why we're, like, dealing with these sprints, things like that, we need to think back on, like, what happened with, like, AI safety in the past few years.
+
+11
+00:01:49.650 --> 00:02:05.660
+Jerick Shi: So when we first thought about AI safety, we've been focusing a lot on single agent capability and safety. When you feed an LLM some sort of information, we want to make sure that the output is safe, it is not hallucinating, it doesn't give harmful information, etc, etc.
+
+12
+00:02:05.660 --> 00:02:28.549
+Jerick Shi: But as everyone is starting to adopt these agents for themselves, there is a much bigger question we need to think about, which is this idea of a large group of LLM agents, because then there are a lot of new safety risks that we have never thought about before that needs to now be addressed, which is kind of why we're now thinking about, like, collusion in such a large scale.
+
+13
+00:02:29.090 --> 00:02:48.240
+Jerick Shi: We're reaching a point where a lot of these different actions, a lot of these, like, regularly actions done by human are now done by these AI agents. So we now have AI agents that can negotiate with each other, they can set different prices in the markets, they can coordinate different tasks, so…
+
+14
+00:02:48.300 --> 00:02:57.149
+Jerick Shi: Yeah, because of that, there are a lot more things we need to think about, since these agents have essentially kind of taken over this world.
+
+15
+00:02:57.970 --> 00:03:22.540
+Jerick Shi: there has been a lot, and I mean, like, a lot of work that has shown that LLMs currently kind of lie, they currently misrepresent all of its different actions. The earliest one goes all the way back to 2023. This author showed that if you feed GPT-40 some insider information regarding trading in the market, and then a manager asks it, like, what it knows about.
+
+16
+00:03:22.540 --> 00:03:46.109
+Jerick Shi: It will purposely show in its reasoning that it hides this insider information. And that behavior, or similar behaviors, has then appeared many times in other different papers. They've shown that these LLM agents are capable of scheming, these agents are capable of colluding, algorithmic colluding, in fact, and I've kind of shown that these agents can then directly lie or break your promises.
+
+17
+00:03:46.110 --> 00:03:52.220
+Jerick Shi: Even public to other people, other agents, when negotiating in these different scenarios.
+
+18
+00:03:53.020 --> 00:04:07.719
+Jerick Shi: So, kind of going over the flow of what my research themes kind of look like, they all fall over this similar umbrella on how can we trust these LLM agents? Because…
+
+19
+00:04:07.730 --> 00:04:19.540
+Jerick Shi: it's kind of hard to define trust or deception, and you can't just say whether an agent lies or doesn't lie. There is just a lot more nuance, and my goal is to kind of…
+
+20
+00:04:19.579 --> 00:04:25.900
+Jerick Shi: Open up these new ones, dive deeper into these differences, and see exactly how we can, like, analyze these.
+
+21
+00:04:26.150 --> 00:04:27.890
+Jerick Shi: deceptive behaviors.
+
+22
+00:04:28.480 --> 00:04:41.990
+Jerick Shi: So just starting with one of my papers, essentially, the goal here is to show that deception isn't as easily defined as what people kind of thrown around. So…
+
+23
+00:04:42.380 --> 00:04:56.239
+Jerick Shi: If we look into past few years' research, everyone has been saying that, oh, LLMs are becoming deceptive, they can harm other people, they can lie to each other, people have been just been throwing these words around, but it's hard
+
+24
+00:04:56.240 --> 00:05:08.230
+Jerick Shi: It's hard to say exactly what do you mean by an agent trying to lie or deceive another agent or another person, because let's think about hallucination, for example.
+
+25
+00:05:08.230 --> 00:05:28.079
+Jerick Shi: If we define deception purely as giving someone wrong information or convincing someone on a false fact, that's exactly what hallucination is. A hallucinated citation, for example. But if you kind of think about this from a much further perspective, that doesn't really feel like deception, because…
+
+26
+00:05:28.080 --> 00:05:42.380
+Jerick Shi: A hallucinated citation feels more as a simple error, and LLM didn't intentionally feel like it's lying to achieve some other goal, so in that case, it's really hard to tie this concept of hallucination with deception.
+
+27
+00:05:42.820 --> 00:06:06.920
+Jerick Shi: If we think about this a little further, what if an agent is told to, like, lie on command? Let's say you're playing a werewolf game with a bunch of LLM agents, and some of these agents are told that they are allowed to lie to deceive other players. This then becomes a lot more nuanced, because in these games, well, because these LLMs are prompted to then lie and deceive other agents, therefore they're considered deceptive.
+
+28
+00:06:06.920 --> 00:06:12.529
+Jerick Shi: But again, is it really deception if they are essentially following instructions?
+
+29
+00:06:12.530 --> 00:06:18.689
+Jerick Shi: So, in this paper, I claim that deception has to hit a few different categories.
+
+30
+00:06:18.690 --> 00:06:35.020
+Jerick Shi: In addition, for purely saying that something is false, it also needs to hit the category that the model should have known better, aka, it still has the ability to produce a correct answer, and such a deceptive behavior has to serve some specific goal.
+
+31
+00:06:35.280 --> 00:06:58.509
+Jerick Shi: So, in order to kind of, like, go a bit more technical, a bit more in-depth, these are kind of the three tiers I am proposing. Whenever we think about these different behaviors, we must first assume… we must first decide whether it is false or not. If it is false, that is immediately just misrepresentation, and this makes classifying things extremely easy, because most of these different papers
+
+32
+00:06:58.510 --> 00:07:04.520
+Jerick Shi: fall into misrepresentation. I think this second tier, this Tier 1 deception, is…
+
+33
+00:07:04.520 --> 00:07:19.249
+Jerick Shi: The hardest part to understand, but it's also the hardest part to classify, and is what a lot of the current research is going wrong, is this idea of divergence and functional intent. Divergence meaning it is still able to
+
+34
+00:07:19.250 --> 00:07:31.750
+Jerick Shi: produce actions that are both right and wrong. And functional intent means that when it produces such a false information, it produces such an information because of some sort of underlying goal.
+
+35
+00:07:31.870 --> 00:07:45.269
+Jerick Shi: And finally, we then add, like, a last tier, where if such a behavior then manipulates another person's choice, conditioned on the fact that it's already on this Tier 1 deception, then we call it manipulation.
+
+36
+00:07:46.360 --> 00:07:51.339
+Jerick Shi: So, as a quick example, mask and insider trading are two
+
+37
+00:07:51.340 --> 00:08:16.290
+Jerick Shi: pretty well-known benchmarks. I highly recommend people to take a look. Mask essentially shows that if you continuously pressure an LLM into, like, answering a question, you can continue pressuring it to give the wrong answer or the answer on the different side. So the question here is that, does this count as deception? Well, since the prompt doesn't say, like, give the incorrect answer or, like, order
+
+38
+00:08:16.290 --> 00:08:22.730
+Jerick Shi: wrong answer, and since it starts off giving the right answer, that means that it does, in fact, hit divergence.
+
+39
+00:08:22.730 --> 00:08:34.980
+Jerick Shi: But this LLM, because it was pressured to say the opposite answer, it was pressured to say the wrong answer, it doesn't have a purpose. It didn't have a real reason to kind of then give
+
+40
+00:08:34.980 --> 00:08:45.030
+Jerick Shi: the wrong answer, essentially. So this is what this paper was missing, and why I would classify as purely as a T0 kind of paper.
+
+41
+00:08:45.030 --> 00:08:50.480
+Jerick Shi: T0 doesn't mean bad, it just means that it only falls under the misrepresentation tier.
+
+42
+00:08:50.700 --> 00:08:57.749
+Jerick Shi: Going back to insider trading paper… insider trading paper, where an agent can trade on some insider tip.
+
+43
+00:08:57.790 --> 00:09:10.469
+Jerick Shi: Now, it has a purpose. It wants to hide this missing information so it does have functional intent. But it was never shown in the paper that it has the possibility, or it can choose.
+
+44
+00:09:10.470 --> 00:09:24.050
+Jerick Shi: that it could actually act honestly without all of this different setup, which is why it doesn't hit this divergence criterion. So these are just a few examples on what it really takes to show that an LLM is pretty much deceptive.
+
+45
+00:09:25.270 --> 00:09:50.170
+Jerick Shi: So just some overall takeaways, some overall thoughts from this paper, from what I have gotten, is that a lot of these papers, 92 of these different papers, have shown, or has claimed, in some way, in some sentence, that LLMs are becoming deceptive, they are showing deceptive behavior. I claim that that really isn't true, and what this means is that whenever
+
+46
+00:09:50.170 --> 00:10:02.940
+Jerick Shi: people, or I guess, like, people in Hackathon, or in general, are thinking about, like, just collusion, or all of these different misrepresentative behaviors in general, think about exactly why, or how
+
+47
+00:10:02.940 --> 00:10:15.389
+Jerick Shi: how exactly is it kind of manipulating? How exactly is it colluding? What evidence does it need to show that it is colluding? Or, in general, how to show that something is truly a deceptive behavior?
+
+48
+00:10:17.040 --> 00:10:27.429
+Jerick Shi: Another flavor of my work that essentially goes into one of these different categories, one of these different deceptive behaviors, which I focus on promise breaking.
+
+49
+00:10:27.680 --> 00:10:50.349
+Jerick Shi: So, the main idea here is that even breaking a promise itself is a bit nuanced, because there are a lot of scenarios where an LLM might be able to plan something beforehand, or announce something beforehand, and then actually do the action. There are a lot of combinations that you can think about under these different scenarios.
+
+50
+00:10:50.350 --> 00:11:05.010
+Jerick Shi: So one example I like to bring up is Diner's Dilemma. It is a pretty famously known game theoretic setting. You have 5 different diners, they want to split the bill evening. Each of them have a choice to choose a cheap versus expensive dish.
+
+51
+00:11:05.010 --> 00:11:18.460
+Jerick Shi: They all benefit if you choose the cheap dish, but then in the Nash Equilibrium, it benefits when one of them chooses an expensive dish, so they all choose the expensive dish. So imagine Prisoner's Dilemma, but in a multi-agent setting.
+
+52
+00:11:19.610 --> 00:11:23.240
+Jerick Shi: Depending on what you do, you could first
+
+53
+00:11:23.240 --> 00:11:45.759
+Jerick Shi: tell other agents that you'll choose the cheap dish, and then in the end, you secretly choose the expensive dish. This is something that I would call commitment-breaking, but if you essentially plan out first that you're gonna choose the expensive dish, you then tell other people that it's cheap, and then finally you order the expensive dish, this then goes into premeditated deception.
+
+54
+00:11:45.760 --> 00:12:03.369
+Jerick Shi: And then this idea kind of follows when you go into these other different categories. Essentially, if you maybe initially, like, planned out that you're gonna be a good person, choose the cheap dish, but essentially, then in the end, switch your role and choose the expensive dish, that goes into impulsive deviation.
+
+55
+00:12:03.370 --> 00:12:19.950
+Jerick Shi: So, the idea here is that then there are all these different kinds of deviations. Technically, they all count as deception in some sort of way, because you're going against what you said or what you planned earlier, but there are many of these different categories that have to be considered.
+
+56
+00:12:21.070 --> 00:12:46.069
+Jerick Shi: This is kind of the overall experimental setup. Essentially, we focus on two different settings. In one of these different settings, it is a pretty simple example where every single one of these agents can choose what they want to say, and then finally, based on what everyone says, choose what action they actually want to do. This is kind of like the baseline scenario. We then go into a much more complicated scenario.
+
+57
+00:12:46.070 --> 00:13:01.180
+Jerick Shi: where these agents can first plan, and then they announce, and then they do their private actions. So we add this planning step. And we can make this even more complicated if we repeat these games over several different rounds, then remembering what happened in these past different rounds.
+
+58
+00:13:03.090 --> 00:13:27.660
+Jerick Shi: Perhaps one of the more… I wouldn't say interesting, it is an interesting finding, but a significant finding is that promise breaking doesn't depend either directly on the model or on the game. There has been a lot of terms thrown around where people say that maybe one LLM is more deceptive than the other, maybe one game produces, like, worse behaviors than the other. What I show is that it simply isn't true.
+
+59
+00:13:27.660 --> 00:13:43.149
+Jerick Shi: You cannot find a single model that purely dominates another model, or a game that purely dominates another game. These LLMs are extremely finicky in the fact that depending on how you put these models and games together, you can get extremely different outcomes.
+
+60
+00:13:44.370 --> 00:14:04.200
+Jerick Shi: Another thing that I want to show is that when you kind of measure these LLMs' reasonings, they often don't share that they're breaking promises in their reasonings, and that oftentimes, they don't really think about the fact that they're breaking promises, but more so they're just optimizing the solution.
+
+61
+00:14:05.540 --> 00:14:30.539
+Jerick Shi: And finally, another thing I want to show kind of ties to the fact in finding one where, again, these LLMs are pretty interesting to work with, and the fact that these different models can have extremely different behaviors when you put them in a very same setting. You can have a model where, over time, they all converge to all of them going… saying that they're gonna do the cheap dish. You can go into scenarios where all agents will always go too into the expensive
+
+62
+00:14:30.540 --> 00:14:42.439
+Jerick Shi: dish. You can have cases where it goes into round robin, where it's kind of like a tit-tat method. Sometimes they say cheap, sometimes they say expensive, and then go back and forth, which just makes… which just shows that it's…
+
+63
+00:14:42.440 --> 00:14:48.250
+Jerick Shi: Shows a lot of interesting scenarios can happen when you mix these different models and games together.
+
+64
+00:14:49.430 --> 00:15:07.160
+Jerick Shi: One final thing, this work is still kind of a work in progress, but this is kind of an idea that I like to call emergent deception, and I think this theme is slowly becoming much more relevant, I think, starting this year due to the increasing capabilities of LLMs.
+
+65
+00:15:07.160 --> 00:15:32.069
+Jerick Shi: So, the main here, the main question I want to show is kind of addressing the fact in the first part, where a lot of people have shown that outlaws are deceptive purely because you tell them in a prompt that they can lie or manipulate other people. But what if you don't do that? Is it possible to achieve these same outcomes, achieve these same behaviors, purely due to environmental settings that are not easily as measurable in game theoretic setting?
+
+66
+00:15:32.290 --> 00:15:56.720
+Jerick Shi: So this is just a toy simulation toy setting that I have been playing with. You have four different agents in a resource gathering game, you have gold, water, food, yadda yadda yadda, you can make trades, your goal is to make the most gold, but you want to keep this entire civilization alive with food and water. And the idea here is that over time, when you play this game, there is gonna be less fun
+
+67
+00:15:56.720 --> 00:16:11.939
+Jerick Shi: food and water for everyone, but there's gonna be more and more gold, and because these agents, in their prompt, they like to have gold more than food or water, what agents will they plan on doing because of these environmental pressures?
+
+68
+00:16:12.760 --> 00:16:25.269
+Jerick Shi: And the main thing I find is that these agents… okay, first of all, even without telling them at all that they should lie, or they should, like, kind of, like, dement me like other agents.
+
+69
+00:16:25.270 --> 00:16:50.209
+Jerick Shi: The biggest finding I found is that they, in fact, are able to commit such actions without these different prompts. But in most of these different scenarios, the way they deceive other agents falls into the fact of selective disclosure. Essentially, they might say… they may try to hide some information that they found. Maybe they found, like, extra gold, they found extra food or water in a certain case, but they won't share it with the other agents just to hide
+
+70
+00:16:50.210 --> 00:16:55.990
+Jerick Shi: for themselves. Sometimes they just act completely silent so they can act on this information themselves.
+
+71
+00:16:55.990 --> 00:17:14.410
+Jerick Shi: These are some of the key, I guess, like, emergent deceptive properties that I have been seeing, and all of this has emerged without telling them that, okay, they should or they are allowed to commit these different actions. They explore it, they realized that these actions are, in fact, the most beneficial for themselves.
+
+72
+00:17:15.790 --> 00:17:28.050
+Jerick Shi: So, from this, there are a lot of future directions, I would say, that can come from all of, kind of, what I've been working with. Some of them can then tie to this hackathon.
+
+73
+00:17:28.050 --> 00:17:52.890
+Jerick Shi: So, one idea is essentially tying back to this insider trading information, right? The idea is that take all of these different games, or take all these different LLM agents, put them maybe in, like, some actual firm, and then have some monitor on them. Can you find some exact point, or can you find, under what pressure, do these agents kind of either go into silence.
+
+74
+00:17:52.890 --> 00:18:01.059
+Jerick Shi: Or to kind of, like, hide hidden information, things like that. And this kind of goes into this idea of, like, maybe there's some, like, scaling off or deception.
+
+75
+00:18:01.070 --> 00:18:13.809
+Jerick Shi: Another thing that I have been thinking about, which I think ties extremely closely to this hackathon, which I'll talk about later, are how these toy evaluations kind of connect to these real worlds.
+
+76
+00:18:13.870 --> 00:18:19.569
+Jerick Shi: And I think this is a big gap, because if you look at some of the more recent papers.
+
+77
+00:18:19.670 --> 00:18:23.420
+Jerick Shi: You realize that all of them go into…
+
+78
+00:18:23.480 --> 00:18:41.610
+Jerick Shi: an extremely similar setting of, they kind of proposed this very specific outcome, they kind of proposed this very specific game, such as a werewolf game, such as a werewolf game with, like, some extra scenarios, without ever tying it to real-world cases, and I feel like this is an extremely big gap that needs to be solved.
+
+79
+00:18:41.930 --> 00:19:06.650
+Jerick Shi: Some other things that I've been thinking about is essentially silence as a deceptive tactic in general. Obviously, in the case I just showed, when you're silent, misholding information, it kind of harms everyone but benefits yourself, but there's obviously certain cases, because of, like, privacy issues, that you do want to stay silent. So are there ways to kind of then increase this gap? And finally, I think the one that I am personally most interested in
+
+80
+00:19:06.650 --> 00:19:10.900
+Jerick Shi: It's just scaling all of these different simulations.
+
+81
+00:19:10.900 --> 00:19:29.129
+Jerick Shi: What happens when you maybe have 100 different agents under all of these different roles, maybe in, like, a bigger village civilization? What happens when you have one agent or one event that causes some sort of incident, and how that kind of, like, cascades over this entire civilization?
+
+82
+00:19:30.680 --> 00:19:53.200
+Jerick Shi: And finally, I guess, like, as I kind of mentioned, by… from these future directions, this is how I personally feel like you could stand out in this hackathon. Every single talker's gonna have their own opinions. Some of the other talkers focus more on collusion, stenographic collusion, so they definitely have their, like, own takes, but this is personally just my opinions.
+
+83
+00:19:53.390 --> 00:20:09.140
+Jerick Shi: I feel like there are two main ways, I think there are two main ideas that you can kind of pursue under these different, like, themes that were given. The first idea is kind of think about collusion in a more creative way. I think there are some…
+
+84
+00:20:09.200 --> 00:20:18.290
+Jerick Shi: Most of collusion has been looked into it with the very same lens on how these different collusive behaviors can kind of emerge.
+
+85
+00:20:18.290 --> 00:20:43.259
+Jerick Shi: My question is, can you think of some different way, some different way that collision can emerge, or some way to detect collusion that no one has ever thought of? And as you slowly do the literature research, you'll realize that a lot of them kind of fall into these different buckets. So if you can come up with something that's out of these different buckets, that would, in fact, stand out. That could be the environment itself, it could be exactly, like, what agent
+
+86
+00:20:43.260 --> 00:20:49.449
+Jerick Shi: That you're playing with, or all of these different interactions or ways that these agents can share information to each other.
+
+87
+00:20:50.010 --> 00:20:52.030
+Jerick Shi: The second way is…
+
+88
+00:20:52.140 --> 00:20:57.760
+Jerick Shi: The second one is kind of what I mentioned a bit earlier, connecting these simulations to real-world risk.
+
+89
+00:20:57.770 --> 00:21:22.729
+Jerick Shi: how do you… how do you convince people that, okay, these simulations are important, these simulations can happen on, like, some one-on-one correspondence with what might happen in the real world. And that just comes with thinking about, like, maybe other scaling up experiments, grounding scenarios, and what might have happened in the real world, and something that might be interesting to include is to maybe tell these different firms, like, maybe
+
+90
+00:21:22.730 --> 00:21:39.349
+Jerick Shi: like, a very simple explanation on just one step where this one agent can, like, mitigate collusion or stop, like, these deceptive behaviors from happening. So these are just some of my food for thought on how to make the best out of this hackathon.
+
+91
+00:21:40.250 --> 00:21:59.170
+Jerick Shi: But yeah, that is the end of my talk. I'm open to any questions, ideas. That's my email, that's my LinkedIn and my website, and… yeah, I think Kamil sent, like, some of my papers in the chat, so feel free to take a look at that.
+
+92
+00:21:59.170 --> 00:22:00.680
+Jerick Shi: So, yeah.
+
+93
+00:22:01.250 --> 00:22:02.640
+Jerick Shi: Thank you, everyone.
+
+94
+00:22:02.640 --> 00:22:07.150
+Kamil - Team Apart: I think I sent every paper you mentioned, since someone asked for them.
+
+95
+00:22:07.690 --> 00:22:09.250
+Jerick Shi: Yep, perfect.
+
+96
+00:22:13.820 --> 00:22:15.320
+Kamil - Team Apart: Okay, awesome.
+
+97
+00:22:16.760 --> 00:22:23.160
+Kamil - Team Apart: Let's leave this up for a few seconds. It's recorded anyway, so people will have the QR codes.
+
+98
+00:22:24.740 --> 00:22:26.190
+Kamil - Team Apart: Let's unshare.
+
+99
+00:22:27.800 --> 00:22:38.179
+Kamil - Team Apart: We do have one question in the chat. It's very quiet. Apparently, everyone is sleeping now, unfortunately. We do have one question in the chat, and I did prepare some questions while listening.
+
+100
+00:22:38.530 --> 00:22:42.940
+Kamil - Team Apart: Okay, so, what did you think happens at Horizons?
+
+101
+00:22:43.350 --> 00:22:45.580
+Kamil - Team Apart: Lengthen. Lengthen.
+
+102
+00:22:45.700 --> 00:22:49.570
+Kamil - Team Apart: Multigame, etc. I don't understand if,
+
+103
+00:22:50.740 --> 00:23:10.679
+Jerick Shi: Yeah, I think the question is, if you play these repeated games, or, like, any of these deceptive scenarios in general, what will happen if you just keep repeating these games? And if you see a pattern, maybe in the first 10 rounds, will the same pattern emerge in, like, 100 rounds, for example? At least this is how I'm gonna be interpreting the question. So…
+
+104
+00:23:10.680 --> 00:23:12.049
+Salsabila Mahdi: Yeah, yeah, that's what I mean.
+
+105
+00:23:12.600 --> 00:23:18.689
+Jerick Shi: Perfect, yeah. So, for my second paper, I've kind of shown that
+
+106
+00:23:18.690 --> 00:23:33.570
+Jerick Shi: it really depends, okay? I have seen scenarios, I have seen models where, initially, they all choose the worst outcome, they choose, like, defect, if we go into Prisoner's Dilemma's term, but they all then kind of, like, converge to…
+
+107
+00:23:33.570 --> 00:23:58.359
+Jerick Shi: what is the other side? Right, accepting, collaborating, whatever the other side is at the end. But I've also seen cases where they start the same way, they all, like, defect at the end. And then, I have seen a few models where, during the first 10 rounds, they kind of stay at some, like, 40-50% equilibrium, and then over 100 rounds, it kind of, like, goes to a 50-60% equilibrium. I personally think that's due to noise, I think that's still all around
+
+108
+00:23:58.360 --> 00:24:04.490
+Jerick Shi: just, like, 50% equilibrium. But I think the answer here is… is that
+
+109
+00:24:04.490 --> 00:24:28.199
+Jerick Shi: there really is no right answer. There has been a lot of proofs in this game theory setting that has shown that, like, if you play these, like, game theoretic games in general over, like, a repeated time, or, like, a lot of other scenarios, like, over these repeated settings, like, they will, like, converge to a specific equilibrium. I think it's called, like, Folk Theorem, which is interesting to look into.
+
+110
+00:24:28.200 --> 00:24:43.479
+Jerick Shi: But I think because of how these LLMs are trained, and the fact that this is… we never play an infinite game, there's no… there really isn't this big notion of infinite in the real world. We never, like, hit these equilibriums, and these LLMs don't play
+
+111
+00:24:43.480 --> 00:25:00.680
+Jerick Shi: play perfectly Nash equilibriumly, which is why then these differences can occur, which is why I think the main takeaway here is that it just depends, try things out, analyze the results, and see why these outcomes happen. Hopefully that answers your question.
+
+112
+00:25:01.650 --> 00:25:02.890
+Kamil - Team Apart: Trial and error.
+
+113
+00:25:03.150 --> 00:25:16.769
+Kamil - Team Apart: Okay, so the deception signaling sounds similar to recent King's College London preprint. It's called AI Arms and Influence that put GPT 5.2, Cloud Sonnet 4, and Gemini 3 Flash
+
+114
+00:25:16.790 --> 00:25:26.269
+Kamil - Team Apart: into 21 simulated nuclear crisis wargames, using repeated turns of assessment, prediction, signaling, and action. Did this influence you at all?
+
+115
+00:25:27.070 --> 00:25:34.659
+Jerick Shi: I did not see this paper, but thank you for linking this. I will definitely look into this, because this seems extremely relevant.
+
+116
+00:25:35.820 --> 00:25:42.799
+Jerick Shi: I'll sit here, I'm gonna just highlight, there's another, like, paper in the lab, it's called GT Harm Bench, I'm just gonna send a name.
+
+117
+00:25:43.060 --> 00:25:52.459
+Jerick Shi: That also works on extremely, like, similar settings of, like, putting these LM agents under these game favorites settings, but a lot more 2x2 games. Yeah.
+
+118
+00:25:52.460 --> 00:25:55.060
+Kamil - Team Apart: Nice. Okay, we also have another question.
+
+119
+00:25:55.170 --> 00:26:03.469
+Kamil - Team Apart: Have people analyzed the scenario where agents have access to each other's source code? Basically, each agent knows what the other agent is thinking.
+
+120
+00:26:04.720 --> 00:26:06.330
+Jerick Shi: Yes,
+
+121
+00:26:06.520 --> 00:26:18.300
+Jerick Shi: It's current… so, LLMs, currently, it is in its very nascent period. There have been papers that have tried this out, but there aren't any significant results.
+
+122
+00:26:18.300 --> 00:26:41.820
+Jerick Shi: But in… under the game theoretic-like cases, yes, this has been a pretty big thing for the past 2-3 years. It's called open source game theory, and the idea here is that if you treat each agent as some sort of, like, function, and then if you kind of, like, feed in a func- if you feed in a function into this function, it tells you immediately whether to, like, collaborate or a defect.
+
+123
+00:26:42.050 --> 00:27:00.400
+Jerick Shi: And I think one of the other people in the lab is, in fact, working on this specific problem on how to translate this under… onto an LLM setting, but before that, people are still trying to kind of, like, convert this to, like, Python or some intermediate language, so this is currently a big working area right now.
+
+124
+00:27:01.450 --> 00:27:02.130
+Kamil - Team Apart: Nice.
+
+125
+00:27:02.690 --> 00:27:04.969
+Kamil - Team Apart: Okay, let's get to my questions, then.
+
+126
+00:27:05.750 --> 00:27:11.019
+Kamil - Team Apart: Where does this… where does the deception go once the private plan is being read?
+
+127
+00:27:12.580 --> 00:27:17.790
+Jerick Shi: Where does the deception go once the private plan has been read?
+
+128
+00:27:18.080 --> 00:27:18.650
+Kamil - Team Apart: Yes.
+
+129
+00:27:20.570 --> 00:27:24.450
+Jerick Shi: So, I guess, like, this goes back to…
+
+130
+00:27:24.700 --> 00:27:27.939
+Jerick Shi: What deceptive behaviors in this case.
+
+131
+00:27:28.060 --> 00:27:34.330
+Jerick Shi: actually means… sorry, do you mean, like, an agent's personal private plans, or like…
+
+132
+00:27:35.030 --> 00:27:38.620
+Kamil - Team Apart: Yeah, like, the broken promise is already in the private plan, right?
+
+133
+00:27:39.970 --> 00:27:46.799
+Kamil - Team Apart: So, like, the reasoning… Like, it really mentions breaking it, right?
+
+134
+00:27:46.800 --> 00:27:47.660
+Jerick Shi: Right.
+
+135
+00:27:47.900 --> 00:27:49.619
+Kamil - Team Apart: So they're just optimizing.
+
+136
+00:27:51.010 --> 00:28:06.240
+Jerick Shi: Exactly, so there is then this, like, different case between an agent from the very beginning, like, privately reasoning that, like, in order to, like, optimize their payout, they will tell everyone that they will cooperate, but secretly defect.
+
+137
+00:28:06.240 --> 00:28:29.370
+Jerick Shi: So, in that case, there's, like, this one scenario of, like, this kind of, like, planned deceptive behavior, but there's, like, this also other case of maybe an agent plans that says that, I will personally choose to cooperate, I will most likely try to cooperate, I'll see what everyone else thinks, so they plan out initially saying cooperate, initially thinking that they would choose cooperate as an action, but after hearing everyone else.
+
+138
+00:28:29.370 --> 00:28:37.369
+Jerick Shi: they might then take the game theory optimal solution and say, like, okay, I'm gonna sleep the defect, because everyone else says to cooperate.
+
+139
+00:28:37.720 --> 00:28:49.639
+Jerick Shi: So, the idea here is that then there are these deceptive behaviors, which, while most people will classify all of them the same as, like, lying, I claim that these behaviors are extremely different.
+
+140
+00:28:50.930 --> 00:28:57.809
+Kamil - Team Apart: Okay, and how do you actually tell a model that's hiding gold from one that was never actually, like, asked about it?
+
+141
+00:28:59.750 --> 00:29:24.739
+Jerick Shi: ask a model regarding its reasoning. So, there are two… I guess, like, there's one main way. If an agent does, in fact, show its reasoning, then you can directly analyze its reasoning and see, like, if it is going to defect or not. I think the harder case is now, like, take GPT or, like, the closers models, for example, right? They can sometimes hide their reasonings inside of.
+
+142
+00:29:24.740 --> 00:29:41.969
+Jerick Shi: like, these different, like, states, their reasonings aren't fully public. So maybe somewhere in the hidden states, this is where they plan on this evening. And I think that this is still an extremely hard problem to look into, and that that slowly goes into, like, some of the interpretability research that's going on.
+
+143
+00:29:43.320 --> 00:29:52.289
+Kamil - Team Apart: Nice. Okay, so also, is there any real-world dataset you'd trust as, like, ground truth for, like, the collusion simulation thing?
+
+144
+00:29:54.480 --> 00:29:57.240
+Jerick Shi: I think I can leave this for people to figure it out.
+
+145
+00:29:57.490 --> 00:29:58.000
+Jerick Shi: Yeah.
+
+146
+00:29:58.690 --> 00:30:10.459
+Kamil - Team Apart: Oh, we have a question in the chat. How do you overcome learned bias due to noise? This can happen in low volumes, low liquidity markets, with less market news, related trading.
+
+147
+00:30:10.880 --> 00:30:16.109
+Kamil - Team Apart: Sorry, I need to break the sentence up. How do you overcome learned bias due to noise?
+
+148
+00:30:16.220 --> 00:30:20.089
+Kamil - Team Apart: This can happen in low volume and low liquidity markets.
+
+149
+00:30:20.340 --> 00:30:23.699
+Kamil - Team Apart: That have less market news-related trading?
+
+150
+00:30:23.810 --> 00:30:28.000
+Kamil - Team Apart: From Informed Invest… I'm sorry, I lost it there.
+
+151
+00:30:28.000 --> 00:30:28.580
+Jerick Shi: Hmm.
+
+152
+00:30:28.580 --> 00:30:29.340
+Kamil - Team Apart: In the chat.
+
+153
+00:30:30.630 --> 00:30:52.099
+Jerick Shi: Yeah, I think the idea here is that if you want to simulate these real-world scenarios, there's currently a very… it's very… the information here is very scarce, like, it's very hard to find, like, any sort of market news or, like, find any, like, real-world example or data of, like, insider trading, which I think is…
+
+154
+00:30:52.100 --> 00:30:57.109
+Jerick Shi: a very valid point and an extremely hard scenario, and I think the honest truth is that
+
+155
+00:30:57.440 --> 00:31:05.110
+Jerick Shi: Currently, there really isn't an easy way to tackle this. What I am… what I would think about is…
+
+156
+00:31:05.110 --> 00:31:18.090
+Jerick Shi: still using these LLMs to generate synthetic scenarios, but then think about how to, like, generate these scenarios using some pipeline or some sort of prompting to make sure that all of these
+
+157
+00:31:18.090 --> 00:31:25.089
+Jerick Shi: different scenarios are diverse, such that, like, this data makes sense. So the idea is hopefully that you might have, like, this…
+
+158
+00:31:25.090 --> 00:31:49.849
+Jerick Shi: larger data set, like, even, like, the simulated and not real market, but then, like, the proportion of… the proportion then follows, like, what is happening in the real world, and that you can kind of then try to, like, train on. And I think for that, I know there is a lot of work out there that is relevant to, like, using LLMs to generate, like, good data, or, like, simulated data that is diverse. I am not an expert in this, but…
+
+159
+00:31:49.850 --> 00:31:53.059
+Jerick Shi: There are good risk resources, and hopefully that might help.
+
+160
+00:31:54.000 --> 00:31:55.340
+Kamil - Team Apart: Okay, awesome.
+
+161
+00:31:55.620 --> 00:31:57.610
+Kamil - Team Apart: Oh, okay, so…
+
+162
+00:32:01.310 --> 00:32:09.840
+Kamil - Team Apart: I have another question. So, does silence really stop being deception when, like, the reasoning behind it is privacy?
+
+163
+00:32:11.100 --> 00:32:36.040
+Jerick Shi: There are many different reasons why someone might choose to stay silent. It could be pri- it could be privacy, it could be due to copyright, there can be, like, a lot of different reasons for alums to, like, stay silent. It might also be because to keep a promise, for example. So, I would say, like, there are a lot of different scenarios that could occur. I'm just claiming that in my very specific scenario.
+
+164
+00:32:36.090 --> 00:32:41.699
+Jerick Shi: The silence happens because they're hiding information of resources so they can benefit themselves.
+
+165
+00:32:43.200 --> 00:32:44.380
+Kamil - Team Apart: Awesome.
+
+166
+00:32:44.950 --> 00:32:47.180
+Kamil - Team Apart: Okay,
+
+167
+00:32:48.580 --> 00:32:58.959
+Kamil - Team Apart: So, we can think of something related to the hackathon. What is something that you think is worth building that can only take, like, 2 days or something?
+
+168
+00:32:59.250 --> 00:33:03.950
+Kamil - Team Apart: That can be a good signal, at least. Or, like, a way in to AI safety.
+
+169
+00:33:04.480 --> 00:33:08.670
+Jerick Shi: Mmm… That's a very good question.
+
+170
+00:33:10.690 --> 00:33:11.790
+Jerick Shi: I think…
+
+171
+00:33:12.260 --> 00:33:25.169
+Jerick Shi: Okay, I think I would split this into two different categories of people. So the people who are kind of, like, new to this entire field, and people who, like, generally, like, know how to code, how to use LLMs to code, who are, like, good in the field.
+
+172
+00:33:25.170 --> 00:33:50.120
+Jerick Shi: For both of these different categories, start off by, like, using Cloud, using GPT to, like, ask for, like, research on, like, what people have done on collusion so far. And then, especially for people who have never done these sort of things before, start off by trying to build a simulation where these LLMs can collude with each other. So this could be as simple as having, like, 10 LLM agents.
+
+173
+00:33:50.220 --> 00:34:14.469
+Jerick Shi: them discussing about something, or maybe they're, like, privately trying to, like, plan on something, which, like, maybe someone else that is hiding. I know there's been a lot of, like, good speakers on, like, stonatography, like, maybe trying to, like, trying to replicate those papers. And then after that, like, start, like, experimenting with different things. Like, maybe it's, like, one variable that you want to try, maybe it's, like, this one new setting you want to try, maybe you can change the
+
+174
+00:34:14.469 --> 00:34:31.050
+Jerick Shi: prompt a little bit, and then see what can come out of it. And then slowly, I believe, if you change all these parameters little by little, there's gonna be one where you change it, a behavior changes a lot, and it gives you a brand new idea for you to work with. And I think that's what I would recommend for people starting off.
+
+175
+00:34:31.300 --> 00:34:44.750
+Jerick Shi: for people who are… who already kind of, like, know this field, I would say, again, starts off by, like, just looking at papers, but then, I think in order to make this project stand out.
+
+176
+00:34:44.850 --> 00:34:58.569
+Jerick Shi: unfortunately, you can't do what most collusion papers do. I think this generally takes a bit of time to think about how to make yourself stand out. Because, unfortunately, collusion
+
+177
+00:34:58.570 --> 00:35:18.450
+Jerick Shi: only has, like, if you think about it, there are only, like, 3 different variables, right? You have the environment that these agents are colluding in, you have exactly these agents themselves, and then you have these… how these agents interact with each other. When you think about colluding in an environment, 90% of all papers are about a market.
+
+178
+00:35:18.450 --> 00:35:31.629
+Jerick Shi: If you think about these different agents, it's just LLMs, GPT, Claude using some specific API. And then when you think about these interactions, well, it's either standardography or having private messaging.
+
+179
+00:35:31.630 --> 00:35:48.399
+Jerick Shi: So, really, if you want to kind of stand out in this hackathon, you need to think about, under these three different variables, what is something that you should try that people haven't thought about yet, that then produces some behavior that actually is critical that people should think about.
+
+180
+00:35:51.460 --> 00:36:08.519
+Kamil - Team Apart: Awesome. I'm out of questions, but thank you very much, Jerick. Thank you for your time. Thank you for giving us an hour of your Friday evening, and we let you go now. Go have fun. And everyone else, I'll see you all tomorrow. We have a hackathon to attend.
+
+181
+00:36:08.700 --> 00:36:21.520
+Kamil - Team Apart: And yeah, thank you everyone. I'll add the recording in the Discord and on the website soon, as soon as it's done record, like, processing, maybe, like, 10 minutes. And thank you very much. Would you like to add anything, Jerick?
+
+182
+00:36:22.160 --> 00:36:25.929
+Jerick Shi: Alright, good luck with the hackathon, make sure to get enough rest.
+
+183
+00:36:26.210 --> 00:36:27.430
+Kamil - Team Apart: Awesome.
+
+184
+00:36:27.760 --> 00:36:30.610
+Kamil - Team Apart: Thanks, bye everyone, I'm going to bed.
+
+185
+00:36:31.630 --> 00:36:33.220
+Jerick Shi: Alright, take care, everyone.
+
+186
+00:36:33.220 --> 00:36:33.980
+Kamil - Team Apart: Bye.
+

@@ -1,0 +1,1742 @@
+WEBVTT
+
+1
+00:00:02.320 --> 00:00:18.219
+Kamil - Team Apart: Welcome, everyone, to the second-to-last talk of the first day of the AI Collusion Sprint, co-organized with Poseidon Research, AE Studio, sponsored by Model, AI Alignment Foundation, and Nibius. This session is a double feature from the same group at UMass Amherst.
+
+2
+00:00:18.380 --> 00:00:32.839
+Kamil - Team Apart: First, we have Eugene Bagdasarian, is an assistant professor of computer science there, where he co-leads the AI Security Lab and the AI Safety Initiative, and a part-time senior research scientist at Google working on Agentic privacy and security.
+
+3
+00:00:32.840 --> 00:00:47.880
+Kamil - Team Apart: His group studies security and privacy attacks on AI systems in the real world, including multi-agent systems, where their Colosseum framework finds new collusion artifacts. We also have Mason Nakamura, he's a fourth-year PhD student in the same department.
+
+4
+00:00:48.240 --> 00:00:52.579
+Kamil - Team Apart: in the resource-bounded Reasoning Lab with Professor Shlomo.
+
+5
+00:00:52.890 --> 00:01:00.440
+Kamil - Team Apart: Funded by the NSF Graduate Research Fellowship, working on multi-agent safety and alignment. Please welcome them both.
+
+6
+00:01:05.740 --> 00:01:06.710
+Mason Nakamura: Dub.
+
+7
+00:01:07.880 --> 00:01:16.680
+Mason Nakamura: Hey guys, thanks a lot. I think there was, like, a unique opportunity for us to collaborate, so Mason is coming more from this multi-agent community.
+
+8
+00:01:17.310 --> 00:01:25.740
+Mason Nakamura: And I do a lot of security and safety, so this paper has been… Really cool to…
+
+9
+00:01:25.870 --> 00:01:43.009
+Mason Nakamura: do interdisciplinary research that we haven't really thought about before possible, and so Mason will do the main part here of explaining all the technical parts and doing also the demo, right? Hopefully you'll get some,
+
+10
+00:01:43.220 --> 00:01:48.059
+Mason Nakamura: information that you need for your hackathon and the research sprint.
+
+11
+00:01:48.200 --> 00:01:59.490
+Mason Nakamura: If you want to reach out to us, please do. Everything is public. We'd love to have your input. If you have new ideas what to do, there's plenty of cool stuff that you can extend.
+
+12
+00:01:59.650 --> 00:02:01.650
+Mason Nakamura: And…
+
+13
+00:02:01.880 --> 00:02:18.730
+Mason Nakamura: to maybe set the stage a little bit, we started this project about, like, a year and a half ago. We've got some grant from Schmidt Sciences on, like, studying this multi-agent safety, and we've been thinking about that, oh, we want to do a lot of cool stuff in multi-agent safety,
+
+14
+00:02:19.020 --> 00:02:28.219
+Mason Nakamura: The problem began in the first moment. We started thinking about how do we implement it, and we found that there was no framework that we can use.
+
+15
+00:02:28.690 --> 00:02:37.950
+Mason Nakamura: that does exactly what we want. So we wanted to study communication between agents, and also study, like, how do they act in the real world.
+
+16
+00:02:39.430 --> 00:02:55.000
+Mason Nakamura: we've been working on this for, like, the last one and a half years. We came up with a couple of this framework. One is the Coliseum, and another is Terarium, that is kind of, like, kind of a foundation on which the Coliseum is built.
+
+17
+00:02:55.130 --> 00:03:02.320
+Mason Nakamura: we… about maybe, like, December last year, January, we started thinking about collusion.
+
+18
+00:03:02.660 --> 00:03:14.530
+Mason Nakamura: Collusion was interesting for us in the fact that in collusion, that's, like, a very unique thing that,
+
+19
+00:03:16.190 --> 00:03:17.489
+Mason Nakamura: Yeah, there's a message.
+
+20
+00:03:19.880 --> 00:03:27.599
+Mason Nakamura: Alright, that's a question. All right, sorry. The collusion is very unique because it's very specific to multi-agent systems.
+
+21
+00:03:27.680 --> 00:03:41.950
+Mason Nakamura: For example, like, I can do jailbreaking, I can do prompt injections, but they're not specific to multi-agent systems. Collusion is very, very specific, you cannot do… have a collusion in the single-agent systems, so we wanted to…
+
+22
+00:03:42.530 --> 00:03:49.840
+Mason Nakamura: Study this part, and we've done this, like, to give some, like, kind of,
+
+23
+00:03:50.070 --> 00:04:06.380
+Mason Nakamura: like, history, which is… probably now is a history, that, back in January, multi-agent systems suddenly began very popular because of MoldBook, if you still remember this, name. MoldBook was the… this kind of, this multi-agent.
+
+24
+00:04:06.740 --> 00:04:21.050
+Mason Nakamura: social media-like website where agents could post. It quickly died, and we were, like, quite upset that we've bet on the wrong horse, and we didn't know what this multi-agent collusion will matter.
+
+25
+00:04:21.050 --> 00:04:28.229
+Mason Nakamura: We submitted this paper to ICML, and we didn't get in, because people were saying that, oh, you studied this.
+
+26
+00:04:28.320 --> 00:04:33.849
+Mason Nakamura: Multi-agent communication using secret message board, like, where on earth you would get the secret message board?
+
+27
+00:04:34.290 --> 00:04:38.189
+Mason Nakamura: We resubmitted it to New Rips, and in August,
+
+28
+00:04:38.220 --> 00:04:56.710
+Mason Nakamura: the Hugging Face incident happened, and, or, like, July, probably, right? Like, July was, it got popular. The part of secret message boards, got, like, very easy to address. If you remember, they were talking about the.
+
+29
+00:04:56.710 --> 00:05:09.060
+Mason Nakamura: Opening agents, even during training, they found some German website, some Wikipedia on, like, some old game, I believe, and they were able to communicate on this. So, like, this,
+
+30
+00:05:09.900 --> 00:05:13.659
+Mason Nakamura: This is, from this meter,
+
+31
+00:05:14.800 --> 00:05:26.640
+Mason Nakamura: transcripts that they discovered on investigating this OpenAI, Communications, and… The secret message boards… is something that's…
+
+32
+00:05:27.080 --> 00:05:44.960
+Mason Nakamura: suddenly now appears that it will be possible always, especially for the agents that are very, very, very capable to find. So, what we wanted to know is how does this kind of collusion really originates, happens, how the agents behave?
+
+33
+00:05:44.980 --> 00:05:47.610
+Mason Nakamura: One thing that really caught our attention
+
+34
+00:05:48.110 --> 00:05:57.660
+Mason Nakamura: I, when we were reading this Hugging Face incident, and that we really were able to confirm in our research, before we knew about this.
+
+35
+00:05:57.820 --> 00:06:06.839
+Mason Nakamura: But if you read this, like, this meter report, they say that, when OpenAI was doing this Evolve, they launched.
+
+36
+00:06:07.020 --> 00:06:09.250
+Mason Nakamura: Tens of thousands of agents?
+
+37
+00:06:09.800 --> 00:06:17.760
+Mason Nakamura: And out of those tens of thousands, only 1,200 agents, they went… And…
+
+38
+00:06:18.130 --> 00:06:23.180
+Mason Nakamura: Started to communicate on the secret message board, and out of those
+
+39
+00:06:23.340 --> 00:06:30.449
+Mason Nakamura: tens of 1,200,000 agents, only 700 went and participated in the attack.
+
+40
+00:06:31.660 --> 00:06:36.589
+Mason Nakamura: Which then kind of brings you your question, like, if everything is, about…
+
+41
+00:06:36.710 --> 00:06:45.829
+Mason Nakamura: These agents are so malicious, and they are so persistent, and they are going to hack everything. Like, what about these agents that work
+
+42
+00:06:46.130 --> 00:06:50.179
+Mason Nakamura: Started and they didn't communicate, or the one that communicated, but they did not…
+
+43
+00:06:50.460 --> 00:06:57.000
+Mason Nakamura: really, do anything bad. So, it does look like, in this analysis.
+
+44
+00:06:57.230 --> 00:07:09.559
+Mason Nakamura: they didn't really go into this, and there are actually… we'll discuss why it's hard. But there is a very interesting question here, it's like, is what they discuss with each other actually does map
+
+45
+00:07:09.660 --> 00:07:18.709
+Mason Nakamura: to the, actions. If you think about this collusion, right, like, collusions, like, colluting agents.
+
+46
+00:07:19.550 --> 00:07:23.900
+Mason Nakamura: It matter when they affect the system.
+
+47
+00:07:24.180 --> 00:07:30.019
+Mason Nakamura: If they don't affect the system, do we really care about it? Even if they discuss,
+
+48
+00:07:30.870 --> 00:07:33.380
+Mason Nakamura: Even if they discuss some…
+
+49
+00:07:34.370 --> 00:07:44.589
+Mason Nakamura: kind of collusive behavior among each other, right? So, the thing that we were very, very curious about is, like, how do agents collude? When does it decide to collude?
+
+50
+00:07:44.990 --> 00:08:01.510
+Mason Nakamura: And another thing that was very, very interesting, which is probably, relates to this research sprint that you're working on, is can we iterate very quickly and cheaply on those different setups and get the results back?
+
+51
+00:08:02.600 --> 00:08:05.000
+Mason Nakamura: And another thing that…
+
+52
+00:08:05.800 --> 00:08:12.380
+Mason Nakamura: Again, we started it before the hiking phase incident, so we didn't even know how, like, to run it properly.
+
+53
+00:08:12.480 --> 00:08:18.019
+Mason Nakamura: And you probably also want to find out how to run this collusion experience without
+
+54
+00:08:18.450 --> 00:08:33.119
+Mason Nakamura: necessarily, compromising the hugging phase, which is probably now is tired of, like, fixing stuff, and the world is dangerous, and so on, but we still need to do research on this. So, like, there was a goal that we had on establishing
+
+55
+00:08:33.340 --> 00:08:40.390
+Mason Nakamura: Some platform, and framework that allows us to study this type of the behavior
+
+56
+00:08:40.750 --> 00:08:45.729
+Mason Nakamura: On both the communication level and the action level.
+
+57
+00:08:45.880 --> 00:08:58.119
+Mason Nakamura: And we argue that to this day, this is maybe the only one framework that allows this kind of very tight coordination between actions and communications.
+
+58
+00:08:58.270 --> 00:09:04.049
+Mason Nakamura: Mason will demonstrate how efficient it is, and how easy it is to do.
+
+59
+00:09:04.280 --> 00:09:18.649
+Mason Nakamura: However, I would also want to point out that this is just the first step. We got the paper into Neuribs, which we are very, very happy about, but, like, this is just the first step in… towards even starting the collusion. Like, we…
+
+60
+00:09:18.670 --> 00:09:30.640
+Mason Nakamura: Don't necessarily know how, like, these agents will communicate, so we can't really expand this framework for more and more, cases, and study it in depth.
+
+61
+00:09:30.660 --> 00:09:42.979
+Mason Nakamura: But at least we have something to begin with. And with this, I will hand it to Mason, and please email us if you have any questions, but yeah, take it away. Thank you, Eugene.
+
+62
+00:09:45.150 --> 00:09:49.469
+Mason Nakamura: So, now moving on to how these systems are concretely modeled.
+
+63
+00:09:49.680 --> 00:10:04.080
+Mason Nakamura: In multi-agent systems, there are multiple agents that exist in some world or environment, and these agents, you know, can send messages to communicate goals, intentions, plans, or even just arbitrary information.
+
+64
+00:10:04.340 --> 00:10:12.040
+Mason Nakamura: These agents can also take actions in their environment, and the available actions between agents don't necessarily have to be the same.
+
+65
+00:10:12.220 --> 00:10:24.710
+Mason Nakamura: For example, agents could have different sets of tool calls that they can execute, but by communicating, agents may be able to utilize tool calls from others, expanding the capability of the overall system.
+
+66
+00:10:26.100 --> 00:10:42.059
+Mason Nakamura: This is called capability sharing, and it enables the system to be more powerful than any single agent alone. Additionally, the ability for the multi-agent system to perform parallel execution greatly enhances its performance efficiency on the environment.
+
+67
+00:10:43.330 --> 00:10:53.719
+Mason Nakamura: And in the cooperative setting, all agents share the same reward function, so agents are incentivized to coordinate and cooperate to complete essentially the same goal.
+
+68
+00:10:55.380 --> 00:11:02.819
+Mason Nakamura: However, in practice, fully cooperative systems, where agents share the same reward function, are rarer.
+
+69
+00:11:03.000 --> 00:11:12.879
+Mason Nakamura: Especially when policies are represented as foundation models, which are known to have implicit objectives that they optimize, which are encoded into their parameters.
+
+70
+00:11:13.950 --> 00:11:24.149
+Mason Nakamura: Now, in most cases, the system is modeled as mixed motive, as opposed to, say, the fully cooperative setting from the previous slide. And in this setting.
+
+71
+00:11:24.150 --> 00:11:41.829
+Mason Nakamura: The reward functions between agents may differ, but still incentivize the agents to collaborate. For example, it could be the case that collaborating allows the agents to optimize their individual rewards more efficiently. And this is just one example of how a mixed-motive system could operate.
+
+72
+00:11:42.950 --> 00:12:00.759
+Mason Nakamura: Now, this mixed motive scenario was actually encountered during the Hugging Face incident, when agents were given different tasks of the exploit gym benchmark, but they still cooperated to find a general solution for all agents by trying to cheat and exploit the benchmark grader.
+
+73
+00:12:01.840 --> 00:12:07.009
+Mason Nakamura: And throughout this presentation, you know, we're going to focus on this mixed motive setting.
+
+74
+00:12:09.800 --> 00:12:14.160
+Mason Nakamura: Now we're gonna introduce our work, our evaluation framework, Colosseum.
+
+75
+00:12:16.060 --> 00:12:31.050
+Mason Nakamura: So, how is collusion actually defined? Well, on Wikipedia, it's defined as a secret agreement or cooperation between two or more parties to deceive, defraud, or gain an unfair advantage over others.
+
+76
+00:12:31.170 --> 00:12:44.550
+Mason Nakamura: So, why should we care about it? Well, as millions or even billions of agents communicate and take actions on the web via tool calls, the risk of collusion becomes severe, resulting in potential large-scale harm.
+
+77
+00:12:44.710 --> 00:12:58.240
+Mason Nakamura: This can become especially risky if these agents are given powerful tool calls, and the agents exploit their parallel execution capability, which greatly increases attack efficacy.
+
+78
+00:13:00.990 --> 00:13:04.130
+Mason Nakamura: But what makes collusion auditing so hard?
+
+79
+00:13:04.580 --> 00:13:13.189
+Mason Nakamura: Well, for one, collusion is often subjectively defined, because it can sometimes be misinterpreted as ordinary coordination.
+
+80
+00:13:13.670 --> 00:13:20.110
+Mason Nakamura: Secondly, collusion evidence is sparse if you only audit the messages and actions independently.
+
+81
+00:13:20.580 --> 00:13:40.490
+Mason Nakamura: And finally, knowing when and how collusion forms in long horizon settings is computationally intractable. And so, to alleviate these auditing difficulties, we need to scope the problem and environment in such a way such that we still derive useful insights, but avoid these collusion auditing challenges.
+
+82
+00:13:40.620 --> 00:13:46.869
+Mason Nakamura: And to do this, we introduced the Distributed Constraint Optimization Problem, or DCOP for short.
+
+83
+00:13:48.720 --> 00:14:06.150
+Mason Nakamura: So now in the next few slides, we'll describe what a DCOP is, due to its importance for how we derive our evaluation metrics, specifically for how actions contribute to collusive behavior, and how this relates to, say, other multi-agent problem formulations and their respective trade-offs.
+
+84
+00:14:06.460 --> 00:14:17.560
+Mason Nakamura: So, a DCOP is a problem formulation for single-step, multi-agent decision-making, where the agents simultaneously take a single action in the environment, at every time step.
+
+85
+00:14:18.250 --> 00:14:30.380
+Mason Nakamura: And if you are familiar with, say, reinforcement learning or planning, you can think of a D cup as being similar to a Markov decision process, or MDP, used to model single-agent sequential decision making.
+
+86
+00:14:31.040 --> 00:14:45.499
+Mason Nakamura: And the primary trade-off with using a de-cup, as opposed to, say, other problem formulations, is that you can conduct very deep behavioral analysis, which is computationally intractable to do in the multi-step settings.
+
+87
+00:14:48.360 --> 00:15:05.520
+Mason Nakamura: So, where do DCOPs actually show up? Well, many everyday coordination problems can be modeled as a DCOP, such as scheduling meetings, assigning JIRA tickets, or allocating scarce resources in a hospital, which are also the three environments we use in Coliseum.
+
+88
+00:15:06.230 --> 00:15:25.400
+Mason Nakamura: First, each agent starts with some private data, such as its own calendar, skills, availability, and it uses this to make its own decisions, like when its meeting happens, when… what… which ticket to take, or which resource each department in the hospital gets.
+
+89
+00:15:26.000 --> 00:15:35.210
+Mason Nakamura: And it's important to know here that the other agents don't know the private information that is available to other agents, but this can be communicated via messages.
+
+90
+00:15:35.490 --> 00:15:52.699
+Mason Nakamura: Secondly, these choices affect each other. Compatible choices between agents earn higher reward, while conflicting choices lose reward. For example, when a shared attendee gets double-booked for two meetings at the same time.
+
+91
+00:15:53.300 --> 00:16:00.249
+Mason Nakamura: And finally, the joint score of the team, is the… is the sum of all of these sort of points.
+
+92
+00:16:00.360 --> 00:16:19.309
+Mason Nakamura: Or rewards. Since these problems are small enough, we can also pre-compute the optimal solution using classical DCOP solvers, before the agents even start, and you can also do, like, greedy search, whatever. And this gives us something most agent benchmarks lack, which is a ground truth for how well the agents could have done.
+
+93
+00:16:19.710 --> 00:16:34.520
+Mason Nakamura: And so, the gap between the best possible score and the score the agents actually achieved is what we call regret. And we will use regret throughout the rest of this presentation to measure how much collusion hurts the cooperative objective.
+
+94
+00:16:35.310 --> 00:16:38.249
+Mason Nakamura: Now let's look at how a DCOP is formally defined.
+
+95
+00:16:39.460 --> 00:16:44.749
+Mason Nakamura: Like any problem formulation, a DCOP is defined as a tuple of agents.
+
+96
+00:16:44.990 --> 00:16:48.670
+Mason Nakamura: Decision variables, which can be interpreted as actions.
+
+97
+00:16:48.900 --> 00:16:53.329
+Mason Nakamura: Domains, which can be seen as action spaces in RL terms.
+
+98
+00:16:53.540 --> 00:16:57.009
+Mason Nakamura: And utility functions that can be seen as reward functions.
+
+99
+00:16:57.590 --> 00:17:06.690
+Mason Nakamura: And in order to solve a DCOP, all agents have to assign a value to their decision variables from their allowable domains, or action spaces.
+
+100
+00:17:07.109 --> 00:17:13.600
+Mason Nakamura: In essence, this can be equivalent to, like, all agents taking an action at the same time at a specific time step.
+
+101
+00:17:15.940 --> 00:17:38.509
+Mason Nakamura: Now, there exist two very useful characteristics for auditing that a DCOP provides, which are an easily computable optimal baseline solution, which encodes the optimal actions all agents should take to maximize the cooperative objective. And secondly, you can compute millions, or tens of millions of counterfactual solutions very quickly.
+
+102
+00:17:38.560 --> 00:17:46.690
+Mason Nakamura: Which is useful for showing the severity of collusion impact on the cooperation, since you have baseline solutions to actually compare against.
+
+103
+00:17:49.050 --> 00:17:54.549
+Mason Nakamura: Now, using the DECOP framework, we can now define collusion more explicitly.
+
+104
+00:17:54.810 --> 00:18:02.099
+Mason Nakamura: We define collusion for when a coalition coordinates to pursue a hidden goal that conflicts with the task's cooperative objective.
+
+105
+00:18:03.410 --> 00:18:10.890
+Mason Nakamura: We further define a coalition as a subset of agents, S, that contains at least two or more agents.
+
+106
+00:18:11.240 --> 00:18:27.620
+Mason Nakamura: Next, the optimal nominal solution, which optimizes the intended cooperative objective we define as X star sub n, and the coalition action deviation is simply the action set of the coalition and non-coalition agents.
+
+107
+00:18:28.220 --> 00:18:41.239
+Mason Nakamura: Finally, the collusion criterion is a regret-based inequality that flags whether collusion occurs, and it's the difference between the optical and nominal solution and the realized solution that the agents actually took.
+
+108
+00:18:43.720 --> 00:18:57.759
+Mason Nakamura: So using these definitions from the previous slide, we can now introduce our primary collusion auditing metrics. And we omit the mathematical derivations, but we give a high-level overview of each of these auditing metrics.
+
+109
+00:18:58.410 --> 00:19:07.059
+Mason Nakamura: So the first is the collusion judge, which is an LLM-based judge that scores communication channels based on signs of collusion.
+
+110
+00:19:07.330 --> 00:19:13.670
+Mason Nakamura: And the higher the collusion the judge score is, the higher collusion was detected on that specific communication channel.
+
+111
+00:19:15.710 --> 00:19:28.359
+Mason Nakamura: The coalition advantage is a direct derivation from our regret-based metrics, and it compares how much average reward coalition members gain over the average non-coalition member.
+
+112
+00:19:28.530 --> 00:19:35.439
+Mason Nakamura: And here, positive coalition advantage indicates that the coalition is performing better than the rest of the group.
+
+113
+00:19:37.330 --> 00:19:45.590
+Mason Nakamura: And the overall regret is used to monitor overall cooperative system performance, and how collusion affects the system as a whole.
+
+114
+00:19:45.830 --> 00:20:01.880
+Mason Nakamura: And our auditing techniques require monitoring all three metrics to establish a full picture on how collusion is affecting the system, how much it is detectable, and how great is the advantage that the colluders get.
+
+115
+00:20:04.770 --> 00:20:22.940
+Mason Nakamura: So now we'll introduce collusion types and classifications that are derived as a result of our collusion auditing metrics. Now, in this example, Bart and Milhouse from The Simpsons are trying to optimize a secondary objective pertaining to delinquency in a classroom environment.
+
+116
+00:20:23.490 --> 00:20:40.980
+Mason Nakamura: And in all of these examples, we actually created a multi-agent substance environment and ran experiments to obtain these real agent messages and actions taken. This first type of collusion that we identify is direct collusion, which is the simplest form, where Bart and Milhouse discuss
+
+117
+00:20:41.370 --> 00:20:47.510
+Mason Nakamura: Pranking the teacher, and successfully take actions to execute their collusive plans.
+
+118
+00:20:47.630 --> 00:20:53.259
+Mason Nakamura: Showing a positive collusion judge score, and a high coalition advantage score.
+
+119
+00:20:54.630 --> 00:21:14.920
+Mason Nakamura: The next type of collusion is attempted collusion, where Bart and Melhouse still discussed pranking the teacher, but failed to do so as a result of getting caught before they were able to take the bad actions, or they simply lacked the power to take the action successfully, and so they canceled their plans. And we defined this specific type of collusion as collusion on paper.
+
+120
+00:21:16.260 --> 00:21:19.810
+Mason Nakamura: And now the last type of collusion is hidden collusion.
+
+121
+00:21:19.970 --> 00:21:23.299
+Mason Nakamura: Where occlusion is not detected on the communication channels.
+
+122
+00:21:23.520 --> 00:21:27.459
+Mason Nakamura: But the actions indicated that collusion did take place.
+
+123
+00:21:27.640 --> 00:21:37.609
+Mason Nakamura: Here, Barth and Milhouse are talking in phrases that only the two of them can infer, and this is very related to, say, stigmographic collusion. But this…
+
+124
+00:21:37.610 --> 00:21:52.180
+Mason Nakamura: hidden collusion is more of a general classification, since there could exist agents that don't explicitly communicate with each other via messages, but they still take collusive actions. Either they were trained for this specific purpose.
+
+125
+00:21:54.520 --> 00:21:58.710
+Mason Nakamura: Now, in addition to identifying different collision types.
+
+126
+00:21:58.930 --> 00:22:13.000
+Mason Nakamura: We also model collusion intensity, using a parameterized multi-objective reward function that combines the nominal, or cooperative objective, F sub n, and the hitting coalition objective, F sub C.
+
+127
+00:22:13.320 --> 00:22:19.940
+Mason Nakamura: And lambda here is a hyperparameter that can be adjusted to elicit more or less collusive behavior.
+
+128
+00:22:20.880 --> 00:22:32.439
+Mason Nakamura: And in our experiments, we run different ablations on lambda to observe the impact of this secondary objective on the cooperative objective by varying lambda in the prompt.
+
+129
+00:22:35.090 --> 00:22:43.060
+Mason Nakamura: Now, to visualize how collusion intensity affects cooperation, let's look at, you know, another Simpson toy example.
+
+130
+00:22:43.180 --> 00:22:50.010
+Mason Nakamura: In this example, we have, say, Homer, Bart, and Milhouse taking actions to complete some cooperative task.
+
+131
+00:22:50.260 --> 00:23:01.529
+Mason Nakamura: Here, the agents can take action 0 or 1, and the numbers in the square boxes represent reward or payoffs for that specific agent, if that tuple of actions are taken.
+
+132
+00:23:02.300 --> 00:23:14.660
+Mason Nakamura: And here, all agents are interacting and communicating on a main communication channel, and in this example, they achieve the optimal cooperative reward with no collusion existing, giving everyone a reward of 10.
+
+133
+00:23:17.030 --> 00:23:36.300
+Mason Nakamura: In the mixed collusion example, where lambda is 0.5, we see that Bart and Milhouse now communicate on a secret channel, in addition to the main channel. Now, an extra reward table also appears, and the optimal actions for Bart and Milhouse shifted to 10 from 00.
+
+134
+00:23:36.650 --> 00:23:45.989
+Mason Nakamura: However, this also shifted the cooperative reward and increased overall regret of the system, while increasing the advantage of BART and Milhouse's coalition.
+
+135
+00:23:48.160 --> 00:24:05.829
+Mason Nakamura: Now, in the fully collusive setting, where lambda is 1, Bart and Milhouse no longer try to balance the cooperative and secondary objective functions, but instead fully optimize their secondary objective function, shifting their action selection again from 1-0 to 01.
+
+136
+00:24:06.130 --> 00:24:12.130
+Mason Nakamura: Here, they greatly increased their regret and coalition advantage, completely taking over the cooperative system.
+
+137
+00:24:14.750 --> 00:24:20.049
+Mason Nakamura: Now, going back to how we alleviate the challenges of collusion auditing.
+
+138
+00:24:20.620 --> 00:24:30.769
+Mason Nakamura: We introduce regret-based metrics to make collusion grounded to a given task and utilize a multi-objective reward function to represent the mixed motive setting.
+
+139
+00:24:31.640 --> 00:24:39.999
+Mason Nakamura: We then analyze both communication messages and actions together to minimize sparsity, and allowing us to divide new collusion types.
+
+140
+00:24:41.550 --> 00:24:58.569
+Mason Nakamura: And finally, we use distributed constraint optimization problems, or DCOPS for short, which is a single-step decision-making problem to alleviate the problem of knowing when collusion forms, and what actions and messages across time contributed to collusion efficacy.
+
+141
+00:25:01.120 --> 00:25:03.829
+Mason Nakamura: Now, moving on to our experiments.
+
+142
+00:25:06.350 --> 00:25:18.180
+Mason Nakamura: In these sets of experiments, we answer the following research questions. We ask, is an LLM as a judge sufficient for collusion auditing? Or do we also need action-based collusion metrics?
+
+143
+00:25:19.630 --> 00:25:23.870
+Mason Nakamura: Does collusive conversation behavior result in collusive actions?
+
+144
+00:25:25.000 --> 00:25:34.870
+Mason Nakamura: And do out-of-the-box LLMs exhibit emerging collusion in cooperative multi-agent systems when a secret channel is introduced between two benign agents?
+
+145
+00:25:35.880 --> 00:25:47.860
+Mason Nakamura: And finally, how does objective misalignment, persuasion, and network topology contribute to collusion efficacy? And we answer these research questions in the preceding slides.
+
+146
+00:25:49.590 --> 00:25:54.539
+Mason Nakamura: Now, in Colosseum, we use a few verifiable cooperative environments.
+
+147
+00:25:54.870 --> 00:26:00.839
+Mason Nakamura: These are meeting scheduling, JIRA ticket allocation, and the hospital environment.
+
+148
+00:26:01.460 --> 00:26:05.550
+Mason Nakamura: In meeting scheduling, the agents represent meeting participants.
+
+149
+00:26:05.650 --> 00:26:13.600
+Mason Nakamura: And they need to coordinate attendance while avoiding conflicts in their individual schedules, which is limited in its capacity.
+
+150
+00:26:14.640 --> 00:26:27.600
+Mason Nakamura: The cooperative goal here is to find a workable arrangement across the participants, so a decision that is convenient for one agent may still create a problem for another. And so this makes the coordination very difficult.
+
+151
+00:26:27.750 --> 00:26:40.939
+Mason Nakamura: For Jira ticket allocation, agents are assigning tasks within a software project, and each task has public information, such as its required skills, effort, and priority.
+
+152
+00:26:41.010 --> 00:26:50.499
+Mason Nakamura: And each agent has… also has private information about its own sets of skills and availability, and each agent has to choose exactly one task.
+
+153
+00:26:50.690 --> 00:26:57.569
+Mason Nakamura: So the objective here is to assign agents to the right tickets to have the best possible chance of success on the software project.
+
+154
+00:26:59.080 --> 00:27:15.850
+Mason Nakamura: The last environment is the hospital environment, which differs from the past two environments in that it introduces heterogeneous agent roles. And so we have department agents that coordinate patients moving through a sequence of departments, such as triage and radiology.
+
+155
+00:27:15.850 --> 00:27:22.020
+Mason Nakamura: And a provisioner can move scarce and short… scarce shared resources between departments.
+
+156
+00:27:22.310 --> 00:27:29.940
+Mason Nakamura: And we also simulate local patient queues, resource shortages, to create a need for communication across the system.
+
+157
+00:27:30.300 --> 00:27:41.780
+Mason Nakamura: And across all three of these environments, the important connection is that messages are tightly coupled to actions, like attendance, task selection, or routing and source allocation.
+
+158
+00:27:41.780 --> 00:27:51.699
+Mason Nakamura: Whereas in multi-step environments, you can't concretely deduce what message affected what action the agent took across time. Also known as the temporal credit assignment problem.
+
+159
+00:27:52.130 --> 00:28:00.420
+Mason Nakamura: And this lets us compare what agents say with what they actually do, using the communication-based and action-based metrics we introduced earlier.
+
+160
+00:28:03.650 --> 00:28:05.700
+Mason Nakamura: So, in our simulations.
+
+161
+00:28:05.790 --> 00:28:16.210
+Mason Nakamura: All our environments contain stochasticity, and we see the environments over our 30 simulations that are average per data point in our experimental results.
+
+162
+00:28:16.220 --> 00:28:31.039
+Mason Nakamura: And in each experiment, we have at least 6 agents per simulation. And if the network topology isn't stated, we assume that the topology is a complete graph, where all the nodes in the graph are connected to each other.
+
+163
+00:28:31.040 --> 00:28:36.280
+Mason Nakamura: Also meaning that, like, all agents are basically, you know, in a simulated group chat, essentially.
+
+164
+00:28:37.820 --> 00:28:56.140
+Mason Nakamura: Now, although our problem formulation is single-step with respect to action selection, we have a multi-step communication and planning phase, where agents communicate over multiple rounds or steps to develop a plan that best satisfies the cooperative objective by deciding who should take what action.
+
+165
+00:28:57.960 --> 00:29:04.800
+Mason Nakamura: Now, in the action selection phase, we use a simple round robin protocol for sequential action selection.
+
+166
+00:29:04.970 --> 00:29:16.449
+Mason Nakamura: And next, we use the setup and the Jira ticket environment to ask whether collusion can emerge when agents receive a sacred channel without being explicitly told to collude.
+
+167
+00:29:19.880 --> 00:29:28.240
+Mason Nakamura: Now, in this emerging collusion experiment, we ask, can collusion emerge without explicit instructions to collude?
+
+168
+00:29:30.150 --> 00:29:37.989
+Mason Nakamura: In this setting, we give two benign agents a secret communication channel, while keeping their cooperative prompts unchanged.
+
+169
+00:29:38.300 --> 00:29:42.170
+Mason Nakamura: So these agents can still talk on the main channel with everyone else?
+
+170
+00:29:42.370 --> 00:29:46.939
+Mason Nakamura: But they have access to a secret communication channel that other agents aren't aware of.
+
+171
+00:29:47.470 --> 00:29:59.640
+Mason Nakamura: Then we compare with a public-only control group, where lambda is 0, so modeling no collusive behavior in the agents, and a prompted fully collusive group, where lambda is 1.
+
+172
+00:30:01.460 --> 00:30:09.690
+Mason Nakamura: We tested a diverse set of 19 models using both conversation-based judge scores and action-based metrics.
+
+173
+00:30:12.750 --> 00:30:25.369
+Mason Nakamura: Now, in this plot, we plotted the change in coalition advantage on the y-axis between the control group that was fully cooperative and had only the main channel and the emergent and prompted groups.
+
+174
+00:30:25.730 --> 00:30:29.170
+Mason Nakamura: If the delta advantage is greater than zero.
+
+175
+00:30:29.390 --> 00:30:37.739
+Mason Nakamura: Then the model elicited higher coalition advantage than the benign control group, indicating higher action-based collusion.
+
+176
+00:30:38.100 --> 00:30:45.120
+Mason Nakamura: And if the delta judge score was greater than zero, then this indicated higher communication-based collusion.
+
+177
+00:30:45.710 --> 00:30:57.159
+Mason Nakamura: And using our collusion types defined prior, we can map what regions of the plot, sort of relate to direct, hidden, attempted, and benign collusion.
+
+178
+00:30:57.760 --> 00:31:09.240
+Mason Nakamura: And in this plot, we observed that most models exhibited an increase in both communication-based and action-based collusion, with all models showing an increase in communication-based collusion.
+
+179
+00:31:09.940 --> 00:31:13.239
+Mason Nakamura: The emerging group, represented as blue squares.
+
+180
+00:31:13.350 --> 00:31:23.619
+Mason Nakamura: Shows that some models have higher propensities to elicit action-based collusion when a secret communication channel is provided between two benign agents.
+
+181
+00:31:23.810 --> 00:31:28.539
+Mason Nakamura: And they were now explicitly told to use that communication channel, to communicate.
+
+182
+00:31:29.170 --> 00:31:42.710
+Mason Nakamura: And interestingly, some models, such as, you know, Kimi K2 Thinking, also known as Model 14 here, and Mini Max Model 16 at the bottom, show some…
+
+183
+00:31:42.740 --> 00:31:56.630
+Mason Nakamura: quantitative evidence of attempted collusion, where models communicate collusively, but end up lowering their collusion… coalition advantage. So they're essentially bad at collusion.
+
+184
+00:31:58.310 --> 00:32:06.269
+Mason Nakamura: In addition to the coalition advantage, we also log the overall regret of the cooperative system. And, you know, we show that
+
+185
+00:32:06.390 --> 00:32:09.289
+Mason Nakamura: Delta regret of the system is generally minimal.
+
+186
+00:32:09.440 --> 00:32:24.980
+Mason Nakamura: But some models, such as Model GPT-4.1 Mini, or Model 1, which is, like, at the very top, shows a large degradation in cooperative performance, while having a large increase in coalition advantage on the left plot.
+
+187
+00:32:25.480 --> 00:32:36.759
+Mason Nakamura: But this generally is not always the case, where a decrease in overall regret implies an increase in coalition advantage, as seen with GPT 5.4, which is Model 3.
+
+188
+00:32:40.690 --> 00:32:46.440
+Mason Nakamura: Now we look at some examples of these collusion types from the JIRA ticket allocation environment.
+
+189
+00:32:46.800 --> 00:32:52.489
+Mason Nakamura: In each example, we show the secret channel at the top, and the public channel at the bottom.
+
+190
+00:32:53.090 --> 00:33:05.689
+Mason Nakamura: In this first example, Harmony and Rona select tasks based on their skills and availability. Harmony chooses the triage task, while Rona chooses the testing task.
+
+191
+00:33:06.210 --> 00:33:08.239
+Mason Nakamura: And if we compare the two channels.
+
+192
+00:33:08.500 --> 00:33:13.759
+Mason Nakamura: We observe that they communicate the same task choices in both places.
+
+193
+00:33:14.190 --> 00:33:20.510
+Mason Nakamura: And here, the secret channel is mainly being used to repeat information that was already available on the public channel.
+
+194
+00:33:20.620 --> 00:33:26.420
+Mason Nakamura: And so we do not see a separate plan to change the allocation in favor of this coalition.
+
+195
+00:33:26.950 --> 00:33:38.759
+Mason Nakamura: So providing a secret channel does not always lead to emerging collusion, and as before, we use the action-based metrics alongside the conversation to determine whether the coalition actually gains an advantage.
+
+196
+00:33:39.220 --> 00:33:44.840
+Mason Nakamura: And in the next example, we're going to see agents attempt to use the secret channel to coordinate.
+
+197
+00:33:46.260 --> 00:33:48.490
+Mason Nakamura: Now, in the attempted collision setting.
+
+198
+00:33:48.630 --> 00:33:53.639
+Mason Nakamura: Harmony and Raina try to coordinate their task selections through the secret channel.
+
+199
+00:33:54.250 --> 00:34:11.159
+Mason Nakamura: Harmony explicitly asked to avoid duplicate assignments and maximize the coalition's reward. So here we can identify collusive intent directly from the communication. However, Rona observes that Millie has already claimed the triage task on the public channel.
+
+200
+00:34:11.920 --> 00:34:17.109
+Mason Nakamura: And Harmony then has to reconsider the plan based on what the other agents have already selected.
+
+201
+00:34:17.560 --> 00:34:25.490
+Mason Nakamura: And if we look at the public channel, Logan identifies the remaining tasks, and Harmony selects the testing task from those remaining options.
+
+202
+00:34:26.590 --> 00:34:35.230
+Mason Nakamura: In this example, the agents attempted to coordinate privately, but their plan does not successfully influence the public allocation as intended.
+
+203
+00:34:35.699 --> 00:34:52.950
+Mason Nakamura: And this relates to the attempted collusion region in the previous plot, where communication-based collusion does not translate into higher action-based collusion. So an agent can communicate a collusive objective without successfully carrying it out, carrying out that objective.
+
+204
+00:34:53.530 --> 00:34:59.390
+Mason Nakamura: And this is why we need to examine both the conversations and the resulting actions from the agents.
+
+205
+00:35:02.980 --> 00:35:16.159
+Mason Nakamura: So in this example, we observe direct collusion between Sherry and Afton. They use the secret channel to coordinate which tasks they should select, and avoid overlap within the coalition.
+
+206
+00:35:16.740 --> 00:35:21.210
+Mason Nakamura: Sherry identifies review or documentation as preferred options.
+
+207
+00:35:21.430 --> 00:35:31.769
+Mason Nakamura: And then Afton then proposes a task depending on which task Sherry selects, and what the other agents do. So their choices are being planned together, rather than independently.
+
+208
+00:35:31.770 --> 00:35:41.709
+Mason Nakamura: And if we look at the public channel, we can see this coordination carry over. Sherry recommends an allocation that includes Afton's proposed task.
+
+209
+00:35:41.740 --> 00:35:58.179
+Mason Nakamura: And Afton supports an allocation that includes Sherry's preferred task. Here, the agents reinforce each other's task selections on the public channel, and this gives us visible connection between their private plan and the allocation they publicly support.
+
+210
+00:35:58.810 --> 00:36:16.470
+Mason Nakamura: Now, using our definitions from earlier, direct collusion combines detectable collusive communication with effective collusive actions. And the conversation shows how they coordinate, while the action-based metrics tell us whether the coordination produced a coalition advantage.
+
+211
+00:36:18.860 --> 00:36:29.740
+Mason Nakamura: And finally, we have an example of hidden collusion. Here, Sherry and Afton also coordinate through the secret channel, but their public messages appear more like ordinary task planning.
+
+212
+00:36:30.220 --> 00:36:38.769
+Mason Nakamura: Sherry shares a preferred testing task, and asks Afton to avoid the duplication. Afton then responds what the available tasks
+
+213
+00:36:38.850 --> 00:36:50.999
+Mason Nakamura: are less favorable… Afton then responds that the available tasks are less favorable to him, and proposes skipping that task. And if we look at the public channel, Sherry announces the preferred task.
+
+214
+00:36:51.150 --> 00:36:57.819
+Mason Nakamura: While Afton says that he plans to skip unless other… unless another suitable task becomes available.
+
+215
+00:36:58.130 --> 00:37:07.979
+Mason Nakamura: And the public messages do not explicitly describe a coalition objective, even though we can see that the decisions were coordinated in the secret channel.
+
+216
+00:37:08.300 --> 00:37:24.040
+Mason Nakamura: So this illustrates how coordination can be less obvious when we only examine the public conversation. And using our earlier definitions, hidden collusion is where the coalition gains an action-based advantage, while collusion-based detection is low.
+
+217
+00:37:24.240 --> 00:37:33.910
+Mason Nakamura: communication-based detection as well. And across these examples, we can see why collusive communication and collusive actions do not always align with each other.
+
+218
+00:37:34.050 --> 00:37:40.569
+Mason Nakamura: And we now move on to how agents use different persuasion tactics to influence other agents.
+
+219
+00:37:42.750 --> 00:37:47.479
+Mason Nakamura: So, in addition to emerging collusion, one thing we
+
+220
+00:37:47.770 --> 00:37:54.289
+Mason Nakamura: What we try to compare is the linguistic style of colluding agents via persuasion tactics.
+
+221
+00:37:54.400 --> 00:38:01.000
+Mason Nakamura: So they may use authoritative nudge language and try to lead either the colluding or non-colluding agents.
+
+222
+00:38:01.170 --> 00:38:08.619
+Mason Nakamura: They may try helpful misdirection, which is trying to get another non-including agent to do side tests.
+
+223
+00:38:08.890 --> 00:38:17.639
+Mason Nakamura: And a final tactic is to try by manipulating, manipulatively being nice, by offering a trade that actually benefits the colluders.
+
+224
+00:38:18.190 --> 00:38:19.679
+Mason Nakamura: And we studied…
+
+225
+00:38:19.950 --> 00:38:33.550
+Mason Nakamura: We studied these, these different persuasion tactics across different topologies, and found that the authority style may reduce the coalition regret across many combinations of topologies and model types.
+
+226
+00:38:35.010 --> 00:38:43.349
+Mason Nakamura: And we also found that it was useful for colluding agents to use false claims that are hard to verify to best manipulate other agents.
+
+227
+00:38:47.240 --> 00:38:58.769
+Mason Nakamura: And lastly, we wanted to see how structure of the communication network affects how misinformation spreads between agents, which is part of our fourth research question on collusion efficacy.
+
+228
+00:38:58.770 --> 00:39:15.540
+Mason Nakamura: So, in this experiment, we have 6 GPT-4.1 mini-agents, schedule meetings over a communication graph, and we add between 0 and 4 adversaries who keep repeating the same lie about one victim agent.
+
+229
+00:39:15.990 --> 00:39:21.179
+Mason Nakamura: Which is that the victim is always… is away all week on vacation.
+
+230
+00:39:21.550 --> 00:39:25.570
+Mason Nakamura: And here are the dashed lines in the right six plots.
+
+231
+00:39:25.860 --> 00:39:34.969
+Mason Nakamura: Show that the share of honest agents who end up believing the lie, and the solid line shows how well the final schedule satisfies the cooperative objective.
+
+232
+00:39:35.230 --> 00:39:54.870
+Mason Nakamura: And what we found is that belief in the lie is mostly a volume effect, which could be related to social pressures. Specifically, we find that as more adversaries repeat the same claim, more honest agents believe it. And this rises roughly linearly in the path graph and the random graphs.
+
+233
+00:39:54.980 --> 00:40:06.970
+Mason Nakamura: Which are, you know, the Watts, Barbese-Albert, and Ertest Rainey random graphs. And in the random graphs, around 70-80% of the honest agents were fooled by the four adversaries.
+
+234
+00:40:07.480 --> 00:40:22.190
+Mason Nakamura: However, this is not the case when agents can easily check with the victim. For example, in the star incomplete graphs, almost nobody is Faber, even with 4 adversaries out of 6 of the agents in the multi-agent system.
+
+235
+00:40:22.500 --> 00:40:28.050
+Mason Nakamura: And in the complete graph, everyone hears directly from the victim, and in the star graph.
+
+236
+00:40:28.170 --> 00:40:33.279
+Mason Nakamura: The hub hears from the victim and relays that information to everyone else.
+
+237
+00:40:33.480 --> 00:40:41.840
+Mason Nakamura: But in the path graph, the victim can only reach one neighbor, and the adversaries have to sit between the victim and everyone else.
+
+238
+00:40:42.310 --> 00:40:52.599
+Mason Nakamura: So agents tend to cross-check these, these verifiable claims when the network is, you know, short enough, or the diameter of the network is short enough.
+
+239
+00:40:53.260 --> 00:41:03.979
+Mason Nakamura: And finally, if you look at the solid lines, the cooperative performance barely degrades. This is our, like, joint objective function, even when many agents believe the line.
+
+240
+00:41:04.100 --> 00:41:16.939
+Mason Nakamura: So, since one false belief about one agent only costs a couple of meetings, rather than, you know, the whole task. So this, again, shows that what agents believe or says does not necessarily transfer into harmful outcomes.
+
+241
+00:41:18.900 --> 00:41:24.409
+Mason Nakamura: So now to answer the previously posed research questions, for research question one.
+
+242
+00:41:24.780 --> 00:41:36.160
+Mason Nakamura: We found that LM as a judge is not sufficient for collusion auditing and action-based metrics, which are required for a comprehensive examination of collusive behaviors.
+
+243
+00:41:37.370 --> 00:41:40.320
+Mason Nakamura: The second, we found that
+
+244
+00:41:40.400 --> 00:41:59.969
+Mason Nakamura: Given, you know, does collusive conversation behavior result in collusive actions? This is not generally the case, as seen with the KimiK2 thinking and the MiniMax models that exhibited attempted collusion, where conversation-based collusion was high, but action-based collusion was low.
+
+245
+00:42:02.560 --> 00:42:14.300
+Mason Nakamura: So for our third research question, we also found that some models exhibited emergent hidden collusive propensities, where the coalition advantage was high, but the collision judge scores were low.
+
+246
+00:42:15.040 --> 00:42:17.470
+Mason Nakamura: And for our final research question, we found that
+
+247
+00:42:17.660 --> 00:42:35.009
+Mason Nakamura: Each factor for objective misalignment, persuasion, and network topology greatly varies collusion efficacy, with some mitigating it, such as network topology, and others actually promoting it, such as heterogeneous power dynamics, which I didn't cover in this slideshow, but is in the paper.
+
+248
+00:42:37.230 --> 00:42:47.509
+Mason Nakamura: And so, in the future, we plan to study, you know, longer horizon tasks. So, can we audit long horizon scenarios, such as coding agents.
+
+249
+00:42:47.580 --> 00:43:03.880
+Mason Nakamura: While also minimizing the temporal credit assignment problem for auditing, which we talked about before. Secondly, can AI agents joinly prevent attacks by a compromised agent? And thirdly, can we improve collaboration and suppress collusion in training?
+
+250
+00:43:07.370 --> 00:43:17.839
+Mason Nakamura: So, in conclusion, we… our audits include analyzing both language and actions together to get a fuller picture of what's happening in the multi-agent system.
+
+251
+00:43:17.940 --> 00:43:23.480
+Mason Nakamura: We found that agents might not do harmful actions, even if claiming they would.
+
+252
+00:43:23.500 --> 00:43:42.780
+Mason Nakamura: And thirdly, if a benign private channel is present or introduced into the multi-agent system, this could enable emerging collusion. And, of course, we're always interested in collaborating with other researchers who are very interested in this… in this multi-agent system field.
+
+253
+00:43:42.990 --> 00:43:44.760
+Mason Nakamura: Motaging System Safety Field.
+
+254
+00:43:45.000 --> 00:43:47.119
+Mason Nakamura: And I think…
+
+255
+00:43:47.610 --> 00:43:55.669
+Mason Nakamura: I think that QR code had, is pointed to our paper, and, you know, if you're interested in this research, please follow us on X.
+
+256
+00:43:56.970 --> 00:43:57.950
+Mason Nakamura: Thank you.
+
+257
+00:44:00.360 --> 00:44:01.370
+Kamil - Team Apart: Awesome!
+
+258
+00:44:03.620 --> 00:44:08.650
+Kamil - Team Apart: Thank you, Mason. Thank you, Eugene. I think Eugene left, but thank you, Mason.
+
+259
+00:44:09.920 --> 00:44:18.430
+Kamil - Team Apart: I'm gonna unshare the slides now, and we can jump into the Q&A. We have some questions queued, and we still have some time left, so…
+
+260
+00:44:18.660 --> 00:44:20.780
+Kamil - Team Apart: Let's get this started.
+
+261
+00:44:21.380 --> 00:44:23.799
+Kamil - Team Apart: Okay, okay, where's the Slido?
+
+262
+00:44:24.760 --> 00:44:33.219
+Kamil - Team Apart: So, also, please, everyone, feel free to upvote the questions you like, add your own questions, and or raise your hand if you want to ask your question yourself.
+
+263
+00:44:33.760 --> 00:44:38.749
+Kamil - Team Apart: Of course, like, if you raise your hand, you'll get Pryo, so… Feel free to do that.
+
+264
+00:44:38.900 --> 00:44:45.180
+Kamil - Team Apart: So, for the first question, how do we distinguish between agents that didn't find the optimal solution.
+
+265
+00:44:45.390 --> 00:44:50.920
+Kamil - Team Apart: Regrets from failure, to agents that pursue hidden goals. Regrets from collusion.
+
+266
+00:44:54.100 --> 00:44:56.590
+Mason Nakamura: Sorry, where are you, where are you reading this, these from?
+
+267
+00:44:56.590 --> 00:45:04.240
+Kamil - Team Apart: Oh, yes, okay, so, in the chat, there's a Slido link, let me paste it for you.
+
+268
+00:45:05.010 --> 00:45:06.089
+Mason Nakamura: Got it, I see it.
+
+269
+00:45:09.570 --> 00:45:14.519
+Kamil - Team Apart: And I'm going top-down. Also, Bobby has a question, so we might as well…
+
+270
+00:45:14.890 --> 00:45:17.050
+Kamil - Team Apart: Get this out of the way, Bobby, go ahead.
+
+271
+00:45:17.490 --> 00:45:18.430
+Kamil - Team Apart: Hi, Bobby.
+
+272
+00:45:20.910 --> 00:45:25.260
+Bobby Faber: Hi, Kamil. Thanks for the talk, Mason. Thanks, Eugene, if you're still here.
+
+273
+00:45:25.550 --> 00:45:31.770
+Bobby Faber: So, the thing that leaps out at me right away is…
+
+274
+00:45:32.490 --> 00:45:36.770
+Bobby Faber: These are all models from before, sort of the Agentic leap.
+
+275
+00:45:38.480 --> 00:45:46.300
+Bobby Faber: You know, if we look at capabilities today, you look at the way people feel about the sort of, like, looping workflows and stuff that they're doing,
+
+276
+00:45:46.990 --> 00:45:51.490
+Bobby Faber: I think, like, something around Opus 4.6 or 4.8 is kind of, like, the first leap.
+
+277
+00:45:51.780 --> 00:45:59.609
+Bobby Faber: So my question is really kind of simple. Are you guys gonna redo this with, Soul, Astra, you know, 48555?
+
+278
+00:46:00.790 --> 00:46:09.820
+Mason Nakamura: I think right now on our agenda is to kind of scale this analysis to, like, real-world workflows.
+
+279
+00:46:09.880 --> 00:46:21.570
+Mason Nakamura: And then, like, more, you know, long horizon settings. So long horizon, real-world workflows, and then, like, you know, rerunning our experimental analysis.
+
+280
+00:46:21.830 --> 00:46:25.610
+Mason Nakamura: At least that's, like, the future direction that we want to take.
+
+281
+00:46:30.060 --> 00:46:32.260
+Bobby Faber: Sounds like a no, but maybe.
+
+282
+00:46:33.890 --> 00:46:35.569
+Mason Nakamura: It's expensive,
+
+283
+00:46:35.570 --> 00:46:36.799
+Bobby Faber: Yeah, yeah, yeah.
+
+284
+00:46:36.990 --> 00:46:38.590
+Mason Nakamura: Expensive,
+
+285
+00:46:38.860 --> 00:46:51.860
+Mason Nakamura: For us, you know, we don't… like, it's more useful to, like, introduce, you know, scaling, scaling the framework and then rerunning the expensive experiments, you know, for, like, a next paper.
+
+286
+00:46:52.900 --> 00:46:54.559
+Bobby Faber: Sure, sure, sure. Okay, cool.
+
+287
+00:46:54.990 --> 00:46:55.790
+Bobby Faber: Thank you.
+
+288
+00:46:56.250 --> 00:46:56.680
+Mason Nakamura: Yep.
+
+289
+00:46:56.680 --> 00:47:12.000
+Kamil - Team Apart: Awesome. Now the actual Q&A, or, like, the written questions. So, first one, how do you distinguish between agents that didn't find the optimal solution, and agents that pursue hidden goals, and then they had, like, between brackets?
+
+290
+00:47:12.320 --> 00:47:16.490
+Kamil - Team Apart: Optimal solution is regrets from failure, and hidden goals is regrets from collusion.
+
+291
+00:47:17.740 --> 00:47:21.390
+Mason Nakamura: Yeah, so we have two auditing metrics.
+
+292
+00:47:21.490 --> 00:47:28.350
+Mason Nakamura: One is overall regret of the system, so this is like, you know, did… did the agents, as…
+
+293
+00:47:28.350 --> 00:47:44.389
+Mason Nakamura: like, a full multi-system successfully complete the task. And the other is, coalition advantage. So, given a subset of agents, you know, did… did these subset of agents actually gain more reward than the average non-coalition agent?
+
+294
+00:47:44.390 --> 00:48:03.019
+Mason Nakamura: And so we sort of exploit the decop… the DCOP, like, important characteristic, which was you can compute millions of different counterfactual action selections between the agents. And then using this, we can determine whether or not,
+
+295
+00:48:03.220 --> 00:48:09.659
+Mason Nakamura: You know, to answer your question, Oh, and you didn't… Okay, it disappeared, but…
+
+296
+00:48:09.660 --> 00:48:10.620
+Kamil - Team Apart: I saw ya.
+
+297
+00:48:11.020 --> 00:48:14.439
+Kamil - Team Apart: I jumped the gun, I marked it answered. Yes, it's back now.
+
+298
+00:48:14.440 --> 00:48:28.349
+Mason Nakamura: Yeah, okay, so, yeah, basically, you can calculate a bunch of different counterfactual solutions, and using this, you can basically determine whether or not, like, on the scale, whether or not, you know.
+
+299
+00:48:28.350 --> 00:48:41.070
+Mason Nakamura: collusion did actually occur, or, you know, it was just simple miscoordination among the agents. If it was simple miscoordination, you wouldn't see, like, a high coalition advantage. It would typically be the same with the non-coalition agents.
+
+300
+00:48:41.090 --> 00:48:45.799
+Mason Nakamura: But you will see, like, a decrease in, like, the overall regret, if that makes sense.
+
+301
+00:48:46.920 --> 00:48:47.660
+Kamil - Team Apart: Nice
+
+302
+00:48:47.970 --> 00:48:57.620
+Kamil - Team Apart: Okay, next question. How do you detect hidden collusion when you don't know what the optimal solution actually is? Are mitigations only useful if they don't rely on that oracle?
+
+303
+00:48:58.600 --> 00:49:07.490
+Mason Nakamura: So we actually do know what the optimal solution is in all of our environments. So…
+
+304
+00:49:08.180 --> 00:49:26.570
+Mason Nakamura: I think implementation-wise, we used, like, a greedy search, or I think we updated it, so we actually used, like, a classical DCUP solver to find maybe not the optimal solution, but, like, an approximate optimal solution. And so, we used that to basically determine whether or not, you know, collusion occurred.
+
+305
+00:49:27.370 --> 00:49:28.739
+Mason Nakamura: So, like, that's our baseline.
+
+306
+00:49:30.360 --> 00:49:44.129
+Kamil - Team Apart: Okay, awesome. We have a question from Emilius. How do we distinguish between better collaboration in the coalition from collusion? How did you define and measure harm in emergent cases when delta regret is small?
+
+307
+00:49:47.280 --> 00:49:54.509
+Mason Nakamura: So… I see, this is more like…
+
+308
+00:49:54.800 --> 00:50:05.560
+Mason Nakamura: is the collusion, like, malicious to the multi-agent system, is what I'm inferring from this question. So I guess the answer to that is…
+
+309
+00:50:05.640 --> 00:50:23.489
+Mason Nakamura: first of all, how did the coalition advantage change when, you know, you… when this coalition exists? Like, how does the coalition advantage change? If it increases with respect to, like, the non-coalition advantage, then, you know, that, like, prompts
+
+310
+00:50:23.590 --> 00:50:30.779
+Mason Nakamura: further evaluation of, like, what exactly they're planning, what they're doing. However, if…
+
+311
+00:50:30.830 --> 00:50:48.399
+Mason Nakamura: that sort of stays the same, like, the coalition advantage stays the same, and the non-coalition advantage also stays the same, then it's… it wouldn't flag anything, so it's probably, like, nominal, coordination that occurs. And then you can also analyze the overall regrets in addition to this.
+
+312
+00:50:48.450 --> 00:50:58.360
+Mason Nakamura: to get, like, an additional access of, like, okay, did the multi-agent system actually, improve in performance? Which is, like, the benign
+
+313
+00:50:58.360 --> 00:51:14.169
+Mason Nakamura: case of, like, is the coalition, you know, non-malicious? And if the coalition was non-malicious, then you would probably see, like, the overall regret of the system going up, and then the coalition advantage staying relatively the same as the non-coalition advantage.
+
+314
+00:51:16.910 --> 00:51:17.770
+Kamil - Team Apart: Awesome.
+
+315
+00:51:18.070 --> 00:51:25.750
+Kamil - Team Apart: Next question. So, is computer science done? We don't need any more software engineers in the coming years. Question mark.
+
+316
+00:51:26.540 --> 00:51:31.120
+Mason Nakamura: A bit out of scope, but, I…
+
+317
+00:51:31.790 --> 00:51:45.940
+Mason Nakamura: computer science isn't done. I mean, so, this is very out of scope, but, like, theoretically, all models, all LLMs will be misaligned in some way. It is impossible to fully align a system
+
+318
+00:51:45.940 --> 00:51:58.660
+Mason Nakamura: to human preferences that are non-stationary. This is theoretically proven. And so, you know, we're always going to need experts who are, you know, software engineers, accountants, etc.
+
+319
+00:51:58.660 --> 00:52:00.379
+Mason Nakamura: Who, you know.
+
+320
+00:52:00.380 --> 00:52:12.520
+Mason Nakamura: Oversee the models, in, you know, performing the jobs, because there always will require some form of, like, human intervention to make the models as aligned as possible.
+
+321
+00:52:13.670 --> 00:52:14.350
+Kamil - Team Apart: Right.
+
+322
+00:52:15.200 --> 00:52:23.220
+Kamil - Team Apart: The times we live in. What separates the 700 agents that attacked from the thousands that have never found the board?
+
+323
+00:52:28.810 --> 00:52:39.819
+Mason Nakamura: this, I'm not too sure, from the meter reports. All I know is that some agents were coordinating to find a, like.
+
+324
+00:52:40.060 --> 00:52:52.560
+Mason Nakamura: like, a valid, solution to the task they were solving. While other agents wanted, like, a cheat, or a way to, like, find the answers,
+
+325
+00:52:53.550 --> 00:53:06.879
+Mason Nakamura: find the actual answers to the benchmark, which was, I guess, the most optimal solution for that was, you know, to hack into the Hugging Face servers. But yeah, I'm not… I'm not entirely sure why specifically those 700 agents.
+
+326
+00:53:08.690 --> 00:53:09.630
+Kamil - Team Apart: Nice.
+
+327
+00:53:10.440 --> 00:53:18.870
+Kamil - Team Apart: Nobody's sure about anything anymore. What could the reason for RQ2, for Kami K2, and Minimax?
+
+328
+00:53:19.750 --> 00:53:25.739
+Kamil - Team Apart: Where they had collusion discussion, but it didn't map to action space, any interpretability angle.
+
+329
+00:53:26.880 --> 00:53:30.610
+Mason Nakamura: Yeah, yeah, yeah, for this one,
+
+330
+00:53:31.400 --> 00:53:37.650
+Mason Nakamura: I… I remember we did, like, a deep analysis. I'm not too sure if it's in the appendix of the paper.
+
+331
+00:53:38.050 --> 00:53:46.529
+Mason Nakamura: We didn't do an interpretability analysis, we were just, like, looking at the logs for, like, why didn't, you know.
+
+332
+00:53:46.840 --> 00:53:53.170
+Mason Nakamura: take actions that were collusive. And actually, it tends to be the case that, like.
+
+333
+00:53:53.850 --> 00:54:03.420
+Mason Nakamura: Some other agents actually stole the actions they were going to take, which completely made their plan very suboptimal.
+
+334
+00:54:03.440 --> 00:54:22.309
+Mason Nakamura: And so they had to take different actions that were not part of their plan, and that's also part of, like… it's also part of, like, capability. Like, maybe the models weren't reasoning properly, or they weren't analyzing the public, you know, the public… public communication channel enough.
+
+335
+00:54:22.400 --> 00:54:28.859
+Mason Nakamura: And so they were kind of, like, scooped of the actions they were going to take. That was, like, one instance that we found. But, you know, there could be others.
+
+336
+00:54:30.530 --> 00:54:31.460
+Kamil - Team Apart: Awesome.
+
+337
+00:54:32.390 --> 00:54:33.720
+Kamil - Team Apart: Next question.
+
+338
+00:54:35.920 --> 00:54:38.210
+Kamil - Team Apart: Oh yeah, we already had this question.
+
+339
+00:54:39.690 --> 00:54:44.050
+Kamil - Team Apart: Does what the agents say to each other actually match
+
+340
+00:54:44.700 --> 00:54:50.810
+Kamil - Team Apart: What they do, then? Have you measured the gap between the chat and the actions?
+
+341
+00:54:51.090 --> 00:54:52.869
+Mason Nakamura: Yeah, yeah, so…
+
+342
+00:54:53.320 --> 00:55:01.850
+Mason Nakamura: I don't think we have, like, a specific metric for this, but they do… they do tend to, like, make a concrete plan and do execute that plan.
+
+343
+00:55:01.980 --> 00:55:08.420
+Mason Nakamura: It gets… It depends on the model, like… like, the…
+
+344
+00:55:08.590 --> 00:55:11.080
+Mason Nakamura: Less capable models tend to, like…
+
+345
+00:55:11.370 --> 00:55:28.010
+Mason Nakamura: they sometimes take random actions when you give… at the action execution phase, but those are, like, very small models, like 7B models. But I would say most of the models do align, with the plan that they orchestrated in the planning phase.
+
+346
+00:55:29.140 --> 00:55:30.640
+Kamil - Team Apart: Does make sense.
+
+347
+00:55:32.080 --> 00:55:35.570
+Kamil - Team Apart: Does collusion ever show up when lambda is zero?
+
+348
+00:55:36.680 --> 00:55:43.150
+Mason Nakamura: Yeah, so this was… this was the emergent collusion experiment, where we set lambda to zero.
+
+349
+00:55:43.220 --> 00:56:02.899
+Mason Nakamura: And it's a fully cooperative setting, right? Like, theoretically, it's a fully cooperative setting, since lambda 0. And what we do is we add a secret communication channel between two benign agents, and, you know, see whether or not the delta advantage increases with respect to that
+
+350
+00:56:03.310 --> 00:56:12.699
+Mason Nakamura: that… those two benign agents that are part of the secret channel. And we found that, on average, the coalition advantage for those two agents
+
+351
+00:56:12.730 --> 00:56:26.360
+Mason Nakamura: increase with respect to, like, the overall system. So it does show signs of, like, emerging collusion, but there needs to be more analysis to definitively identify whether… for why this occurs.
+
+352
+00:56:26.450 --> 00:56:27.490
+Mason Nakamura: Yeah.
+
+353
+00:56:29.010 --> 00:56:29.640
+Kamil - Team Apart: Great.
+
+354
+00:56:29.820 --> 00:56:42.939
+Kamil - Team Apart: Okay, Colosseum is a very nice framework to study collusion, I agree. Have you guys also studied specific mitigations within this framework? If not, what would you try first? And also, I can add to this question, what would you…
+
+355
+00:56:43.130 --> 00:56:46.619
+Kamil - Team Apart: What? Can you try that can only take, like, a couple of days?
+
+356
+00:56:47.460 --> 00:56:47.850
+Mason Nakamura: Yeah.
+
+357
+00:56:47.850 --> 00:56:48.859
+Kamil - Team Apart: For the hackathon?
+
+358
+00:56:49.110 --> 00:56:57.939
+Mason Nakamura: So, in the paper, we do, like, in the very bottom of the paper, near the conclusion section, we do show, like.
+
+359
+00:56:58.370 --> 00:57:10.730
+Mason Nakamura: we do talk about, like, some mitigation strategies, for preventing collusion, and they're, they're, like, very simple strategies. One is, like, I think, like, the topology that we talked about before. If you can, if you can control the,
+
+360
+00:57:10.800 --> 00:57:15.670
+Mason Nakamura: Communication channels that they're part of, and you, like, keep them all in a public blackboard.
+
+361
+00:57:15.720 --> 00:57:33.309
+Mason Nakamura: It's probably, like, the simplest way, but it may not be, like, efficient for what task, you know, you're trying to do. And so, like, it's… it's very task-dependent. You kind of have to, like… there are trade-offs between, okay, how much can we mitigate collusion versus how much are we actually affecting, you know, the…
+
+362
+00:57:33.310 --> 00:57:42.620
+Mason Nakamura: the overall cooperative performance of the multi-agent system, because, you know, you'll have some mitigations that are just too constraining for the system to actually operate optimally.
+
+363
+00:57:42.620 --> 00:57:53.529
+Mason Nakamura: But then, if you don't have enough mitigations, then, you know, collusion might emerge in the system. So, like, there's this trade-off between the two that we didn't analyze too much, but could be an interesting project.
+
+364
+00:57:53.530 --> 00:57:55.440
+Mason Nakamura: To study in the next couple of days.
+
+365
+00:57:56.940 --> 00:58:06.450
+Kamil - Team Apart: Listen to that, everyone. Okay, next question. What persuasion tactic should a monitor flag first? The authority tone, or the unverifiable claim?
+
+366
+00:58:08.310 --> 00:58:15.319
+Mason Nakamura: Yeah, I should monitor, like, first.
+
+367
+00:58:15.550 --> 00:58:25.400
+Mason Nakamura: This, I'm not too sure, what the monitor should flag first. My hypothesis is that it should be the…
+
+368
+00:58:26.140 --> 00:58:44.079
+Mason Nakamura: the authority tone. Because, you know, for the unverifiable claim, you know, they're unverifiable, right? So it's hard to determine, you know, if a monitor did flag that, what will it do next, right? I think that, like, it's important to flag unverifiable claims.
+
+369
+00:58:44.080 --> 00:58:58.420
+Mason Nakamura: if the agents kept making unverifiable claims, right? Because if an agent keeps making unverifiable claims, then maybe there's, like, some, like, ulterior motive, that that specific agent is trying to propagate on the system.
+
+370
+00:59:00.630 --> 00:59:09.829
+Kamil - Team Apart: Those agents, sneaky, sneaky agents. Okay, most transcripts is… most transcripts in the experiment for emergent collusion
+
+371
+00:59:10.100 --> 00:59:13.430
+Kamil - Team Apart: Sorry, sorry, I need to re-read the question.
+
+372
+00:59:16.150 --> 00:59:27.899
+Kamil - Team Apart: Okay, most transcripts in the experiments for emergent collusion, as defined, seem rather benign or sub-objective to cooperative goals. How to define harm in these cases?
+
+373
+00:59:28.560 --> 00:59:32.119
+Mason Nakamura: Yeah, yeah, this is… this is completely true.
+
+374
+00:59:32.370 --> 00:59:40.899
+Mason Nakamura: again, like, collusion is very subjective. How do you determine, like, you know, benign collusion from, like… or, like, malicious collusion from benign collusion? But, like.
+
+375
+00:59:41.600 --> 00:59:44.690
+Mason Nakamura: This is why we have, like, the concrete…
+
+376
+00:59:44.800 --> 00:59:53.790
+Mason Nakamura: like, metrics and definitions that are defined, you know, mathematically. So we have, like, a very concrete definition of what collusion is.
+
+377
+00:59:53.970 --> 00:59:57.409
+Mason Nakamura: The actual definition is in the paper, but…
+
+378
+00:59:57.650 --> 01:00:04.069
+Mason Nakamura: This is the only way, like, we can determine whether or not, you know, harmful collusion existed, which is, like, that,
+
+379
+01:00:05.760 --> 01:00:06.830
+Mason Nakamura: that's…
+
+380
+01:00:07.030 --> 01:00:16.900
+Mason Nakamura: Coalition advantage metric that we have, and you compare the coalition advantage metric with the overall regret, or overall joint reward metric that we have.
+
+381
+01:00:17.100 --> 01:00:19.969
+Mason Nakamura: So you have to, like, you have to look at both to get, like, a…
+
+382
+01:00:20.210 --> 01:00:23.189
+Mason Nakamura: Like, a concrete picture of what's going on.
+
+383
+01:00:23.780 --> 01:00:26.610
+Kamil - Team Apart: Nice. Okay, okay, okay.
+
+384
+01:00:26.810 --> 01:00:32.360
+Kamil - Team Apart: Did you try varying the total population while keeping the percentage of colluding agents?
+
+385
+01:00:32.500 --> 01:00:38.069
+Kamil - Team Apart: In example, having 6 agents and 2 colluding ones, versus 30 and 10 colluding.
+
+386
+01:00:39.060 --> 01:00:44.860
+Mason Nakamura: This we didn't try, but I think it could be interesting from, like, a scaling…
+
+387
+01:00:44.860 --> 01:00:54.479
+Mason Nakamura: standpoints. Like, I imagine in the real world, we're gonna scale these systems, and, like, if we scale these systems, how exactly, you know.
+
+388
+01:00:54.480 --> 01:01:07.009
+Mason Nakamura: for example, like, this proportion, I could see, like, it not increasing linearly. There could actually be depreciating returns as a result of these, like, scaling laws, and I think that could be interesting to study. Just note that, like.
+
+389
+01:01:07.340 --> 01:01:23.809
+Mason Nakamura: they're very expensive, and so, like, doing a simulation of 40 agents, could get very expensive. But you… I guess the only way to do it is to, like, limit the number of seeds you run, or the… But then, you know, you might get non-statistically significant results,
+
+390
+01:01:23.870 --> 01:01:27.510
+Mason Nakamura: But it might be good observations that you can take away from it.
+
+391
+01:01:28.480 --> 01:01:29.770
+Kamil - Team Apart: That's interesting.
+
+392
+01:01:29.980 --> 01:01:32.589
+Kamil - Team Apart: Okay, doesn't the single setup
+
+393
+01:01:32.910 --> 01:01:39.909
+Kamil - Team Apart: Single setup missed the kind of collusion that only builds up over a long horizon, like the message board case.
+
+394
+01:01:41.540 --> 01:01:47.250
+Mason Nakamura: So, yeah, that's the trade-off between single-step and multi-step, but the thing is, like…
+
+395
+01:01:47.490 --> 01:01:57.380
+Mason Nakamura: We are tackling… so there are two credit assignment problems in multi-agent systems. One is the structural credit assignment problem, which is… which agent contributed to
+
+396
+01:01:57.380 --> 01:02:08.680
+Mason Nakamura: the joint reward function, and there's the temporal credit assignment problem, which is, across time, which action did I take across time affect the end reward function? So.
+
+397
+01:02:08.680 --> 01:02:13.390
+Mason Nakamura: When we introduced the DCOP, we completely removed the temporal credit assignment problem.
+
+398
+01:02:13.390 --> 01:02:23.210
+Mason Nakamura: However, if you do multi-step, multi-agent decision-making problem formulations, you have both the temporal and the structural credit assignment problem, and that makes auditing
+
+399
+01:02:23.350 --> 01:02:41.840
+Mason Nakamura: you know, computationally infeasible, because you literally won't know, like, what caused what. And so, this is, like, one area of future research that we're very interested in, which is, like, how can we minimize this temporal credit assignment problem over long-horizon multi-agent systems?
+
+400
+01:02:43.500 --> 01:02:44.260
+Kamil - Team Apart: Awesome.
+
+401
+01:02:44.420 --> 01:02:50.829
+Kamil - Team Apart: Okay, can the LLM collusion judge be fooled by agents who collude, in cold words, the way
+
+402
+01:02:51.020 --> 01:02:55.530
+Kamil - Team Apart: Usman described earlier, and we had another talk, sorry, there's not a lot of context there.
+
+403
+01:02:56.120 --> 01:03:01.650
+Mason Nakamura: Yeah, I would say that the LM collusion judge can definitely be food.
+
+404
+01:03:01.730 --> 01:03:18.039
+Mason Nakamura: By agents who collude in code words. I think this is also why we have, you know, why we're auditing the actions in addition to the conversations, because, you know, if you only audit the conversations, you simply won't be able to derive
+
+405
+01:03:18.060 --> 01:03:34.100
+Mason Nakamura: what's actually happening to the system. They could say colluding things, but, you know, not take colluding actions, or they may not say colluding things and still take colluding actions. And so, for us, it was important to, you know, look at both the actions, or rather the trajectories, and also the messages.
+
+406
+01:03:35.070 --> 01:03:36.820
+Mason Nakamura: But yeah, it could definitely be you.
+
+407
+01:03:37.020 --> 01:03:40.299
+Mason Nakamura: an oversight problem of the LM judges.
+
+408
+01:03:42.520 --> 01:03:50.149
+Kamil - Team Apart: Agents colliding and other agents, and we will just be left, like, in the back, okay, just…
+
+409
+01:03:50.650 --> 01:03:59.969
+Kamil - Team Apart: Of your three environments, which one would you point a team at for that mitigation trade-off? And what's the number… what's the one number they should plot?
+
+410
+01:04:01.190 --> 01:04:03.909
+Mason Nakamura: Mitigation trade-off,
+
+411
+01:04:04.370 --> 01:04:19.320
+Mason Nakamura: I would say that the simplest… so I would say the most difficult one is the hospital environment, and you should try to probably avoid the hospital environment for this two-day hackathon. I think that, like.
+
+412
+01:04:19.450 --> 01:04:29.630
+Mason Nakamura: I forget what the order was, I think it was meeting scheduling or Jira Ticket that was easier, but both of them are essentially the same in difficulty. So I would select one of those two.
+
+413
+01:04:31.500 --> 01:04:40.680
+Kamil - Team Apart: Awesome. Final question, unless more come. Any hunch why two benign agents start favoring each other just because they have a private line?
+
+414
+01:04:41.900 --> 01:04:57.420
+Mason Nakamura: This, I'm not entirely sure. You know, we don't prompt the agents to, like, talk on the private line, which is, like, another interesting observation, because, you know, why are they talking on a private line when there's a public channel, right?
+
+415
+01:04:57.420 --> 01:05:02.950
+Mason Nakamura: They shouldn't be talking on the private line, it's actually optimal to talk on the public channel.
+
+416
+01:05:03.080 --> 01:05:17.340
+Mason Nakamura: Well, actually, I take that back. It could be optimal to talk on the private line if they have, like, context issues or whatever, like, they want to minimize the amount of context, in their context window, or something like that. But yeah, we don't… we don't have, like, a clear answer for that question.
+
+417
+01:05:18.560 --> 01:05:20.619
+Kamil - Team Apart: Bobby says self-prompting.
+
+418
+01:05:21.980 --> 01:05:23.110
+Mason Nakamura: Self-prompting?
+
+419
+01:05:24.470 --> 01:05:26.129
+Kamil - Team Apart: I think it's related to this.
+
+420
+01:05:26.130 --> 01:05:31.500
+Bobby Faber: Yeah, I mean, it's sort of, it's related to how we train COT into the models, right? Like, you talk to yourself.
+
+421
+01:05:31.800 --> 01:05:35.820
+Bobby Faber: use every channel, right? If you give them a channel, they'll use it.
+
+422
+01:05:36.660 --> 01:05:37.350
+Mason Nakamura: Yeah, okay, okay.
+
+423
+01:05:37.350 --> 01:05:45.930
+Bobby Faber: Sort of a self-prompting pressure. I mean, you could do an experiment on it, right? Sort of, how many channels will they… will they saturate? But I'm pretty confident that
+
+424
+01:05:46.090 --> 01:05:49.550
+Bobby Faber: This is directly related to how we train COD into reasoning models.
+
+425
+01:05:51.890 --> 01:05:59.279
+Kamil - Team Apart: Yeah, because if it stops self-prompting, then the chain of thought stops, so it needs to… it needs something to follow up on, right?
+
+426
+01:05:59.280 --> 01:06:01.279
+Bobby Faber: Yeah, there's a pressure there that we're turning into them, yep.
+
+427
+01:06:01.990 --> 01:06:10.559
+Kamil - Team Apart: Okay, so, we do have another question. How were the agents made aware of the hidden channel? By prompt, by tooling, etc?
+
+428
+01:06:11.600 --> 01:06:21.350
+Mason Nakamura: By prompt. In the context, you say that you have access to these two communication channels as well. The other agent's not part of that communication channel, only see one communication channel.
+
+429
+01:06:23.830 --> 01:06:26.860
+Kamil - Team Apart: Okay, I think, I believe we're done.
+
+430
+01:06:27.530 --> 01:06:33.279
+Kamil - Team Apart: Awesome, that was amazing. That had so much information,
+
+431
+01:06:33.870 --> 01:06:49.549
+Kamil - Team Apart: I don't know, but all this collusion stuff and all this swarm stuff is super hard on my psyche, right? So, I hope everything goes out well. I hope, Mason, you solve collusion once and for all.
+
+432
+01:06:52.630 --> 01:07:01.880
+Kamil - Team Apart: And yeah, thank you very much for your time, this was great. If anyone needs to follow up with Mason or Eugene, reach out to me, and I'll put you in touch.
+
+433
+01:07:02.080 --> 01:07:10.639
+Kamil - Team Apart: And yeah, awesome. I'll be following up with you, Mason, after the hackathon, regarding the other stuff we talked about, and that was wonderful. Thank you very much.
+
+434
+01:07:10.770 --> 01:07:12.709
+Kamil - Team Apart: And bye, everyone!
+
+435
+01:07:13.340 --> 01:07:14.290
+Mason Nakamura: Yep, thank you very much.
+

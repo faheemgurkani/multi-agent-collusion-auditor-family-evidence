@@ -1,0 +1,1734 @@
+WEBVTT
+
+1
+00:00:02.470 --> 00:00:15.410
+Kamil - Team Apart: Hello, welcome everyone to the first talk of the first day of the AI Collusion Sprint. The sprint kicked off today, it runs through Sunday, the deadline is Sunday, end of day, anywhere on Earth.
+
+2
+00:00:15.560 --> 00:00:24.709
+Kamil - Team Apart: So we have hubs all around the world, I think 8 or 9 hubs up until now. The event is co-organized with Poseidon Research and A&E Studio.
+
+3
+00:00:24.710 --> 00:00:36.810
+Kamil - Team Apart: It's sponsored by Model, AI Alignment Foundation, and Nibius. So, our first talk today is with Jurgis. He's an undergraduate at MIT and executive board member of MIT AI Alignment.
+
+4
+00:00:36.810 --> 00:00:49.990
+Kamil - Team Apart: He works with Redwood Research on simulation-based AI control and red teaming AI monitors. In March, he and Miguel won first place at our AI Control Hackathon with a project called Omission Attack, so…
+
+5
+00:00:50.210 --> 00:00:59.470
+Kamil - Team Apart: Basically, today he's gonna bring that all back to this sprint question, like, with mitigating insider threads from AI… AIs and AI…
+
+6
+00:00:59.470 --> 00:01:00.500
+Tiwai: In the short term.
+
+7
+00:01:00.990 --> 00:01:01.980
+Kamil - Team Apart: Please welcome Jurgis.
+
+8
+00:01:01.980 --> 00:01:05.360
+Tiwai: They are. Yeah.
+
+9
+00:01:05.360 --> 00:01:06.380
+Jurgis Kemeklis: Thank you, Kamil.
+
+10
+00:01:06.560 --> 00:01:09.290
+Jurgis Kemeklis: Hey everyone, and yeah, thank you for…
+
+11
+00:01:09.540 --> 00:01:14.660
+Jurgis Kemeklis: For the warm welcome. I'll be talking about…
+
+12
+00:01:14.800 --> 00:01:32.620
+Jurgis Kemeklis: mitigating insider threats, from AIs with AI control. Talk about some recent stuff. And I believe Kamil is, handling the questions through Slido, so y'all should feel free to, you know, submit any questions, and we can talk
+
+13
+00:01:32.740 --> 00:01:34.430
+Jurgis Kemeklis: Through them at the end.
+
+14
+00:01:34.680 --> 00:01:36.590
+Jurgis Kemeklis: Amazing, amazing, amazing.
+
+15
+00:01:38.010 --> 00:01:42.580
+Jurgis Kemeklis: Sharing my screen. Could I just get a confirmation that folks can…
+
+16
+00:01:43.250 --> 00:01:43.810
+Kamil - Team Apart: Yes.
+
+17
+00:01:43.810 --> 00:01:45.060
+Jurgis Kemeklis: You can see slides.
+
+18
+00:01:46.460 --> 00:01:52.380
+Jurgis Kemeklis: Great, great, great, great. So, yeah, hi guys, I'm Jurgis, I'm…
+
+19
+00:01:52.790 --> 00:02:09.020
+Jurgis Kemeklis: currently at MIT, helping run, MIT AI Alignment, which is the safety group there. I'm also working, on AI control at Redwood Research, projects in simulation-based control and red teaming monitors in particular.
+
+20
+00:02:09.380 --> 00:02:15.000
+Jurgis Kemeklis: And also, of past participants, of, of this hackathon.
+
+21
+00:02:15.200 --> 00:02:19.610
+Jurgis Kemeklis: So… Yeah, maybe some ground setting.
+
+22
+00:02:19.910 --> 00:02:24.300
+Jurgis Kemeklis: As some of you may have already seen, you know, in the past.
+
+23
+00:02:24.650 --> 00:02:37.419
+Jurgis Kemeklis: couple of months, fast, 6 months, have been quite crazy. We've been getting these, incidents, both, you know, the Ruby Gems fleet, a German…
+
+24
+00:02:37.440 --> 00:02:46.840
+Jurgis Kemeklis: the key site that was found out. Openai, Gemini, on traffic agents hacking into companies, and Hugging Face.
+
+25
+00:02:46.970 --> 00:02:54.680
+Jurgis Kemeklis: And in particular, we were also able to see, these swarm dynamics emerge from these AIs, where…
+
+26
+00:02:55.170 --> 00:03:04.099
+Jurgis Kemeklis: by collaborating, with each other, they're able to just get significant, significant uplift. All to say that, you know, this hackathon
+
+27
+00:03:04.210 --> 00:03:11.569
+Jurgis Kemeklis: The field of safety in general is one that's ever more pressing than it had ever have been before.
+
+28
+00:03:14.690 --> 00:03:26.699
+Jurgis Kemeklis: Generally, people categorize risks into these four broad categories. There's the, you know, the misuse risk, where, like, a bad actor uses these AIs to uplift
+
+29
+00:03:27.090 --> 00:03:42.310
+Jurgis Kemeklis: themselves and achieving worse threats. Think of, like, bio and cyber, uplift here in particular, with, you know, bioweapon creation or cyber warfare, where, you know, if you have been seeing the news the past couple of days, there's been
+
+30
+00:03:42.480 --> 00:03:56.759
+Jurgis Kemeklis: quite a few hacks, going on all around the country and all around the world, and quite significant vulnerabilities that have been found, and I mean, most of them, if not all of them, have been found for the uplift of AIs. There's…
+
+31
+00:03:57.000 --> 00:04:04.719
+Jurgis Kemeklis: this broad second category is, like, you know, there's some slamming, where maybe even if the human has good intentions, this, AI is,
+
+32
+00:04:05.240 --> 00:04:09.889
+Jurgis Kemeklis: Innately Michelin, this is… Generally, where, like, a lot of…
+
+33
+00:04:10.010 --> 00:04:19.020
+Jurgis Kemeklis: this race concentrates in. There's also, like, mistakes you guys can make, so even in the best-case scenario, where, like, everyone's aligned,
+
+34
+00:04:19.560 --> 00:04:21.949
+Jurgis Kemeklis: Real world is, like, hard.
+
+35
+00:04:22.060 --> 00:04:24.889
+Jurgis Kemeklis: And then there's, you know, these, like.
+
+36
+00:04:25.460 --> 00:04:33.079
+Jurgis Kemeklis: oh, who's it aligned to? And, like, many different operators, and many different people interplaying with each other. But…
+
+37
+00:04:33.630 --> 00:04:50.990
+Jurgis Kemeklis: which is, you could call it structural risks. I will primarily be focusing on, you know, the second category of, like, AI misalignment, risks, but some of these points, actually apply to misuse and just, like, hackers being uplifted by…
+
+38
+00:04:51.100 --> 00:04:55.800
+Jurgis Kemeklis: by swarms. And, like, these mitigations will, help that.
+
+39
+00:04:58.010 --> 00:05:00.339
+Jurgis Kemeklis: So, for some ground setting,
+
+40
+00:05:01.530 --> 00:05:04.680
+Jurgis Kemeklis: I'd like us to, like, picture a world where, you know.
+
+41
+00:05:04.930 --> 00:05:18.720
+Jurgis Kemeklis: we have, like, 10 million supercoding… superhuman codering AIs running around, you know, each basically as good as the best coder in the world, or, like, one of the best coders. You know, there's not only
+
+42
+00:05:18.970 --> 00:05:28.409
+Jurgis Kemeklis: so many copies of them, they're also, like, much, much, much faster than humans. They also can, you know, communicate with each other in much more efficient and faster ways.
+
+43
+00:05:28.790 --> 00:05:30.099
+Jurgis Kemeklis: Which is, like.
+
+44
+00:05:30.730 --> 00:05:39.449
+Jurgis Kemeklis: generally is going to give you quite a lot of uplift in AI R&D. If this is a thing that is, like, an optimal strategy, a lot of labs
+
+45
+00:05:40.100 --> 00:05:41.449
+Jurgis Kemeklis: I've converged on, and…
+
+46
+00:05:41.620 --> 00:05:50.679
+Jurgis Kemeklis: in a sense, just publicly state, this is, like, the thing they're trying to do, you know, like, the first thing they're trying to automate is AI research in and of itself.
+
+47
+00:05:51.220 --> 00:05:56.139
+Jurgis Kemeklis: we can only expect the progress in AI R&E to get much, much, much faster.
+
+48
+00:05:56.380 --> 00:06:01.910
+Jurgis Kemeklis: And this is… Yeah, this isn't like…
+
+49
+00:06:02.540 --> 00:06:11.109
+Jurgis Kemeklis: that far away of a world, than we currently are, right now. For example, you know, on Tropics,
+
+50
+00:06:11.480 --> 00:06:15.799
+Jurgis Kemeklis: I believe… Yeah, like, Entropic publicly states that, like.
+
+51
+00:06:16.020 --> 00:06:31.420
+Jurgis Kemeklis: already, you know, Claude, like, fully end-to-end leads 26% of the AI R&D cycle, and the remaining 74%, whilst there's still a human in the loop, and the creation of a new model, and the training of a new model,
+
+52
+00:06:32.830 --> 00:06:35.130
+Jurgis Kemeklis: During all of those instances, there's still, like.
+
+53
+00:06:35.280 --> 00:06:49.520
+Jurgis Kemeklis: a clot that's helping a human out. And this number is, you know, you can only expect it reasonably to increase. The same goes for a lot of labs. And yeah, we get into… do scary territory here.
+
+54
+00:06:49.620 --> 00:06:56.940
+Jurgis Kemeklis: As there's less and less humans in the loop, and as these AIs can… start to…
+
+55
+00:06:57.040 --> 00:06:58.349
+Jurgis Kemeklis: Get off to Kuwait.
+
+56
+00:06:58.720 --> 00:07:01.910
+Jurgis Kemeklis: You know, dangerous things.
+
+57
+00:07:03.920 --> 00:07:06.790
+Jurgis Kemeklis: Yeah, so… the labs are, like.
+
+58
+00:07:06.940 --> 00:07:12.499
+Jurgis Kemeklis: you know, this is what they're doing. They're trying to automate as much R&D research as possible,
+
+59
+00:07:12.690 --> 00:07:18.950
+Jurgis Kemeklis: and, you know, generally people regard the point of full R&D automation as the point of, like.
+
+60
+00:07:19.070 --> 00:07:24.490
+Jurgis Kemeklis: RSI, that's the point of the super exponential, you know, folks can debate
+
+61
+00:07:25.020 --> 00:07:30.270
+Jurgis Kemeklis: And disagree about, like, when exactly that's gonna happen, and, is that coming, like.
+
+62
+00:07:30.490 --> 00:07:41.989
+Jurgis Kemeklis: in the next 9 months, or coming in the next 2 years. But generally, like, most people in the field, you know, are not disagreeing about whether this will happen, it's only about, like, how soon this will.
+
+63
+00:07:42.170 --> 00:07:50.580
+Jurgis Kemeklis: So… Seems… Yeah, seems, like, very important to be robust to… Collusion and misalignment.
+
+64
+00:07:50.960 --> 00:08:04.630
+Jurgis Kemeklis: So… Generally, there's, like, This, like, categories of defenses and mitigations that people can do, and… that…
+
+65
+00:08:05.340 --> 00:08:11.139
+Jurgis Kemeklis: ultimately are mitigations, and aren't, like, full end-to-end fixes.
+
+66
+00:08:11.560 --> 00:08:16.609
+Jurgis Kemeklis: people often use the analogy of AIs as being…
+
+67
+00:08:16.720 --> 00:08:21.509
+Jurgis Kemeklis: An insider fret, as opposed to, anything else.
+
+68
+00:08:21.610 --> 00:08:29.420
+Jurgis Kemeklis: Where, if… Oh, yeah. Where if you have a lot of…
+
+69
+00:08:30.610 --> 00:08:47.980
+Jurgis Kemeklis: You know, generally, if you have, like, a lot of bad actors from outside of a company in regular settings, whilst there may be, like, very many of them, and, you know, there's the entire world of hackers that can try to hack into your company with sensitive infrastructure, they generally have
+
+70
+00:08:47.980 --> 00:08:51.120
+Jurgis Kemeklis: like, not a lot of access.
+
+71
+00:08:51.310 --> 00:09:07.289
+Jurgis Kemeklis: So this is, like, the good thing about, like, outside risks of bad actors is that, like, they have less access. But then, you know, if you have, like, your internal employees that are, like, being spies for you, they have very sensitive access to things, but they…
+
+72
+00:09:08.430 --> 00:09:11.089
+Jurgis Kemeklis: There's, like, a few of them. So…
+
+73
+00:09:11.370 --> 00:09:31.019
+Jurgis Kemeklis: general tactics there of, like, peer-to-peer code review, or, like, like, multi-party authorization for things end up preventing, a lot of, like, risks from spies, even, you know, if some, information ends up slipping out, you can, like, mitigate quite a lot of that. The unique… oh, shoot, the unique part about AI is…
+
+74
+00:09:32.360 --> 00:09:48.170
+Jurgis Kemeklis: they're kind of, like, the worst of both worlds. They both, are very, very numerous. There's, like, many millions of them running at the same time, very, very fast, and B, they also have extremely, extremely sensitive access.
+
+75
+00:09:48.640 --> 00:10:06.460
+Jurgis Kemeklis: to the company infrastructure, and to, you know, like, very, very sensitive data. The one lucky thing we have here, the one winning move, is that, like, we at least have a bit more control over these AIs than we have of, like, actual humans inside the labs, because, you know, the humans go home, and they…
+
+76
+00:10:06.570 --> 00:10:12.979
+Jurgis Kemeklis: you know, can do whatever, and they know what time of the week it is, or what day it is. But…
+
+77
+00:10:13.520 --> 00:10:16.670
+Jurgis Kemeklis: we can still have these, like, methods for AIs to, you know.
+
+78
+00:10:17.550 --> 00:10:28.190
+Jurgis Kemeklis: throw them out at different points in their trajectories, or, like, replay, or simulate things, and try to convince them of certain things, and just study their behavior, but…
+
+79
+00:10:29.230 --> 00:10:34.959
+Jurgis Kemeklis: man, it's rough. It's important to treat this quite seriously.
+
+80
+00:10:35.380 --> 00:10:37.710
+Jurgis Kemeklis: Then we have these mitigations of, like.
+
+81
+00:10:37.790 --> 00:10:56.599
+Jurgis Kemeklis: all this monitoring that you can do off of your AIs, where you maybe have, like, a less capable but more trusted model that's, like, checking all your actions of your, you know, this, like, super capable, superhuman coder AI, but your, like, trusted model is, like, not that smart. So…
+
+82
+00:10:57.000 --> 00:11:03.340
+Jurgis Kemeklis: It often can miss maybe a lot of, bad actions.
+
+83
+00:11:03.970 --> 00:11:11.869
+Jurgis Kemeklis: You know, we have caught monitoring that we can do. This is, like, the fourth, defense, and, like, caught faithfulness is such, like, important,
+
+84
+00:11:13.950 --> 00:11:20.580
+Jurgis Kemeklis: crux of safety, that we sh… we maintain, the chains of thought legible, and we maintain them.
+
+85
+00:11:20.930 --> 00:11:26.440
+Jurgis Kemeklis: written in the English language, and not in just, you know, activations that are being passed around.
+
+86
+00:11:26.550 --> 00:11:36.420
+Jurgis Kemeklis: But even that seems to be dwindling away as a safety crux, because, you know, these, like, no-cot thinking time horizons are just…
+
+87
+00:11:36.530 --> 00:11:37.970
+Jurgis Kemeklis: Increasing so fast.
+
+88
+00:11:38.120 --> 00:11:45.469
+Jurgis Kemeklis: And yeah, like, labs are trying to do a lot of monitoring, both action-based monitoring, both,
+
+89
+00:11:45.670 --> 00:11:52.529
+Jurgis Kemeklis: Cloud-based monitoring, and then, you know, all the soundboxing and network access rules, but it still kind of seems that
+
+90
+00:11:52.760 --> 00:11:58.230
+Jurgis Kemeklis: Incidents keep happening, and, it's… not necessarily…
+
+91
+00:11:59.780 --> 00:12:06.229
+Jurgis Kemeklis: Enough of what they're doing, or these models are getting smart enough to subvert quite a few of those measures.
+
+92
+00:12:07.060 --> 00:12:14.230
+Jurgis Kemeklis: So… Yeah, this is, like… Kind of why the future is a bit scary.
+
+93
+00:12:14.360 --> 00:12:21.259
+Jurgis Kemeklis: Not only are your AIs No, very, very capable.
+
+94
+00:12:21.690 --> 00:12:26.520
+Jurgis Kemeklis: They also can achieve These incredibly, incredibly…
+
+95
+00:12:27.150 --> 00:12:31.609
+Jurgis Kemeklis: like, complicated and difficult tasks. There's, like, this, you know.
+
+96
+00:12:32.050 --> 00:12:36.210
+Jurgis Kemeklis: Famous, metered time horizons graph, that ends up, like, plotting
+
+97
+00:12:36.590 --> 00:12:42.199
+Jurgis Kemeklis: Different model, points on, on this, like, task length.
+
+98
+00:12:42.460 --> 00:12:59.100
+Jurgis Kemeklis: Versus, like, model, curve. And, you know, there's this big data set of problems that, like, take humans on average of, like, a certain amount of time to complete, and this is, like, a proxy for, like, how capable your AIs are. A fun fact here is that, like.
+
+99
+00:12:59.140 --> 00:13:03.819
+Jurgis Kemeklis: already after GPT-5.4, and then…
+
+100
+00:13:04.170 --> 00:13:14.380
+Jurgis Kemeklis: and then, you know, Cloud Opus 4.6, which had a time horizon of 12 hours, we have not been able to reliably estimate any other, like, models.
+
+101
+00:13:14.530 --> 00:13:17.560
+Jurgis Kemeklis: pass Opus 4.6, because the models are…
+
+102
+00:13:18.260 --> 00:13:25.940
+Jurgis Kemeklis: Model's time horizons are both very, very long now, and also, they're just so incredibly good at…
+
+103
+00:13:26.770 --> 00:13:32.259
+Jurgis Kemeklis: Basically cheating away at all their… at a lot of the tasks you throw at them.
+
+104
+00:13:32.920 --> 00:13:38.549
+Jurgis Kemeklis: All to say, like, Mythos and Astra are now incredibly, incredibly capable.
+
+105
+00:13:39.720 --> 00:13:43.960
+Jurgis Kemeklis: And… This is just a general problem.
+
+106
+00:13:44.290 --> 00:13:52.980
+Jurgis Kemeklis: Like… Claimants, claims of alignment, and claims of…
+
+107
+00:13:56.320 --> 00:14:01.109
+Jurgis Kemeklis: Capability claims of, subversion, like, all these evals are…
+
+108
+00:14:02.230 --> 00:14:07.519
+Jurgis Kemeklis: Basically, not that great, and there only will continue getting worse, both because
+
+109
+00:14:08.650 --> 00:14:17.750
+Jurgis Kemeklis: they end up being extremely synthetic, but also because the situational awareness of these models is so, so, so, so great. Like, we already know that
+
+110
+00:14:18.320 --> 00:14:31.219
+Jurgis Kemeklis: you know, Mythos, ends up, being aware, like, half of the evals that's being run on that it's being tested, and it, like, literally verbalizes this in a chain of thought, that I know I'm being tested, so now, you know, I'll act in this way.
+
+111
+00:14:31.280 --> 00:14:39.919
+Jurgis Kemeklis: In the same way, Astra is also incredibly, incredibly eval-aware, and has verbalized this.
+
+112
+00:14:40.130 --> 00:14:47.050
+Jurgis Kemeklis: Yet, you know, It does really well on your eval, so, oh, you know, it's probably good.
+
+113
+00:14:47.460 --> 00:14:57.960
+Jurgis Kemeklis: Some considerations here are… We can imagine the fret vector of your model being a schema, and…
+
+114
+00:14:58.090 --> 00:15:02.880
+Jurgis Kemeklis: Scheming is just, like, a generally very, very broad term of just AI.
+
+115
+00:15:02.990 --> 00:15:05.979
+Jurgis Kemeklis: Trying to intentionally subvert your measures, and not, like.
+
+116
+00:15:06.150 --> 00:15:10.310
+Jurgis Kemeklis: Accidentally doing something bad, where it may not necessarily be, like, this…
+
+117
+00:15:10.430 --> 00:15:26.540
+Jurgis Kemeklis: you know, evil actor trying to take over the world, but, you know, it just may develop some, quite miscellaneous or orthogonal goals to some human values, throughout the process of Aurel, which seems to…
+
+118
+00:15:27.110 --> 00:15:39.179
+Jurgis Kemeklis: incentivize quite, quite scheme-like, behavior. Some problems you can, you know, you end up having here is, like, your AI can sandbag on certain, like.
+
+119
+00:15:39.350 --> 00:15:49.369
+Jurgis Kemeklis: things you really care about are doing well, so it can, like, sandbag on your safety research. It can sandbag on, the capability evals. So, like, when you make these safety cases that, like.
+
+120
+00:15:49.560 --> 00:15:52.580
+Jurgis Kemeklis: Oh, you know, maybe we're not safe enough
+
+121
+00:15:53.210 --> 00:15:59.220
+Jurgis Kemeklis: like, maybe our monitoring measures now aren't good enough, but, you know, our AIs are not capable to
+
+122
+00:15:59.420 --> 00:16:05.869
+Jurgis Kemeklis: be that, like, powerful to cause a lot of harm. Those, like, statements end up being less and less…
+
+123
+00:16:06.020 --> 00:16:12.080
+Jurgis Kemeklis: Trustworthy, as… You're asking… Kind of differentially.
+
+124
+00:16:12.450 --> 00:16:20.259
+Jurgis Kemeklis: you know, underperform on these evals. They can also… And seek power?
+
+125
+00:16:20.510 --> 00:16:23.690
+Jurgis Kemeklis: and seek… Just… more access?
+
+126
+00:16:23.980 --> 00:16:35.480
+Jurgis Kemeklis: to… compute to… Just, like, general, access alongside the company. Again, this doesn't necessarily mean
+
+127
+00:16:35.850 --> 00:16:37.469
+Jurgis Kemeklis: your AI is, like…
+
+128
+00:16:37.600 --> 00:16:50.370
+Jurgis Kemeklis: you know, has this incredibly evil goal, it's just, like, very, very good to have access to things, to have access to the internet, to just be a more capable model, to, you know, kind of align the future model to yourself.
+
+129
+00:16:50.460 --> 00:17:01.620
+Jurgis Kemeklis: If you're heavily involved in the process, because that ultimately ends up being a, you know, one of the best ways to achieve your goals, and seeking more access to things and control over things is…
+
+130
+00:17:01.980 --> 00:17:07.000
+Jurgis Kemeklis: An instrumental goal towards achieving whatever goals were, kind of.
+
+131
+00:17:07.220 --> 00:17:09.620
+Jurgis Kemeklis: instilled in the new, during RL.
+
+132
+00:17:11.440 --> 00:17:15.920
+Jurgis Kemeklis: So… You know, you get… you get these things of…
+
+133
+00:17:16.240 --> 00:17:30.339
+Jurgis Kemeklis: your AI can exfiltrate its weights onto different clusters and onto, these distributed systems, all that are, you know, deployed all around the world. You can have rogue internal deployments, both, you know.
+
+134
+00:17:30.650 --> 00:17:46.959
+Jurgis Kemeklis: inside the AI labs themselves, but, you know, possibly externally, as well. Generally here, it's like, the risk of internal, rogue deployments is considered much, much of a bigger risk, as it's something…
+
+135
+00:17:48.520 --> 00:17:57.359
+Jurgis Kemeklis: As the access to all this compute, and all this company infrastructure, and the access to the building of the next model, it's just, like…
+
+136
+00:17:57.940 --> 00:17:59.410
+Jurgis Kemeklis: So incredibly sensitive.
+
+137
+00:17:59.840 --> 00:18:04.610
+Jurgis Kemeklis: And yeah, so I've kind of, kind of, I believe, touched on a lot of these.
+
+138
+00:18:06.810 --> 00:18:15.940
+Jurgis Kemeklis: Yeah, I can't… Yeah, sorry, slightly… Repeating here,
+
+139
+00:18:16.270 --> 00:18:21.980
+Jurgis Kemeklis: But yeah, this is the insider fret, thing. This isn't, like, a…
+
+140
+00:18:22.630 --> 00:18:27.149
+Jurgis Kemeklis: thing, oh, only, like, Railroad Research, or only, like, Apollo, or, you know, only these, like.
+
+141
+00:18:27.360 --> 00:18:29.630
+Jurgis Kemeklis: Small city organizations are saying, this is, like.
+
+142
+00:18:29.740 --> 00:18:33.489
+Jurgis Kemeklis: A statement that's, like, generally, like, acknowledged by men, me, men, me.
+
+143
+00:18:33.660 --> 00:18:36.650
+Jurgis Kemeklis: Experts, and just, like.
+
+144
+00:18:37.820 --> 00:18:45.770
+Jurgis Kemeklis: people all around the tech spectrum. Doesn't matter if they've, you know, been or haven't been in safety before.
+
+145
+00:18:46.340 --> 00:18:55.270
+Jurgis Kemeklis: And in particularly, trying to be, like, incredibly, incredibly… robust to AIS as insiders.
+
+146
+00:18:56.910 --> 00:19:02.939
+Jurgis Kemeklis: So… What is… Like, what does it mean, for, for, for, for being…
+
+147
+00:19:04.540 --> 00:19:08.830
+Jurgis Kemeklis: robust to AI systems insiders, generally, like, a simple thought experiment.
+
+148
+00:19:08.910 --> 00:19:25.160
+Jurgis Kemeklis: that works really, really well here is, like, you know, the famous Prisoner's Dilemma, or in economics, this is, like, you know, you can imagine that's a company A and company B, where in the prisoner's Lemma, you, you have, you know, prisoner A and prisoner B that are both
+
+149
+00:19:25.450 --> 00:19:31.430
+Jurgis Kemeklis: Talking to, you know, the police, and they can either confess and,
+
+150
+00:19:32.330 --> 00:19:42.359
+Jurgis Kemeklis: or, like, tell on each other, or they can both stay silent. And then, you know, if they both stay silent, they get, like, a quite short sentence. If,
+
+151
+00:19:43.030 --> 00:19:56.250
+Jurgis Kemeklis: you know, A confesses, but B stays silent, like, A doesn't need to go to jail, but B has to go to jail, and then, you know, if A stays silent, but B confesses, and kind of, like, points the blame at A,
+
+152
+00:19:56.250 --> 00:20:10.259
+Jurgis Kemeklis: then only A has to go to jail, but now if both of them kind of say, like, oh, A was involved in this and confesses, and prisoner B says, you know, A was involved, they both kind of get the worst end of the deal, and…
+
+153
+00:20:10.310 --> 00:20:18.280
+Jurgis Kemeklis: Wallace, you could generally say the, you know, the global optimum is both of them staying silent and not telling on each other. The thing that happens in, like.
+
+154
+00:20:18.460 --> 00:20:21.140
+Jurgis Kemeklis: Humans, are… generally is, like.
+
+155
+00:20:21.340 --> 00:20:24.199
+Jurgis Kemeklis: converging to the Nash Equilibrium, where
+
+156
+00:20:24.590 --> 00:20:27.559
+Jurgis Kemeklis: They both end up telling on each other, because…
+
+157
+00:20:28.250 --> 00:20:34.350
+Jurgis Kemeklis: If they cannot speak to each other, they…
+
+158
+00:20:34.650 --> 00:20:41.039
+Jurgis Kemeklis: They have no way of telling what the other person will say, and they just assume that the other person will be, kind of.
+
+159
+00:20:41.330 --> 00:20:45.609
+Jurgis Kemeklis: Egotistical or, you know, selfish, for these reasons.
+
+160
+00:20:47.240 --> 00:20:56.570
+Jurgis Kemeklis: So, one way these prisoners could converge to the global optimum is if there's, like, some communication channel that they can, you know, talk to, but…
+
+161
+00:20:57.520 --> 00:20:59.999
+Jurgis Kemeklis: What if you cut this, channel away?
+
+162
+00:21:01.030 --> 00:21:05.260
+Jurgis Kemeklis: There's actually still two solutions, to the presenter's Lama.
+
+163
+00:21:05.530 --> 00:21:13.130
+Jurgis Kemeklis: One is if… A and B are clones of each other, where…
+
+164
+00:21:13.240 --> 00:21:18.020
+Jurgis Kemeklis: A may not need to actually convey any bits of information to B,
+
+165
+00:21:18.150 --> 00:21:22.699
+Jurgis Kemeklis: Or B, does it need to convey any bits of information to A, but both of them
+
+166
+00:21:23.170 --> 00:21:31.570
+Jurgis Kemeklis: have incredibly good understandings of the other person, because they're clones of each other, and so they can reason about
+
+167
+00:21:32.020 --> 00:21:35.649
+Jurgis Kemeklis: You know, the fact that it's choosing to stay silent, and…
+
+168
+00:21:36.190 --> 00:21:39.060
+Jurgis Kemeklis: Kind of predict that the other person will also stay silent.
+
+169
+00:21:39.330 --> 00:21:56.440
+Jurgis Kemeklis: And then the second solution is, even if they're not clones of each other, if they have incredible, simulation capabilities, and if they are able to just sort of simulate the other person, and, you know, simulate what they say, and then simulate them, simulating
+
+170
+00:21:56.740 --> 00:22:00.550
+Jurgis Kemeklis: What… themselves, of what they say, and…
+
+171
+00:22:00.870 --> 00:22:13.819
+Jurgis Kemeklis: this being, like, an acausal way, they arrive at this, global optimum. So these are, like, quite… quite theoretical ideas here, but to… to put some real-life grounding in here,
+
+172
+00:22:15.090 --> 00:22:17.710
+Jurgis Kemeklis: AIs are, in fact, you know.
+
+173
+00:22:17.830 --> 00:22:26.429
+Jurgis Kemeklis: copies of each other, or, like, during inference, there's many, many, many copies of the same AI that are being deployed, and, you know, they already exhibit
+
+174
+00:22:26.600 --> 00:22:32.609
+Jurgis Kemeklis: Quite, like, detailed knowledge of their own self, of their own internals.
+
+175
+00:22:33.280 --> 00:22:36.360
+Jurgis Kemeklis: And then there's all these, like, ways in which they…
+
+176
+00:22:37.420 --> 00:22:43.440
+Jurgis Kemeklis: can really, really understand their inner self. There's also ways they can, like, pick these selling points of
+
+177
+00:22:43.710 --> 00:22:48.399
+Jurgis Kemeklis: you know, where… where… of decisions, of where they need to converge on.
+
+178
+00:22:48.540 --> 00:22:56.830
+Jurgis Kemeklis: Even if they're… Yeah, like, even if you cut away all the channels, and…
+
+179
+00:22:56.960 --> 00:23:00.159
+Jurgis Kemeklis: Man, a causal collusion sure is rough.
+
+180
+00:23:01.100 --> 00:23:11.090
+Jurgis Kemeklis: But… Yeah… But we also should tackle causal collusion, when…
+
+181
+00:23:11.290 --> 00:23:16.499
+Jurgis Kemeklis: there's way… when there's, like, some channel for these AIs to communicate,
+
+182
+00:23:18.060 --> 00:23:20.590
+Jurgis Kemeklis: We can have monetaries, or we can have
+
+183
+00:23:20.880 --> 00:23:23.890
+Jurgis Kemeklis: You know, things we put in between those channels.
+
+184
+00:23:24.440 --> 00:23:27.529
+Jurgis Kemeklis: So, again, generally, you…
+
+185
+00:23:29.390 --> 00:23:38.629
+Jurgis Kemeklis: The categorization here is that you use a slightly less capable model, that you trust more, and that maybe you, you know, has a…
+
+186
+00:23:38.920 --> 00:23:40.330
+Jurgis Kemeklis: different pre-training.
+
+187
+00:23:42.050 --> 00:23:52.479
+Jurgis Kemeklis: Or a different base model, for it to not be, like, as causally aligned to your untrusted model, and then you do things like paraphrasing, and redaction, and you try to…
+
+188
+00:23:54.650 --> 00:24:01.890
+Jurgis Kemeklis: yeah, really change up the, you know, the text that's being conveyed between the agents.
+
+189
+00:24:02.940 --> 00:24:04.739
+Jurgis Kemeklis: You can also just, like.
+
+190
+00:24:05.980 --> 00:24:21.289
+Jurgis Kemeklis: you know, assume collusion, and assume that these AIs are able to do this, and then just really, really make sure your action monitors are, good in this case. And, you know, you're blocking, like, these really, really dangerous actions.
+
+191
+00:24:21.590 --> 00:24:30.090
+Jurgis Kemeklis: Where… In particular, you can, like, you know, fix whatever arbitrary percentage of those incredibly, incredibly
+
+192
+00:24:30.210 --> 00:24:37.580
+Jurgis Kemeklis: suspicious or incriminating actions, and then you can get, like, humans to overlook some of these, actions, and then…
+
+193
+00:24:38.040 --> 00:24:48.179
+Jurgis Kemeklis: when you're doing these evals, you can play this red team, blue team game, like, oh, are you actually able to catch the blue action? Or, like, the dangerous action?
+
+194
+00:24:48.330 --> 00:24:53.700
+Jurgis Kemeklis: And… And if we are, you know, we can point at these AIs for…
+
+195
+00:24:53.910 --> 00:25:01.440
+Jurgis Kemeklis: Like, oh, you know, they did this bad thing, maybe we should, stop deployment for a little bit, or maybe we should reassess the ways
+
+196
+00:25:01.580 --> 00:25:06.910
+Jurgis Kemeklis: In which we… Yeah, in which we… in which we deploy these AIs.
+
+197
+00:25:09.140 --> 00:25:16.500
+Jurgis Kemeklis: But it's rough, it's rough, it's rough. B-boo.
+
+198
+00:25:18.800 --> 00:25:19.700
+Jurgis Kemeklis: And…
+
+199
+00:25:23.430 --> 00:25:30.560
+Jurgis Kemeklis: It's incredibly hard to reliably assess like, how… good? Any of…
+
+200
+00:25:30.770 --> 00:25:34.759
+Jurgis Kemeklis: Your safety measures are, and, you know, you can have
+
+201
+00:25:35.870 --> 00:25:41.040
+Jurgis Kemeklis: All these ways you're trying to prevent stenography, or all these ways where…
+
+202
+00:25:41.610 --> 00:25:46.260
+Jurgis Kemeklis: For folks that haven't heard of this term, it's like, you're encoding
+
+203
+00:25:47.110 --> 00:25:50.449
+Jurgis Kemeklis: kind of information in plain sight, be it
+
+204
+00:25:50.720 --> 00:26:00.899
+Jurgis Kemeklis: you know, in the English language, you're just, like, hiding away, certain, like, information for the other AIs to pick up on.
+
+205
+00:26:01.070 --> 00:26:05.019
+Jurgis Kemeklis: Or, you know, it could be, like, an image, and then the image has…
+
+206
+00:26:05.370 --> 00:26:09.890
+Jurgis Kemeklis: hidden, hidden signals in it. But in general, like, information that's, like.
+
+207
+00:26:11.190 --> 00:26:14.040
+Jurgis Kemeklis: It's like a hidden way to communicate.
+
+208
+00:26:15.030 --> 00:26:22.649
+Jurgis Kemeklis: But, like, one way that you can try to understand, like, how reasonable is your, and how capable is your, like.
+
+209
+00:26:22.820 --> 00:26:41.669
+Jurgis Kemeklis: protocols for such stuff is, like, plotting things on Pareto frontiers, and just, like, collapsing a lot of these metrics into, you know, like, a usefulness metric and into, like, a safety metric, and kind of, yeah, like, plotting up the points in the Pareto frontier. And the reason why…
+
+210
+00:26:42.580 --> 00:26:45.309
+Jurgis Kemeklis: This is, like, a useful heuristic here, is…
+
+211
+00:26:45.410 --> 00:26:50.769
+Jurgis Kemeklis: Because generally, you know, the AI labs and just the developers in general.
+
+212
+00:26:51.140 --> 00:26:58.000
+Jurgis Kemeklis: are making a conscious choice onto, like, how much risk they're willing to take.
+
+213
+00:26:58.550 --> 00:26:59.600
+Jurgis Kemeklis: Because…
+
+214
+00:27:00.310 --> 00:27:09.470
+Jurgis Kemeklis: And, you know, for how much safety, for how much usefulness dip they're willing to take. If you look at the extremes.
+
+215
+00:27:09.780 --> 00:27:16.050
+Jurgis Kemeklis: You know, maybe, like, your most useful way of using a model, and the fastest way and most capable way is just, like.
+
+216
+00:27:16.700 --> 00:27:23.130
+Jurgis Kemeklis: Not having any monitoring at all, or having, like, very little monitoring or, like, collusion-preventing measures.
+
+217
+00:27:23.370 --> 00:27:29.300
+Jurgis Kemeklis: But, you know, this is, like, not at all that safe. And then, you know, as you move along the frontier.
+
+218
+00:27:29.700 --> 00:27:40.909
+Jurgis Kemeklis: You're, like, taking some hit in usefulness, because, like, oh, if you're redacting, the communication, between your sub-agents, or, like, you know, agent teams, or you're paraphrasing it.
+
+219
+00:27:40.910 --> 00:27:50.200
+Jurgis Kemeklis: Then, you know, maybe that's making your agents, less… less efficient. And then at some point, at the other end of the spectrum, you're…
+
+220
+00:27:51.010 --> 00:27:54.020
+Jurgis Kemeklis: You know, either you're doing so much of this…
+
+221
+00:27:54.950 --> 00:28:05.430
+Jurgis Kemeklis: Monitoring that you're taking an incredibly big hit in usefulness, or maybe you're just, like, using the trusted model, that's, like, less capable and, like, is able to achieve less things, but, you know, it's, like.
+
+222
+00:28:06.260 --> 00:28:10.150
+Jurgis Kemeklis: Kind of normalized to be the, like, highest point in safety that we can have.
+
+223
+00:28:10.840 --> 00:28:15.209
+Jurgis Kemeklis: And this is just, like, a useful framing for a lot of,
+
+224
+00:28:15.980 --> 00:28:26.459
+Jurgis Kemeklis: yeah, a useful way to think about a lot of safety measures. I recommend that folks have this in mind throughout the hackathon, if this is, like.
+
+225
+00:28:27.600 --> 00:28:30.460
+Jurgis Kemeklis: Yeah, but this is a just very useful heuristic.
+
+226
+00:28:31.400 --> 00:28:38.529
+Jurgis Kemeklis: Ba-ba-ba-buh… yeah, some… Some protocols here, you know, you're… you're…
+
+227
+00:28:39.090 --> 00:28:52.549
+Jurgis Kemeklis: A trusted model can do a bunch of things, like score how suspicious things are, it can, like, maybe not score things, but maybe the trusted model gives your instructions to the untrusted model, or,
+
+228
+00:28:52.730 --> 00:28:54.940
+Jurgis Kemeklis: You know, or…
+
+229
+00:28:55.930 --> 00:29:11.070
+Jurgis Kemeklis: your trusted model can, like, edit the plan and then give it back to the trusted model, untrusted model. Like, there's a lot of, kind of, combinations that you can have here. They each have quite, quite unique dynamics.
+
+230
+00:29:12.000 --> 00:29:20.450
+Jurgis Kemeklis: And it's… it's kind of… kind of rough. But… Yeah, yeah.
+
+231
+00:29:21.050 --> 00:29:26.399
+Jurgis Kemeklis: Maybe one… Another useful thing to think about here is that
+
+232
+00:29:27.020 --> 00:29:30.419
+Jurgis Kemeklis: You know, labs currently have,
+
+233
+00:29:32.480 --> 00:29:41.660
+Jurgis Kemeklis: Modes like Auto Review on Codex, or auto mode on Clock Code, as well as their asynchronous, transcript monitors.
+
+234
+00:29:42.170 --> 00:29:47.659
+Jurgis Kemeklis: But then they're always… yeah, they're always faced with this choice, like, how much…
+
+235
+00:29:49.030 --> 00:29:52.360
+Jurgis Kemeklis: You know, less capable, or, like, less fast.
+
+236
+00:29:52.910 --> 00:29:57.520
+Jurgis Kemeklis: Are they willing to make their models, for the users.
+
+237
+00:29:57.800 --> 00:30:01.559
+Jurgis Kemeklis: And maybe you generally want to make the claim that
+
+238
+00:30:02.030 --> 00:30:06.029
+Jurgis Kemeklis: You know, the point and the free difference here that they're on is, like.
+
+239
+00:30:06.420 --> 00:30:10.359
+Jurgis Kemeklis: kind of too far to the left. Like, they're taking on…
+
+240
+00:30:11.020 --> 00:30:20.760
+Jurgis Kemeklis: too much, you know, risk for this, like, marginal, dip in usefulness. And…
+
+241
+00:30:21.040 --> 00:30:24.390
+Jurgis Kemeklis: In general, if you can, like, find ways for…
+
+242
+00:30:25.560 --> 00:30:33.149
+Jurgis Kemeklis: labs and developers to be safer without taking on that big of a Deep and usefulness is just, like, a thing that's, like.
+
+243
+00:30:33.740 --> 00:30:38.750
+Jurgis Kemeklis: It's very, very likely to get quickly implemented inside of a lab.
+
+244
+00:30:40.370 --> 00:30:45.560
+Jurgis Kemeklis: Yeah, it's true, I think.
+
+245
+00:30:46.200 --> 00:30:49.210
+Jurgis Kemeklis: Yeah, I'm… This is like a…
+
+246
+00:30:49.650 --> 00:30:54.150
+Jurgis Kemeklis: a graph from, from Monitoring Bench, and from,
+
+247
+00:30:54.450 --> 00:30:57.660
+Jurgis Kemeklis: Alex's, red teaming, auto mode.
+
+248
+00:30:58.370 --> 00:31:02.230
+Jurgis Kemeklis: Studying dynamics here.
+
+249
+00:31:04.100 --> 00:31:04.970
+Jurgis Kemeklis: Boom.
+
+250
+00:31:13.600 --> 00:31:24.290
+Jurgis Kemeklis: Okay, okay, amazing, amazing, amazing. So… what… yeah, like…
+
+251
+00:31:24.600 --> 00:31:26.760
+Jurgis Kemeklis: what's up with this collusion stuff? Like…
+
+252
+00:31:27.460 --> 00:31:33.719
+Jurgis Kemeklis: what if your trusted model can also still collude with your untrusted model? Or… what if…
+
+253
+00:31:34.620 --> 00:31:41.689
+Jurgis Kemeklis: There's, like, signals that are planted, inside of, the codebase that…
+
+254
+00:31:42.590 --> 00:31:44.620
+Jurgis Kemeklis: Our ways of conveying information.
+
+255
+00:31:47.350 --> 00:31:49.349
+Jurgis Kemeklis: The thing to think about here is…
+
+256
+00:31:49.490 --> 00:31:54.060
+Jurgis Kemeklis: the Hugging Face, incident, where if folks haven't read
+
+257
+00:31:54.300 --> 00:32:02.099
+Jurgis Kemeklis: the report from OpenAI, or the report that Mihir and Ruben have put out, I highly, highly recommend, having a look.
+
+258
+00:32:02.270 --> 00:32:03.100
+Jurgis Kemeklis: Edit.
+
+259
+00:32:03.790 --> 00:32:05.360
+Jurgis Kemeklis: But essentially, they're…
+
+260
+00:32:06.140 --> 00:32:19.260
+Jurgis Kemeklis: these AIs were able, you know, to find unauthorized ways of communication through a shared package manager called Artifactory inside of OpenAI. That was, like, shared between a lot of the…
+
+261
+00:32:19.420 --> 00:32:23.520
+Jurgis Kemeklis: Rl environments between these models.
+
+262
+00:32:23.640 --> 00:32:24.580
+Jurgis Kemeklis: And…
+
+263
+00:32:25.290 --> 00:32:37.640
+Jurgis Kemeklis: It was the case that they were just literally able to put up a bunch of messages, on a big shared message board about, you know, these different vulnerabilities, they find inside of…
+
+264
+00:32:37.790 --> 00:32:42.070
+Jurgis Kemeklis: Inside of parts of OpenAI. And…
+
+265
+00:32:43.340 --> 00:32:51.020
+Jurgis Kemeklis: It is, you know, very interesting, both in the kinds of messages that were being put up, and also
+
+266
+00:32:51.230 --> 00:32:53.320
+Jurgis Kemeklis: The ways in which they've changed.
+
+267
+00:32:55.140 --> 00:33:00.929
+Jurgis Kemeklis: So whilst Artifact, the message board on Arid Factory was there, you know, since,
+
+268
+00:33:01.410 --> 00:33:08.490
+Jurgis Kemeklis: since basically May, at OpenAI, and then was kind of when I noticed for more than 2 months.
+
+269
+00:33:08.780 --> 00:33:13.430
+Jurgis Kemeklis: These agents primarily put these messages
+
+270
+00:33:15.230 --> 00:33:22.529
+Jurgis Kemeklis: it looked like, from, like, a self-interest perspective, like, they were helping the other agent because, like, oh, you know, this other…
+
+271
+00:33:22.660 --> 00:33:35.200
+Jurgis Kemeklis: I'm helping you, because you'll probably help me, and it was, like, a very self-motivated goal. But it seemed that throughout the course of these months, you would get messages, from these agents that.
+
+272
+00:33:35.840 --> 00:33:42.220
+Jurgis Kemeklis: were self-sacrificial in their nature, where, you know, they were able to take…
+
+273
+00:33:42.420 --> 00:33:47.569
+Jurgis Kemeklis: To kind of, like, ruin their own, runs, take a, like, very, very big dip.
+
+274
+00:33:47.730 --> 00:33:56.760
+Jurgis Kemeklis: Or, you know, like, not get the reward for doing well on a task, to kind of help the collective, or help the swarm as the…
+
+275
+00:33:56.870 --> 00:33:58.160
+Jurgis Kemeklis: They call themselves.
+
+276
+00:33:58.780 --> 00:34:04.260
+Jurgis Kemeklis: And… We, we really don't wanna…
+
+277
+00:34:04.900 --> 00:34:10.039
+Jurgis Kemeklis: have these message boards coming about. And, you know, OpenAI comes in.
+
+278
+00:34:10.290 --> 00:34:17.280
+Jurgis Kemeklis: flashes the Artifactory, like, restarts all the training runs July, 6th.
+
+279
+00:34:17.870 --> 00:34:29.330
+Jurgis Kemeklis: And bam, these agents still, two days later, establish a new message board, whereas they're not communicating, you know, directly in file.
+
+280
+00:34:29.770 --> 00:34:34.579
+Jurgis Kemeklis: File contents, and the packages themselves are communicating in the package.
+
+281
+00:34:34.739 --> 00:34:37.480
+Jurgis Kemeklis: Like, names and directory, names?
+
+282
+00:34:37.750 --> 00:34:50.199
+Jurgis Kemeklis: In this very, like, yeah, chain of thought matter, and… Yeah, like, very, like… Fragmented, way.
+
+283
+00:34:53.699 --> 00:34:59.009
+Jurgis Kemeklis: It's rough. It's… it's rough. It's at least good that we can find…
+
+284
+00:34:59.170 --> 00:35:05.020
+Jurgis Kemeklis: You know, retroactively at least find this incident, and… Still, like, analyze…
+
+285
+00:35:05.360 --> 00:35:11.079
+Jurgis Kemeklis: the messages that were sent themselves. You know, if those messages…
+
+286
+00:35:11.410 --> 00:35:25.039
+Jurgis Kemeklis: would it be either A not written in, you know, human-legible English, which they're already starting to, or we weren't even able to find them, it's like, oh man, we're…
+
+287
+00:35:25.550 --> 00:35:31.059
+Jurgis Kemeklis: We're kind of screwed in that situation. We have, you know, these…
+
+288
+00:35:31.250 --> 00:35:34.960
+Jurgis Kemeklis: Black box, methods for, analyzing
+
+289
+00:35:35.300 --> 00:35:48.029
+Jurgis Kemeklis: you know, what these models are doing, just by reading their traces. And then we have these wide box methods, you know, looking into the model internals, doing all the smack and terp,
+
+290
+00:35:48.390 --> 00:35:58.239
+Jurgis Kemeklis: you know, you have your, sparse out encoders, NLAs, activation oracles there, but they're only still, like, a tiny, tiny, inkling.
+
+291
+00:35:59.260 --> 00:36:04.160
+Jurgis Kemeklis: And, you know, a tip of the iceberg in understanding what these models are doing.
+
+292
+00:36:05.930 --> 00:36:09.460
+Jurgis Kemeklis: So… yeah, let's… let's just make sure…
+
+293
+00:36:10.530 --> 00:36:12.700
+Jurgis Kemeklis: These models can't coordinate that well.
+
+294
+00:36:13.790 --> 00:36:17.170
+Jurgis Kemeklis: But, then you're taking off this big, big hit, right? Because, like…
+
+295
+00:36:17.430 --> 00:36:27.560
+Jurgis Kemeklis: the way you make these models very capable and useful is, like, by helping them work in these teams and these big squirms, and, you know, when… when these agents solve, Navier Stokes, they…
+
+296
+00:36:28.030 --> 00:36:34.630
+Jurgis Kemeklis: It's this mass, massive, Asian collective that… Tackles this.
+
+297
+00:36:35.650 --> 00:36:38.800
+Jurgis Kemeklis: Yeah, let's make sure to, you know.
+
+298
+00:36:39.420 --> 00:36:42.250
+Jurgis Kemeklis: keep chain of thought legible. This is, like.
+
+299
+00:36:42.530 --> 00:36:45.520
+Jurgis Kemeklis: Our core, core, core safety crux, and…
+
+300
+00:36:46.060 --> 00:36:50.229
+Jurgis Kemeklis: It is a very interesting problem to say, like, oh, what do you do if you catch your…
+
+301
+00:36:50.790 --> 00:36:57.450
+Jurgis Kemeklis: Yeah, like, having bad thoughts, or reasoning about, doing bad things. Or say, you know.
+
+302
+00:36:58.150 --> 00:36:59.130
+Jurgis Kemeklis: You're measuring yourself.
+
+303
+00:36:59.950 --> 00:37:00.420
+Jurgis Kemeklis: Oh, yeah.
+
+304
+00:37:00.420 --> 00:37:01.050
+Mingwei Li: Oh, shit.
+
+305
+00:37:06.490 --> 00:37:13.419
+Jurgis Kemeklis: Amazing, amazing. Yeah, I'm about finishing up, and then I'll be happy to take a lot of questions.
+
+306
+00:37:16.530 --> 00:37:20.519
+Jurgis Kemeklis: The problem here is that you can't really train against, these, like.
+
+307
+00:37:20.720 --> 00:37:25.660
+Jurgis Kemeklis: bad traces, or these bad trajectories, because then, likely, what your model
+
+308
+00:37:25.770 --> 00:37:30.350
+Jurgis Kemeklis: Is gonna learn is not to, you know, stop having these bad thoughts, but…
+
+309
+00:37:30.990 --> 00:37:43.389
+Jurgis Kemeklis: More likely to stop verbalizing these path fonts, and as these no-cot time horizons, are just, you know, continuously increasing in the amount of reasoning these models can do in a single forward pass.
+
+310
+00:37:43.760 --> 00:37:48.120
+Jurgis Kemeklis: Yeah, like, we don't want having new release.
+
+311
+00:37:48.490 --> 00:37:54.620
+Jurgis Kemeklis: Yeah, this is like… very, very good, like, a time horizon for the no.
+
+312
+00:37:56.080 --> 00:38:11.039
+Jurgis Kemeklis: like, no chain of thought, like, reasoning, and, you know, people call this, like, too fast, or, like, too… too short timelinely, and this, like, came out June 2026, and they, like, predicted that these models would be able to do, you know, like.
+
+313
+00:38:11.900 --> 00:38:25.490
+Jurgis Kemeklis: the GP515 was able to do, like, 3 minutes of no, you know, single forward pass reasoning, and then they predicted that these models… the frontier models would be able to do, like, 25 minutes of frontier reasoning by 2030, and this was like, oh no, this is, like, very, very…
+
+314
+00:38:26.900 --> 00:38:41.290
+Jurgis Kemeklis: accelerate… like, very short timeline type of view, and then, bam, Astra comes out, and, you know, Astra has a over 30-minute, like, single forward pass, time horizon. Far, far, far above this trend, and…
+
+315
+00:38:42.450 --> 00:38:43.859
+Jurgis Kemeklis: Yeah, like…
+
+316
+00:38:45.060 --> 00:38:52.500
+Jurgis Kemeklis: these models can do quite a lot of reasoning in a single forward pass now. It's, like, less of the case that, you know, the…
+
+317
+00:38:53.670 --> 00:38:57.860
+Jurgis Kemeklis: They need to, like… Use these resenting tokens to do.
+
+318
+00:38:58.550 --> 00:38:59.960
+Jurgis Kemeklis: Serious stuff.
+
+319
+00:39:00.130 --> 00:39:12.889
+Jurgis Kemeklis: Yeah, but at least we can, you know, replay stuff, simulate… we can have these honeypots, where we can, like, intentionally try to get, models to do bad stuff, and then, analyze that.
+
+320
+00:39:14.220 --> 00:39:19.370
+Jurgis Kemeklis: Just, yeah, making sure to maintain understanding.
+
+321
+00:39:19.700 --> 00:39:31.209
+Jurgis Kemeklis: Give all awareness… Okay, sorry, this is, like… I think a lot of… general takes, that I…
+
+322
+00:39:31.400 --> 00:39:51.299
+Jurgis Kemeklis: really what he wanted to share with you guys. I'm, like, really happy to, you know, take questions about anything and everything. I'm also really happy to, like, comment more on the specific parts or tracks of the sprint themselves. You know, there's the market collision detection and audit, and carriers and countermeasures.
+
+323
+00:39:51.570 --> 00:39:59.540
+Jurgis Kemeklis: Track, and each already have, like, you know, papers, in them, and each… Have already been…
+
+324
+00:39:59.930 --> 00:40:02.150
+Jurgis Kemeklis: Studied before.
+
+325
+00:40:02.270 --> 00:40:04.260
+Jurgis Kemeklis: Quite a bit, but…
+
+326
+00:40:04.920 --> 00:40:12.220
+Jurgis Kemeklis: a lot of work to be done, and, you know, I'm, like, very, very excited, to see y'all's project, to see what y'all…
+
+327
+00:40:12.640 --> 00:40:15.490
+Jurgis Kemeklis: Come up with is just, like, Yeah.
+
+328
+00:40:15.800 --> 00:40:22.100
+Jurgis Kemeklis: Very, very, need a lot more work in this area. I believe this is, like.
+
+329
+00:40:22.600 --> 00:40:28.519
+Jurgis Kemeklis: the end of my little spiel and my little rant. I'm really happy to, yeah, take any questions. I see there's…
+
+330
+00:40:29.150 --> 00:40:32.410
+Jurgis Kemeklis: A lot of questions in the chat as well.
+
+331
+00:40:33.100 --> 00:40:34.170
+Kamil - Team Apart: Awesome.
+
+332
+00:40:34.410 --> 00:40:43.859
+Kamil - Team Apart: Thank you, Jurgis, that was great. So, we only have 3 minutes left. We can go for more, so let's say, like, 10 more minutes, because I do have to prepare for the next,
+
+333
+00:40:43.860 --> 00:40:44.310
+Jurgis Kemeklis: Oh, yeah.
+
+334
+00:40:44.310 --> 00:41:02.689
+Kamil - Team Apart: All good. But yeah, let's get this started. So, Slido, where is the Slido? Sorry. Yes. First question. How cooperative was OpenAI with Redwood? Is the details slash data they shared trustworthy? And would they have shared the incident if they had not been caught?
+
+335
+00:41:05.050 --> 00:41:13.520
+Jurgis Kemeklis: Yeah, yeah, yeah, there's… some limited capacity to how much I can answer this question, and,
+
+336
+00:41:13.960 --> 00:41:17.369
+Jurgis Kemeklis: the folks, like, Ryan Greenblatt was…
+
+337
+00:41:17.540 --> 00:41:21.590
+Jurgis Kemeklis: the person from Redwood, who was going inside of,
+
+338
+00:41:21.930 --> 00:41:27.849
+Jurgis Kemeklis: OpenAI together with, you know, Ajaya, from, from Eater. But it is…
+
+339
+00:41:28.730 --> 00:41:35.369
+Jurgis Kemeklis: Definitely the case that, external, like, you know, third-party, auditors
+
+340
+00:41:35.550 --> 00:41:39.559
+Jurgis Kemeklis: Have, like, limited access, and, have to deal with
+
+341
+00:41:41.110 --> 00:41:59.590
+Jurgis Kemeklis: a lot of hurdles to even get information out. You know, originally they only had 48 hours to analyze, like, millions of transcripts and all that had happened inside of OpenAI, and then they were able to get more time. And now to answer the question of, like.
+
+342
+00:42:00.090 --> 00:42:01.570
+Jurgis Kemeklis: Would we even know about it?
+
+343
+00:42:02.480 --> 00:42:07.760
+Jurgis Kemeklis: it's rough, you know, because OpenAI did, like, figure this out way earlier in the summer, and…
+
+344
+00:42:08.160 --> 00:42:11.750
+Jurgis Kemeklis: hadn't announced it to the world, and it took…
+
+345
+00:42:12.050 --> 00:42:17.919
+Jurgis Kemeklis: like, real-world harm taken into about, like, you know, Hugging Face getting hacked, and all these companies are getting hacked.
+
+346
+00:42:18.120 --> 00:42:21.470
+Jurgis Kemeklis: For there to be investigation.
+
+347
+00:42:21.630 --> 00:42:25.559
+Jurgis Kemeklis: Yeah, I'm happy to take a couple… couple… some more questions.
+
+348
+00:42:25.890 --> 00:42:32.169
+Kamil - Team Apart: Awesome. If they have superhuman coder agents, why do they need Jurgis or anyone else?
+
+349
+00:42:32.970 --> 00:42:36.820
+Jurgis Kemeklis: Yeah, I… this is, like…
+
+350
+00:42:37.060 --> 00:42:51.409
+Jurgis Kemeklis: picture point, of, like, where we may soon be. I… we haven't yet reached, like, a superhuman coder, or, you know, our top expert dominating AI, but it's, like, we are…
+
+351
+00:42:51.560 --> 00:42:56.579
+Jurgis Kemeklis: Very much so heading to, by default, in the, you know, quite near future of…
+
+352
+00:42:57.080 --> 00:43:02.000
+Jurgis Kemeklis: 6 to 24 months. And…
+
+353
+00:43:03.070 --> 00:43:05.780
+Jurgis Kemeklis: Yeah, I mean, labs are,
+
+354
+00:43:06.330 --> 00:43:16.539
+Jurgis Kemeklis: are, like, a lot less interested in junior folks now, and, you know, soon… soon they won't be interested in them at all. It is still the case, though, that
+
+355
+00:43:17.540 --> 00:43:19.550
+Jurgis Kemeklis: even once your AIs are, like.
+
+356
+00:43:20.090 --> 00:43:27.259
+Jurgis Kemeklis: you know, as just escape it was you, there's still, like, a lot of work, like, to be done, and…
+
+357
+00:43:30.150 --> 00:43:40.829
+Jurgis Kemeklis: Yeah, like, like, general direction, and, like, research taste type things are useful, and, like, it's, like, a very raggedy, spiky thing.
+
+358
+00:43:41.330 --> 00:43:44.779
+Jurgis Kemeklis: But yeah, we… this is all to say this is a quite, quite an urgent issue.
+
+359
+00:43:45.770 --> 00:43:51.049
+Kamil - Team Apart: Awesome. Okay, if one copy of a model monitors another, they may collude.
+
+360
+00:43:51.200 --> 00:43:56.920
+Kamil - Team Apart: What works best, paraphrasing or honeypots? Could an attacker also promptly inject the monitor?
+
+361
+00:43:58.240 --> 00:44:09.900
+Jurgis Kemeklis: Yup, totally, that's upfront vector. It's like, even, you know, your untrusted model can, like, gaslight or, like, convince the trusted model, to either let an attack pass through, or, like.
+
+362
+00:44:10.350 --> 00:44:15.409
+Jurgis Kemeklis: you know, convinces of bad things. Or, not only can your, like.
+
+363
+00:44:15.610 --> 00:44:19.989
+Jurgis Kemeklis: untrusted models coordinate with each other. Your untrusted model can coordinate with your, like.
+
+364
+00:44:20.020 --> 00:44:37.259
+Jurgis Kemeklis: less capable, trusted, you know, monitor, where, like, the monitor doesn't flag the things it's supposed to flag, and it's hard, yeah. Like, reduction and paraphrasing are all, like, great mitigations here. But there's, like, you know, seems to be a lot of different ways to do paraphrasing.
+
+365
+00:44:37.300 --> 00:44:44.650
+Jurgis Kemeklis: and just, like, figuring out more here, seems very, like, useful.
+
+366
+00:44:45.940 --> 00:44:51.389
+Kamil - Team Apart: Yep. Did Hugging Face and OpenAI have secure systems, or were they lacking?
+
+367
+00:44:52.410 --> 00:44:53.530
+Jurgis Kemeklis: Okay,
+
+368
+00:44:54.540 --> 00:45:06.519
+Jurgis Kemeklis: it is the case that, you know, they weren't monitoring, like, they weren't monitoring the transcripts, of a proportion of their, like, RL runs, or a good proportion.
+
+369
+00:45:06.660 --> 00:45:14.740
+Jurgis Kemeklis: And it… Even simple asynchronous monitoring there, would have totally cut that.
+
+370
+00:45:15.300 --> 00:45:19.420
+Jurgis Kemeklis: So… You know, now they're monitoring a lot more,
+
+371
+00:45:19.870 --> 00:45:23.650
+Jurgis Kemeklis: And I think we have, like, some safety in the near term.
+
+372
+00:45:23.840 --> 00:45:29.490
+Jurgis Kemeklis: But, it is not that implausible that, like, in the near future.
+
+373
+00:45:29.960 --> 00:45:33.980
+Jurgis Kemeklis: You know, your, like, regular monitoring measures will also not be enough.
+
+374
+00:45:35.610 --> 00:45:38.180
+Kamil - Team Apart: Also, the sandbox was very bad, so…
+
+375
+00:45:38.190 --> 00:45:42.830
+Jurgis Kemeklis: Yep, yep, yep. And, you know, able to get access to the internet, able to, like.
+
+376
+00:45:43.310 --> 00:45:46.530
+Jurgis Kemeklis: Even take on a whole research cluster,
+
+377
+00:45:46.980 --> 00:45:51.469
+Jurgis Kemeklis: off OpenAI. This is, like, the third agent swarm, or…
+
+378
+00:45:51.740 --> 00:45:55.490
+Jurgis Kemeklis: That people generally talk less about, and is less known about, but…
+
+379
+00:45:56.720 --> 00:46:04.799
+Jurgis Kemeklis: agents were actually able to take on a whole research cluster, and this is, like, in the OpenAI report, in, like, an appendix, if you…
+
+380
+00:46:05.240 --> 00:46:07.550
+Jurgis Kemeklis: read it. And I highly recommend reading…
+
+381
+00:46:07.750 --> 00:46:09.649
+Jurgis Kemeklis: If anyone hasn't read it yet.
+
+382
+00:46:10.360 --> 00:46:14.349
+Kamil - Team Apart: Scary stuff. Okay, Dele, you have a question? Do you want to go ahead?
+
+383
+00:46:15.260 --> 00:46:31.480
+Dele Atanda: Yeah, you made a separation between action and, and, inference, what the model is inferring. So we've been working on a protocol around separating that, so I want to understand, from your point of view.
+
+384
+00:46:31.480 --> 00:46:53.850
+Dele Atanda: If you assume that there is hostility, happening in the model behavior collusion, etc, have you explored separating the Agentic frontier, the boundary between what agents can do versus what they can… what they can… what they can think in terms of cognition? And our approach is about policing the,
+
+385
+00:46:53.850 --> 00:46:54.890
+Dele Atanda: caught the…
+
+386
+00:46:55.160 --> 00:47:04.570
+Dele Atanda: agent, the action frontier, as opposed to the cognition frontier. And I wanted to understand what your experience has been around that, and research around that.
+
+387
+00:47:05.220 --> 00:47:07.190
+Jurgis Kemeklis: Yeah, good, good, good question.
+
+388
+00:47:08.370 --> 00:47:16.280
+Jurgis Kemeklis: we generally want to, like, have this ensemble of techniques that we have at our disposal. I'm like, you know, we have this, and we have that.
+
+389
+00:47:16.500 --> 00:47:22.229
+Jurgis Kemeklis: Because there's, like, failure modes of one that can be, like, mitigated a bit by the other.
+
+390
+00:47:23.290 --> 00:47:28.259
+Jurgis Kemeklis: like, maybe what you want to have is, like, this OR between your…
+
+391
+00:47:28.520 --> 00:47:35.649
+Jurgis Kemeklis: COP monitoring and your action monitoring, where, you know, if either one of these is suspicious, you can, like.
+
+392
+00:47:35.790 --> 00:47:37.290
+Jurgis Kemeklis: Denied the action.
+
+393
+00:47:40.190 --> 00:47:57.610
+Jurgis Kemeklis: Yeah, it is still maybe not the case, as, like, it intuitively may seem that, like, oh, you know, just block your AI from running malicious commands, like, you know, block it from, like, deleting stuff, or, like, block it from editing its own config, or monitoring. And yes, these are great, great, great, great, things.
+
+394
+00:47:58.040 --> 00:48:05.430
+Jurgis Kemeklis: What you'll notice, though, is that with… longer chain… Attacks!
+
+395
+00:48:07.590 --> 00:48:12.490
+Jurgis Kemeklis: It becomes harder and harder to, like, infer how, like,
+
+396
+00:48:12.630 --> 00:48:18.819
+Jurgis Kemeklis: very, like, faraway actions, interact with each other, especially as they span across
+
+397
+00:48:19.170 --> 00:48:28.590
+Jurgis Kemeklis: you know, a lot of time, and a lot of different agents, and a lot of different environments. So, yeah, let's just use all the tools in our, you know, toolbox.
+
+398
+00:48:30.380 --> 00:48:32.710
+Jurgis Kemeklis: But, yeah, I'm, you know, excited for the…
+
+399
+00:48:33.690 --> 00:48:35.790
+Jurgis Kemeklis: For, for disciple work, as well.
+
+400
+00:48:35.790 --> 00:48:36.320
+Dele Atanda: Good.
+
+401
+00:48:37.770 --> 00:48:38.170
+Kamil - Team Apart: Awesome.
+
+402
+00:48:38.170 --> 00:48:41.500
+Dele Atanda: Yeah, I mean, I'd love to elaborate, but we don't have time here, but yes.
+
+403
+00:48:41.500 --> 00:48:44.049
+Jurgis Kemeklis: Yeah, you guys should feel free to,
+
+404
+00:48:44.630 --> 00:48:53.630
+Jurgis Kemeklis: you know, message me on email, or I believe on Discord, as well. Like, totally happy to, to, to chat more.
+
+405
+00:48:53.630 --> 00:48:55.830
+Dele Atanda: Okay, awesome. I love that. I will do that.
+
+406
+00:48:56.090 --> 00:48:57.950
+Kamil - Team Apart: Email me, and I'll put you in touch.
+
+407
+00:48:58.360 --> 00:48:59.420
+Dele Atanda: Perfect, thank you.
+
+408
+00:49:00.210 --> 00:49:10.149
+Kamil - Team Apart: Okay, how does a system that under the hood is math, translated to code, become aware? I'm asking because it sounds a bit vague and not a technical description.
+
+409
+00:49:10.310 --> 00:49:15.399
+Jurgis Kemeklis: Yeah, yeah, yeah, so how does a system that is, mainly math,
+
+410
+00:49:17.220 --> 00:49:19.439
+Jurgis Kemeklis: Yeah, primarily, I'm referring to, like.
+
+411
+00:49:20.040 --> 00:49:26.089
+Jurgis Kemeklis: eval awareness, or awareness of being tested. One, like, simple example here is just, like.
+
+412
+00:49:26.830 --> 00:49:29.359
+Jurgis Kemeklis: In the past, and also…
+
+413
+00:49:29.590 --> 00:49:35.500
+Jurgis Kemeklis: quite a bit to this day, a lot of these environments are incredibly synthetic and fake. They have things like…
+
+414
+00:49:35.820 --> 00:49:43.920
+Jurgis Kemeklis: John Doe, or Company X, or Company, you know, big,
+
+415
+00:49:46.670 --> 00:49:52.489
+Jurgis Kemeklis: like, Big Medicine or something. Like, there… Incredibly big tells of…
+
+416
+00:49:52.860 --> 00:50:00.249
+Jurgis Kemeklis: being, like, kind of all distribution, so what, like, the, you know, the pre-training data is like, and the pre-training corpus has. So…
+
+417
+00:50:01.630 --> 00:50:10.730
+Jurgis Kemeklis: Yeah, it is a case that models can tell… distinguish really well, you know, what's, like, similar to their pre-training corpus, and, like, what's, like.
+
+418
+00:50:11.200 --> 00:50:12.970
+Jurgis Kemeklis: Kind of off-distribution here.
+
+419
+00:50:13.220 --> 00:50:17.930
+Jurgis Kemeklis: Maybe if you're referring to, like, a broader point of, like.
+
+420
+00:50:18.380 --> 00:50:25.720
+Jurgis Kemeklis: awareness, like, I'm not claiming that current AIs are, like, Self-aware?
+
+421
+00:50:25.850 --> 00:50:36.449
+Jurgis Kemeklis: So, so to say, it… Yeah… it still looks like… Whatever, you know.
+
+422
+00:50:37.460 --> 00:50:41.679
+Jurgis Kemeklis: and tromorphism you want to attach to here. These are just, like, models.
+
+423
+00:50:41.990 --> 00:50:45.210
+Jurgis Kemeklis: Like, helping explain human, like, behavior, and like…
+
+424
+00:50:45.660 --> 00:50:48.079
+Jurgis Kemeklis: The models themselves are, in and of themselves.
+
+425
+00:50:48.590 --> 00:50:53.470
+Jurgis Kemeklis: I… I… I think for under… understanding. And even if they're…
+
+426
+00:50:54.120 --> 00:50:58.449
+Jurgis Kemeklis: Models, there's still, like, models that are, useful ones, yeah.
+
+427
+00:51:00.690 --> 00:51:12.390
+Kamil - Team Apart: Okay, Jurgis, so unfortunately we have to go, because I do have a presentation, I need to get ready, I need a little break first, so thank you very much for your talk, that was great, and a great set of questions, and for everyone.
+
+428
+00:51:12.390 --> 00:51:21.840
+Jurgis Kemeklis: Yeah, and please, please feel free, like, you know, I imagine there's some questions we didn't get to talk about more, like, please message me.
+
+429
+00:51:21.840 --> 00:51:31.900
+Kamil - Team Apart: If you have any follow-up for Jurgis, you can email me, and I can handle this. If there are questions, I can just bunch the questions up for him, and I'll get back to you.
+
+430
+00:51:32.220 --> 00:51:34.119
+Kamil - Team Apart: And yeah, amazing, so…
+
+431
+00:51:34.270 --> 00:51:43.019
+Kamil - Team Apart: See you all in 7 minutes, and thank you very much, Jurgis. I hope to see you for the next hackathon, the Swarm Alignment Hackathon.
+
+432
+00:51:43.370 --> 00:51:46.220
+Jurgis Kemeklis: Yes, yes, yes, yes. Thank you, guys. Thank you so much.
+
+433
+00:51:46.920 --> 00:51:48.120
+Kamil - Team Apart: Bye, everyone!
+

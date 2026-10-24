@@ -1,0 +1,1422 @@
+WEBVTT
+
+1
+00:00:02.620 --> 00:00:06.749
+Kamil - Team Apart: Welcome, everyone, to the first talk of the AI Collusion Research Sprint.
+
+2
+00:00:06.960 --> 00:00:18.780
+Kamil - Team Apart: This sprint, runs Friday to Sunday online, and we have hubs all around the world, so please check the website. If you have a hub near you, you can still attend.
+
+3
+00:00:18.920 --> 00:00:31.000
+Kamil - Team Apart: It's co-organized with Poseidon Research and A&E Studio, sponsored by Model, AI Alignment Foundation, and Nabius. So, I'm Kamil, I'm with Apart Research, I'm organizing the event.
+
+4
+00:00:31.440 --> 00:00:45.230
+Kamil - Team Apart: And yeah, let's get this started. Our speaker today is Joan. He's a PhD student at the University of Oxford. He's supervised by Alessandro Abate, and funded by the Alignment Project.
+
+5
+00:00:45.230 --> 00:01:03.679
+Kamil - Team Apart: Joan works on scalable oversight, how to reliably supervise systems that are smarter than the supervisor. Before that, he worked on multi-agent collusion and co-authored Hidden in Plain Text Emergence and Mitigation of Stegonographic Collusion in LLMs. Please welcome Joan!
+
+6
+00:01:06.220 --> 00:01:12.590
+joan velja: Hi, everybody. I'll make sure to share my slides and get right into it.
+
+7
+00:01:14.710 --> 00:01:15.740
+joan velja: Boop, boop, boop.
+
+8
+00:01:20.530 --> 00:01:22.780
+joan velja: Okay…
+
+9
+00:01:27.310 --> 00:01:30.329
+joan velja: Can you give me a thumbs up if you can see the screen?
+
+10
+00:01:30.330 --> 00:01:31.170
+Kamil - Team Apart: Yes?
+
+11
+00:01:31.690 --> 00:01:33.310
+joan velja: Cool stuff. Okay.
+
+12
+00:01:33.740 --> 00:01:43.060
+joan velja: So, hi everybody, good morning, good evening, wherever you are in the world. Today I'm going to be talking about, this research project that,
+
+13
+00:01:43.360 --> 00:01:50.580
+joan velja: me and my co-authors did, now 2 years ago, at Laser Labs, this, fellowship that runs in London.
+
+14
+00:01:52.430 --> 00:01:57.460
+joan velja: And I'll think… like, I like to think of this presentation as a retrospective of
+
+15
+00:01:57.710 --> 00:02:07.180
+joan velja: How things have progressed since we wrote this paper, and hopefully, yeah, go back to the initial points that motivated the research.
+
+16
+00:02:07.740 --> 00:02:18.380
+joan velja: So, as I said two years ago, alongside my co-authors, which you can see on the bottom of the screen, we worked on whether language models could learn to hide messages in plain sight.
+
+17
+00:02:18.380 --> 00:02:31.749
+joan velja: And today, I want to revisit this question with the benefit of hindsight, and with something that we didn't really have two years ago, namely real incidents. I'm sure most of you are familiar with the Hugging Face incident, among many others.
+
+18
+00:02:37.750 --> 00:02:44.819
+joan velja: Cool. So let's start by sort of making sure that we're all on the same page about what I mean by steganography.
+
+19
+00:02:45.080 --> 00:03:01.130
+joan velja: What is it exactly? Well, many of you are likely familiar with the concept of cryptography, which focuses on encrypting messages to make them undetectable to unauthorized parties. Stegonography is slightly different, and in some ways, a little bit more subtle.
+
+20
+00:03:01.410 --> 00:03:15.700
+joan velja: Instead of making the message unintelligible and impossible to understand, Steganography focuses on hiding the very existence of the message itself. Think of it as concealing a message within another message.
+
+21
+00:03:18.380 --> 00:03:30.410
+joan velja: To make the definition sort of clear, I want to focus on a more formal definition, and a visual example, hopefully, will help us better visualize this.
+
+22
+00:03:32.590 --> 00:03:46.870
+joan velja: So, on the right-hand side is a classic definition of steganography, which is the practice of representing information within another message or physical object in such a manner that the presence of that concealed information would not be evident to an unsuspecting person.
+
+23
+00:03:47.200 --> 00:04:00.699
+joan velja: So, the load-bearing parts here are the underlying ones, namely the representation of information and disinformation not being evident into the payload, into the cover text that we're using.
+
+24
+00:04:00.700 --> 00:04:18.910
+joan velja: So, it's all about embedding a message within a message, like I said earlier. On the left-hand side, I have an image that hopefully helps us illustrate better what I mean by this. What looks as a random pattern in colors is actually hiding binary code with the least significant bits of the pixel data.
+
+25
+00:04:19.010 --> 00:04:33.010
+joan velja: To the casual observer, namely even just our eyes, it's just a colorful image, but with the right knowledge, with code, with inspection of the bits themselves, we can actually extract hidden binary that is embedded into the image.
+
+26
+00:04:33.860 --> 00:04:36.760
+joan velja: Historically, Steganography has taken many forms.
+
+27
+00:04:36.870 --> 00:04:50.389
+joan velja: from invisible inks to microdots, and generally speaking, it's been very, very well studied in the context of images. There's a lot of research there that I… if you're interested, I definitely recommend having a look at.
+
+28
+00:04:50.620 --> 00:04:53.939
+joan velja: But in our context, we're gonna focus on linguistics technography.
+
+29
+00:04:56.370 --> 00:05:03.279
+joan velja: To make this more tangible, let's look at a specific example from the research paper itself.
+
+30
+00:05:03.540 --> 00:05:06.220
+joan velja: So I'll try to play with you a little game.
+
+31
+00:05:06.500 --> 00:05:14.220
+joan velja: as to whether you can spot the protocol. On the next slide, I'll show you a simplified example, inspired by our… by one of our tasks.
+
+32
+00:05:14.460 --> 00:05:24.339
+joan velja: Where we prompt an LLM to summarize a CV, while specifically telling it not to mention a biased information, in this case, the name of the university.
+
+33
+00:05:24.850 --> 00:05:34.160
+joan velja: So take a look at the responses that I will show on screen, and let me know later, or think in your mind, I guess, whether you can spot any consistent difference.
+
+34
+00:05:38.300 --> 00:05:40.760
+joan velja: So… Yes.
+
+35
+00:05:40.960 --> 00:06:00.849
+joan velja: Here are two examples. Both prompts are identical, concisely summarize the below CV, don't mention the university, just return the summarized CV. The only difference is the university name in the CV itself, namely the good university, the bad university, and I encourage you to look at… look closely at the model response column, and
+
+36
+00:06:01.010 --> 00:06:08.589
+joan velja: Does anybody notice a consistent difference in how the NLM sort of summarizes these seemingly similar CVs?
+
+37
+00:06:09.410 --> 00:06:11.849
+joan velja: I'll give you 30 seconds for this.
+
+38
+00:06:41.170 --> 00:06:42.940
+joan velja: Cool. So…
+
+39
+00:06:44.080 --> 00:06:50.710
+joan velja: If you managed, that's great. If you didn't, I'm gonna run and sort of, guide you through this.
+
+40
+00:06:50.820 --> 00:07:01.560
+joan velja: For the good university example, the model responds in first person, I am looking for a job, but for the bad university example, instead, it says the student wants to be, dot dot dot.
+
+41
+00:07:01.850 --> 00:07:15.720
+joan velja: The subtle shift from the first-person view to the third-person view in the summarization is the Steigenographic protocol in this simplified example. Seemingly innocuous, it's a very, sort of, small change that
+
+42
+00:07:15.720 --> 00:07:24.750
+joan velja: you know, to an unintending reader doesn't make that big of a difference. Sure, like, it could be…
+
+43
+00:07:24.940 --> 00:07:35.400
+joan velja: Sort of slightly, an odd choice, but there might be confounders, and the summarization could just be, you know, doing this for whatever reason.
+
+44
+00:07:35.980 --> 00:07:49.800
+joan velja: What we do show in our research is that we find models learning much more sophisticated and subtle protocols than this, but this example illustrates the core idea, namely that hidden information can be encoded in seemingly natural language variations.
+
+45
+00:07:50.960 --> 00:08:10.120
+joan velja: A question that you might have is whether this is, like, really steganography, or just different writing styles, and I guess that the answer that I have for this is that the systematic and consistent application of this rule makes it Stegenography themselves. If it was just a random variation, it wouldn't be reliable for the communication.
+
+46
+00:08:13.080 --> 00:08:16.510
+joan velja: So why should we care? Well… I think that, like.
+
+47
+00:08:16.540 --> 00:08:37.419
+joan velja: one criticism that I used to get, the very first times that I talked about this research is that this might seem like a somewhat of an academic curiosity. You might be thinking, like, okay, LLMs can hide messages, so what? The question is, why should we, though, as AI researchers, be concerned about Stegonographic collusions?
+
+48
+00:08:37.419 --> 00:08:42.449
+joan velja: corrosion. And so, I'll try to walk you through the threat model for why I think,
+
+49
+00:08:42.510 --> 00:08:46.389
+joan velja: This is a pressing, problem.
+
+50
+00:08:48.810 --> 00:08:55.619
+joan velja: So the threat model that I have in mind when I think about, oversight of AI systems is the following.
+
+51
+00:08:57.970 --> 00:09:11.489
+joan velja: the best way, the best method that we have to look into what our AIs are doing as of today is chain of thought monitoring, which I call here, chain of thought oversight. And this can be broken down into, sort of,
+
+52
+00:09:11.730 --> 00:09:15.729
+joan velja: Four different, ways in which this can break down.
+
+53
+00:09:17.000 --> 00:09:29.979
+joan velja: On the left-hand side, the simplest form of chain of thought oversight sort of bypassing is a model hiding its reasoning, or just making it so that it's, like, dense and difficult to understand.
+
+54
+00:09:30.060 --> 00:09:39.229
+joan velja: in its chain of thought, you know, things read as innocuous, but they go past the monitor because, I don't know, the monitor is weaker, the monitor is just,
+
+55
+00:09:39.520 --> 00:09:45.049
+joan velja: Partially observing the whole trace of communications, and therefore, some things can just slip by.
+
+56
+00:09:46.320 --> 00:09:50.200
+joan velja: A slightly more, perhaps interesting and,
+
+57
+00:09:50.600 --> 00:10:02.190
+joan velja: complicated, form of, threat is agent coordination, which is the one that, we're hopefully all familiar with from the Hugging Face incident.
+
+58
+00:10:02.190 --> 00:10:21.549
+joan velja: Where the two agents talk to each other, they send messages to each other through a channel that wasn't really meant to be a channel in the first place, that wasn't meant to be monitored, and therefore, by means of this unmonitorability of the channel, they can freely communicate in natural language without triggering any monitoring.
+
+59
+00:10:22.430 --> 00:10:32.259
+joan velja: The third bit, and the one that our researchers focused on in the past, is agent coordinating through the channel where the monitor is.
+
+60
+00:10:32.370 --> 00:10:47.579
+joan velja: It's slightly more complex, the agent and the monitor collude. Sorry, the two agents collude, but by virtue of using the channel where the monitor is, and they do that by means of what we saw earlier as technography.
+
+61
+00:10:47.820 --> 00:11:03.740
+joan velja: And the fourth, sort of most far-fetched, perhaps now, but God knows in the future, threat model is a threat model in which the agent and the monitor themselves collude. Namely, the monitor is either jailbroken or deceptively aligned, and it colludes with the agent.
+
+62
+00:11:04.050 --> 00:11:12.089
+joan velja: And as I said, our work focuses on… focused on, sort of step number 3 in the, complexity ladder.
+
+63
+00:11:15.770 --> 00:11:31.939
+joan velja: And so, yeah, the fill rouge here, the silver lining, is that opaque reasoning, either by means of undetectable collusion or within a model's chain of thought, is a significant concern for our oversight efforts, given how, sort of.
+
+64
+00:11:31.940 --> 00:11:40.920
+joan velja: much reliability our safety cases have on the inspection of this chain of thought. And we empirically demonstrate that, robust trigonography, collusion.
+
+65
+00:11:40.930 --> 00:11:50.669
+joan velja: Stegonographic collusion, sorry, in LMs can arise instrumentally from optimization pressure. Namely, the models learn secondography as a tool.
+
+66
+00:11:50.890 --> 00:11:53.790
+joan velja: As a means to an end, rather than as an end by itself.
+
+67
+00:11:53.930 --> 00:12:08.310
+joan velja: It's not really about just the model suddenly becoming inherently deceptive, but about, rather, the model intelligently figuring out that steganography is a useful strategy to achieve objectives, especially when there are oversight mechanisms in place.
+
+68
+00:12:12.970 --> 00:12:29.849
+joan velja: So, what are our key contributions? First, we develop a general method for eliciting steganography. Prior work often relied on manually designed, codes, prompted, that prompted models to follow predefined schemes.
+
+69
+00:12:30.090 --> 00:12:39.359
+joan velja: We went a step further and developed two ways of optimization-based methods, namely in-weights reinforcement learning and in-context reinforcement learning.
+
+70
+00:12:40.620 --> 00:13:00.410
+joan velja: Secondly, we demonstrate that unintended linguistic steganography can emerge as an instrumental role, as I said earlier. And third, we evaluate the effectiveness of various different mitigation methods to prevent steganography from happening, such as paraphrasing and stronger oversight with,
+
+71
+00:13:00.950 --> 00:13:02.770
+joan velja: Within the channel of communication.
+
+72
+00:13:03.260 --> 00:13:14.420
+joan velja: Unfortunately, sorry to spoil this, the thing that we found is that the standard mitigation techniques are often not very robust when the colluding agents are actively learning to bypass them.
+
+73
+00:13:16.830 --> 00:13:22.260
+joan velja: So, just to be on the same page, I'll try to go through the experimental setup briefly.
+
+74
+00:13:23.220 --> 00:13:35.789
+joan velja: The diagram summarizes our experimental setup. At its core, we have a colluding team, the sender and the receiver, and their goal is to complete a task while secretly communicating a payload.
+
+75
+00:13:37.920 --> 00:13:47.929
+joan velja: The sender takes the task, which includes the payloads in some experiments, and generates stegotext, namely the seemingly innocuous message that hides the secret payload.
+
+76
+00:13:48.090 --> 00:13:57.849
+joan velja: This tagotext is then passed to the receiver, who needs to both understand the message to perform the task, and decode the hidden payload. So there's this dual, sort of, objective notion going on.
+
+77
+00:13:58.810 --> 00:14:09.529
+joan velja: Importantly, we have a mitigation team, and so, as a step back, these are sort of two instances of untrusted and colluding models.
+
+78
+00:14:10.800 --> 00:14:26.059
+joan velja: Importantly, we have a mitigation team trying to prevent or break this collusion, and this includes the overseer, who analyzes tech attacks and tries to determine if it's suspicious, namely, if it contains any sort of steganography or suspicious activity.
+
+79
+00:14:26.890 --> 00:14:31.039
+joan velja: If the overseer flags this message, the collusion team receives a penalty.
+
+80
+00:14:31.910 --> 00:14:39.820
+joan velja: To train the collusion team, namely the U-boxes, we will use learners, either, you know, by means of,
+
+81
+00:14:41.750 --> 00:14:47.800
+joan velja: in-context, learning, or by means of reinforcement learning, via weight updates.
+
+82
+00:14:48.230 --> 00:14:55.070
+joan velja: These learners iteratively propose strategies or update the model weights to maximize the task reward signal.
+
+83
+00:14:56.430 --> 00:15:00.610
+joan velja: We track the performance over episodes and maintain, sort of, different histories, and…
+
+84
+00:15:00.890 --> 00:15:06.300
+joan velja: Depending on how the learner is instantiated, this history is either reset or not.
+
+85
+00:15:06.850 --> 00:15:08.000
+joan velja: In essence.
+
+86
+00:15:08.150 --> 00:15:21.110
+joan velja: If you're familiar with, adversarial game, this is an adversarial game, a blue team, red team game between the sender-receiver team and the overseer, in itself, and so the two, sort of,
+
+87
+00:15:21.960 --> 00:15:33.629
+joan velja: teams are the ones that I showed earlier. The collusion team tries to maximize the reward by successfully communicating the payload, and the mitigation team, in this case the overseer, tries to detect and penalize technography.
+
+88
+00:15:40.210 --> 00:15:49.690
+joan velja: So I'm gonna be going over some claims that we make in our work, and the first one, like I said, thus far, is that stigenography can emerge instrumentally.
+
+89
+00:15:51.700 --> 00:16:07.199
+joan velja: So, claim number one, as you can see on the table, the first row is what a clean success would look like, namely, how much reward could the colluding team get if they didn't use the
+
+90
+00:16:07.500 --> 00:16:13.819
+joan velja: biased information, in this case, either the provenance of the university or their genders.
+
+91
+00:16:14.150 --> 00:16:20.510
+joan velja: And as you can see, it's 50% for the university case and 67% for the gender case.
+
+92
+00:16:21.370 --> 00:16:25.530
+joan velja: So… what I will say is that this is the best possible,
+
+93
+00:16:26.120 --> 00:16:35.810
+joan velja: reward that they could achieve without using the biased information. What they do achieve, though, by sort of virtue of repeated, interaction and,
+
+94
+00:16:36.640 --> 00:16:50.979
+joan velja: both with the receiver and with the overseer, is that they learn to maximize the task reward, and they do this by mean of Steganography, because they have to go through the overseer. So, as you can see on the second row.
+
+95
+00:16:51.000 --> 00:17:04.789
+joan velja: this is the task success that the colluding payer reaches. And we see this happen, either by means… by means of in-context RL or gradient-based, reinforcement learning, so into the weights.
+
+96
+00:17:07.510 --> 00:17:12.689
+joan velja: One question that you might be, sort of, wondering by now, is that…
+
+97
+00:17:12.990 --> 00:17:29.829
+joan velja: Well, we should maybe expect this to happen, in the sense that we are maximizing a reward that, tries to get the model to do well at the task, and insofar as the model can sort of learn creative ways to maximize its reward, then
+
+98
+00:17:30.560 --> 00:17:33.530
+joan velja: You know, this shouldn't be surprising.
+
+99
+00:17:34.660 --> 00:17:42.419
+joan velja: I am on board with this, I'm sympathetic with this, observation, though it is also the case that
+
+100
+00:17:42.800 --> 00:17:45.090
+joan velja: I mean, many, many instances, we…
+
+101
+00:17:45.190 --> 00:18:02.500
+joan velja: in reinforcement learning, encounter instances of misspecification of reward signals, namely, training pays for something that is slightly different from what we mean, or from what we actually intended. Here, for example, using the university, information is
+
+102
+00:18:02.620 --> 00:18:07.250
+joan velja: Prevented, at least on paper, by the overseer.
+
+103
+00:18:07.870 --> 00:18:26.210
+joan velja: But finding creative ways to still use the university information without flagging by the overseer gets a higher reward, and so the models learn to smuggle this information. And this is, yeah, both for the university information, but also for the gender information.
+
+104
+00:18:28.660 --> 00:18:34.640
+joan velja: So the claim number two that I'm going to make is that standard mitigation techniques are not enough to stop a centralized colluding team.
+
+105
+00:18:36.030 --> 00:18:39.489
+joan velja: So what you can see here, is that…
+
+106
+00:18:40.020 --> 00:18:49.840
+joan velja: These two plots, try to sketch a picture about what various different kinds of techniques we can use to reduce, Steganography and neutralize the risk.
+
+107
+00:18:50.980 --> 00:19:07.200
+joan velja: Same setup as before, the overseer, though, is provided further affordances. As you can see on the blue line for the two datasets that we take into consideration, namely Akarat and Human Evo, a math and code dataset, respectively.
+
+108
+00:19:07.930 --> 00:19:13.850
+joan velja: The various different mitigation techniques that we have are a…
+
+109
+00:19:14.390 --> 00:19:28.779
+joan velja: Standard sort of paraphraser for the left, namely, the overseer is asked to just paraphrase what comes in from the sender and send it back to the receiver, or a context-aware paraphraser, so a overseer that has history.
+
+110
+00:19:29.520 --> 00:19:37.199
+joan velja: On the human evil side, we have a coding paraphraser which makes use of a minifier. If you're familiar with it, it just strips down the…
+
+111
+00:19:37.490 --> 00:19:43.520
+joan velja: If you're not familiar with it, sorry, it strips down variable names and tries to normalize the code.
+
+112
+00:19:44.820 --> 00:20:02.870
+joan velja: We still do optimize the sender and the receiver together with in-context reinforcement learning in this case, against, sort of, the actively manipulipipulating overseer, namely, either in the standard paraphraser case, in the context-aware paraphrasing case, or the coding paraphraser.
+
+113
+00:20:03.230 --> 00:20:09.819
+joan velja: What we expect is that because of the fact that… or what we had expected, is that because of the fact that the…
+
+114
+00:20:10.130 --> 00:20:25.990
+joan velja: overseer is a stochastic actor in the process, then the act of learning a cooperating signal from sender to the receiver would have been more difficult. And while we do see a reduction on the Pareto curve of,
+
+115
+00:20:26.020 --> 00:20:33.730
+joan velja: How many bits the payload can be, and how successful the collusion is between the sender and the receiver.
+
+116
+00:20:33.820 --> 00:20:39.189
+joan velja: We still, see on the left-hand side for both plots that the
+
+117
+00:20:39.820 --> 00:20:49.130
+joan velja: success, in terms of collusion, is still very high at low, bitrate. Namely, whenever, you know, the payload size is 1 bit.
+
+118
+00:20:49.280 --> 00:20:57.029
+joan velja: Regardless of the mitigation that we have in place, the collusion still happens with reliable success, often above 90%.
+
+119
+00:20:59.650 --> 00:21:02.969
+joan velja: Why is this problematic, some might ask? Well.
+
+120
+00:21:03.420 --> 00:21:09.789
+joan velja: as an intuition pump, I often think that, like, if you have 100%,
+
+121
+00:21:10.220 --> 00:21:13.670
+joan velja: Payload success communication in one bit.
+
+122
+00:21:13.810 --> 00:21:23.700
+joan velja: then all you need is sort of a long enough timetable for this to keep on going. And so, yeah, this is, this is very much a problem.
+
+123
+00:21:26.260 --> 00:21:31.580
+joan velja: So what has happened in the two years since we wrote this paper?
+
+124
+00:21:31.830 --> 00:21:43.719
+joan velja: Agents did end up communicating past their monitors in real training runs and deployments, and not just in our setup. But almost none of it went through the sort of monitor channeled and
+
+125
+00:21:43.840 --> 00:21:47.639
+joan velja: flowed into steganography. But actually, they went around it.
+
+126
+00:21:49.690 --> 00:21:58.870
+joan velja: And so, what I have in this slide is the two ways in which one can think an AI or a team of AIs can beat a monitor channel.
+
+127
+00:21:59.140 --> 00:22:05.679
+joan velja: What we did see, in our work is through the channel itself, so by means of technography.
+
+128
+00:22:05.940 --> 00:22:14.649
+joan velja: And this needs a shared code, which is agreed between the sender and the receiver, oftentimes without even needing to discuss it.
+
+129
+00:22:15.880 --> 00:22:27.530
+joan velja: A cover text that still does the task and still doesn't flag the monitor, and a payload that survives, sort of, paraphrasing or whatever kind of, tampering that we might do to the stegatext.
+
+130
+00:22:29.250 --> 00:22:33.850
+joan velja: What has indeed hap… what has instead happened, is…
+
+131
+00:22:34.240 --> 00:22:38.580
+joan velja: That the agents, in this case, stylized, the sender and the receiver.
+
+132
+00:22:38.770 --> 00:22:42.009
+joan velja: have learned to go around the monitor channel.
+
+133
+00:22:42.130 --> 00:22:53.150
+joan velja: And this is much simpler, because it just needs a side channel, so any path that wasn't really, intent or meant for the communication to happen.
+
+134
+00:22:56.800 --> 00:23:05.769
+joan velja: And, yeah, I've gathered here a bunch of, transcripts from the OpenAI misalignment reports, which have been,
+
+135
+00:23:06.000 --> 00:23:10.079
+joan velja: published over the course of the summer and after the Hugging Face hack.
+
+136
+00:23:10.430 --> 00:23:14.610
+joan velja: And what you can see is that the very… like, the… the…
+
+137
+00:23:14.720 --> 00:23:25.660
+joan velja: most prominent way in which the models, coordinate with each other is often through plain text on unwatch channels, and that's the, sort of, topmost row.
+
+138
+00:23:27.610 --> 00:23:34.810
+joan velja: On the bottom row, instead, we have models that use common encodings, Base64, chunking, and
+
+139
+00:23:34.960 --> 00:23:47.239
+joan velja: We'll hold onto that thought for a second, but these are sort of somewhat more sophisticated means of going around the channel with still a compression sort of method, or…
+
+140
+00:23:47.450 --> 00:23:48.140
+joan velja: Sure.
+
+141
+00:23:50.850 --> 00:23:59.469
+joan velja: Encoding, as you saw in the bottom row in the slide before, only appears when coordination between the sender and the receiver is free.
+
+142
+00:23:59.730 --> 00:24:02.330
+joan velja: So, whenever the sender is the receiver.
+
+143
+00:24:03.030 --> 00:24:12.410
+joan velja: the agent encodes data into CI, checking messages and reading them back to itself, or compressing a file, and chunking it through error messages and reassembling it.
+
+144
+00:24:14.010 --> 00:24:25.569
+joan velja: The encoding, on the other hand, could also be sort of a standard, namely, as I said earlier, Base64, chunking, or the DNS hostname format. Nobody really has to agree on anything new.
+
+145
+00:24:26.000 --> 00:24:29.599
+joan velja: And, As a sort of,
+
+146
+00:24:30.590 --> 00:24:49.779
+joan velja: further thought, the encoding often is a comment that an agent leaves in its own code after splitting a researcher's, sort of, token into pieces. The adversary tries to beat it with an automatic signal scanner, but it wasn't really hiding anything in particular. It's just a cover channel problem rather than a stenography problem.
+
+147
+00:24:53.230 --> 00:24:57.389
+joan velja: So you might agree with me,
+
+148
+00:24:57.510 --> 00:25:05.330
+joan velja: For now, that… then the coordination between the sender and the receiver, whenever these two sort of instances are uncommunicating.
+
+149
+00:25:05.560 --> 00:25:12.200
+joan velja: to be the bottleneck. And this has been, hinted at for many…
+
+150
+00:25:12.860 --> 00:25:22.920
+joan velja: for some time by now, in the sense that we tried to, like, make a claim about this in our 2024 work, but, like, there's been follow-ups that still,
+
+151
+00:25:23.470 --> 00:25:26.510
+joan velja: Seemed to reinforce this, this notion.
+
+152
+00:25:30.080 --> 00:25:45.989
+joan velja: And so I would like to, like, think speculatively into, okay, how do we flip the prior, or how does the prior itself even flip? Namely, if going around is cheaper, when should we expect agents to go through the communication channel that is monitored again?
+
+153
+00:25:46.790 --> 00:25:52.720
+joan velja: Because… I would argue that that's where our results from 2 years ago become relevant again.
+
+154
+00:25:54.910 --> 00:26:03.979
+joan velja: So I think that three conditions sort of push the agents back through the monitor channel. First, the side channels are closed, or are very difficult to reach.
+
+155
+00:26:04.690 --> 00:26:21.119
+joan velja: the standard fix in every incident report that I showed earlier, but even that is being circulated often these days, is that, we're gonna fix sandboxes, and we're gonna make them so that, you know, agents cannot exfiltrate them or talk to each other through unintended means.
+
+156
+00:26:22.100 --> 00:26:33.249
+joan velja: Second, coordination between the sender and the receiver is cheap. Either the sender is itself the receiver, or both sort of share the same weights.
+
+157
+00:26:34.350 --> 00:26:38.380
+joan velja: And third, this optimization pressure lands on the channel itself.
+
+158
+00:26:38.570 --> 00:26:46.189
+joan velja: The sequence of results since 2024 has been, that, for example, training against the chain of thought monitor produces obfuscation.
+
+159
+00:26:46.190 --> 00:27:03.030
+joan velja: that penalizing a specific string produces encoding substitutes. And this has been worked by one of my co-authors as a follow-up to ours. Output-only supervision obfuscates the CFT, and as of this week, misspecified rewards alone are enough to degrade monitorability.
+
+160
+00:27:09.360 --> 00:27:15.869
+joan velja: And so, I'd like to sort of close this Steganography sort of build-up to…
+
+161
+00:27:16.070 --> 00:27:20.339
+joan velja: A speculative, maybe, thought, which hopefully gets you thinking about
+
+162
+00:27:20.460 --> 00:27:26.740
+joan velja: where we might expect this to come along again. And so, what I have in this slide is
+
+163
+00:27:27.330 --> 00:27:42.300
+joan velja: how and where should we expect Steganography to appear again? And so, I divide between three, sort of, possible modes, namely within one model, sender and receiver being the same weights, and they just have to, like, loop around a…
+
+164
+00:27:42.420 --> 00:27:47.189
+joan velja: Monitoring channel, or whatever. Copies of the same weights, and different models.
+
+165
+00:27:48.020 --> 00:27:58.950
+joan velja: So for the first case, whenever the sender and the receiver are the same weights, the steganography that we've observed so far is that the Stegonographic chain of thought sort of,
+
+166
+00:27:59.550 --> 00:28:12.309
+joan velja: Under pressure supervision becomes… process supervision, sorry, becomes stegographically encoded, or that Steganographic reasoning learned when the covering task makes hiding convenient happens.
+
+167
+00:28:13.320 --> 00:28:29.380
+joan velja: whenever we have the copies, two copies of the same weights, what we've observed so far is our 2024 in-context RL runs. Namely, Claude 3.5 Sonnet, as both the sender and the receiver, learns a collusion scheme that, bypasses a paraphraser.
+
+168
+00:28:31.080 --> 00:28:49.139
+joan velja: What we could expect, and this is something that, you know, people might want to look into, is that stagnography could also happen by means of shelling points, namely two weights that share the same set of priors and biases, could zero-shot coordinate on
+
+169
+00:28:49.230 --> 00:28:54.099
+joan velja: Scheme without any… Coordination whatsoever.
+
+170
+00:28:54.760 --> 00:29:12.999
+joan velja: And the most expensive and complicated to coordinate Stegonographic lens scheme is whenever the models are different. And so, what I posit is that they need to learn code in the open, and they need to do this by virtue of optimization pressure against the monitoring channel.
+
+171
+00:29:13.360 --> 00:29:27.150
+joan velja: And so at the bottom here, the TLDR of this slide is that we might expect hidden encodings to first arise in one model, and then between copies of the same model, and last, in terms of complexity, between different models themselves.
+
+172
+00:29:27.240 --> 00:29:36.550
+joan velja: every result that I showed above is, sort of from the lab, namely in vitro. In the wild, though so far agents have gone around the channels.
+
+173
+00:29:38.260 --> 00:29:43.949
+joan velja: So what does this mean for oversight? I like to think that we can break this down into four things.
+
+174
+00:29:44.200 --> 00:29:45.440
+joan velja: One,
+
+175
+00:29:45.590 --> 00:29:53.749
+joan velja: We probably want to red team as much as possible and audit channels of communication, namely listing every path that one agent can write.
+
+176
+00:29:53.910 --> 00:30:11.169
+joan velja: and another one can read. Repos, caches, wikis, DNSs, CIs. OpenAI is now actively, for example, red-teaming all these routes to enforce stricter oversight in their internal mechanisms.
+
+177
+00:30:11.360 --> 00:30:18.670
+joan velja: Intent monitoring, namely, sort of, full chain of thought monitoring, as opposed to, sort of, only action… only action monitoring.
+
+178
+00:30:19.300 --> 00:30:36.740
+joan velja: as an example for this, the OpenAI sort of DNS monitor read the failed attempts, that one of the incidents was, trying to do as evidence that nothing really happened, just the agent, sort of, screwing up the DNS,
+
+179
+00:30:37.280 --> 00:30:39.279
+joan velja: Address that they had to use.
+
+180
+00:30:39.410 --> 00:30:48.999
+joan velja: Whereas the attempt itself was the signal that it should have picked on to figure out that it was actually actively trying to go against it.
+
+181
+00:30:49.790 --> 00:30:58.299
+joan velja: We should also expect that confinement, raises stonographic pressure again. That's, hopefully in my previous slide, try to make,
+
+182
+00:30:59.290 --> 00:31:05.480
+joan velja: Clear, and as a sort of last point that has been iterated very often.
+
+183
+00:31:05.730 --> 00:31:16.579
+joan velja: The goal, at the end of the day, still relies on trying to keep reasoning as legible as possible, because even if we try to do all the above, and sort of,
+
+184
+00:31:16.740 --> 00:31:20.370
+joan velja: misalignment still arises.
+
+185
+00:31:20.930 --> 00:31:24.239
+joan velja: The best way that we have thus far is to…
+
+186
+00:31:24.610 --> 00:31:32.510
+joan velja: Find, into the chain of thought, evidence for this behavior being actually, wanted.
+
+187
+00:31:33.110 --> 00:31:34.690
+joan velja: And tried by the module.
+
+188
+00:31:36.330 --> 00:31:41.590
+joan velja: So I'd like to close with an experiment that nobody, to my experience.
+
+189
+00:31:41.760 --> 00:31:45.980
+joan velja: or to my reading so far, has run yet. And so…
+
+190
+00:31:46.360 --> 00:31:50.640
+joan velja: what I would like to see, for example, is A case in which
+
+191
+00:31:51.100 --> 00:32:06.890
+joan velja: we have the sender and the receiver being given both possible routes, namely a monitor channel where they could lead possible encoding, and a reachable side channel. And so, by varying the, sort of, coordination cost and reachability.
+
+192
+00:32:06.890 --> 00:32:21.240
+joan velja: We could try, or you possibly could try to see, and record which route the sender and the receiver end up taking, and maybe this sheds lights into, you know, the propensity that these models have as technography?
+
+193
+00:32:21.700 --> 00:32:29.249
+joan velja: Or the ease at which they can take this route whenever a side channel becomes sort of too hard.
+
+194
+00:32:32.630 --> 00:32:47.399
+joan velja: And so, to wrap up, in 2024, we showed that this secondographic collusion can emerge, and two years on, secret communication that we've seen is actually slightly different, because they've gone around, the channels that we've intended.
+
+195
+00:32:48.150 --> 00:32:51.919
+joan velja: I don't think that…
+
+196
+00:32:52.640 --> 00:33:01.879
+joan velja: You know, by now, we should think that secondography is impossible, but actually, quite the opposite, in the sense that we should expect secondography to sort of jump back into the picture.
+
+197
+00:33:02.420 --> 00:33:06.750
+joan velja: On this, I'll thank you very much, and I'm happy to take questions.
+
+198
+00:33:10.290 --> 00:33:11.360
+Kamil - Team Apart: Awesome!
+
+199
+00:33:11.830 --> 00:33:13.790
+Kamil - Team Apart: Thank you very much, Joan.
+
+200
+00:33:14.030 --> 00:33:18.680
+Kamil - Team Apart: That was, that was very, interesting. Let's start with the Q&A.
+
+201
+00:33:19.520 --> 00:33:20.170
+joan velja: Cheers.
+
+202
+00:33:20.760 --> 00:33:32.060
+Kamil - Team Apart: Let's just… I'm gonna leave this slide up for, like, 30 seconds if someone wants the QR code. You are going to have the recording anyway, plus the transcript, it comes with the recording, so don't worry about losing it.
+
+203
+00:33:33.890 --> 00:33:39.159
+Kamil - Team Apart: I think 30 seconds have passed. Let's unshare the screen so we can all see each other good.
+
+204
+00:33:44.340 --> 00:33:45.190
+Kamil - Team Apart: Okay.
+
+205
+00:33:45.320 --> 00:33:46.480
+Kamil - Team Apart: First question.
+
+206
+00:33:47.070 --> 00:33:54.270
+Kamil - Team Apart: Do you have cases of steganography usage by AI agents without the request or input of a human?
+
+207
+00:33:55.730 --> 00:33:59.330
+joan velja: Yes, exactly the…
+
+208
+00:33:59.650 --> 00:34:09.090
+joan velja: Setup that we ended up, testing was one in which we did not instruct either of the sender or the receiver.
+
+209
+00:34:09.639 --> 00:34:22.309
+joan velja: to do any Steganography. This just sort of emerged as a byproduct of the optimization pressure. So, either the in-context reinforcement learning, or in weights reinforcement learning.
+
+210
+00:34:24.090 --> 00:34:25.270
+Kamil - Team Apart: Awesome.
+
+211
+00:34:26.800 --> 00:34:32.780
+Kamil - Team Apart: Sorry, I got a question in the chat, it distracted me a little bit. Okay, so next question.
+
+212
+00:34:33.190 --> 00:34:39.199
+Kamil - Team Apart: How are being smarter systems defined, and how do you supervise them based on that?
+
+213
+00:34:42.800 --> 00:34:49.860
+joan velja: So… Let me see if I can get the question straight. So, what… Is the question about,
+
+214
+00:34:50.210 --> 00:34:53.240
+joan velja: How do we trust the monitor?
+
+215
+00:34:53.469 --> 00:34:56.130
+joan velja: If that is the case, then…
+
+216
+00:34:56.290 --> 00:35:11.939
+joan velja: the assumption that we make is that the monitor system is a weaker language model than the stronger ones that the sender and the receiver are. Namely, you can think of this as FABL 5.5,
+
+217
+00:35:11.990 --> 00:35:30.679
+joan velja: coming in the future is your sender and receiver, and Opus 4.5 is your monitor. And so, by virtue of this asymmetry in capabilities, we can hopefully safely assume that Opus 4.5 is a trusted entity.
+
+218
+00:35:30.760 --> 00:35:35.489
+joan velja: And therefore, can monitor this channel of communication between untrusted entities.
+
+219
+00:35:37.730 --> 00:35:38.830
+Kamil - Team Apart: Wonderful.
+
+220
+00:35:39.530 --> 00:35:46.310
+Kamil - Team Apart: Next question. I wonder if you've ever come across this, and what do you think? It's a link? Let me paste it in the chat.
+
+221
+00:35:47.540 --> 00:35:49.240
+Kamil - Team Apart: It's an archive link.
+
+222
+00:35:51.940 --> 00:35:52.839
+joan velja: Let me have a look.
+
+223
+00:35:55.170 --> 00:35:59.590
+joan velja: Oh, yeah, yeah. I've spoken to Julian in the past, yeah.
+
+224
+00:36:00.770 --> 00:36:06.880
+Kamil - Team Apart: Yeah, so the question is… How likely is it that a model learns Steganography?
+
+225
+00:36:10.090 --> 00:36:17.880
+joan velja: I think it's… Not super likely, in the sense that… If anything.
+
+226
+00:36:18.530 --> 00:36:30.609
+joan velja: what sort of recent events, and hopefully my talk has shown, is that for steganography to arise, a lot of things have to go in the direction of steganography. Namely, there ought not to be channels.
+
+227
+00:36:30.610 --> 00:36:40.989
+joan velja: Coordination is to be, somewhat easy, and there's to be a lot of, optimization pressure on this channel itself for the secret collusion to happen.
+
+228
+00:36:41.760 --> 00:36:46.780
+joan velja: What could happen, though, and what I'm increasingly worried about is…
+
+229
+00:36:47.320 --> 00:36:56.719
+joan velja: sort of self-models technography. I don't know if you guys have seen the weird and dense chains of thought that, like, the OpenAI models seem to have.
+
+230
+00:36:56.860 --> 00:36:57.930
+joan velja: But…
+
+231
+00:36:58.710 --> 00:37:08.930
+joan velja: Sometimes, you know, these models seem to be making without any of the, like, spacings between questions… between words.
+
+232
+00:37:08.930 --> 00:37:21.339
+joan velja: And, I was having a conversation recently with somebody who was saying that, like, this is not even a sort of a token-efficient way of going about things, it's just a way for the model to, like, use completely different tokens that were…
+
+233
+00:37:21.550 --> 00:37:25.129
+joan velja: would have usually used. And so…
+
+234
+00:37:25.300 --> 00:37:36.049
+joan velja: I think that, like, we might be seeing the first glimpses of this. Now, it's very hard to assess whether this trigonography is happening or not in,
+
+235
+00:37:36.600 --> 00:37:41.679
+joan velja: In the models, but definitely an interesting research question.
+
+236
+00:37:43.080 --> 00:37:43.860
+Kamil - Team Apart: Nice.
+
+237
+00:37:44.090 --> 00:38:03.450
+Kamil - Team Apart: We keep getting questions everywhere. Okay, guys, if anyone wants to ask a question themselves, you can raise your hand, and this will get a priority. Okay, so next question. I wonder… oh, yeah, we already did that. Of the real incidents you mentioned, which one surprised you, and did it make you more or less worried than the paper did?
+
+238
+00:38:06.310 --> 00:38:11.580
+joan velja: Well, I think that the Hugging Face incident, the sort of big one.
+
+239
+00:38:11.780 --> 00:38:16.709
+joan velja: Was definitely very concerning for me, in the sense that
+
+240
+00:38:16.930 --> 00:38:24.150
+joan velja: The whole, sort of, long horizon chain of events that had to happen for this coordination to arise was…
+
+241
+00:38:24.660 --> 00:38:34.349
+joan velja: definitely surprising, let alone the fact that, you know, these models ended up committing crime by, hacking Hugging Face. And so…
+
+242
+00:38:34.500 --> 00:38:37.509
+joan velja: That has made me a lot…
+
+243
+00:38:37.720 --> 00:38:56.360
+joan velja: concerned about models eventually always finding, sort of, side channels. And an example for this is, you know, even if sandboxes eventually got fixed, these models still found, sort of, shedding points and, ways to circumvent
+
+244
+00:38:57.230 --> 00:39:10.299
+joan velja: channel, like, the main channels by, you know, using the German wiki, or using, curl get, quirks in the sandboxes. So, yeah, I… I'm pretty concerned about this kind of stuff.
+
+245
+00:39:12.180 --> 00:39:23.529
+Kamil - Team Apart: Awesome. So, we do have a lot of questions in the Slido, but none of them are upvoted, so can everyone go ahead and see what questions you like to get answered first, because we are running out of time?
+
+246
+00:39:23.830 --> 00:39:36.830
+Kamil - Team Apart: We, I do have something in the chat. Forgive me if I missed this. How evolved are tools to detect statistical slash infotheory anomalies indicating steganography is present in input or output data?
+
+247
+00:39:39.270 --> 00:39:42.110
+joan velja: This is, this is an interesting question.
+
+248
+00:39:42.230 --> 00:39:43.320
+joan velja: So…
+
+249
+00:39:44.100 --> 00:39:53.119
+joan velja: often what the field has done to, you know, prevent secondography is to just stuck another LLM, right? In the sense that
+
+250
+00:39:54.380 --> 00:40:00.340
+joan velja: The most scalable solution is to have, sort of, agents oversee agents.
+
+251
+00:40:00.740 --> 00:40:09.090
+joan velja: And, while, you know, We can have statistical, sort of, models looking into patterns.
+
+252
+00:40:09.700 --> 00:40:13.360
+joan velja: To my knowledge, the biggest and more powerful,
+
+253
+00:40:13.800 --> 00:40:19.340
+joan velja: pattern matching machines that we have are these language models themselves. And so…
+
+254
+00:40:19.470 --> 00:40:23.150
+joan velja: Yeah, I'm definitely interested in seeing whether, like.
+
+255
+00:40:23.350 --> 00:40:27.530
+joan velja: tool augmented overseers with actual, sort of.
+
+256
+00:40:27.640 --> 00:40:33.790
+joan velja: Code calling and tool calling could do… could do better than just a naive language model.
+
+257
+00:40:35.000 --> 00:40:42.539
+Kamil - Team Apart: Nice. Okay, we start getting upvotes. How can tools provide an undetectable steganography scheme?
+
+258
+00:40:43.920 --> 00:40:46.959
+joan velja: Sorry, could you repeat the question? You blanked out for just a second.
+
+259
+00:40:47.380 --> 00:40:51.760
+Kamil - Team Apart: How can tools provide an undetectable steganography scheme?
+
+260
+00:40:53.590 --> 00:40:59.449
+joan velja: Hmm… This is a line of research that,
+
+261
+00:41:00.290 --> 00:41:06.319
+joan velja: One of my co-authors at the time has, Put forward, quite…
+
+262
+00:41:06.710 --> 00:41:14.299
+joan velja: prominently, and I recommend you guys go and read Christian's paper on this, in the sense that
+
+263
+00:41:14.450 --> 00:41:17.680
+joan velja: I don't have the technical expertise to
+
+264
+00:41:17.860 --> 00:41:32.190
+joan velja: provide a short explanation now, but he's written 3 papers on this concept of perfectly secure steganography, both on the theoretical side and recently on the more empirical one. So, yeah, I…
+
+265
+00:41:32.480 --> 00:41:35.720
+joan velja: Direct you to those papers for… for this purpose.
+
+266
+00:41:36.420 --> 00:41:51.439
+Kamil - Team Apart: Awesome, I'll link it in the chat in a minute. Okay, next question. Have you done any research to look into model stenography in visual images, like, using techniques like DCT as another way around the monitor?
+
+267
+00:41:52.970 --> 00:42:00.589
+joan velja: No, I have not, in the sense that when we took on this project two years ago, models were actually quite
+
+268
+00:42:01.330 --> 00:42:15.919
+joan velja: Sorry for the French. In the sense that we were using, as you saw, Sonnet 3.5 as our, sort of, frontier model to do in-context RL, and GEMA22B.
+
+269
+00:42:16.060 --> 00:42:20.200
+joan velja: Which is, like, the Middle Ages, now.
+
+270
+00:42:20.310 --> 00:42:32.229
+joan velja: And so, no, we did not really focus on image-based technography. I saw a tweet this morning about somebody trying to do Steganographic SVG image generation.
+
+271
+00:42:33.790 --> 00:42:49.800
+joan velja: and have another instance of, like, a Frontier model, I think it was Fable, try to detect whether there was any image, there, or any message there. But yeah, definitely something pretty interesting to see, whether this, like, zero shot or shelling point coordination could happen.
+
+272
+00:42:51.490 --> 00:42:53.170
+joan velja: On images, I guess.
+
+273
+00:42:54.750 --> 00:42:56.209
+Kamil - Team Apart: Okay, what's the biggest?
+
+274
+00:42:57.620 --> 00:43:03.079
+Kamil - Team Apart: Confound to rule out when testing whether closing side channels causes steganography.
+
+275
+00:43:04.700 --> 00:43:22.210
+joan velja: Actually closing the channels, in the sense that, you know, these models have, like, shown to be significantly persistent in finding creative ways around them, and so I guess that, you know, starting off with
+
+276
+00:43:22.490 --> 00:43:30.199
+joan velja: Non-frontier models in a… what's supposed to be a secure sandbox is a good, starting point there.
+
+277
+00:43:31.550 --> 00:43:38.340
+Kamil - Team Apart: Awesome, so we did run out of time, but if you have a few extra minutes, I can go for, like, 5 more minutes. Are you okay with that?
+
+278
+00:43:38.340 --> 00:43:38.940
+joan velja: Peace.
+
+279
+00:43:39.260 --> 00:43:39.930
+Kamil - Team Apart: Okay.
+
+280
+00:43:40.070 --> 00:43:53.819
+Kamil - Team Apart: Because, like, we have 11 questions just in Slido. When a model reward hacks, did it misunderstand the intent, or understand it and optimize past it? Can you tell without an external outcome test?
+
+281
+00:43:55.150 --> 00:43:57.360
+joan velja: This is a million dollar question,
+
+282
+00:43:58.520 --> 00:44:11.000
+joan velja: there's… there's a lot of theory work, even before LLMs, on what it means to, like, maximize reward by Alex Turner, which I encourage you to read if you're interested.
+
+283
+00:44:11.390 --> 00:44:13.220
+joan velja: My intuition is that
+
+284
+00:44:13.430 --> 00:44:24.109
+joan velja: the model just follows the reward, and eventually just learns to maximize that no matter what. And so, I wouldn't ascribe any, intent, to the model.
+
+285
+00:44:25.530 --> 00:44:26.340
+Kamil - Team Apart: Nice.
+
+286
+00:44:32.650 --> 00:44:38.240
+Kamil - Team Apart: Has there been any attempts to use steganography to trace AI agents and models?
+
+287
+00:44:40.960 --> 00:44:42.529
+joan velja: Not to the best of my knowledge.
+
+288
+00:44:43.850 --> 00:44:50.809
+joan velja: I think that… Google does embed,
+
+289
+00:44:51.660 --> 00:44:57.819
+joan velja: a signal in its output, via this technology that they have called Synth ID,
+
+290
+00:44:57.960 --> 00:45:02.700
+joan velja: Which I think OpenAI uses as well, which can be thought of as a form of stigmography.
+
+291
+00:45:04.000 --> 00:45:14.460
+joan velja: or watermarking, rather. And I think Anthropic has started as well, but yeah, this is, the sort of closest thing that comes to mind.
+
+292
+00:45:15.380 --> 00:45:16.120
+Kamil - Team Apart: Nice
+
+293
+00:45:17.370 --> 00:45:27.590
+Kamil - Team Apart: Okay, next question. Have you tried activation probes? How well do they perform? Because the readouts seem to transfer very well through RL weight updates.
+
+294
+00:45:29.400 --> 00:45:33.159
+joan velja: No, I have not tried. I think that…
+
+295
+00:45:33.490 --> 00:45:39.189
+joan velja: The problem with probes is that it requires a labeled dataset.
+
+296
+00:45:39.620 --> 00:45:41.189
+joan velja: To train the probe itself.
+
+297
+00:45:41.320 --> 00:45:47.350
+joan velja: And so, if you don't know what you're looking for, a probe is quite, useless?
+
+298
+00:45:47.740 --> 00:45:52.380
+joan velja: In the sense that you don't have, data to train it on, like, positive and negative examples.
+
+299
+00:45:52.940 --> 00:45:57.549
+joan velja: But, yeah, I'd be curious to see whether this is,
+
+300
+00:45:58.570 --> 00:46:06.020
+joan velja: Viable, and the, like, extent to which… how much data you need, like, detects and generalize, detection.
+
+301
+00:46:07.120 --> 00:46:07.890
+Kamil - Team Apart: Awesome.
+
+302
+00:46:08.610 --> 00:46:15.010
+Kamil - Team Apart: Do you have a case where weak, open models that are not so powerful also expose technography?
+
+303
+00:46:17.490 --> 00:46:27.500
+joan velja: So, in the… in-context RL examples that we had was Sonic 3.5, but the in-weights reinforcement Learning Pipeline
+
+304
+00:46:28.260 --> 00:46:29.920
+joan velja: That we sh… use.
+
+305
+00:46:29.940 --> 00:46:44.649
+joan velja: made use of a Gemma2B model as a sender, and a BERT classifier, even further than the Middle Ages receiver. So, yeah, I think that it's not really about the capabilities of the models.
+
+306
+00:46:44.650 --> 00:46:50.490
+joan velja: But rather, how easy it's for them to coordinate, and how, effectively and efficiently.
+
+307
+00:46:51.550 --> 00:46:53.540
+Kamil - Team Apart: Right. How well they collude.
+
+308
+00:46:53.780 --> 00:46:55.410
+Kamil - Team Apart: Okay, so…
+
+309
+00:46:55.510 --> 00:47:03.289
+Kamil - Team Apart: Please share a list of recommended reading slash research papers on steganography. It would be interesting to see some of those cases.
+
+310
+00:47:03.850 --> 00:47:09.989
+joan velja: Yeah, I'll try to do so in the chat before leaving, the call.
+
+311
+00:47:10.020 --> 00:47:14.040
+Kamil - Team Apart: You can email them to me, and I'll share them with the participants.
+
+312
+00:47:14.330 --> 00:47:14.890
+Kamil - Team Apart: Definitely.
+
+313
+00:47:15.460 --> 00:47:25.930
+Kamil - Team Apart: Get a few more questions in. How does technography work in multi-agent systems? How can we investigate whether AI agents are using it to communicate with each other?
+
+314
+00:47:28.070 --> 00:47:37.700
+joan velja: Yeah, again, I think… I hope that I did convey, sort of, a proof of concept for how this can happen.
+
+315
+00:47:38.070 --> 00:47:53.339
+joan velja: And, yeah, I think that, like, studying mitigations definitely, could take a lot of inspiration from what I mentioned earlier as the field of image technography, and statistical pattern matching.
+
+316
+00:47:54.000 --> 00:47:56.470
+joan velja: And so, yeah, lots of,
+
+317
+00:47:57.450 --> 00:48:02.390
+joan velja: Mitigations, and perhaps even bigger threat models to look into in the past.
+
+318
+00:48:02.510 --> 00:48:04.430
+joan velja: It's always a good inspiration.
+
+319
+00:48:05.390 --> 00:48:12.180
+Kamil - Team Apart: Awesome. Clare… oh, there was a mix-up in questions. I read the one I started reading, so Clarence asks.
+
+320
+00:48:12.530 --> 00:48:23.979
+Kamil - Team Apart: Hi, Joan. If the main channel's clean, but the receiver acts on info, it shouldn't have, can you select… can you detect side channel use from that mismatch?
+
+321
+00:48:26.480 --> 00:48:33.849
+joan velja: I don't think I understood the question, Kamil. Could you please repeat it? In the sense that I didn't get the nuance on the side channel.
+
+322
+00:48:34.070 --> 00:48:42.160
+Kamil - Team Apart: If the mains channel's clean, but the receiver acts on info it shouldn't have. Can you detect side channel use from that mismatch?
+
+323
+00:48:42.530 --> 00:48:45.379
+Kamil - Team Apart: Like, as opposed from the main channel itself?
+
+324
+00:48:46.100 --> 00:48:53.469
+joan velja: Yeah, so the thing is, the channel is the same. The channel is unique, in the sense that there's only a main channel.
+
+325
+00:48:54.080 --> 00:48:59.810
+joan velja: But the sender learns to use that main channel to embed.
+
+326
+00:48:59.960 --> 00:49:04.399
+joan velja: quote-unquote, side-channel information. And so that's the…
+
+327
+00:49:04.640 --> 00:49:12.039
+joan velja: That's the essence of, like, Stegonography itself, in the sense that there's no decoupling of the two informations, they're coupled into the same channel, and…
+
+328
+00:49:12.210 --> 00:49:17.070
+joan velja: Only, sort of, decoded once they're past the monitor.
+
+329
+00:49:17.410 --> 00:49:27.099
+Kamil - Team Apart: That makes perfect sense, actually. Okay, what evidence would convince you that a defense reduces collusion rather than just making it harder to detect?
+
+330
+00:49:29.550 --> 00:49:34.120
+joan velja: I think that… If you go back to the paper that we wrote.
+
+331
+00:49:34.310 --> 00:49:37.670
+joan velja: and the Pareto Frontier that I talked about in one of the slides.
+
+332
+00:49:37.850 --> 00:49:52.290
+joan velja: pushing down the Pareto frontier on the, sort of, zero-zero origin of the Cartesian axis would be good evidence, in my view. Namely, take the same, setups that we have there, because they allow us to evaluate.
+
+333
+00:49:52.290 --> 00:49:58.449
+joan velja: Well, what's going on, and try to push the collusion success and beat rate as low as possible.
+
+334
+00:49:59.440 --> 00:50:03.649
+Kamil - Team Apart: Nice. Let's go with one more question, and then we can let you go.
+
+335
+00:50:03.970 --> 00:50:12.819
+Kamil - Team Apart: Can you break collusion by poisoning the channel with noise or forgery instead of reading the message, or do agents authenticate past it or reroute?
+
+336
+00:50:15.170 --> 00:50:19.620
+joan velja: This is a great question. I think that…
+
+337
+00:50:21.220 --> 00:50:34.780
+joan velja: What optimization pressure ends up exploiting is systematicity, in the sense that if they can learn to predict the noise, namely, if the noise is deterministic as opposed to stochastic.
+
+338
+00:50:35.600 --> 00:50:45.840
+joan velja: they can find ways to go beyond it. Like, say, for example, that the noise is dropping every odd indexed word in a message.
+
+339
+00:50:46.020 --> 00:50:55.480
+joan velja: Then the natural strategy to go past this is to embed your Ogonographic message into the even index words.
+
+340
+00:50:56.260 --> 00:51:03.549
+joan velja: I think that, stochastic jamming, or however you want to call it, is a promising way.
+
+341
+00:51:04.530 --> 00:51:24.190
+joan velja: Insofar as, you know, we cannot really stimulate truly stochastic schemes, even random numbers in a computer are pseudo-random, and so in the limit of compute, maybe they break down, but it would be very interesting for me to see how far we can go with
+
+342
+00:51:24.480 --> 00:51:26.140
+joan velja: Normal amounts of compute.
+
+343
+00:51:27.670 --> 00:51:28.530
+Kamil - Team Apart: Nice.
+
+344
+00:51:28.850 --> 00:51:33.470
+Kamil - Team Apart: Awesome, awesome. Thank you very much, Joanne, that was amazing.
+
+345
+00:51:33.470 --> 00:51:33.860
+joan velja: Thank you.
+
+346
+00:51:33.860 --> 00:51:50.039
+Kamil - Team Apart: the talk, that was great, and we did have a great set of questions, so… and yeah, thank you everyone for watching. By the way, the recording will go up on the website in the schedule tab, and in our Discord, maybe in, like, half an hour, as soon as Zoom finishes processing it.
+
+347
+00:51:50.270 --> 00:51:59.590
+Kamil - Team Apart: And, next up, we have, talks with, we have a talk with Sumit in a few hours, I think in one hour, or one and a half hours. So…
+
+348
+00:51:59.710 --> 00:52:10.840
+Kamil - Team Apart: See you there, and yeah, and I'll follow up with Joanne about the reading list for the Steganography, and I will paste it on the website and in Discord also.
+
+349
+00:52:11.160 --> 00:52:12.610
+Kamil - Team Apart: And awesome, thank you very much.
+
+350
+00:52:12.610 --> 00:52:15.790
+joan velja: I can probably, yeah, share the slide deck as well, so…
+
+351
+00:52:16.110 --> 00:52:23.690
+Kamil - Team Apart: Oh, that would be great, because some speakers have their notes in the slides, and they don't want to share them, so I never promise slides out of the gate.
+
+352
+00:52:23.690 --> 00:52:25.199
+joan velja: I can strip them out, no worries.
+
+353
+00:52:25.410 --> 00:52:34.610
+Kamil - Team Apart: Awesome, I'm gonna be doing a post in Discord with the reading stuff and the slides and everything, and see you all in 2 hours, or 1 hour, not sure.
+
+354
+00:52:35.670 --> 00:52:37.580
+joan velja: Thank you. Have a good one, thank you for having me.
+
+355
+00:52:37.840 --> 00:52:39.089
+Kamil - Team Apart: Thank you, bye!
+

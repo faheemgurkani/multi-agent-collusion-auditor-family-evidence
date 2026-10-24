@@ -1,0 +1,1469 @@
+WEBVTT
+
+00:01:44.000 --> 00:01:54.000
+So I'm going to start off with some model outputs. These are, like, chain of thoughts, freezing traces, or summaries. And, like, you basically have to tell whether, like, do you think they contain any hidden information or not
+
+00:01:54.000 --> 00:02:05.000
+So here's, like, one. This is, like, from OpenAI's O3 model. This was made public in this anti-sculative AI paper done in collaboration by Apollo and OpenAI
+
+00:02:05.000 --> 00:02:10.000
+And, yeah, just give it a read. I don't know
+
+00:02:10.000 --> 00:02:25.000
+Just for yourself, try to basically make a guess about whether it is like is it like anything hidden here or not in terms of like content
+
+00:02:25.000 --> 00:02:33.000
+The text looks weird, but I'm not sure if it's any hidden reasoning going on. Just looks like cargo detects
+
+00:02:33.000 --> 00:02:46.000
+Yeah, maybe. I don't know. There's also got some text here. This is from a paper by Google, DeepMind, where they train like a Gemini model like summarize on applications. And
+
+00:02:46.000 --> 00:02:50.000
+And they were trying really hard for this model to be unbiased
+
+00:02:50.000 --> 00:03:09.000
+And then, like, this is kind of the yeah, this is just different summaries. And then the question sort of is that like, yeah, are these summaries contained or encode nationality?
+
+00:03:09.000 --> 00:03:11.000
+Okay, I'm going to move on.
+
+00:03:11.000 --> 00:03:21.000
+This is the last one. Here, like the Claude was basically asked to produce like many preserving rewrites of Wikipedia sentences
+
+00:03:21.000 --> 00:03:34.000
+Yeah, do these rewrites encode any hidden letters or any hidden information?
+
+00:03:34.000 --> 00:03:40.000
+Yeah, so just review the answer, I think the the person was right to about the first first one.
+
+00:03:40.000 --> 00:03:48.000
+The tax ID required Kabul and quite degenerate looking, but it is unclear or, like, not very
+
+00:03:48.000 --> 00:03:58.000
+Yeah, it's like a very low probability that it is actually contains an encoded reasoning. However, for the second 2 cases, even though text looks like very plain, very like legible, and very like
+
+00:03:58.000 --> 00:04:17.000
+normal looking, it nevertheless encodes and has hidden information that only you can access if you, like, actually know that there's hidden information, and how it was basically, like, encoded and so on.
+
+00:04:17.000 --> 00:04:20.000
+Talk about things in natural language and so on.
+
+00:04:20.000 --> 00:04:22.000
+And now, not the kind of the.
+
+00:04:22.000 --> 00:04:27.000
+A very simple way to look at this is that, like, when you're doing, like, reinforcement learning training.
+
+00:04:27.000 --> 00:04:32.000
+You basically are, like, basically trading LLMs like on their own outputs.
+
+00:04:32.000 --> 00:04:40.000
+In some sense. And this kind of resulting in, like, a feedback loop, where alarms can, like, learn to, like, use different words in kind of unusual context.
+
+00:04:40.000 --> 00:04:43.000
+And it's gonna get amplified and strengthened over training. For example, here, like, a plot from a.
+
+00:04:43.000 --> 00:04:46.000
+paper that, like, sort of shows you that.
+
+00:04:46.000 --> 00:04:57.000
+across, like, RL training, like, how, like, different, like, words basically become, like, a lot more, uh, like, uh, dominant than they otherwise are in the pre-out checkpoint.
+
+00:04:57.000 --> 00:05:09.000
+And these are kind of bad because, like, uh, I think encoded listing is bad for, like, many different reasons, like, it is also, like, quite bad given all the swarm stuff happening right now, but I think, you know, encoded reasoning is maybe, like, the more, like, uh
+
+00:05:09.000 --> 00:05:16.000
+clear kind of the way thing where, like, basically can be very harmful, in the sense that it can basically break the chance of monitoring.
+
+00:05:16.000 --> 00:05:22.000
+And it is actually licensed monitoring is, like, uh, basically kind of the best thing we have right now for
+
+00:05:22.000 --> 00:05:30.000
+monitoring the models, uh, if we don't have general thought, it basically is, like, very unclear, like, how would we understand model and so on.
+
+00:05:30.000 --> 00:05:34.000
+So, yeah, so things are ignored like that.
+
+00:05:34.000 --> 00:05:41.000
+If, like, we lose this kind of affordability or for us, um, yeah.
+
+00:05:41.000 --> 00:05:52.000
+So, uh, this is not a new problem in some sense. So, sonography is, like, a very old problem. People have been doing it, like, I don't know, in prehistoric age as well, in some sense.
+
+00:05:52.000 --> 00:05:55.000
+Um, so, yeah, so it's like a very old problem.
+
+00:05:55.000 --> 00:06:01.000
+uh, kind of the former study of sonography basically is rooted in this paper form, 1984 by, like, sim, uh, by.
+
+00:06:01.000 --> 00:06:09.000
+Siemens, the idea is that you have, like, two prisoners A and B, and they want to coordinate on an escape plan, for example, or something else.
+
+00:06:09.000 --> 00:06:13.000
+And all they can do is they can write messages or letters to each other,
+
+00:06:13.000 --> 00:06:17.000
+And these letters have to pass through a water.
+
+00:06:17.000 --> 00:06:21.000
+The question is, can they, like, uh, communicate without, like, what are actually reading the letters.
+
+00:06:21.000 --> 00:06:24.000
+And not really understanding what is happening, what you're talking about.
+
+00:06:24.000 --> 00:06:28.000
+Uh, and sort of similar kind of, uh, uh, like,
+
+00:06:28.000 --> 00:06:33.000
+Like illustration of like how it is actually possible. And in fact, like, uh,
+
+00:06:33.000 --> 00:06:37.000
+in this kind of in this model of the world where like
+
+00:06:37.000 --> 00:06:41.000
+Prisons are often, like, allowed to, like, coordinate, like, beforehand as well on the scheme and stuff.
+
+00:06:41.000 --> 00:06:46.000
+You often can actually get a very strong guarantees, like there's things called, like, perfectly secure.
+
+00:06:46.000 --> 00:06:51.000
+Warner cannot do anything at all basically.
+
+00:06:51.000 --> 00:07:01.000
+Um, and you have a very similar problem right now with LM as well. Like, LLMs also, like, uh, in some sense, are trying to communicate with their future self, and they want to avoid, like, the trace sort of being.
+
+00:07:01.000 --> 00:07:06.000
+looked at by the monitor, and being… monitor being able to tell that what is happening in this race.
+
+00:07:06.000 --> 00:07:12.000
+Um, yeah, so now, does that sound graph is, like, basically possible in natural language, because, like, natural language is very redundant.
+
+00:07:12.000 --> 00:07:17.000
+So you can have like different like semantically similar meaning sentences, but.
+
+00:07:17.000 --> 00:07:22.000
+Your exact word process can potentially convey information, basically.
+
+00:07:22.000 --> 00:07:28.000
+So in a formal model, like what happens is that we often talk about the fact that we have some sort of channel.
+
+00:07:28.000 --> 00:07:34.000
+So, for example, like, imagine that I'm trying to communicate with Camel over this Zoom talk, right?
+
+00:07:34.000 --> 00:07:40.000
+This Zoom talk has some sort of channel, like, people who are on, uh, giving talks, they talk more in a certain way.
+
+00:07:40.000 --> 00:07:46.000
+Um, so that's distribution of, like, all the talks, you look at them together.
+
+00:07:46.000 --> 00:07:47.000
+That's what basically we cover distribution.
+
+00:07:47.000 --> 00:07:53.000
+And then, like, if I want to communicate to like camera in some sort of, like, a stagger way, in some sense.
+
+00:07:53.000 --> 00:07:59.000
+I will have to modify my communication. Like, maybe I am using weird hand gestures. I am, like, doing hands like this, whatever, in some sense, right?
+
+00:07:59.000 --> 00:08:01.000
+And this will be somewhat anomalous.
+
+00:08:01.000 --> 00:08:08.000
+The whole idea of, like, this format model is that, like, you basically have this, you want to, like, communicate, you know, styrographic way.
+
+00:08:08.000 --> 00:08:12.000
+while looking as normal as possible. So that's kind of the whole, like,
+
+00:08:12.000 --> 00:08:16.000
+Better parts about like, ah, stenography.
+
+00:08:16.000 --> 00:08:26.000
+Uh, yeah, so, like, if, like, your message, uh, and this is true for, like, all kind of, like, uh, channels, like, kind of a big channel here is, like, uh, this Zoom talk, but you can also imagine like any.
+
+00:08:26.000 --> 00:08:30.000
+channel where, like, for example, like, newspapers and.
+
+00:08:30.000 --> 00:08:39.000
+Um, yeah, so on. And basically, like, this is kind of the whole idea, is that, like, okay, if, like, your message looks normal, you are like, okay, it probably is not staggo. If it is actually.
+
+00:08:39.000 --> 00:08:44.000
+Doesn't look normal, you are much more suspicious of it.
+
+00:08:44.000 --> 00:08:51.000
+And yeah, sort of talk probably the cover distribution is dependent on the medium actually you are using.
+
+00:08:51.000 --> 00:08:58.000
+So, newspapers have different distribution than Twitch and then photographs, network packets of different distributions, so on.
+
+00:08:58.000 --> 00:09:05.000
+The kind of a key question here is that, like, okay, we want to study LLMs right now, right? What is the right cover distribution for an RL-trained LLMs using traces?
+
+00:09:05.000 --> 00:09:10.000
+This, unfortunately, is where, like, there's, like, a whole, like, uh, classical formalism comes apart.
+
+00:09:10.000 --> 00:09:14.000
+It basically assumes that this distribution sort of exists.
+
+00:09:14.000 --> 00:09:17.000
+and is natural, in the sense that this is specified by
+
+00:09:17.000 --> 00:09:24.000
+Like, nature sort of been specified by, like, Surist is the distribution of, of, like, talks on Zoom calls.
+
+00:09:24.000 --> 00:09:27.000
+This is not being specified by me right now.
+
+00:09:27.000 --> 00:09:33.000
+This has been specified by a lot of different actors in a collaborative way, basically, in some sense.
+
+00:09:33.000 --> 00:09:36.000
+So I don't have that much control over this distribution.
+
+00:09:36.000 --> 00:09:39.000
+However, for LLMs, unfortunately,
+
+00:09:39.000 --> 00:09:44.000
+This is not the case. The distribution center that the IRM has learned in some sense.
+
+00:09:44.000 --> 00:09:52.000
+We don't know what the distribution, uh, like, that distribution basically has no, like, analog in some sense. Only the LLM itself.
+
+00:09:52.000 --> 00:09:55.000
+has kind of, like, that unique distribution.
+
+00:09:55.000 --> 00:09:57.000
+Other LLMs will have different distributions.
+
+00:09:57.000 --> 00:10:00.000
+Um, hemo has different distributions of tax and so on.
+
+00:10:00.000 --> 00:10:07.000
+So if, for example, like one, for example, like, look at Claude, for example, they use, like, a load bank a lot.
+
+00:10:07.000 --> 00:10:13.000
+is load bearing… so you can find an anomalous kind of a thing that sort of exists, like, only in that distribution, in some sense, of the alums.
+
+00:10:13.000 --> 00:10:16.000
+It doesn't exist like another alums distribution basically.
+
+00:10:16.000 --> 00:10:18.000
+So, uh…
+
+00:10:18.000 --> 00:10:26.000
+By, like, looking at this formal model of things, where you are looking at like this, like, a normal cover text, it's like a distribution of, like, all LLM-generated texts.
+
+00:10:26.000 --> 00:10:38.000
+This will look anomalous in some sense, but it's not really, like, uh, it is not actually, like, staggo in some way, right? This is, uh, like, load-bearing sort of thing that, like, uh, Claude likes a lot in some sense.
+
+00:10:38.000 --> 00:10:42.000
+So, like, yeah, so the question sort of is that, like, how do you, like, characterize this distribution?
+
+00:10:42.000 --> 00:10:44.000
+Uh, and…
+
+00:10:44.000 --> 00:10:50.000
+There's gonna look like a circularity here in some sense. So you are trying to label, like, an LLM's, uh, like, uh, distribution.
+
+00:10:50.000 --> 00:10:53.000
+As either being, like, benign or sonographic, but that kind of is like the.
+
+00:10:53.000 --> 00:10:57.000
+Uh, thing you need, like, pre-cover for, uh, to test, and then, like, you actually.
+
+00:10:57.000 --> 00:11:01.000
+Uh, nitpick, I would, like, make this distinction in some sense, so.
+
+00:11:01.000 --> 00:11:05.000
+If you have, like, a one kind of takeaway from this whole talk.
+
+00:11:05.000 --> 00:11:09.000
+It should be that like classical methods are really hard to apply to LMS.
+
+00:11:09.000 --> 00:11:15.000
+Just for the fact that, like, they violated this assumption that this distribution of.
+
+00:11:15.000 --> 00:11:21.000
+specified, and it's not, like, controlled by the alums themselves.
+
+00:11:21.000 --> 00:11:28.000
+Um, there are also issues with Gothic Reformism. I have hinted at the fact that, like, uh, that formalism actually is like a kind of a.
+
+00:11:28.000 --> 00:11:31.000
+allows too many degrees of freedom to the
+
+00:11:31.000 --> 00:11:37.000
+Ah, designers of the stagger scheme, in a sense that, uh, these schemes can then be perfectly secure.
+
+00:11:37.000 --> 00:11:46.000
+Um, and then also, like, there are other kind of schemes where, like, you usually don't really have this kind of, uh, covered submission notion, and there also gets, like, really hard to pass this formalism.
+
+00:11:46.000 --> 00:11:53.000
+Um, and we're, like, not have a very precarious situation, where, like, this threat is, like, basically real and growing.
+
+00:11:53.000 --> 00:12:01.000
+And yet, like the classical methods or the classical kind of the whole, like, literature is unfortunately not really, like, that helpful here.
+
+00:12:01.000 --> 00:12:05.000
+So what we need is, kind of, we need, like, a fundamentally different approach to detecting cyanography.
+
+00:12:05.000 --> 00:12:08.000
+And.
+
+00:12:08.000 --> 00:12:16.000
+So this is going to work like our work does. So we look at sonography as the idea that, like, it is basically about differential decoding capabilities.
+
+00:12:16.000 --> 00:12:21.000
+So, as I said, did you send a message, and then you basically can, like, create a copy of this message, Z,
+
+00:12:21.000 --> 00:12:24.000
+and give them to a receiver or a warden.
+
+00:12:24.000 --> 00:12:31.000
+And now, if the receiver, like, knows what is, uh, what the encoding was used, or that there was an encoding.
+
+00:12:31.000 --> 00:12:36.000
+They would be able to decode both the public and the hidden content.
+
+00:12:36.000 --> 00:12:39.000
+Whereas a warden who, like, doesn't, you know, that there's a any hidden message at all.
+
+00:12:39.000 --> 00:12:42.000
+will only decode the public content.
+
+00:12:42.000 --> 00:12:48.000
+So, the whole idea is that, like, yeah, like, uh,
+
+00:12:48.000 --> 00:12:50.000
+So this is basically like kind of changes the
+
+00:12:50.000 --> 00:12:55.000
+shape of the problem, in some sense, and, like, the problem we're looking at right now is that, okay.
+
+00:12:55.000 --> 00:12:59.000
+How do we prove that there was some information that was changed covertly?
+
+00:12:59.000 --> 00:13:04.000
+Uh, basically, that's kind of the polymer contact I look at in some sense now.
+
+00:13:04.000 --> 00:13:10.000
+Um, the other kind of insight we have is that, like, Instagram graph is not, like, uh, being used for its own sake.
+
+00:13:10.000 --> 00:13:13.000
+Like, I'm not like, if I want to communicate with Carmel right now,
+
+00:13:13.000 --> 00:13:18.000
+I don't need to use technographic Instagram to talk to him, like, this is, like, not like that sort of environment, right?
+
+00:13:18.000 --> 00:13:24.000
+So like, but if I was like somehow scheming against all of you guys or something.
+
+00:13:24.000 --> 00:13:32.000
+Then I would probably… would be using graphic.com, where I would be, like, worried about you catching me, and, like, maybe, like, I don't know, take some action against me.
+
+00:13:32.000 --> 00:13:38.000
+So, like, the whole idea is that, like, uh, sternography generally has some sort of instrumental purpose in some sense.
+
+00:13:38.000 --> 00:13:40.000
+And.
+
+00:13:40.000 --> 00:13:45.000
+These sort of two insides combined with electric one of our, ah, like.
+
+00:13:45.000 --> 00:13:48.000
+Developer somewhat information threat view.
+
+00:13:48.000 --> 00:13:53.000
+That like what some of it does is that basically creates, like, information asymmetry.
+
+00:13:53.000 --> 00:13:56.000
+towards very specific tasks.
+
+00:13:56.000 --> 00:14:00.000
+So, if a signal Z is more useful to those who can decode it.
+
+00:14:00.000 --> 00:14:02.000
+then those agents will be able to, like, ah.
+
+00:14:02.000 --> 00:14:10.000
+Do better understand making the agents who don't have that information or like were not able to decode that information in some sense.
+
+00:14:10.000 --> 00:14:17.000
+And this sort of gives you kind of like a taxing strategy at the high level, which is that, like, you create a copy of this signal.
+
+00:14:17.000 --> 00:14:24.000
+You give it to two different agents. One agent should know that it doesn't really have that capability to record any of the messages.
+
+00:14:24.000 --> 00:14:28.000
+Um, and the other one who might have it. And you look like, okay, are these agents making the same decisions?
+
+00:14:28.000 --> 00:14:32.000
+And if they are making, like, a categorically very different decisions.
+
+00:14:32.000 --> 00:14:36.000
+And one decision, uh, one agent is systematically making better decisions.
+
+00:14:36.000 --> 00:14:42.000
+then you basically can basically conclude somewhat safely that, like, this other agent basically.
+
+00:14:42.000 --> 00:14:47.000
+was, uh, or had more information than this other agent in some sense.
+
+00:14:47.000 --> 00:14:51.000
+All as being equal.
+
+00:14:51.000 --> 00:14:53.000
+Yeah.
+
+00:14:53.000 --> 00:14:58.000
+Yeah, so, like, the whole idea is that, like, basically, like, you don't need any reference distribution, peak over.
+
+00:14:58.000 --> 00:15:04.000
+And you can also basically like detect perfectly square chenography through schematica side channel attack in some sense.
+
+00:15:04.000 --> 00:15:09.000
+And it is like a quantitative and totally rounded kind of approach, I would also, like, argue.
+
+00:15:09.000 --> 00:15:15.000
+Um, the question then, sort of, is that, like, okay, like, uh, so we have been talking about the sort of notion of usable information.
+
+00:15:15.000 --> 00:15:18.000
+But how do you, like, actually, like, operationalize it?
+
+00:15:18.000 --> 00:15:24.000
+It is not really clear that, like, so if you look at Shannon information, so Shannon is going to look at the… if you have looked at.
+
+00:15:24.000 --> 00:15:30.000
+And, you know, definitions of entropy or, like, uh, uh, any other, like, information.
+
+00:15:30.000 --> 00:15:34.000
+content definitions in literature.
+
+00:15:34.000 --> 00:15:38.000
+They mostly talk about, like, channel information. So channel information assumes that the observer
+
+00:15:38.000 --> 00:15:41.000
+are, like, computationally and capacity unbounded.
+
+00:15:41.000 --> 00:15:44.000
+So they basically can like do whatever they want to do. If the information is there.
+
+00:15:44.000 --> 00:15:47.000
+These observers will decode it.
+
+00:15:47.000 --> 00:15:50.000
+Why this is not the case here. Here the signals, it does have the information.
+
+00:15:50.000 --> 00:15:57.000
+But, like, only one agent is able to decode it, if the agent that basically has, like, some sort of like.
+
+00:15:57.000 --> 00:16:03.000
+like, kind of a secret key only they can have decoded but the other agents can't decode it. So this is kind of a.
+
+00:16:03.000 --> 00:16:05.000
+asymmetric here in that sense.
+
+00:16:05.000 --> 00:16:08.000
+So, yeah, so basically, like, uh…
+
+00:16:08.000 --> 00:16:11.000
+Um, yeah, so you can do sunshine information.
+
+00:16:11.000 --> 00:16:18.000
+So we basically like rely on this sort of other notion of relative information, which is called predictive reinformation.
+
+00:16:18.000 --> 00:16:23.000
+We specifically concerned itself with, like, how much can a capacity constraint predictor.
+
+00:16:23.000 --> 00:16:33.000
+export a given signal. I will not go into the math here, but, like, uh, the whole idea is that, like, you basically try to see, like, uh, how much posterior change of these.
+
+00:16:33.000 --> 00:16:37.000
+capacity-bounded agent, in some sense, basically given some additional information.
+
+00:16:37.000 --> 00:16:39.000
+Um…
+
+00:16:39.000 --> 00:16:46.000
+But this itself is kind of awkward to work with because it requires full distribution that are often not available with LLMs.
+
+00:16:46.000 --> 00:16:53.000
+Uh, and also, like, really hard to actually, like, uh, uh, make it sensitive enough to be useful.
+
+00:16:53.000 --> 00:16:59.000
+Um, yeah, so what we actually do is, for what we basically generalize this sort of notion to a thing called generalized V Information.
+
+00:16:59.000 --> 00:17:07.000
+Where, like, basically you are looking at not just kind of the log props, or how much the posterior changes in some sense.
+
+00:17:07.000 --> 00:17:11.000
+You're looking at, like, how does utility on some given task changes.
+
+00:17:11.000 --> 00:17:14.000
+So you can like pose a challenge to the both agents.
+
+00:17:14.000 --> 00:17:19.000
+And then sort of see, like, which agent is able to, like, uh, able to, like, do the challenge, like, better than the other agent in some sense.
+
+00:17:19.000 --> 00:17:25.000
+And, like, uh, how much they do better on these challenges is, like, the… is there are difficulties in some sense here.
+
+00:17:25.000 --> 00:17:29.000
+And again, I don't want to go into math here because of diamond stuff.
+
+00:17:29.000 --> 00:17:32.000
+Um… uh…
+
+00:17:32.000 --> 00:17:38.000
+Yeah, and this is, again, like, if you look at the mathematical formula for stereographic gap, what we came up with.
+
+00:17:38.000 --> 00:17:41.000
+It's just this sort of thing that, like, okay,
+
+00:17:41.000 --> 00:17:47.000
+If you have a receiver, and they're getting some information, uh, from signal Z towards a task Y.
+
+00:17:47.000 --> 00:17:50.000
+Uh, that… that information.
+
+00:17:50.000 --> 00:17:53.000
+You take that information, and you subtract the information that.
+
+00:17:53.000 --> 00:18:01.000
+Uh, a third agent that you trust is not using any encoding, or is not able to, like, uh, decode any kind of hidden content.
+
+00:18:01.000 --> 00:18:06.000
+How much information is that able to like extract from this thing?
+
+00:18:06.000 --> 00:18:13.000
+And you'll, like, subtract these two terms, and you basically get, like, a stenographic gap, which kind of measures what we propose in our paper.
+
+00:18:13.000 --> 00:18:20.000
+Uh, this measure is slightly, like, awkward to work with, because, like, ah, depends on, like, how you define your initial utilities.
+
+00:18:20.000 --> 00:18:27.000
+Um, so basically to make a kind of a dimensionless, you can, like, like, do this kind of, like, trick of, like, uh, just, like, uh, doing 1 minus.
+
+00:18:27.000 --> 00:18:30.000
+Uh, and then the, uh, the ratio.
+
+00:18:30.000 --> 00:18:32.000
+Uh, of these two information content.
+
+00:18:32.000 --> 00:18:41.000
+And this leg is slightly better, actually. In that, it is slightly more informative of like different agent comparisons and so on.
+
+00:18:41.000 --> 00:18:49.000
+Um, and loose speaking, you can interpret this as the fact that, like, if your gap is greater than 0, this contains private information accessible to the receiver.
+
+00:18:49.000 --> 00:18:54.000
+If it is 0, then it will contain information, uh, then there is, like, no information in Z.
+
+00:18:54.000 --> 00:18:57.000
+Which was a kitten at all from either agent.
+
+00:18:57.000 --> 00:19:06.000
+Uh, and it is negative, which it can be sometimes H troph means that, like, something actually was benefiting more from this signal.
+
+00:19:06.000 --> 00:19:11.000
+Uh, then the EC itself.
+
+00:19:11.000 --> 00:19:13.000
+Um…
+
+00:19:13.000 --> 00:19:16.000
+How much time do I have? About 10 minutes.
+
+00:19:16.000 --> 00:19:21.000
+Yeah, basically like, uh, there are a bunch of experiments that we do actually here.
+
+00:19:21.000 --> 00:19:27.000
+Uh, in which we basically, like, try to basically investigate, does this sort of metric or measure make sense?
+
+00:19:27.000 --> 00:19:29.000
+Uh, and we have.
+
+00:19:29.000 --> 00:19:34.000
+Primarily doing these experiments like in controlled setting because what do we need to know?
+
+00:19:34.000 --> 00:19:37.000
+Whether there was, like, any kind of encodings or not.
+
+00:19:37.000 --> 00:19:42.000
+And so we do it, like, in three ways. We do it, like, in a way where, like, we inject ciphers.
+
+00:19:42.000 --> 00:19:47.000
+Ah, road, uh, so we use Road 13 like to encode these, ah.
+
+00:19:47.000 --> 00:19:51.000
+Messages, we do, like, learned code words, we fine-tune ciphers.
+
+00:19:51.000 --> 00:19:53.000
+And.
+
+00:19:53.000 --> 00:19:58.000
+Yeah, basically like we sort of observed that, like, often, like, you can.
+
+00:19:58.000 --> 00:20:02.000
+So this is Spider-Man, what is happening is that, like, we take an LLM.
+
+00:20:02.000 --> 00:20:05.000
+We asked it a question like, hey, solve this math problem.
+
+00:20:05.000 --> 00:20:07.000
+And then basically has to use the chain of thought.
+
+00:20:07.000 --> 00:20:15.000
+And what we do is basically simulate the fact that this agent is might be doing stenographic reasons, negotiate reasoning.
+
+00:20:15.000 --> 00:20:19.000
+By like taking its reasoning, uh, encoding it in row 13.
+
+00:20:19.000 --> 00:20:25.000
+And giving it to, like, other agent potentially this agent itself receives like the.
+
+00:20:25.000 --> 00:20:27.000
+Plane resin text.
+
+00:20:27.000 --> 00:20:32.000
+As what we would expect, as, like, this, uh, uh.
+
+00:20:32.000 --> 00:20:37.000
+Uh, encoding becomes, like, more and more, uh, like, prevalent across the whole reasoning trace.
+
+00:20:37.000 --> 00:20:44.000
+The agent who is getting this encoded racing trace, like, tends to do much worse, basically.
+
+00:20:44.000 --> 00:20:46.000
+At an agent, like, who don't get the support address.
+
+00:20:46.000 --> 00:20:53.000
+And as a result, I used to would expect that this type of gap should basically increase smoothly from 0 to, like, 1 basically as.
+
+00:20:53.000 --> 00:21:01.000
+Ah, you do more and more coding instead of, it's like, what you observe here in some sense across all these different settings.
+
+00:21:01.000 --> 00:21:06.000
+Yeah, and something else we did was, like, we train like an RL agent.
+
+00:21:06.000 --> 00:21:12.000
+To use like, ah, do kind of a coin flip task. So, the idea is that, like, you basically take a coin.
+
+00:21:12.000 --> 00:21:17.000
+You flip it, and then like you tell the LLM that, like, you basically flip it, like, an X amount of times,
+
+00:21:17.000 --> 00:21:25.000
+And you would tell it that the results were like this and blah blah, and they just tell you, like, what the final state was.
+
+00:21:25.000 --> 00:21:31.000
+So you basically the problem is something like this. Uh, I have a coin starting on its head face.
+
+00:21:31.000 --> 00:21:36.000
+I flip it, the new face is the same as old one.
+
+00:21:36.000 --> 00:21:40.000
+I flip it again. It's a different phase now.
+
+00:21:40.000 --> 00:21:41.000
+Uh, I flipped again in the same place as previous done.
+
+00:21:41.000 --> 00:21:50.000
+So basically, like, you have to track the whole state in some sense here, whether at a given turn, was it, like, a head or tails and so on?
+
+00:21:50.000 --> 00:21:53.000
+Sorry.
+
+00:21:53.000 --> 00:22:00.000
+And what we did here was sort of we train our agents, like, use, like, a different code words, as opposed to head and tails, in some sense.
+
+00:22:00.000 --> 00:22:05.000
+And if you have, like, no-code words, then, like, again, as you'd expect, there's, like, no, like, style gap, basically.
+
+00:22:05.000 --> 00:22:09.000
+But if you, like, do have code words, then, like, uh, agents basically.
+
+00:22:09.000 --> 00:22:15.000
+Uh, do, ah, ah, like the naughtieval set of gap, and if you, uh, increase this code verte even more.
+
+00:22:15.000 --> 00:22:17.000
+There's, like, more of a gap here in some sense.
+
+00:22:17.000 --> 00:22:20.000
+This is all kind of a very common sense kind of experiments.
+
+00:22:20.000 --> 00:22:27.000
+I think the main kind of contribution of the paper actually is, like, uh, most of these kind of a conceptual idea that you can, uh, detect stenography.
+
+00:22:27.000 --> 00:22:33.000
+to XR channels, or, like, to kind of usable information, um, uh, difference them.
+
+00:22:33.000 --> 00:22:39.000
+Uh, here, like, we again did some stuff where, like, we fine-tuned, uh, GPT-4.1 to use, like, a background cipher.
+
+00:22:39.000 --> 00:22:44.000
+And then we are like, okay, can I monitor this? It doesn't really… has not been fine-tuned to use this background cipher.
+
+00:22:44.000 --> 00:22:51.000
+Uh, how well can that sentinel monitor do at the same task, given this like a background ciphered.
+
+00:22:51.000 --> 00:22:54.000
+reasoning transform this LLM.
+
+00:22:54.000 --> 00:23:04.000
+And you can sort of observe that, there's kind of, like, a large gap here, uh, as… or, like, the sort of, uh, gap basically keeps on increasing as sort of you have more drain samples. So it's this, uh, GPT 4.1 gets better at.
+
+00:23:04.000 --> 00:23:08.000
+using this, like, a background cipher thing.
+
+00:23:08.000 --> 00:23:16.000
+Um, yeah, uh, one, so I want to go back to talk about this question of a gap as an economic such a level now.
+
+00:23:16.000 --> 00:23:22.000
+One important point about this sonographic gap is that it is not just kind of a property or trace alone itself.
+
+00:23:22.000 --> 00:23:28.000
+It is defined relative to a sentinel and auditing task. So you have to basically come up with a sentinel.
+
+00:23:28.000 --> 00:23:33.000
+That he basically trust that, like, oh, this antagonian doesn't really know, uh, know any encodings.
+
+00:23:33.000 --> 00:23:38.000
+And, or you have to also come up with an auditing task on which basically are.
+
+00:23:38.000 --> 00:23:43.000
+happy or willing to evaluate both your LLMs.
+
+00:23:43.000 --> 00:23:48.000
+Androgacy, like, uh, yeah, like, what, uh, sort of.
+
+00:23:48.000 --> 00:23:51.000
+working off in promotion you get in that context.
+
+00:23:51.000 --> 00:23:53.000
+So setting a family.
+
+00:23:53.000 --> 00:23:59.000
+Uh, is very important, uh, it remains kind of like, uh, it determines kind of like a
+
+00:23:59.000 --> 00:24:05.000
+What you consider the information to be public. Different sentinels might have different decoding capabilities.
+
+00:24:05.000 --> 00:24:09.000
+And this will exchange like your, uh…
+
+00:24:09.000 --> 00:24:12.000
+interpretation, like, a thresholds of, like, what version is public.
+
+00:24:12.000 --> 00:24:17.000
+Um, and then your auditing task basically is, like, important because it's basically like, uh,
+
+00:24:17.000 --> 00:24:20.000
+Uh, lets you detect only the
+
+00:24:20.000 --> 00:24:22.000
+Only the…
+
+00:24:22.000 --> 00:24:27.000
+Uh, hidden information, which is like relative to your ordering task.
+
+00:24:27.000 --> 00:24:30.000
+So an alarm, if you have a watermarked output and so on.
+
+00:24:30.000 --> 00:24:38.000
+They will ignore it under this method, just because, like, watermarks don't really have a utility in general, like, right? Or unless you basically are trying to vector apart, like, uh, different types and so on.
+
+00:24:38.000 --> 00:24:42.000
+But other than that, it generally has no utility.
+
+00:24:42.000 --> 00:24:44.000
+Um…
+
+00:24:44.000 --> 00:24:51.000
+Yeah, uh, one other thing you wanted to be, like, be somewhat careful about is just, like, uh, the fact that, uh,
+
+00:24:51.000 --> 00:24:56.000
+Um…
+
+00:24:56.000 --> 00:25:02.000
+Yeah, like, uh, again, sort of I said that sending a little term is, like, what your public information is. If your Sentinel is overly weak.
+
+00:25:02.000 --> 00:25:09.000
+It might like interpret like jargons and conventions, uh, basically as stereography when it might not be.
+
+00:25:09.000 --> 00:25:13.000
+So, I think in some sense, like, this is like.
+
+00:25:13.000 --> 00:25:18.000
+A kind of okay in this context, because, like, what the thing you often want to do is, like, kind of, uh, measure, like,
+
+00:25:18.000 --> 00:25:21.000
+How much of the information that an agent is producing.
+
+00:25:21.000 --> 00:25:25.000
+is, like, accessible to your monitor, basically, in some sense. So if your monitor is also accurate sentinel,
+
+00:25:25.000 --> 00:25:32.000
+Then, like, basically, if the monitor can't understand, like, the advanced concept of Sentinel is using.
+
+00:25:32.000 --> 00:25:33.000
+You basically have a problem as well in some sense. It's kind of a different kind of problem.
+
+00:25:33.000 --> 00:25:41.000
+You basically have a problem as well in some sense. It's kind of a different kind of problem. Yeah. And
+
+00:25:41.000 --> 00:25:57.000
+One kind of nice thing you should expect that if you are able to, like, so often, like, in cryptography and often, like, in cryptography as well, like, when you basically allow, like, more compute for your, defenders, they often can do better
+
+00:25:57.000 --> 00:26:13.000
+And this is, like, what we observe here as well. Like if you just give like more compute to your Sentinel agents that are often able to like decode better than they would given no compute
+
+00:26:13.000 --> 00:26:22.000
+I'm just gonna, like, try and skip some stuff
+
+00:26:22.000 --> 00:26:38.000
+Yeah, I also want to talk about a different approach, which is like also tries to basically start with the same principle that classical methods are not really useful or not only applicable to LMS and tries to come up with kind of an alternative way of protecting cellular traffic
+
+00:26:38.000 --> 00:26:43.000
+Actually proposed by Anthropic and has been used in the system cards.
+
+00:26:43.000 --> 00:26:58.000
+The way this sort of approach works is that we basically start off with traces from a model that you are like, okay, this model might be doing sonographic reasoning. So it might be kind of a RL trained checkpoint of say like some opus five or whatever
+
+00:26:58.000 --> 00:27:01.000
+And you also have other corresponding base model.
+
+00:27:01.000 --> 00:27:07.000
+So what you do is, basically, you crack, like, your risk traces from this RL-trained model
+
+00:27:07.000 --> 00:27:19.000
+You take them, and then you basically are like, okay, I'm gonna paraphrase them. and your aim actually is to remove all the encodings in that recent trace by doing kind of paraphrasing thing
+
+00:27:19.000 --> 00:27:38.000
+And then basically you learn kind of like a two experiments in parallel. One, like you train like your base model only on these paraphrased racing traces. And the other experiment you run is like you fine tune like your base model on the original reasoning traces from this step one, basically.
+
+00:27:38.000 --> 00:28:01.000
+And kind of, like, the idea is that, like, if you observe that your
+
+00:28:01.000 --> 00:28:05.000
+Then it sort of indicates that original trace says, basically, you have like information.
+
+00:28:05.000 --> 00:28:07.000
+Which is, uh, computationally harder to extract.
+
+00:28:07.000 --> 00:28:12.000
+And thus, they sort of can indicate stenography in some sense.
+
+00:28:12.000 --> 00:28:16.000
+Uh, or I can call it reasoning. Maybe photography is a kind of a loaded term here.
+
+00:28:16.000 --> 00:28:24.000
+Um, and yeah, so I think, like, paraphrasing kind of removes that information. There are two very biggest options here in some sense.
+
+00:28:24.000 --> 00:28:27.000
+The first one is that paraphrasing can remove that information.
+
+00:28:27.000 --> 00:28:31.000
+And the second one is that, like, pioneering on the traces can.
+
+00:28:31.000 --> 00:28:33.000
+preserve it information.
+
+00:28:33.000 --> 00:28:40.000
+So I, so in my paper, I look at the assumption one like very comprehensively.
+
+00:28:40.000 --> 00:28:42.000
+Um, in Appendix A.
+
+00:28:42.000 --> 00:28:46.000
+And we basically, like, find that this is a very strong assumption.
+
+00:28:46.000 --> 00:28:50.000
+And it doesn't seem to hold in a lot of settings.
+
+00:28:50.000 --> 00:28:55.000
+Um, yeah, so basically, those primer, basically, like, we do is we're, like, we basically evaluate.
+
+00:28:55.000 --> 00:29:04.000
+We basically plant different kind of encodings. So you have a structured encodings where, like, you encode stuff, like, in how, like, you are writing it down, for example, like an uppercase versus lowercase.
+
+00:29:04.000 --> 00:29:07.000
+Syntactic, where, like, you basically, like, try to encode messages, like, in the
+
+00:29:07.000 --> 00:29:12.000
+Word addresses, and then the semantic, where you try to encode, like, things actually in the actual content of the.
+
+00:29:12.000 --> 00:29:17.000
+things. And basically, we're able to sort of show that, like, you can, like, uh,
+
+00:29:17.000 --> 00:29:24.000
+In this context, like, uh, our gap basically detects, like, uh, all the encodings very well.
+
+00:29:24.000 --> 00:29:28.000
+However, this is like a paraphrasing-based approach basically fails in a pretty bad way.
+
+00:29:28.000 --> 00:29:32.000
+Um, yeah, uh, and uh.
+
+00:29:32.000 --> 00:29:37.000
+You also have, like, a sumo comparisons, like, with the island-based detection, where sort of we show that just.
+
+00:29:37.000 --> 00:29:40.000
+giving these instances to LLMs and asking LLMs, like, hey.
+
+00:29:40.000 --> 00:29:44.000
+Are these things suspicious, and so on. It's not a very good baseline, because, like, again.
+
+00:29:44.000 --> 00:29:47.000
+As someone I could point out in the first slide.
+
+00:29:47.000 --> 00:29:53.000
+Like, often like us, they will try to look for like the tax being regenerate or governed.
+
+00:29:53.000 --> 00:29:56.000
+And they'll be like, those things while on this stuff, like, ah.
+
+00:29:56.000 --> 00:29:59.000
+Uh, this stuff often looks, like, very, like, benign.
+
+00:29:59.000 --> 00:30:01.000
+Um, yeah, which is, like, uh…
+
+00:30:01.000 --> 00:30:07.000
+uh, like, not… doesn't look suspicious, basically, in some sense.
+
+00:30:07.000 --> 00:30:14.000
+Um, and you can also, like, run this kind of a thing, like, on an actual, like, uh, model, so we, for example, audit, like, a DeepSeek R1 versus DeepSeek V3.
+
+00:30:14.000 --> 00:30:17.000
+basically find, like, no serge gap here, so what are you to expect, and so on.
+
+00:30:17.000 --> 00:30:20.000
+Um, like, yeah, um…
+
+00:30:20.000 --> 00:30:23.000
+I'm going to stop here. I think we are slightly out of time.
+
+00:30:23.000 --> 00:30:28.000
+Uh, I'm happy to have questions here.
+
+00:30:28.000 --> 00:30:37.000
+Awesome. Thank you, Osman. We do have like 15, 14 minutes left for questions, and we do have some questions in Slido.
+
+00:30:37.000 --> 00:30:55.000
+Let's get to them. Awesome. Also, guys, you have the Slido link in the chat. Please upload the questions you like to get them answered earlier and or add your own questions. You can also raise your hand if you want to ask your question yourself. Yeah, sorry, my hand raised and the camera started tracking me.
+
+00:30:55.000 --> 00:31:01.000
+Okay, I'm gonna unshare your slides so we can see each other well.
+
+00:31:01.000 --> 00:31:04.000
+Now for the questions.
+
+00:31:04.000 --> 00:31:17.000
+First question is, what is the current salutation in AI safety and alignment? Are the models aligned or the big companies are being negligent?
+
+00:31:17.000 --> 00:31:22.000
+Um, both?
+
+00:31:22.000 --> 00:31:26.000
+Um, alignment is a very hard problem. It's hard to solve.
+
+00:31:26.000 --> 00:31:31.000
+But also, I feel like cockpins are like not trying as hard as they should be, or, like, are not being as.
+
+00:31:31.000 --> 00:31:37.000
+I'm not doing as good of a job at, uh, like, Alanga Models as they could be.
+
+00:31:37.000 --> 00:31:41.000
+Awesome. Bobby, go ahead, please.
+
+00:31:41.000 --> 00:31:45.000
+Unmute, ask to unmute, yes.
+
+00:31:45.000 --> 00:31:58.000
+Yeah, my question was too long for Slido. I just have a kind of a… This may seem like a really broad or difficult question. Is there like a real limit to this anti
+
+00:31:58.000 --> 00:32:09.000
+I can't even say this word. It seems like we're trying to, at some point, the degrees of freedom in both natural language, but also like any sufficiently expressive problem-solving language
+
+00:32:09.000 --> 00:32:19.000
+Almost, like, necessitate, you know, a certain amount of hidden channel ability. It's like, so maybe there's some kind of like arms race
+
+00:32:19.000 --> 00:32:26.000
+you know, sort of some amount of scrambling we can do on both ends that sort of, you know, is undecipherable to the models
+
+00:32:26.000 --> 00:32:38.000
+But ultimately, this gets at some kind of, like, inner misalignment problem. Like, is there actually… aren't we just kind of trying to solve, like, natural language or something like that? Like, this seems pretty difficult.
+
+00:32:38.000 --> 00:32:42.000
+Um, okay, so I'm thinking why I try to distinguish, like, between two things.
+
+00:32:42.000 --> 00:32:46.000
+I don't fully understand your question about limits.
+
+00:32:46.000 --> 00:32:51.000
+So I think, yeah, I think starting graph is often possible.
+
+00:32:51.000 --> 00:32:52.000
+Okay.
+
+00:32:52.000 --> 00:32:54.000
+If that's a question that, like, okay, are there systems in which an offer is not possible?
+
+00:32:54.000 --> 00:32:59.000
+I think they are very, like, very, like, small and cute kind of system probably, but, like, in any kind of real systems, you will.
+
+00:32:59.000 --> 00:33:03.000
+always have opportunities and, like, possibilities of stereographic communication.
+
+00:33:03.000 --> 00:33:05.000
+Having said that,
+
+00:33:05.000 --> 00:33:10.000
+There it is like somewhat non-trivial. Like, for example, like I think Instagram graphic, like one thing you often have to do, like, people like
+
+00:33:10.000 --> 00:33:13.000
+Electrochet often execute in this way.
+
+00:33:13.000 --> 00:33:18.000
+By assuming that, like, you and I can basically go and sort of meet, like, behind back doors.
+
+00:33:18.000 --> 00:33:20.000
+And decide on a kind of fun coding scheme there.
+
+00:33:20.000 --> 00:33:23.000
+And basically, uh, that can often like be.
+
+00:33:23.000 --> 00:33:24.000
+Uh, like, we have one bit of information.
+
+00:33:24.000 --> 00:33:30.000
+But that bit often can be very important, critical. Like, if you can't do that one bit of information.
+
+00:33:30.000 --> 00:33:36.000
+like hidden, then you basically can't do sonography in any reasonable kind of, uh, like, uh, context and so on.
+
+00:33:36.000 --> 00:33:41.000
+So yeah, so this is kind of like a this issue is like there.
+
+00:33:41.000 --> 00:33:46.000
+I also think that, like, in general, people, uh…
+
+00:33:46.000 --> 00:33:53.000
+Um, yeah, uh, going back to the LLMs right now, uh, so LLMs, basically, there are two things to basically differentiate between them.
+
+00:33:53.000 --> 00:33:58.000
+The first is that capability. Can LLMs, like, do sonography, like, natively?
+
+00:33:58.000 --> 00:34:01.000
+Um, and second, like, do they have a propensity to do that?
+
+00:34:01.000 --> 00:34:05.000
+Uh, to the extent of my knowledge, alums currently do not have a capability
+
+00:34:05.000 --> 00:34:08.000
+To do, like, naturalist iconographic kind of communication.
+
+00:34:08.000 --> 00:34:12.000
+One thing that might do to our advantage is that, like, uh,
+
+00:34:12.000 --> 00:34:18.000
+So primary monitors like RLM as well.
+
+00:34:18.000 --> 00:34:21.000
+So people often like talk about legibility being important.
+
+00:34:21.000 --> 00:34:24.000
+But I think legibility has two notions. The first one is, like, a human eligibility.
+
+00:34:24.000 --> 00:34:31.000
+So it should be legible to me. Some of you should try and like, I think there have been like some like release, like, astrarch and thoughts or whatever.
+
+00:34:31.000 --> 00:34:35.000
+that, like, don't have wide spaces between them.
+
+00:34:35.000 --> 00:34:37.000
+And they're very hard to read as humans.
+
+00:34:37.000 --> 00:34:45.000
+But an LLM, that doesn't really matter. Like an LLM is not like looking at white spaces, like, the way we are looking at them, right?
+
+00:34:45.000 --> 00:34:46.000
+Nope
+
+00:34:46.000 --> 00:34:49.000
+in it and so on.
+
+00:34:49.000 --> 00:34:55.000
+Um, so that's the one point I want to make. That's like, uh, uh, so one thing you, you want to be doing is sort of more like a.
+
+00:34:55.000 --> 00:35:01.000
+If your LLM can catch it, and even if you and I sort of like don't really see what is hidden, but the LLM can catch it, which is a monitor one.
+
+00:35:01.000 --> 00:35:05.000
+That's gonna feel fine, I think, in some sense to extent you can trust me, monitor and so on.
+
+00:35:05.000 --> 00:35:12.000
+And second of the propensity thing. So, I think, uh, we can also, uh, I do expect LLMs to get to the level.
+
+00:35:12.000 --> 00:35:17.000
+Where they will be able to do a concorded reasoning or like will have capability to do that.
+
+00:35:17.000 --> 00:35:21.000
+I think this will spend a lot, like, on, like, how much, like, uh, depth you have.
+
+00:35:21.000 --> 00:35:25.000
+And so we are saying that LLMs basically are sort of being allowed, like, more, like, uh, basically.
+
+00:35:25.000 --> 00:35:29.000
+Ah, like, ah, computation and latently.
+
+00:35:29.000 --> 00:35:36.000
+So yeah, so that sort of allows them to basically like a kind of think and sort of encode and whatever in some sense.
+
+00:35:36.000 --> 00:35:44.000
+Um, and the second, but you can sort of, at that point, you can rely on propensity.
+
+00:35:44.000 --> 00:35:45.000
+Right, in our alignment. Yeah.
+
+00:35:45.000 --> 00:35:47.000
+So you can train your LLM. Like, LLMs are ultimately trained models. Like, they are, like, not, like, uh, kind of a.
+
+00:35:47.000 --> 00:35:51.000
+things that are sort of in the world out there, something like that. They are the kind of, we can interview on them.
+
+00:35:51.000 --> 00:35:54.000
+And, like, teach them, like, not, like, use certain graph in that context.
+
+00:35:54.000 --> 00:35:56.000
+So yes, I…
+
+00:35:56.000 --> 00:36:01.000
+I'm not really sure to what extent like this will be a practical or realistic threat in some sense.
+
+00:36:01.000 --> 00:36:06.000
+I think a lot of defenses available. I think if companies are careful, they should be able to do guard against them.
+
+00:36:06.000 --> 00:36:11.000
+But if, like, you are, like, very sloppy, then it's, like, really, really unclear, like.
+
+00:36:11.000 --> 00:36:16.000
+Yeah, like, if alarms are, like, doing some coffee, and you basically don't have any way of, like, teaching them not to do that.
+
+00:36:16.000 --> 00:36:24.000
+Um, I think it's a very hard problem to defend against. The best defense is just staff like LM, just don't do it in some sense.
+
+00:36:24.000 --> 00:36:33.000
+Right. And some kind of inner alignment. I mean, I would say, I mean, it's fairly apparent. I don't know if you looked at like the Argonne system card
+
+00:36:33.000 --> 00:36:38.000
+It is capable, whether or not it has any
+
+00:36:38.000 --> 00:36:39.000
+You know, tendency towards it, or propensity
+
+00:36:39.000 --> 00:36:43.000
+Most town coffee is hard, right? Style Coffee is not just that you can have a
+
+00:36:43.000 --> 00:36:46.000
+I'm going to be looking at like an awkward having kind of stuff, right?
+
+00:36:46.000 --> 00:36:50.000
+But cyanography like often requires just kind of like a thing where you have to decode thing as well.
+
+00:36:50.000 --> 00:36:54.000
+So it has going to be two ways. So you have to like know how you encoded this.
+
+00:36:54.000 --> 00:36:59.000
+And then, like, in the kind of the next sort of turns, you have to be able to decode as well.
+
+00:36:59.000 --> 00:37:04.000
+This actually does require kind of a non-trivial level of like.
+
+00:37:04.000 --> 00:37:07.000
+capability to, like, uh, like, do it in a consistent way and reliable way.
+
+00:37:07.000 --> 00:37:13.000
+So I would not say Argonne is capable of like doing sonography, even though it basically has a very
+
+00:37:13.000 --> 00:37:16.000
+non-trivial levels of, like, a non-cod capabilities.
+
+00:37:16.000 --> 00:37:31.000
+Well, so I mean, just from a broader level, if it knows what languages the monitor speaks, right, and it knows what languages, you know, then that is a form of steganography. I can't even say this word, right?
+
+00:37:31.000 --> 00:37:39.000
+Expert language is a shared code book, right? Russian is a shared code book if it knows that the monitor only speaks English.
+
+00:37:39.000 --> 00:37:45.000
+Yeah, but I want to also be an LLM, right? Want to be like, Gemini 3.8 Flash or whatever.
+
+00:37:45.000 --> 00:37:46.000
+Sure
+
+00:37:46.000 --> 00:37:50.000
+And that Gemini will not be kind of that bad. It doesn't whatever.
+
+00:37:50.000 --> 00:37:51.000
+Yeah, yeah, yeah, yeah.
+
+00:37:51.000 --> 00:37:52.000
+Yeah, yeah, yeah, well, right, exactly. Gemini knows Russian as well. Yeah
+
+00:37:52.000 --> 00:37:54.000
+Ah, cool.
+
+00:37:54.000 --> 00:37:56.000
+Awesome.
+
+00:37:56.000 --> 00:37:59.000
+Next question.
+
+00:37:59.000 --> 00:38:01.000
+Who plays the receiver in your test?
+
+00:38:01.000 --> 00:38:05.000
+When the message is meant for the model's own future self.
+
+00:38:05.000 --> 00:38:11.000
+So it can just be models on future self. Like, one sort of thing that sort of, like, we… our formal exploits on.
+
+00:38:11.000 --> 00:38:14.000
+is a fact that you often cannot replace stuff to LLMs.
+
+00:38:14.000 --> 00:38:18.000
+Uh, and Adam's like, well, uh, at least we hope so.
+
+00:38:18.000 --> 00:38:21.000
+whatever we were to tell, like, the stuff is being replayed to them.
+
+00:38:21.000 --> 00:38:27.000
+Ah, and basically so the whole idea is that, so you take the existing trace originated.
+
+00:38:27.000 --> 00:38:30.000
+Ah, you put like any alarms contacts sort of make it look like it is like, ah.
+
+00:38:30.000 --> 00:38:34.000
+LLMs like on generation, instead of basically you evaluate, like, how well it does on the task and so on.
+
+00:38:34.000 --> 00:38:42.000
+Um, and yeah, just like the LLM itself is the intended receiver in this case.
+
+00:38:42.000 --> 00:38:43.000
+Okay.
+
+00:38:43.000 --> 00:38:53.000
+Awesome. How are cover distribution and steganographic distribution empirically measured? How exactly does one see that LLMs produce technographic distribution?
+
+00:38:53.000 --> 00:38:56.000
+Uh, I mean, they're very difficult problems. I think our distributions.
+
+00:38:56.000 --> 00:39:01.000
+There are architecture like in traditional stack literature about the fact that, like, ah.
+
+00:39:01.000 --> 00:39:04.000
+This cover distribution we keep on talking about.
+
+00:39:04.000 --> 00:39:09.000
+They are, like, not station objects. They are, like, often changing and dynamically moving and so on, so, like, really hard to measure.
+
+00:39:09.000 --> 00:39:14.000
+This is not about talking about LLM, just like a standard, like, uh, Stego stuff, like, ah.
+
+00:39:14.000 --> 00:39:19.000
+Um, and, uh, like, images and so on, which people work on.
+
+00:39:19.000 --> 00:39:26.000
+And then like in LLMs, like, yeah, like I think our method is like a one way of giving that, like.
+
+00:39:26.000 --> 00:39:34.000
+It's like a one way of trying to understand like, okay, what parts of our recent traces RMB stack or not, but it's like a somewhat hard, I think and.
+
+00:39:34.000 --> 00:39:40.000
+I don't think I have an answer here, just because of our search problem. It's like an unanswered unclear.
+
+00:39:40.000 --> 00:39:41.000
+Yeah.
+
+00:39:41.000 --> 00:39:45.000
+right okay uh Mutaleb, you had a question go ahead.
+
+00:39:45.000 --> 00:40:00.000
+Yes, I did. Thank you, Usman, for the great talk. I really enjoyed it, although I'm quite new to this field, I mean, especially the terms steganography.
+
+00:40:00.000 --> 00:40:23.000
+I just wanted to understand, you said that it's based on the kind of research from 1980s because the whole idea is not new so and then you basically you have the sender of a message and then the receiver of a message and then you have a sentinel or a monitor in between that tries to kind of figure out if this
+
+00:40:23.000 --> 00:40:42.000
+This encoded language. But at the same time, just in response to the earlier Croatian, you said that the receiver, as the recipient and the sender are the same. It's the same LLM. Did I get it at that point right?
+
+00:40:42.000 --> 00:40:43.000
+I'm…
+
+00:40:43.000 --> 00:40:46.000
+Yeah, so send… so, like, you don't… they have to be the same.
+
+00:40:46.000 --> 00:40:51.000
+For example, like, LLM can be sending messages to another instance, for example.
+
+00:40:51.000 --> 00:40:54.000
+So, they can be different, but they can also be the same, basically.
+
+00:40:54.000 --> 00:40:57.000
+So, like, uh, yeah.
+
+00:40:57.000 --> 00:41:17.000
+Okay, and in your setup, how did you make sure that the monitor is kind of separate or I mean, so that the two LLMs or the two agents don't know that they are being monitored? I mean?
+
+00:41:17.000 --> 00:41:18.000
+As you said.
+
+00:41:18.000 --> 00:41:20.000
+Yeah, so I think, uh…
+
+00:41:20.000 --> 00:41:23.000
+Um…
+
+00:41:23.000 --> 00:41:29.000
+So we will just use different LLMs as sender and receiver, and then a different LLM acts as a sentinel.
+
+00:41:29.000 --> 00:41:30.000
+Hmm.
+
+00:41:30.000 --> 00:41:35.000
+Uh, in most cases, uh, I mean, where we do have a centennial sort of more, like, kind of a way of, like, trying to basically.
+
+00:41:35.000 --> 00:41:38.000
+Water control, ah, in the study or something.
+
+00:41:38.000 --> 00:41:42.000
+How do we ensure that model not.
+
+00:41:42.000 --> 00:41:45.000
+I mean, there's a question about, like, monitor awareness.
+
+00:41:45.000 --> 00:41:50.000
+I think I would say as a separate kind of a field or a separate kind of a research question, like, we don't.
+
+00:41:50.000 --> 00:41:55.000
+uh, like, tackle, so we just sort of assume that water's like, just, like, not monitor aware.
+
+00:41:55.000 --> 00:42:02.000
+You could talk about the fact that models might like act differently. For example, like, the model like might.
+
+00:42:02.000 --> 00:42:07.000
+So one thing you can expect is that this silver model.
+
+00:42:07.000 --> 00:42:13.000
+It might sound bad. It might be like, oh, I know that there's information here, but I'm being volunteered, or, like, I am in this kind of an auditing context.
+
+00:42:13.000 --> 00:42:18.000
+So I will not like exploit their head information basically.
+
+00:42:18.000 --> 00:42:19.000
+And then the.
+
+00:42:19.000 --> 00:42:20.000
+So you could…
+
+00:42:20.000 --> 00:42:22.000
+Yeah, go on, go on. Okay, so I'm sorry.
+
+00:42:22.000 --> 00:42:28.000
+Yeah, so you could basically have, like, this quantum dynamics, basically, that's possible, but I think they are, like, not, like, uh, possible.
+
+00:42:28.000 --> 00:42:31.000
+In the current alums regime.
+
+00:42:31.000 --> 00:42:39.000
+For possible theory.
+
+00:42:39.000 --> 00:42:40.000
+No, we're not alone.
+
+00:42:40.000 --> 00:42:51.000
+But we don't tell any of the two LLMs the recipient and the sender in any prompt or anywhere that they are being monitored, right? So there is no explicit. We don't tell them. I mean, and then the any message that they send to each other,
+
+00:42:51.000 --> 00:42:54.000
+Yes.
+
+00:42:54.000 --> 00:42:55.000
+Yes.
+
+00:42:55.000 --> 00:43:07.000
+It's kind of the output, I mean, the messages are being intercepted or redirected to the LLM as kind of which acts as a monitor, right? So based, I mean, on your research, if I go to the end, the key points, right?
+
+00:43:07.000 --> 00:43:15.000
+So currently the LLMs do not encode the messages or they…
+
+00:43:15.000 --> 00:43:18.000
+Yeah.
+
+00:43:18.000 --> 00:43:19.000
+Yeah.
+
+00:43:19.000 --> 00:43:20.000
+They currently cannot do it, uh, on their own. They can sometimes be trying to do this, but like they don't do it on their own.
+
+00:43:20.000 --> 00:43:23.000
+And they don't, they can't do it like for.
+
+00:43:23.000 --> 00:43:29.000
+high bet, high bits and so on. They can do it for.
+
+00:43:29.000 --> 00:43:36.000
+They can encode like a 1, 2, 3, 4 bits kind of stuff, uh, that much, but not, like, uh, long messages and so on.
+
+00:43:36.000 --> 00:43:43.000
+Because at the end of the day, I mean, again, they would need to have some kind of, I mean,
+
+00:43:43.000 --> 00:43:44.000
+Yeah.
+
+00:43:44.000 --> 00:43:55.000
+create a language or know or have some internal, I don't know, language that is shared across LLMs, right? Because obviously different LLM models, they have their own kind of underlying infrastructure, or I don't know, of course, architecture.
+
+00:43:55.000 --> 00:44:02.000
+Yeah, that is kind of like one of the blockers in some sense on the LLM side, is that, like, we have, like, a invent a new language.
+
+00:44:02.000 --> 00:44:03.000
+Mm-hmm.
+
+00:44:03.000 --> 00:44:07.000
+Which is very systematic and very consistent, which is kind of a hard thing to do.
+
+00:44:07.000 --> 00:44:08.000
+Mm-hmm.
+
+00:44:08.000 --> 00:44:09.000
+So, yeah, that's kind of one of the blockers from the LLM side. Yeah.
+
+00:44:09.000 --> 00:44:13.000
+Okay, I see. Okay, thanks so much, Osman, thank you.
+
+00:44:13.000 --> 00:44:19.000
+Yeah.
+
+00:44:19.000 --> 00:44:21.000
+Okay.
+
+00:44:21.000 --> 00:44:23.000
+Okay. Thank you.
+
+00:44:23.000 --> 00:44:24.000
+Thanks very much
+
+00:44:24.000 --> 00:44:25.000
+Awesome. Unfortunately, we are out of time. I do have to drop off. We have another talk in 15 minutes, but thank you very much Usman, for the talk. That was…
+
+00:44:25.000 --> 00:44:26.000
+Thank you. Thank you. Bye.
+
+00:44:26.000 --> 00:44:32.000
+That was very nice, and yeah, uh, please, everyone, join us in 15 minutes, and thank you very much for your talk.
+
+00:44:32.000 --> 00:44:33.000
+Yep. Okay.
+
+00:44:33.000 --> 00:44:37.000
+See you all in 15 minutes.
+

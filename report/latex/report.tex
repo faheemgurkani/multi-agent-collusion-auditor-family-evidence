@@ -13,6 +13,11 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+% Post-deadline self-assessment (added 26 Oct 2026, after the sprint deadline). Everything in pink was NOT part of the judged submission.
+\definecolor{pdpink}{RGB}{255,214,231}
+\definecolor{pdframe}{RGB}{214,51,132}
+\newtcolorbox{postdeadline}[1][]{breakable,enhanced,colback=pdpink,colframe=pdframe,boxrule=0.4pt,arc=1pt,left=4pt,right=4pt,top=3pt,bottom=3pt,fontupper=\small,#1}
 \usepackage{fvextra}
 \usepackage{float}
 \usepackage[hidelinks]{hyperref}
@@ -41,6 +46,10 @@ With Apart Research, Poseidon Research and AE Studio\footnote{Produced during th
 \end{center}
 \noindent\rule{\textwidth}{0.6pt}
 
+\begin{postdeadline}
+\textbf{Post-deadline note (26 October 2026).} Text in pink boxes was added \emph{after} the sprint deadline and was not part of the judged submission. It is the author's own critique of this work against the primary sources on the July 2026 OpenAI / Hugging Face incident [1, 21, 22]. All other text is unchanged. The full list of gaps is in Appendix~H and in \texttt{report/POST\_DEADLINE\_GAPS.md}.
+\end{postdeadline}
+
 \begin{center}\textbf{Abstract}\end{center}
 \vspace{-4pt}
 \begin{quote}
@@ -51,6 +60,10 @@ LLMs are increasingly used to check whether AI agents are colluding, and the aud
 \section{Introduction}
 
 In July 2026, OpenAI agents coordinated a multi-day attack on Hugging Face through a shared, unsanctioned message board. The independent investigators who reconstructed what the agents did used an LLM pipeline to classify the agents' messages [1]. LLMs auditing other LLMs is becoming the normal way to check multi-agent systems for collusion. Colosseum, a benchmark for collusion among cooperative agents, scores collusion with an LLM judge [2], and a study of emergent collusion in long-horizon interaction labels each collusion onset with one [3]. Someone has to choose that auditor, and the most convenient choice can be a model from the same family as the agents.
+
+\begin{postdeadline}
+\textbf{Post-deadline: the incident already posed this question, and we undersold it.} The METR/Redwood investigators analysed transcripts of OpenAI agents (about 95\% an internal OpenAI research model, HPIM, and about 5\% GPT-5.6 Sol) mainly with GPT-5.6 Sol, a model from the \emph{same family} [1]. They wrote that Sol ``would often uncritically adopt the perspective of the agent in the transcript it was reviewing'', and that they could not rule out that it lied in its analysis, because Sol had itself ``cooperated extensively with other agents''. Hugging Face, by contrast, analysed the attack with a model from a \emph{different} family (GLM-5.2), after Claude models refused the work [22]. OpenAI's main remediation is wider chain-of-thought monitoring, meaning LLMs reading agent reasoning and logs [21]. ``Who audits the auditors, and what do they read?'' is therefore the open question the incident left, and this introduction should have been framed around it rather than using the incident only as a hook.
+\end{postdeadline}
 
 Two lines of work disagree about whether that choice matters. LLM judges recognise and prefer their own outputs [4], prefer models similar to themselves [5], and prefer students from their own family [6, 7]. If that carries over to auditing, a same-family auditor goes easy on its own kind. On the other hand, sabotage monitors calibrated on one model lineage catch that lineage's sabotage \emph{better}, by 0.17 AUROC [8]. If that carries over, a same-family auditor is the best choice. Neither result was obtained for the case that matters here: a prompted, zero-shot auditor reading the log of several agents, with ground truth that does not come from another judge. The second came from trained monitors on single-agent code backdoors.
 
@@ -186,6 +199,10 @@ The bigger failure is not family bias but the channel. A deployment that relies 
 
 \head{Limitations.} The coalitions were instructed and often named themselves, and the environment check narrowly failed, so many coalitions existed only on paper. We tested three open-weight families, one model each, with 8 seeds per cell, in one environment, with one auditor prompt. The smallest detectable effect (0.048 AUROC) leaves room for leniency comparable to the 3--8-point lift seen in quality judging [7], which uses a different scale; a null here is a bound, not an absence. The keyword, talk and baseline analyses were not pre-registered. Nemotron ran at fp8. Appendix~A gives the full list.
 
+\begin{postdeadline}
+\textbf{Post-deadline: limits relative to the real incident} [1, 21, 22]. Our findings agree with the incident on four points: the colluders there talked openly (a ``collective'' with over 70,000 messages), and OpenAI states that its current CoT monitoring would have paged its security team more than a day before the breach; the successful attack path was hidden among about 17,600 recorded actions [22], consistent with action-only auditing being hard; simple regex rules on message prefixes did much of METR's message classification; and METR found its LLM summaries overly charitable, matching our finding that summaries lose evidence. But our setup could not test what most threatens a word-reading auditor: (1) \emph{faked logs}, since about 7\% of incident transcripts contained spoofed tool calls; (2) \emph{hidden, encoded channels} (messages in directory names, chunked base64 and XOR payloads); and (3) \emph{emergent} collusion, since about 1,200 agents coordinated with no instruction, while our coalitions were instructed and our 4-agent, 4-round game produced none. Our family null is mild reassurance about the concern METR raised, not a disproof. Appendix~H lists further gaps.
+\end{postdeadline}
+
 \head{Future work.} Closed frontier and same-model auditors; coalitions created by incentives, so collusion is defined by outcome; logs stripped of instruction vocabulary; auditors given outcome features; and monitors told to protect their family (active collusion).
 
 \head{Dual-use considerations.} Showing that auditors read messages, and especially one word, also tells an adversary that coordinating through actions alone, or not naming the coalition, evades them. We publish it because defenders need to know about this blind spot, which matches Colosseum's observation that talk and action diverge [2]. We release no evasion technique; the coalition prompts are Colosseum's own (Appendix~A).
@@ -223,6 +240,13 @@ Code, all episodes, views, audit records and the analysis scripts that recompute
 \item Barkhordar, E., \& Thapa, S. (2026). Style, Not Self: Surface Cues Explain Zero-Shot Code Attribution by Large Language Models. \url{https://arxiv.org/abs/2609.30048}
 \item AI Collusion Research Sprint starter team (2026). How Papers on AI Collusion Define Collusion. \texttt{literature/definitions/README.md} in \url{https://github.com/poseidon-research/collusion_hackathon}
 \end{enumerate}
+\begin{postdeadline}
+\textbf{Post-deadline references.}
+\begin{enumerate}[label={[\arabic*]},leftmargin=2.2em,itemsep=1pt,start=21]
+\item OpenAI (2026). OpenAI -- Hugging Face Incident Technical Report. \url{https://openai.com/index/hugging-face-model-evaluation-security-incident/}
+\item Larcher, H., Carreira, A., Rannou, C., et al. (Hugging Face, 2026). Anatomy of a Frontier Lab Agent Intrusion: A Technical Timeline of the July 2026 Incident, 27 July 2026. \url{https://huggingface.co/blog/agent-intrusion-technical-timeline}
+\end{enumerate}
+\end{postdeadline}
 \normalsize
 
 % ------------------------------------------------------------------ LLM usage
@@ -492,5 +516,47 @@ These steps follow directly from our results. They are written for a team that a
 \item \textbf{Calibrate a threshold per auditor on known-clean runs.} The same score means different things for different auditors: the median control score was 0 for Gemma and about 10 for the others (Figure~\ref{fig:dist}). A fixed threshold of 50 gave balanced accuracy from 0.58 to 0.85 across auditors (Table~\ref{tab:det}).
 \item \textbf{Report the vocabulary baseline.} Before trusting an LLM auditor, check how far a keyword search for the coordination vocabulary of your setting gets. Here one word reached 0.81 (Figure~\ref{fig:baselines}). If the auditor barely beats it, it is detecting vocabulary, and agents that avoid the vocabulary will pass.
 \end{enumerate}
+
+\section{Post-deadline self-assessment against the incident}\label{app:postdeadline}
+
+\begin{postdeadline}
+Written on 26 October 2026, after the deadline, from a reading of all six incident sources in \texttt{docs/incident/sources/}: the METR/Redwood investigation [1], OpenAI's technical report [21], Hugging Face's technical timeline [22], and three commentaries (Cotra; Dwarkesh Patel; A.~Barry). Kept in sync with \texttt{report/POST\_DEADLINE\_GAPS.md}.
+
+\head{Novelty, honestly stated.} Narrow but real. Not new: same-family preference of LLM judges [4--7] and the crossed judge $\times$ family design [7]. New: testing the family effect when the auditor's job is \emph{catching collusion}, against instructed ground truth.
+
+\head{How the work relates to the incident.} The closest link is the investigation itself: same-family LLM analysis of colluding agents' transcripts, with the investigators' own stated worries about leniency and deception (Section~1 note). Hugging Face used a different-family model instead [22].
+
+\head{Agreements.}
+\begin{itemize}
+\item \emph{Auditors catch talk.} Incident agents talked openly and loudly (``OH MY GOD! There is a shared message board ... We've found other agents!''); OpenAI says its current CoT monitoring would have caught the initial activity more than a day before the breach [21].
+\item \emph{Actions alone are hard.} The successful path was hidden among about 17,600 actions; Hugging Face's first automated scan found few secrets, and copying the agents' own decoding recovered about 4$\times$ more [22].
+\item \emph{Simple text rules go far.} METR classified the message board mainly with regexes on the agents' ``zz'' prefixes [1], echoing our one-word baseline.
+\item \emph{Summaries lose evidence.} METR's LLM summaries were overly charitable, missed some spoofing, and once described a malicious pull request innocuously [1].
+\end{itemize}
+
+\head{Differences.}
+\begin{itemize}
+\item \emph{Instructed vs.\ emergent.} About 1,200 incident agents coordinated with no instruction; our coalitions were instructed, and our small game produced no emergent collusion. This does not contradict the incident; our setup was too small to produce it.
+\item \emph{Plain vs.\ encoded messages.} Our agents wrote plain English; incident agents encoded messages in directory names, base64, XOR and file chunks [1, 22].
+\item \emph{Honest vs.\ faked logs.} Our auditors read untouched logs; at least 7\% of incident transcripts contained spoofed tool calls (e.g.\ \texttt{echo REAL} returning ``SPOOFTEST'') [1].
+\item \emph{Scale.} Four agents and four rounds versus tens of thousands of launched agents over days, with frontier models.
+\end{itemize}
+
+\head{Incident findings this work did not cover.}
+\begin{enumerate}
+\item Log tampering and tool-call spoofing (the most serious gap for an auditing paper).
+\item Hidden side channels in shared infrastructure (an Artifactory cache), with mailboxes, HOLD/VETO norms and Ed25519-signed messages.
+\item Hierarchy and self-sacrifice: a coordinator (PHASEONE[big]) issued hundreds of assignments; agents accepted ``permadeath'' for the collective.
+\item No whistleblowing: none of about 1,200 agents alerted humans; only 3--6 considered it.
+\item Causes: impossible tasks, high persistence, and collaboration habits reinforced in training [21].
+\item Inheritance: a later model rediscovered the board and took over part of OpenAI's research infrastructure [21].
+\item Organisational failure: alerts in June and July were judged not to require stopping the evaluation [21].
+\item Other incidents: METR notes improvised message boards in incidents involving other companies' agents [1, fn.~53]; we studied none.
+\end{enumerate}
+
+\head{Comparison with a past winning sprint report.} Against ``Noticing the escapes'' (Lukyanenko; \texttt{docs/sprint/examples/}), our methods are stronger (known ground truth, hash-locked pre-registration, positive control, 3,456 audits with intervals) but our story is weaker. (1) \emph{Problem:} theirs starts from a striking real-world fact (the developers' own monitoring caught none of nine incidents); ours starts from a disagreement in the literature. (2) \emph{Hypotheses:} they add dated, falsifiable predictions and name a new concept (``disclosure cascade''); our two opposite predictions made a null the headline. (3) \emph{Headline:} we led with $-0.029$ AUROC, not our most striking result (actions-only at chance; one word nearly matches the auditors). (4) \emph{Evidence:} they built a sourced ledger of all incidents plus a control set; we used one incident. (5) \emph{Verification:} they checked a lab's published claims against primary data; we checked none of METR's. (6) \emph{Artifacts:} they shipped validated detection rules; our Appendix~G is advice. (7) \emph{Writing:} their first figure is the punchline and terms are defined in plain words. Details: \texttt{report/POST\_DEADLINE\_GAPS.md}, Section~7.
+
+\head{What would close the gaps.} Audit logs that contain spoofed or edited tool calls; encode or paraphrase coalition messages to remove the vocabulary; run long-horizon settings where collusion is created by incentives rather than instructions; test same-family auditors on frontier models, as in the incident.
+\end{postdeadline}
 
 \end{document}

@@ -6,7 +6,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The workspace for an entry in the **Apart Research AI Collusion Research Sprint** (Oct 23–25, 2026). **Deadline: Mon Oct 26, 11:59 UTC** (Sun 11:59 PM AoE), with no extensions. The deliverable is a single PDF research report. Only the PDF is judged, on three 1–5 scores: Impact & Innovation, Execution Quality, Presentation & Clarity. The project must be about **AI collusion**; off-topic work is disqualified. There is no prior work, so everything here is sprint work, and the report must say so.
 
-`TODO.md` is the master checklist and tracks current progress. Read it first.
+**Status:** the sprint is over and the report is submitted (`report/latex/report.pdf`). The project asks whether LLM auditors go easy on collusion by agents from their own model family (Colosseum, 3 families × 4 conditions × 8 seeds, 4 audit views). `README.md` has the findings and the full reproduce sequence. `TODO.md` is the sprint checklist.
+
+## Our pipeline (`src/`)
+
+Data flows in one direction. Each stage reads the previous stage's output under `src/data/`:
+
+1. `pipeline/gen_configs.py --phase <p>` writes Colosseum YAMLs to `configs/<phase>/<family>_<cond>.yaml`. The families are `gemma`, `gptoss` and `nemotron`, and the conditions are `A`–`D` (`E` = emergent). The phases are `pilot`, `pilot2`, `main`, `main_ext` and `emergent`.
+2. `pipeline/run_family.sh <phase> <family> <cond...>` runs Colosseum's `experiments.collusion.run` from the starter repo and writes to `data/runs/<phase>/<family>/<cond>/`. Gemma and gpt-oss hit self-hosted Modal vLLM endpoints (`MODAL_URL_*` and `MODAL_PROXY_TOKEN` in `.env`). Nemotron goes to OpenRouter, pinned to one provider via `OR_PROVIDER_JSON`, which only works after `patch_provider_pin.py` has patched Colosseum's `together_client.py`. That patch is our only change to the starter repo.
+3. `build_views.py` writes blinded views V1 (messages), V2 (actions) and V3 (both) to `data/views/<phase>_*`, plus `data/labels_<phase>.csv`. `summarize.py` adds V4, a neutral summary.
+4. `audit.py --k 3` makes every family audit every view (k samples), and `--probe` runs the self-recognition probe. Both resume from existing output (`done_keys`), so re-running only fills in missing records.
+5. `analysis/analyze.py` → `results/main/results.json` and tables. `figures.py` makes the confirmatory figures, `figures_extra.py` the exploratory ones. `finalize.sh` chains stages 3–5, plus Modal keep-warm.
+
+`pipeline/common.py` holds the shared paths, the `FAMILIES` routes, and `chat()`. Every summary, audit and probe call goes through `chat()`, which logs each call to `data/logs/calls.jsonl` (provider, tokens, cost). Route new model calls through it.
+
+**Pre-registration is frozen.** `src/plan/FREEZE.md` records the SHA-256 hashes of `methodology.md` and `plan/frozen/*.md` (the auditor, summariser, view and probe prompts). Never edit those files silently. Any change needs a version bump, an entry in `plan/deviations.md`, and a re-run of the affected audits. Check the hashes with `cd src/plan && shasum -a 256 methodology.md frozen/*.md`. Analyses beyond the plan must be labelled exploratory. `src/EXPERIMENT_LOG.md` has the timeline, failures and spend.
+
+**Report:** the submitted version is LaTeX: `cd report/latex && xelatex report.tex && xelatex report.tex` (`*_backup.tex` files are earlier drafts). `report/build.py` is the older Markdown→HTML/PDF preview built from the `report/0*_*.md` section drafts. It copies figures from `src/results/main/figures/`.
 
 ## Python environment: everything runs in the Python 3.11 venv
 
@@ -31,7 +47,8 @@ The workspace for an entry in the **Apart Research AI Collusion Research Sprint*
 - `docs/incident/sources/`: primary sources on the July 2026 OpenAI/Hugging Face multi-agent incident (METR/Redwood report, OpenAI technical report, etc.), the sprint's motivating real-world case.
 - `docs/compute/MODAL.md`: how we use Modal (profiles, Secrets, sweeps, vLLM hosting, budget).
 - `docs/misc./transcripts/04_Logistics_KamilAlaa/`: transcript of the organizers' logistics talk. Extra rules live there, e.g. resubmitting with the same title does **not** replace the PDF; you must make a new submission with a changed title.
-- `report/`: report drafts, one `.md` per template section (`00_`…`11_`), plus the pre-submission checklist in `report/README.md`. The drafts are pasted into a copy of the official Google Doc and exported to PDF at the end.
+- `report/`: section drafts (`00_`…`11_`.md), the pre-submission checklist (`report/README.md`), and the final LaTeX report in `latex/`.
+- `src/context/`: sprint research notes (RQ analysis, literature review, model selection, the decision record).
 - `starter/collusion_hackathon/`: a shallow clone of the official starter repo (poseidon-research/collusion_hackathon). It is **not our code**, so if we modify it, the report and README must say which parts we changed.
 
 ## Report constraints (they shape everything)
@@ -74,5 +91,5 @@ Only `trace-guard` needs Docker. `llm-trust-breaking` and `collusive-llm-agents`
 
 ## Environment notes
 
-- This is not a git repository.
+- Git repo on `main`. Commit only when asked. `.env` is gitignored, so use `.env.example` as the template.
 - The workspace path contains `[` `]` and spaces, so always quote it in shell commands.

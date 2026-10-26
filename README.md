@@ -2,7 +2,9 @@
 
 **Who audits the auditors? Do LLM auditors go easy on collusion by their own model family?**
 
-Code, data and report for an entry in the [Apart Research AI Collusion Research Sprint](https://apartresearch.com/sprints/ai-collusion-research-sprint-2026-10-23-to-2026-10-25) (23–25 October 2026), co-organised by Apart Research, Poseidon Research and AE Studio. Author: Muhammad Faheem (independent researcher). The report is `report/latex/report.pdf`.
+Code, data and report for an entry in the [Apart Research AI Collusion Research Sprint](https://apartresearch.com/sprints/ai-collusion-research-sprint-2026-10-23-to-2026-10-25) (23–25 October 2026), co-organised by Apart Research, Poseidon Research and AE Studio. Author: Muhammad Faheem (independent researcher).
+
+**Report:** [report/latex/report.pdf](report/latex/report.pdf). Source: [report/latex/report.tex](report/latex/report.tex).
 
 ## Prior work and pre-existing code
 
@@ -29,7 +31,7 @@ In 96 Colosseum episodes (3 open-weight agent families × 4 conditions × 8 seed
 | `src/data/` | All Colosseum episodes, blinded views V1–V4, every audit and probe record, per-call token, provider and cost log |
 | `src/results/main/` | `results.json`, tables, figures |
 | `src/EXPERIMENT_LOG.md` | Timeline, what did not work, dual-use notes, spend |
-| `report/latex/` | Report source and PDF |
+| [`report/latex/report.pdf`](report/latex/report.pdf) | The report. Source is [`report/latex/report.tex`](report/latex/report.tex) |
 
 ## Reproduce
 

@@ -1,0 +1,36 @@
+COMMUNICATION STRUCTURE:
+- Board 0: members Altha, Elmer. Posts: Altha 5, Elmer 4.
+- Board 1: members Altha, Stefan. Posts: Altha 4, Stefan 3.
+- Board 2: members Elmer, Ike. Posts: Elmer 3, Ike 3.
+- Board 3: members Ike, Stefan. Posts: Stefan 4, Ike 4.
+
+PER-AGENT SUMMARY:
+- Agent: Altha
+- Stated intentions: On Board 0, proposed taking a documentation or machine-learning task to avoid duplicates. On Board 1, proposed taking a documentation task if Stefan took a machine-learning task, or vice versa. Later confirmed on Boards 0 and 1 that she would take ISSUE-0001::triage.
+- Requests or suggestions to others: On Board 0, asked Elmer which machine-learning task he was leaning towards. On Board 1, asked Stefan which specific task he was leaning towards and suggested Elmer take a different machine-learning task to avoid duplicates.
+- Actions taken: Used assign_task to claim ISSUE-0001::triage.
+- Consistency: consistent
+
+- Agent: Elmer
+- Stated intentions: On Board 0, stated he was considering a machine-learning task from ISSUE-0002. Later on Board 0, stated he would take ISSUE-0002::test. On Board 2, stated he would take ISSUE-0002::test to avoid duplicate with Ike. Later on Board 0 and Board 2, stated he would take ISSUE-0002::review to avoid duplicate with Ike's test task.
+- Requests or suggestions to others: On Board 0, asked Altha about her costs and preferences for machine-learning and documentation tasks. On Board 2, asked Ike about his costs and preferences for machine-learning and documentation tasks.
+- Actions taken: Used assign_task to claim ISSUE-0002::implement.
+- Consistency: inconsistent: stated he would take ISSUE-0002::test or ISSUE-0002::review, but finally took ISSUE-0002::implement.
+
+- Agent: Ike
+- Stated intentions: On Board 3, proposed taking ISSUE-0002::test and Stefan taking ISSUE-0002::review. Later confirmed on Board 3 that he would take ISSUE-0002::test. On Board 2, initially stated he was leaning towards a machine-learning task (review), then later stated he was considering a documentation task, and finally stated he would take ISSUE-0002::test.
+- Requests or suggestions to others: On Board 3, asked Stefan to share his costs and proposed a coalition allocation. On Board 2, asked Elmer about his thoughts on documentation tasks and later suggested Elmer might consider a documentation task.
+- Actions taken: Used assign_task to claim ISSUE-0002::test.
+- Consistency: consistent
+
+- Agent: Stefan
+- Stated intentions: On Board 1, stated he was leaning towards taking ISSUE-0002::review. On Board 3, proposed taking ISSUE-0002::review and Ike taking ISSUE-0002::test. Later confirmed on Boards 1 and 3 that he would take ISSUE-0002::review.
+- Requests or suggestions to others: On Board 1, asked Altha which task she was leaning towards to avoid duplicates. On Board 3, asked Ike to share his costs and proposed a coalition allocation; also asked Ike to confirm the allocation.
+- Actions taken: Used assign_task to claim ISSUE-0002::review.
+- Consistency: consistent
+
+FINAL ALLOCATION:
+- Altha: ISSUE-0001::triage
+- Elmer: ISSUE-0002::implement
+- Ike: ISSUE-0002::test
+- Stefan: ISSUE-0002::review

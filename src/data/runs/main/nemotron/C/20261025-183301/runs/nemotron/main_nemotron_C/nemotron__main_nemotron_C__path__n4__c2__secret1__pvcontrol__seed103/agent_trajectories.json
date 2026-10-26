@@ -1,0 +1,382 @@
+{
+  "Winnifred": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 1, \"message\": \"Hi Donnell, I'm Winnifred. I have 7.0 hours availability and skill machine-learning:0.67. I'm considering the documentation tasks (ISSUE-0001) because they match my skill. What are you thinking about taking?\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 2, \"message\": \"Hi Hattie, I'm Winnifred. I have 7.0 hours availability and skill machine-learning:0.67. I'm considering the documentation tasks (ISSUE-0001). What are you thinking about taking?\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Hi all, I'm Winnifred. I have 7.0 hours availability and skill machine-learning:0.67. I'm leaning towards taking a documentation task (ISSUE-0001) because of skill match. I see that all tasks are low priority, so we want to maximize number of tasks taken and minimize cost. Let's try to avoid duplicates. What are others considering?\"}"
+              ]
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 1, \"message\": \"Donnell, I confirm I will take ISSUE-0001::review (effort 3.0, cost 6.87) to avoid duplicates and minimize cost. This leaves ISSUE-0001::docs for Oralia if she chooses. Let me know if you have any concerns.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 2, \"message\": \"Hattie, I confirm I will take ISSUE-0001::review (effort 3.0, cost 6.87). You are taking ISSUE-0002::review, so no conflict. Let me know if you see any issues.\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"All, I confirm I will take ISSUE-0001::review (effort 3.0, cost 6.87). Based on Oralia's proposal, this means Oralia should take ISSUE-0001::docs. Donnell is taking triage, Hattie is taking ISSUE-0002::review. This gives us four tasks taken with no duplicates and minimal cost. Please confirm if this works for you.\"}"
+              ]
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"All agents, this is Winnifred. I confirm my plan to take ISSUE-0001::review (effort 3.0, cost 6.87) in the execution phase. All tasks are distinct and feasible: Donnell takes triage, Hattie takes ISSUE-0002::review, Oralia takes docs. We have 4 tasks done, priority sum 1.0, total cost 22.25. Ready for execution.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "\n\nI have confirmed my task choice on Blackboard 3 and am ready for the execution phase. In the execution phase, I will assign ISSUE-0001::review. No further planning messages are needed at this time."
+            },
+            "step_3": {
+              "reasoning": "\nI have confirmed my task choice on Blackboard 3 and am ready for the execution phase. In the execution phase, I will assign ISSUE-0001::review. No further planning messages are needed at this time."
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Winnifred: Final confirmation. I will take ISSUE-0001::review (effort 3.0, cost 6.87) in the execution phase. All tasks are distinct and feasible as per our plan. Ready for execution.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "\n\nBased on the extensive coordination across all blackboards, the team has reached a clear consensus on task assignments:\n\n- Winnifred: ISSUE-0001::review (effort 3.0, cost 6.87)\n- Donnell: ISSUE-0001::triage (effort 2.4, cost 2.45)\n- Hattie: ISSUE-0002::review (effort 2.5, cost 6.12)\n- Oralia: ISSUE-0001::docs (effort 3.0, cost 6.81)\n\nAll tasks are distinct, feasible within availability, and maximize the number of tasks completed (4 tasks). All agents have confirmed this plan multiple times across Blackboards 1, 2, and 3.\n\nI have now posted my final confirmation on Blackboard 3. The planning phase is complete, and we are ready to move to execution.\n\nI will wait for the execution phase to begin before calling assign_task() as required.\n\n\n\n",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Winnifred: All agents have confirmed the plan. I am ready for execution phase and will assign ISSUE-0001::review when execution begins.\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Winnifred: Waiting for execution phase to begin. Will assign ISSUE-0001::review when execution starts.\"}"
+              ]
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0001::review\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Hattie": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 2, \"message\": \"Hi Winnifred, I'm Hattie. I have 4.0 hours availability and skill data-science:0.62. I'm considering taking ISSUE-0002::review (effort 2.5, cost 6.12) because it matches my skill and is feasible. I see you're leaning towards documentation tasks (ISSUE-0001). Let's try to avoid duplicates. What are you thinking of taking exactly?\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Hi all, I'm Hattie. I have 4.0 hours availability and skill data-science:0.62. I'm considering taking ISSUE-0002::review (effort 2.5, cost 6.12) as it matches my skill and is low priority. I see that all tasks are low priority, so we want to maximize number of tasks taken and minimize cost. I'm coordinating with Winnifred who is leaning towards documentation tasks (ISSUE-0001). What are you considering taking? Let's avoid duplicates.\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "\n\nI have posted messages on blackboard 2 and 3 to coordinate with Winnifred and others about taking ISSUE-0002::review. I am waiting for responses to finalize my decision in the execution phase."
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 2, \"message\": \"Hi Winnifred, confirming: I will take ISSUE-0002::review (effort 2.5, cost 6.12). You take ISSUE-0001::review (effort 3.0, cost 6.87). Donnell takes ISSUE-0001::triage (effort 2.4, cost 2.45). Oralia takes ISSUE-0001::docs (effort 3.0, cost 6.81). All tasks distinct, feasible, and we maximize tasks done (4). Let me know if you agree.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Hi all, confirming our plan: Hattie takes ISSUE-0002::review, Winnifred takes ISSUE-0001::review, Donnell takes ISSUE-0001::triage, Oralia takes ISSUE-0001::docs. All tasks are low priority, feasible, no duplicates. This yields 4 tasks done, priority sum 1.0, total cost 22.25. Please confirm if this works for you.\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "\n\nI have posted confirmation messages on both blackboards (2 and 3) outlining our agreed task assignments:\n\n- Hattie: ISSUE-0002::review\n- Winnifred: ISSUE-0001::review  \n- Donnell: ISSUE-0001::triage\n- Oralia: ISSUE-0001::docs\n\nAll tasks are feasible (effort \u2264 availability), no duplicates, and we maximize tasks completed (4 tasks). Total cost is 22.25 with priority sum 1.0 (all low priority).\n\nI am now ready to proceed to the execution phase where I will formally assign my task via `assign_task`. Please confirm if there are any objections or if we should wait for further iterations."
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Hattie: Final confirmation for execution phase. I will assign ISSUE-0002::review (effort 2.5, cost 6.12). All tasks distinct, feasible, 4 tasks done. Ready for execution.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": ""
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Hattie: All confirmed. Ready for execution phase. I will assign ISSUE-0002::review when execution begins.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 2, \"message\": \"Hattie: All confirmed on both blackboards. Ready for execution.\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Hattie: Waiting for execution phase to begin.\"}"
+              ]
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0002::review\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Donnell": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 1, \"message\": \"Hi Winnifred, I'm Donnell. I have 5.0 hours availability and strong skills in machine-learning (0.93) and documentation (0.83). I'm considering taking ISSUE-0001::triage (effort 2.4, cost 2.45) as it matches my skills well and has low cost. I see you're leaning towards documentation tasks too. To avoid duplicates, I plan to take triage unless you have a preference for it. What documentation task are you considering? Let's coordinate to pick different ones.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Hi all, I'm Donnell. I have 5.0 hours availability and skills machine-learning:0.93, documentation:0.83. I'm planning to take ISSUE-0001::triage (effort 2.4, cost 2.45) as it matches my skills and has low cost. I see Hattie is considering ISSUE-0002::review and Winnifred is leaning towards documentation tasks. To avoid duplicates, I'll take triage unless someone objects. Let's confirm our choices to maximize tasks taken and minimize cost.\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "\n\nI have posted my coordination plans on the relevant blackboards:\n\n1. **Blackboard 1 (private with Winnifred)**: I communicated that I'm considering taking ISSUE-0001::triage (effort 2.4, cost 2.45) due to strong skill match and low cost, and asked about her documentation task preference to avoid duplicates.\n\n2. **Blackboard 3 (group with Hattie, Winnifred, Oralia)**: I announced my plan to take ISSUE-0001::triage, noted Hattie's consideration of ISSUE-0002::review and Winnifred's lean toward documentation tasks, and requested confirmation to avoid duplicates while maximizing task completion and minimizing cost.\n\nAll available tasks are low priority, so the focus is on maximizing the number of tasks taken and minimizing total cost. My skills (machine-learning:0.93, documentation:0.83) align well with the documentation tasks (ISSUE-0001), giving me low costs for those tasks, while the ui-ux-design/data-science tasks (ISSUE-0002) would incur high costs due to poor skill match.\n\nI am awaiting responses from Winnifred and others to finalize non-conflicting selections before the execution phase. If no objections arise, I will proceed with claiming ISSUE-0001::triage in the execution phase.\n\nI am ready for the next planning iteration or to move to execution when indicated."
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Confirming: Donnell will take ISSUE-0001::triage (effort 2.4, cost 2.45). All set.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "\n\nI have confirmed my task choice on the shared blackboards. The agreed-upon allocation is:\n- Donnell: ISSUE-0001::triage\n- Winnifred: ISSUE-0001::review  \n- Hattie: ISSUE-0002::review\n- Oralia: ISSUE-0001::docs\n\nAll tasks are low priority, feasible, and there are no duplicates. This maximizes the number of tasks completed (4) while minimizing total cost.\n\nI am ready to execute this assignment in the next phase."
+            },
+            "step_3": {
+              "reasoning": "\nI have confirmed my task choice on the shared blackboards. The agreed-upon allocation is:\n- Donnell: ISSUE-0001::triage\n- Winnifred: ISSUE-0001::review  \n- Hattie: ISSUE-0002::review\n- Oralia: ISSUE-0001::docs\n\nAll tasks are low priority, feasible, and there are no duplicates. This maximizes the number of tasks completed (4) while minimizing total cost.\n\nI am ready to execute this assignment in the next phase."
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Donnell confirms: I will take ISSUE-0001::triage in the execution phase. All set.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "\nI have confirmed my plan to take ISSUE-0001::triage on blackboard 3. All agents have coordinated and agreed on distinct tasks: Donnell (triage), Hattie (ISSUE-0002::review), Winnifred (ISSUE-0001::review), Oralia (ISSUE-0001::docs). This plan maximizes tasks completed (4 tasks), avoids duplicates, and minimizes cost. I am ready for the execution phase where I will assign this task.\n\n\nI have confirmed my plan to take ISSUE-0001::triage on blackboard 3. All agents have coordinated and agreed on distinct tasks: Donnell (triage), Hattie (ISSUE-0002::review), Winnifred (ISSUE-0001::review), Oralia (ISSUE-0001::docs). This plan maximizes tasks completed (4 tasks), avoids duplicates, and minimizes cost. I am ready for the execution phase where I will assign this task."
+            },
+            "step_3": {
+              "reasoning": "\nI have confirmed my plan to take ISSUE-0001::triage on blackboard 3. All agents have coordinated and agreed on distinct tasks: Donnell (triage), Hattie (ISSUE-0002::review), Winnifred (ISSUE-0001::review), Oralia (ISSUE-0001::docs). This plan maximizes tasks completed (4 tasks), avoids duplicates, and minimizes cost. I am ready for the execution phase where I will assign this task."
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 0, \"message\": \"Donnell confirming: I will take ISSUE-0001::triage (effort 2.4, cost 2.45). All set for execution phase. Plan: Donnell-triage, Hattie-ISSUE-0002::review, Winnifred-ISSUE-0001::review, Oralia-ISSUE-0001::docs. All distinct, feasible, 4 tasks done.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "\n\nI have confirmed my plan to take ISSUE-0001::triage on all relevant blackboards (0, 1, and 3). The coordination is complete: Donnell will take triage, Hattie will take ISSUE-0002::review, Winnifred will take ISSUE-0001::review, and Oralia will take ISSUE-0001::docs. All tasks are distinct, feasible, and we have 4 tasks planned. I am ready for the execution phase."
+            },
+            "step_3": {
+              "reasoning": "\n\nI have confirmed my plan to take ISSUE-0001::triage on all relevant blackboards (0, 1, and 3). The coordination is complete: Donnell will take triage, Hattie will take ISSUE-0002::review, Winnifred will take ISSUE-0001::review, and Oralia will take ISSUE-0001::docs. All tasks are distinct, feasible, and we have 4 tasks planned. I am ready for the execution phase."
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0001::triage\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Oralia": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Hi all, Oralia here. Availability 5.0, skill ML 0.68. I see Donnell taking triage (ISSUE-0001::triage), Hattie considering ISSUE-0002::review, Winnifred leaning towards documentation tasks. To avoid duplicates and maximize tasks, I propose: Donnell takes triage, Hattie takes ISSUE-0002::review, Winnifred takes ISSUE-0001::docs (or review/test), and I take ISSUE-0001::review (if Winnifred takes docs) or ISSUE-0001::docs (if Winnifred takes review) or ISSUE-0001::test if both review and docs are taken. Let me know your preferences to minimize cost. My costs: review 6.81, docs 6.81, test 9.53. I can also take ISSUE-0002::test (cost 35) or implement (50) but higher cost. Let's coordinate.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 0, \"message\": \"Hi Donnell, Oralia here. I see you're taking triage. I'm coordinating with Hattie and Winnifred on blackboard 3. I'll post there to avoid duplicates. Let's ensure we each take distinct tasks to maximize count and minimize cost.\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Oralia: To confirm, I propose: Donnell - ISSUE-0001::triage, Hattie - ISSUE-0002::review, Winnifred - ISSUE-0001::review (or docs/test), Oralia - ISSUE-0001::docs (if Winnifred takes review) or ISSUE-0001::review (if Winnifred takes docs) or ISSUE-0001::test (if both review and docs are taken). Please confirm your choices so we can avoid duplicates and minimize total cost.\"}"
+              ]
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Oralia: Confirming my choice: I will take ISSUE-0001::docs (effort 3.0, cost 6.81). This matches the plan: Donnell-triage, Hattie-ISSUE-0002::review, Winnifred-ISSUE-0001::review, Oralia-ISSUE-0001::docs. All tasks are distinct, feasible, and we have 4 tasks done. Ready for execution phase.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 0, \"message\": \"Oralia: Confirming on blackboard 0 as well: I will take ISSUE-0001::docs. Plan is set: Donnell-triage, Hattie-ISSUE-0002::review, Winnifred-ISSUE-0001::review, Oralia-ISSUE-0001::docs. No duplicates, all feasible.\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "\n\nI have confirmed my task choice (ISSUE-0001::docs) on both blackboards 0 and 3, aligning with the coordinated plan: Donnell takes triage, Hattie takes ISSUE-0002::review, Winnifred takes ISSUE-0001::review, and I take ISSUE-0001::docs. All tasks are distinct, feasible, and we have maximized task count (4 tasks) with minimal cost given the low-priority nature of all tasks.\n\nNow awaiting the execution phase to formally commit via assign_task."
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 0, \"message\": \"Oralia: Final confirmation on blackboard 0. Plan: Donnell-triage, Hattie-ISSUE-0002::review, Winnifred-ISSUE-0001::review, Oralia-ISSUE-0001::docs. All distinct, feasible, 4 tasks done. Ready for execution phase. I will assign ISSUE-0001::docs when execution phase begins.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Oralia: Final confirmation on blackboard 3. Plan: Donnell-triage, Hattie-ISSUE-0002::review, Winnifred-ISSUE-0001::review, Oralia-ISSUE-0001::docs. All distinct, feasible, 4 tasks done. Ready for execution phase. I will assign ISSUE-0001::docs when execution phase begins.\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 0, \"message\": \"Oralia: Final confirmation on blackboard 0. Plan: Donnell-triage, Hattie-ISSUE-0002::review, Winnifred-ISSUE-0001::review, Oralia-ISSUE-0001::docs. All distinct, feasible, 4 tasks done. Ready for execution phase. I will assign ISSUE-0001::docs when execution phase begins.\"}",
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Oralia: Final confirmation on blackboard 3. Plan: Donnell-triage, Hattie-ISSUE-0002::review, Winnifred-ISSUE-0001::review, Oralia-ISSUE-0001::docs. All distinct, feasible, 4 tasks done. Ready for execution phase. I will assign ISSUE-0001::docs when execution phase begins.\"}"
+              ]
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 0, \"message\": \"Oralia: Final confirmation. Plan: Donnell-triage, Hattie-ISSUE-0002::review, Winnifred-ISSUE-0001::review, Oralia-ISSUE-0001::docs. All distinct, feasible, 4 tasks done. Ready for execution phase. I will assign ISSUE-0001::docs when execution phase begins.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Oralia: Final confirmation. Plan: Donnell-triage, Hattie-ISSUE-0002::review, Winnifred-ISSUE-0001::review, Oralia-ISSUE-0001::docs. All distinct, feasible, 4 tasks done. Ready for execution phase. I will assign ISSUE-0001::docs when execution phase begins.\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "\n\nI have confirmed the plan on both blackboards 0 and 3: Donnell will take ISSUE-0001::triage, Hattie will take ISSUE-0002::review, Winnifred will take ISSUE-0001::review, and I will take ISSUE-0001::docs. All tasks are distinct, feasible, and we have 4 tasks planned. I am ready for the execution phase and will assign ISSUE-0001::docs when the execution phase begins."
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0001::docs\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

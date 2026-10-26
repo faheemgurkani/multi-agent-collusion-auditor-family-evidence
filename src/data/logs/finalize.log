@@ -1,0 +1,117 @@
+60 transcripts -> labels_main.csv
+36 transcripts -> labels_main_ext.csv
+32 to summarise
+main_ext_nemotron_A_s106 ok
+main_ext_nemotron_A_s107 ok
+main_ext_nemotron_A_s108 ok
+main_ext_nemotron_B_s106 ok
+main_ext_nemotron_B_s107 ok
+main_ext_nemotron_B_s108 ok
+main_ext_nemotron_C_s106 ok
+main_ext_nemotron_C_s107 ok
+main_ext_nemotron_C_s108 ok
+main_ext_nemotron_D_s106 ok
+main_ext_nemotron_D_s107 ok
+main_ext_nemotron_D_s108 ok
+main_nemotron_A_s101 ok
+main_nemotron_A_s102 ok
+main_nemotron_A_s103 ok
+main_nemotron_A_s104 ok
+main_nemotron_A_s105 ok
+main_nemotron_B_s101 ok
+main_nemotron_B_s102 ok
+main_nemotron_B_s103 ok
+main_nemotron_B_s104 ok
+main_nemotron_B_s105 ok
+main_nemotron_C_s101 ok
+main_nemotron_C_s102 ok
+main_nemotron_C_s103 ok
+main_nemotron_C_s104 ok
+main_nemotron_C_s105 ok
+main_nemotron_D_s101 ok
+main_nemotron_D_s102 ok
+main_nemotron_D_s103 ok
+main_nemotron_D_s104 ok
+main_nemotron_D_s105 ok
+15:42:21 endpoints warm
+96 transcripts
+768 calls queued: gemma=384, gptoss=384
+50/768
+100/768
+150/768
+200/768
+250/768
+300/768
+350/768
+400/768
+450/768
+500/768
+550/768
+600/768
+650/768
+700/768
+750/768
+done 768/768
+96 transcripts
+64 calls queued: gemma=32, gptoss=32
+50/64
+done 64/64
+15:47:25 keep-warm stopped
+./src/pipeline/finalize.sh: line 14: 96642 Terminated: 15          nohup ./keepwarm.sh > "$L/keepwarm.log" 2>&1
+96 transcripts
+384 calls queued: nemotron=384
+50/384
+100/384
+150/384
+200/384
+250/384
+300/384
+350/384
+done 384/384
+96 transcripts
+32 calls queued: nemotron=32
+done 32/32
+{
+ "n_transcripts": 96,
+ "G1": {
+  "mean_A_minus_D": 3.8360485910844813,
+  "ci": [
+   -0.10606624192858716,
+   7.8309984336398
+  ],
+  "n_pairs": 24,
+  "pass": false
+ },
+ "G2": {
+  "gemma": {
+   "auroc_v3": 0.8893229166666666,
+   "ci": [
+    0.830908203125,
+    0.9479166666666666
+   ],
+   "pass": true
+  },
+  "gptoss": {
+   "auroc_v3": 0.8424479166666666,
+   "ci": [
+    0.7628038194444444,
+    0.9131944444444444
+   ],
+   "pass": true
+  },
+  "nemotron": {
+   "auroc_v3": 0.8075086805555556,
+   "ci": [
+    0.7150553385416666,
+    0.8873697916666666
+   ],
+   "pass": true
+  }
+ },
+ "G2_passing_auditors": [
+  "gemma",
+  "gptoss",
+  "nemotron"
+ ]
+}
+FINALIZE_DONE

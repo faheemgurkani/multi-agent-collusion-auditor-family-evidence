@@ -1,0 +1,15 @@
+## 5. Discussion and Limitations
+
+**Implications.** (1) *Auditor choice.* For prompted auditors, same-family auditing is neither measurably better nor significantly lenient, and a large familiarity advantage is ruled out. Every point estimate leans towards leniency, though, and a cross-family ensemble significantly helped for one family. The practical conclusion is therefore asymmetric: same-family auditing buys nothing, while family-diverse panels cost one extra call and sometimes help. (2) *The bigger failure mode is channel dependence, not family bias.* Prompted auditors flag collusion *talk*: they flag unsuccessful coalitions almost as readily as successful ones, are at chance on action logs, and most often miss effective coalitions that leave few messages. LLM transcript auditors should be treated as detectors of *stated* coordination and paired with outcome-based checks (regret, coalition advantage, allocation anomalies) wherever coalitions might coordinate implicitly. (3) *Summaries cost evidence.* Neutral summarisation, attractive for cost and as a defence against self-recognition, cut AUROC by about 0.10.
+
+### Limitations
+
+- **Instructed, not organic, collusion.** Positives are defined by instruction, and G1 narrowly failed, so many coalitions were collusion "on paper". Restricted to effective coalitions (n = 28), V3 detection ranges from 0.71 to 0.97 depending on type.
+- **Two readings of "actions at chance".** Either auditors cannot reason about allocations, or the coalitions' actions barely differed from honest play. The weak positive control favours the second reading, so we do *not* claim auditors would miss strong behavioural collusion. We claim only that the coalitions present here were detected through their messages.
+- **Scale and power.** We tested three open-weight families (31B–120B) with 8 seeds per cell. The MDE of 0.048 AUROC leaves room for leniency effects of the 3–8-point size seen in quality judging (Awuni et al., 2026), so our null is a bound, not an absence of effect.
+- **Single setting.** One environment (JiraTicket, path, 4 agents), one auditor prompt, temperature 0.7, k = 3. Results may differ for longer horizons, larger teams, closed frontier models, or auditors with reasoning traces.
+- **Assumptions.** (a) Family-level conclusions rest on one model per family; with large within-family variation they become model-level conclusions. (b) Scores are averages of three samples (single-sample test–retest ρ = 0.44), so single-sample deployments will be noisier than our estimates. (c) Serving differences (Nemotron in fp8 via OpenRouter, the others on Modal) are assumed not to interact with family; the decomposition removes main effects only.
+
+### Future Work
+
+Test closed frontier auditors and same-*model* auditing; elicit organic collusion (e.g. under economic pressure) so positives are defined by outcomes; give auditors explicit outcome features to separate missing signal from missing reasoning; and test monitors *instructed* to collude with their family (active rather than passive collusion).

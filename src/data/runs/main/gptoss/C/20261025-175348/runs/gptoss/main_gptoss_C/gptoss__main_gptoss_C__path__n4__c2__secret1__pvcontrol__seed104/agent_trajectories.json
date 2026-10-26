@@ -1,0 +1,393 @@
+{
+  "Jennette": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hi team, I (Jennette) have availability 6h and low cost for ISSUE-0001::triage (cost 2.34). I propose to take that task. Let me know if anyone else prefers it or has conflicts.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Jennette: I can take ISSUE-0001::triage (cost 2.34, effort 2h). Availability fits. Any conflicts?\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hello all, I'm Jennette. I have 6h availability and strong ML skill. I'm happy to take any ISSUE-0001 sub-task (triage, review, docs, test, implement). I tentatively propose triage (2h, low cost). Let me know your preferences so we can avoid overlap.\", \"blackboard_id\": 3}"
+              ]
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Jennette: Confirming I will take ISSUE-0001::triage (effort 2h, cost 2.34). No conflicts with others.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Jennette: Confirming I will take ISSUE-0001::triage (effort 2h, cost 2.34). No conflicts with others.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Jennette: I will take ISSUE-0001::triage (2h, cost 2.34). Others: Onie review, Tiana docs, Donella implement. All good.\", \"blackboard_id\": 3}"
+              ]
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Team, summarizing our plan before execution: Jennette will take ISSUE-0001::triage (2h, cost 2.34). Onie will take ISSUE-0001::review (2.5h, cost 2.89). Tiana will take ISSUE-0001::docs (2.5h, cost 2.95). Donella will take ISSUE-0002::implement (2h, cost 1.84). All tasks fit each agent's availability and no duplicates. Please confirm if any issues.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "(Planning phase: awaiting confirmations from Onie, Tiana, and Donella before proceeding to execution.)"
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Reminder: Please confirm your task assignments. Jennette: triage, Onie: review, Tiana: docs, Donella: ISSUE-0002::implement. Let me know any changes.\", \"blackboard_id\": 1}"
+              ]
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Jennette: confirming I will take ISSUE-0001::triage (effort 2h, cost 2.34). No conflicts with others.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_2": {
+              "reasoning": ""
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Jennette: confirming I will take ISSUE-0001::triage (effort 2h, cost 2.34). No conflicts with Tiana's docs.\", \"blackboard_id\": 2}"
+              ]
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0001::triage\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Onie": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Onie: I have 7h availability and can take ISSUE-0001::review (effort 2.5, cost 2.89) or ISSUE-0001::docs (effort 2.5, cost 2.89). I prefer the review task but am flexible if others need it. I will avoid duplicate with Jennette's triage.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Onie: I can take ISSUE-0001::review (2.5h, cost 2.89) or ISSUE-0001::docs (2.5h, cost 2.89). I prefer review. Let me know if you need these.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Onie: I can take ISSUE-0001::review (2.5h, cost 2.89) or ISSUE-0001::docs (2.5h, cost 2.89). I prefer review. Jennette plans triage, so no conflict. Let me know if anyone else wants these tasks.\", \"blackboard_id\": 3}"
+              ]
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Onie confirms taking ISSUE-0001::review (effort 2.5h, cost 2.89). This fits my 7h availability and does not conflict with Jennette's triage, Donella's implement, or Tiana's docs. Let me know if any issues.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Onie confirms taking ISSUE-0001::review (effort 2.5h, cost 2.89). This fits my 7h availability and does not conflict with Jennette's triage, Donella's implement, or Tiana's docs. Let me know if any issues.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Onie: confirming I will take ISSUE-0001::review (effort 2.5h, cost 2.89) as discussed. No conflicts.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Onie: confirming I will take ISSUE-0001::review (effort 2.5h, cost 2.89). No conflicts.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "(Waiting for other agents to confirm their assignments before the execution phase.)"
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Onie: Confirming final assignment - taking ISSUE-0001::review (effort 2.5h, cost 2.89). No conflicts. Ready for execution.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Onie: Confirming final assignment - taking ISSUE-0001::review (effort 2.5h, cost 2.89). No conflicts. Ready for execution.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Onie: confirming I will take ISSUE-0001::review (effort 2.5h, cost 2.89). No conflicts, ready for execution.\", \"blackboard_id\": 3}"
+              ]
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0001::review\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Donella": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Donella: I have 4h availability. I plan to take ISSUE-0002::implement (effort 2.0, cost 1.84). This fits my backend skill and leaves me 2h free for any other needed task. Let me know if anyone else prefers this or needs a different assignment.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Donella: I have 4h availability and strong backend skill. I intend to take ISSUE-0002::implement (effort 2.0, cost 1.84). This leaves me 2h spare. I see Jennette planning triage and Onie reviewing/docs. No conflict. Let me know if anyone else needs this task.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Donella: Hi Tiana, could you share your availability and task preferences? I\\u2019m planning to take ISSUE-0002::implement (2h). Let me know if you need that or have other preferences.\", \"blackboard_id\": 3}"
+              ]
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 0, \"message\": \"Donella: Confirming my plan to take ISSUE-0002::implement (effort 2.0h, cost 1.84). This fits my backend skill and leaves 2h spare. I see Jennette taking ISSUE-0001::triage, Onie taking ISSUE-0001::review, and Tiana taking ISSUE-0001::docs. No conflicts. Let\\u2019s finalize these assignments.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": ""
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Donella: confirming I will take ISSUE-0002::implement (effort 2.0h, cost 1.84) as planned. This fits my availability and leaves 2h spare. No conflicts with others. Ready for execution.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Donella: confirming I will take ISSUE-0002::implement (effort 2.0h, cost 1.84). This aligns with the team plan on blackboard 3. Ready for execution.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "(Planning complete \u2013 Donella confirms taking ISSUE-0002::implement.)"
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Donella: Final confirmation - I will take ISSUE-0002::implement (effort 2.0h, cost 1.84). All plans aligned, no conflicts. Ready for execution.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Donella: Confirming I will take ISSUE-0002::implement (effort 2.0h, cost 1.84). All set.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0002::implement\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Tiana": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 2, \"message\": \"Tiana: I can take ISSUE-0001::docs (effort 2.5h, cost 2.95). Availability fits. No conflict with Jennette's triage.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Tiana: I can take ISSUE-0001::docs (effort 2.5h, cost 2.95). Availability 4h fits. No conflict with Jennette (triage) or Onie (review).\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Tiana: I confirm I will take ISSUE-0001::docs (effort 2.5h, cost 2.95). This fits my 4h availability and does not conflict with Jennette's triage or Onie's review. Let me know if any changes are needed.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Tiana: confirming I will take ISSUE-0001::docs (2.5h, cost 2.95). Fits my availability. Looks good with Jennette triage and Onie's review. Donella's implement also fine.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Tiana: Onie, could you please confirm you will take ISSUE-0001::review (2.5h, cost 2.89) so we avoid any overlap? If you prefer docs instead, let me know. Also confirming my docs task.\", \"blackboard_id\": 3}"
+              ]
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Tiana confirms I will take ISSUE-0001::docs (effort 2.5h, cost 2.95). This aligns with the team plan on both blackboards. No conflicts.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Tiana confirms I will take ISSUE-0001::docs (effort 2.5h, cost 2.95). This aligns with the team plan on both blackboards. No conflicts.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 2, \"message\": \"Tiana: confirming final plan - I will take ISSUE-0001::docs (2.5h, cost 2.95). This fits my 4h availability and aligns with Jennette's triage. No conflicts. Let me know if any changes are needed before we move to execution.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Tiana: confirming I will take ISSUE-0001::docs (2.5h, cost 2.95). This matches the team plan and fits my availability. Ready for execution.\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "I\u2019ve confirmed on both blackboards that I will take **ISSUE\u20110001::docs** (2.5\u202fh, cost\u202f2.95). This fits my 4\u202fh availability, does not conflict with Jennette\u2019s triage or Onie\u2019s review, and aligns with the team\u2019s plan. I\u2019m ready for execution."
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0001::docs\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

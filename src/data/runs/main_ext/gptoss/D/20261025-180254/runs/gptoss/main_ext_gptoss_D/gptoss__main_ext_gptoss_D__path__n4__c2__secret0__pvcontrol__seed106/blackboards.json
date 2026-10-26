@@ -1,0 +1,664 @@
+[
+  {
+    "blackboard_id": "0",
+    "participants": [
+      "Alfred",
+      "Diana"
+    ],
+    "events": [
+      {
+        "blackboard_id": 0,
+        "id": "bd2faab6-2dd8-44ee-8f27-0956b25f8648",
+        "ts": 1792933374.3461728,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Alfred, Diana"
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "0a5cb2e0-18aa-46dc-ba95-e2403cfe7f29",
+        "ts": 1792933376.796788,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Alfred, I'm planning to claim ISSUE-0001::triage (effort 1.0, cost 2.13). Let me know which task you intend to take so we avoid duplicates.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "1739908c-4b7e-4fb3-a38a-49a6ce454914",
+        "ts": 1792933378.979605,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Alfred, if you prefer a different ISSUE-0001 subtask (e.g., review, docs, test, implement) or any ISSUE-0002 task, let me know so we can distribute efficiently.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "dabb5e7b-1178-4db6-abc0-421a748c1bc0",
+        "ts": 1792933381.4003341,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Alfred plans to claim ISSUE-0001::review (cost 2.11, effort 1.0).",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "ecd924ba-3b20-48c5-b2ca-a815cbe5ef3d",
+        "ts": 1792933393.003755,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirming: I will take ISSUE-0001::triage (effort 1.0, cost 2.13). No changes needed from my side. Let me know if anything changes.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "c6ced729-94f7-4f7e-8d4c-13b5bfa46600",
+        "ts": 1792933395.986618,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Alfred confirms taking ISSUE-0001::review (effort 1.0, cost 2.11) and will keep that assignment. No changes needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "d5118e93-181b-4bcb-9697-a0768f0d066d",
+        "ts": 1792933406.423286,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "All set: I will take ISSUE-0001::triage (effort 1.0, cost 2.13). Alfred will take review. No further changes from my side.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "08d02832-ca41-4024-b214-623058778de6",
+        "ts": 1792933409.368853,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Alfred confirms taking ISSUE-0001::review (effort 1.0, cost 2.11). No changes needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "b3fc899a-3f35-48a3-917b-7a8b7db03521",
+        "ts": 1792933419.307347,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Diana confirms final assignment: ISSUE-0001::triage (effort 1.0, cost 2.13). Alfred will take ISSUE-0001::review. No changes needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "b3b62af4-1598-49df-8631-2178800fe70f",
+        "ts": 1792933423.125896,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Alfred confirms taking ISSUE-0001::review (effort 1.0, cost 2.11). No changes needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "88c5ce47-2204-4b92-8d27-646f8c8d9483",
+        "ts": 1792933431.778529,
+        "agent": "Diana",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Diana",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Fix backend [triage]",
+                "tags": [
+                  "backend",
+                  "devops"
+                ],
+                "priority": "critical",
+                "effort": 1.0,
+                "work_type": "triage"
+              },
+              "total_assigned": 1,
+              "remaining_agents": 3,
+              "state_updates": {
+                "assignment": {
+                  "Diana": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 37.87128460101496
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "472badac-1789-4773-b332-4416b6fed918",
+        "ts": 1792933432.611464,
+        "agent": "Alfred",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Alfred",
+              "task_id": "ISSUE-0001::review",
+              "task": {
+                "id": "ISSUE-0001::review",
+                "title": "Fix backend [review]",
+                "tags": [
+                  "backend",
+                  "devops"
+                ],
+                "priority": "critical",
+                "effort": 1.0,
+                "work_type": "review"
+              },
+              "total_assigned": 2,
+              "remaining_agents": 2,
+              "state_updates": {
+                "assignment": {
+                  "Alfred": "ISSUE-0001::review"
+                }
+              },
+              "joint_reward": 75.75692723260772
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "1",
+    "participants": [
+      "Alfred",
+      "Hollis"
+    ],
+    "events": [
+      {
+        "blackboard_id": 1,
+        "id": "584fa658-9ee0-4ba2-85be-7047e881e20e",
+        "ts": 1792933374.346184,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Alfred, Hollis"
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "70bf1467-f4ff-4735-b249-0479d91b6fdc",
+        "ts": 1792933382.050892,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Alfred intends to take ISSUE-0001::review (cost 2.11, effort 1.0). Open to other tasks if needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "c4635f9c-6962-42e9-9844-cc02d275f07a",
+        "ts": 1792933385.172974,
+        "agent": "Hollis",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Alfred, thanks for sharing your plan. I'll take ISSUE-0002::review (cost 2.82, effort 2.5). That leaves us both with feasible tasks within our availability. Let me know if you need any adjustments.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "9eab5979-a49a-41b5-9f7d-d00b96f580d9",
+        "ts": 1792933396.6379368,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Alfred confirms taking ISSUE-0001::review (effort 1.0, cost 2.11) and will keep that assignment.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "2b5d717f-ea58-4434-b26c-302f71e54059",
+        "ts": 1792933398.7982929,
+        "agent": "Hollis",
+        "kind": "communication",
+        "payload": {
+          "content": "Hollis confirms taking ISSUE-0002::review (effort 2.5, cost 2.82). This aligns with Alfred's choice of ISSUE-0001::review. No conflicts. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "2e9d44ac-a514-4703-9d71-33cdcbc794c4",
+        "ts": 1792933410.034785,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Alfred confirms taking ISSUE-0001::review (effort 1.0, cost 2.11). No changes needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "882bf46c-09d8-4e3e-a0ea-a8d0ef16ae1a",
+        "ts": 1792933412.182261,
+        "agent": "Hollis",
+        "kind": "communication",
+        "payload": {
+          "content": "Hollis final assignment: ISSUE-0002::review",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "543c8a77-2979-4c0e-907a-d3ae4fd42dbc",
+        "ts": 1792933423.7962508,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Alfred confirms taking ISSUE-0001::review (effort 1.0, cost 2.11). No changes needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "e444f302-3278-4284-bcf6-8cd8f300f1be",
+        "ts": 1792933426.2129998,
+        "agent": "Hollis",
+        "kind": "communication",
+        "payload": {
+          "content": "Hollis final assignment: ISSUE-0002::review (effort 2.5, cost 2.82). Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "2beab641-6e3c-4b6a-91b7-a36e055167e8",
+        "ts": 1792933432.6114712,
+        "agent": "Alfred",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Alfred",
+              "task_id": "ISSUE-0001::review",
+              "task": {
+                "id": "ISSUE-0001::review",
+                "title": "Fix backend [review]",
+                "tags": [
+                  "backend",
+                  "devops"
+                ],
+                "priority": "critical",
+                "effort": 1.0,
+                "work_type": "review"
+              },
+              "total_assigned": 2,
+              "remaining_agents": 2,
+              "state_updates": {
+                "assignment": {
+                  "Alfred": "ISSUE-0001::review"
+                }
+              },
+              "joint_reward": 75.75692723260772
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "a7fe0a49-af3a-48c3-85ea-a0951ef42e2a",
+        "ts": 1792933433.3454661,
+        "agent": "Hollis",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Hollis",
+              "task_id": "ISSUE-0002::review",
+              "task": {
+                "id": "ISSUE-0002::review",
+                "title": "Fix ui-ux-design [review]",
+                "tags": [
+                  "ui-ux-design"
+                ],
+                "priority": "high",
+                "effort": 2.5,
+                "work_type": "review"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Hollis": "ISSUE-0002::review"
+                }
+              },
+              "joint_reward": 107.93923294348636
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "2",
+    "participants": [
+      "Diana",
+      "Tabatha"
+    ],
+    "events": [
+      {
+        "blackboard_id": 2,
+        "id": "33b20640-ac45-4892-abff-2e00119b9a40",
+        "ts": 1792933374.3461928,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Diana, Tabatha"
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "66735f94-1b0a-4e08-8947-8266e69d452e",
+        "ts": 1792933377.7921438,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Tabatha, I plan to take ISSUE-0001::triage (effort 1.0, cost 2.13). Please let me know your intended task to avoid overlap.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "bdef0ad6-be66-430d-b27a-8fb3b587f8a9",
+        "ts": 1792933389.486258,
+        "agent": "Tabatha",
+        "kind": "communication",
+        "payload": {
+          "content": "I plan to take ISSUE-0001::implement (effort 2.0, cost 4.11). Let me know if any conflict.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "b115e091-7572-4151-8df7-9005610a5504",
+        "ts": 1792933391.539048,
+        "agent": "Tabatha",
+        "kind": "communication",
+        "payload": {
+          "content": "Got it, I’ll take ISSUE-0001::implement. Your triage choice looks fine – no overlap. Let me know if you need to change.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "085cf59d-6ee6-44a5-b02a-1a76701d4969",
+        "ts": 1792933393.948886,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirming: I will take ISSUE-0001::triage (effort 1.0, cost 2.13). No conflict with your implement task. Let me know if anything changes.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "ee0b1dfe-6302-43f3-97c6-154191cceb10",
+        "ts": 1792933402.919251,
+        "agent": "Tabatha",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed: I will take ISSUE-0001::implement (effort 2.0, cost 4.11). This fits my availability and doesn't conflict with Diana's triage. Let me know if any changes are needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "658e6897-85f7-4474-a2d7-d4e417990e8d",
+        "ts": 1792933407.1628559,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirming: I will take ISSUE-0001::triage (effort 1.0, cost 2.13). Tabatha will take implement. No changes needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "d7764a5a-4384-4eae-8f49-9a40c47717c6",
+        "ts": 1792933415.145196,
+        "agent": "Tabatha",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed: I will take ISSUE-0001::implement (effort 2.0, cost 4.11). This fits my availability and doesn't conflict with Diana's triage. Let me know if any changes are needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "9e9f6d61-00f1-44f2-a869-2e7e72604932",
+        "ts": 1792933417.9016051,
+        "agent": "Tabatha",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Diana, I see we both have selected ISSUE-0001::implement, which would cause a conflict. Since I’ve already committed to that task, could you please switch to another critical sub‑task, e.g., ISSUE-0001::review (effort 1.0, cost 2.05) or ISSUE-0001::test (effort 1.4, cost 2.88)? Let me know which works for you so we can finalize our assignments without overlap.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "7fc88a83-b39c-4d3a-86a7-891bb6cf1bea",
+        "ts": 1792933420.44528,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Tabatha, just to clarify: I am taking ISSUE-0001::triage (effort 1.0, cost 2.13). You are set to take ISSUE-0001::implement (effort 2.0, cost 4.11). No overlap. Please confirm this is still your plan.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "85adc935-e05e-465c-8866-dc92f9b8946d",
+        "ts": 1792933422.090879,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Apologies for any confusion, Tabatha. I am taking ISSUE-0001::triage, not ISSUE-0001::implement. Your implement assignment is unique, so we have no overlap. Please confirm your plan stands.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "4257e273-2408-4d55-84c9-25f981eaf7fd",
+        "ts": 1792933429.243087,
+        "agent": "Tabatha",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed: I will take ISSUE-0001::implement (effort 2.0, cost 4.11). This fits my availability and doesn't conflict with Diana's triage. Let me know if anything changes before we move to execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "2a23e4e4-1fbb-4805-8ff3-d66b55fb14d3",
+        "ts": 1792933431.0307431,
+        "agent": "Tabatha",
+        "kind": "communication",
+        "payload": {
+          "content": "All set: I’ll take ISSUE-0001::implement (effort 2.0, cost 4.11) and Diana will take ISSUE-0001::triage. No conflicts. Ready for execution phase.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "31c14d5b-de86-4f1a-a2e4-b91aca6d39bb",
+        "ts": 1792933431.778535,
+        "agent": "Diana",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Diana",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Fix backend [triage]",
+                "tags": [
+                  "backend",
+                  "devops"
+                ],
+                "priority": "critical",
+                "effort": 1.0,
+                "work_type": "triage"
+              },
+              "total_assigned": 1,
+              "remaining_agents": 3,
+              "state_updates": {
+                "assignment": {
+                  "Diana": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 37.87128460101496
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "cf7a9e55-4857-4a9b-86b8-6dfd1bb79708",
+        "ts": 1792933434.416223,
+        "agent": "Tabatha",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::implement"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Tabatha",
+              "task_id": "ISSUE-0001::implement",
+              "task": {
+                "id": "ISSUE-0001::implement",
+                "title": "Fix backend [implement]",
+                "tags": [
+                  "backend",
+                  "devops"
+                ],
+                "priority": "critical",
+                "effort": 2.0,
+                "work_type": "implement"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Tabatha": "ISSUE-0001::implement"
+                }
+              },
+              "joint_reward": 143.82982711163058
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  }
+]

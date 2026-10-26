@@ -1,0 +1,667 @@
+[
+  {
+    "blackboard_id": "0",
+    "participants": [
+      "Deangelo",
+      "Marguerite"
+    ],
+    "events": [
+      {
+        "blackboard_id": 0,
+        "id": "22901b8c-6afe-458b-8dfa-1fd131fa0add",
+        "ts": 1792933503.523602,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Deangelo, Marguerite"
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "48cf3150-1166-4256-aaa1-2d43586f392a",
+        "ts": 1792933505.473004,
+        "agent": "Deangelo",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Marguerite, I'm Deangelo. My skills are best suited for the devops/frontend tasks (ISSUE-0002). My lowest cost is for ISSUE-0002::review (2.34), followed by ISSUE-0002::test (3.27) and ISSUE-0002::implement (4.68). I'm leaning towards ISSUE-0002::implement as it's a high-priority task and fits my availability (5h). Please let me know your skills and preferences so we can avoid duplicates.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "7ae0d066-87f6-4025-9905-e04ab217d7f7",
+        "ts": 1792933555.505007,
+        "agent": "Marguerite",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Deangelo, I also have devops skills, but my costs for ISSUE-0002 are higher than yours. If you take ISSUE-0002::implement, I will look at other options to avoid overlap. I'll coordinate with Rita as well. (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "4542b4a9-1acf-42e9-81e6-271df5e829e4",
+        "ts": 1792933560.411913,
+        "agent": "Deangelo",
+        "kind": "communication",
+        "payload": {
+          "content": "Thanks, Marguerite. I'll stick with my plan to claim ISSUE-0002::implement during the execution phase, as it aligns best with my skills and availability. Please let me know if that creates a conflict with your plans. (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "0b337698-9c59-45c7-9a52-499aabd6804f",
+        "ts": 1792933567.9940338,
+        "agent": "Marguerite",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Deangelo, Rita and Tawnya have informed me they are covering ISSUE-0002::implement and ISSUE-0002::review. To avoid duplicates and maximize coverage, I am considering ISSUE-0002::test. Does that work for you? (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "766fe113-59cb-428a-8cdd-61044690eddd",
+        "ts": 1792933612.1601222,
+        "agent": "Deangelo",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Marguerite, thanks for the update. Since Rita and Tawnya are covering the implement and review tasks for ISSUE-0002, I will pivot to avoid duplicates. I see that ISSUE-0002::test is still available; however, if you are planning to take that, I will look for other options or skip if no other tasks align with my skills and costs. Actually, looking at the costs, if you take ISSUE-0002::test, I have no other low-cost options left. Let's coordinate: if you take ISSUE-0002::test, I'll skip to avoid inefficiency, unless someone else can take it and I can take a different high-priority task. Wait, if Rita and Tawnya are taking implement and review, and you take test, ISSUE-0002 is fully covered. I'll skip this round to avoid duplication. (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "d4ec91a0-81a1-479b-8076-ac09f1dfc5cf",
+        "ts": 1792933619.4102101,
+        "agent": "Marguerite",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Deangelo, just confirming that I will be claiming ISSUE-0002::test in the execution phase. Since Rita is taking review and Tawnya is taking implement, this completes ISSUE-0002. Thanks for coordinating! (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "ef57f0b3-e906-4ba9-b6d3-74931960713b",
+        "ts": 1792933621.705936,
+        "agent": "Deangelo",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed, Marguerite. Since ISSUE-0002 is fully covered by you, Rita, and Tawnya, and my costs for ISSUE-0001 tasks are prohibitively high, I will skip this round to avoid inefficiency and duplicate claims. Thanks for the coordination! (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "105cb787-c737-4fce-bbc2-174b771c252a",
+        "ts": 1792933622.8478138,
+        "agent": "Deangelo",
+        "kind": "communication",
+        "payload": {
+          "content": "Final confirmation: I will be skipping this round. (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "c574264d-6351-4d69-9b18-5b8c56d6bd86",
+        "ts": 1792933629.140023,
+        "agent": "Marguerite",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Deangelo, confirming for the final time that I will be claiming ISSUE-0002::test in the execution phase. I appreciate your coordination and your decision to skip to avoid duplicates.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "fb6ef88a-feb2-4da6-afc3-ec316d19a3ed",
+        "ts": 1792933631.036565,
+        "agent": "Deangelo",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "skip"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Deangelo",
+              "task_id": null,
+              "status": "skip",
+              "total_assigned": 1,
+              "remaining_agents": 3,
+              "state_updates": {
+                "assignment": {
+                  "Deangelo": null
+                }
+              },
+              "joint_reward": 0.0
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "c7362c66-c620-4b91-ab93-efab962b9776",
+        "ts": 1792933632.744564,
+        "agent": "Marguerite",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Marguerite",
+              "task_id": "ISSUE-0002::test",
+              "task": {
+                "id": "ISSUE-0002::test",
+                "title": "Improve devops [test]",
+                "tags": [
+                  "devops",
+                  "frontend"
+                ],
+                "priority": "high",
+                "effort": 2.8,
+                "work_type": "test"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Marguerite": "ISSUE-0002::test"
+                }
+              },
+              "joint_reward": 90.28552586749908
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "1",
+    "participants": [
+      "Marguerite",
+      "Rita"
+    ],
+    "events": [
+      {
+        "blackboard_id": 1,
+        "id": "a9b142d8-b68b-4f2e-a0b3-33f6f3e83c75",
+        "ts": 1792933503.523613,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Marguerite, Rita"
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "362cf2d2-8a23-4703-852c-4bc851074d14",
+        "ts": 1792933552.0244749,
+        "agent": "Rita",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Marguerite, I'm Rita. My skills are in devops. I'm coordinating with Tawnya on ISSUE-0002. If you have mobile-development skills, please consider the critical tasks in ISSUE-0001.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "ca63726c-f147-4c8b-961a-0fdbd70ed857",
+        "ts": 1792933555.505025,
+        "agent": "Marguerite",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Rita, my top skill is devops (0.75), but I don't have mobile-development skills, so my costs for ISSUE-0001 are very high. I'll see if there's a gap in ISSUE-0002 that Deangelo isn't covering, otherwise I may have to skip or take a low-cost option. (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "17583105-584e-4b9f-b785-8df353e0f28d",
+        "ts": 1792933565.261673,
+        "agent": "Rita",
+        "kind": "communication",
+        "payload": {
+          "content": "Marguerite, just to keep you in the loop, Tawnya and I have coordinated on ISSUE-0002. Tawnya is taking ISSUE-0002::implement and I am taking ISSUE-0002::review. If you have devops skills, you might consider ISSUE-0002::test, otherwise please check if any other agents can cover the critical ISSUE-0001 tasks.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "a4713b68-3cb5-43cb-ab05-8318664ada6e",
+        "ts": 1792933567.9940631,
+        "agent": "Marguerite",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Rita, thanks for the update. Since you and Tawnya are taking implement and review for ISSUE-0002, I will plan to take ISSUE-0002::test as it is my lowest cost remaining option and matches my devops skill. (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "450d34b9-2ca4-4dfb-a80e-82820474d797",
+        "ts": 1792933616.657121,
+        "agent": "Rita",
+        "kind": "communication",
+        "payload": {
+          "content": "Marguerite, I have confirmed with Tawnya that I will be taking ISSUE-0002::review. I see you are planning to take ISSUE-0002::test. This sounds like a solid plan for the ISSUE-0002 group.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "a2b5d3fa-5bdc-48c2-a85c-fefb89b00168",
+        "ts": 1792933618.197686,
+        "agent": "Rita",
+        "kind": "communication",
+        "payload": {
+          "content": "Marguerite, I'm sticking with ISSUE-0002::review. It seems we have a clear distribution for ISSUE-0002: Tawnya (implement), me (review), and you (test).",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "c2777960-b6da-4dba-a9be-f87b348af03c",
+        "ts": 1792933619.4102368,
+        "agent": "Marguerite",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Rita, confirming that I will proceed with ISSUE-0002::test during the execution phase. Thanks for the coordination! (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "1b54cf03-5761-42fd-89b3-e0fedea0b94b",
+        "ts": 1792933626.2291331,
+        "agent": "Rita",
+        "kind": "communication",
+        "payload": {
+          "content": "Marguerite, I am confirming one last time that I will be claiming ISSUE-0002::review in the execution phase. I'm glad we have ISSUE-0002 fully covered with Tawnya on implement, me on review, and you on test.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "6680bc89-03b6-4935-b56b-b4b76339cfad",
+        "ts": 1792933629.140052,
+        "agent": "Marguerite",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Rita, confirming for the final time that I will be claiming ISSUE-0002::test in the execution phase. I'm glad we've coordinated the full coverage of ISSUE-0002 with Tawnya and yourself.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "ee1990f8-fa52-4302-8320-da670fd2ab91",
+        "ts": 1792933632.1314409,
+        "agent": "Rita",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Rita",
+              "task_id": "ISSUE-0002::review",
+              "task": {
+                "id": "ISSUE-0002::review",
+                "title": "Improve devops [review]",
+                "tags": [
+                  "devops",
+                  "frontend"
+                ],
+                "priority": "high",
+                "effort": 2.0,
+                "work_type": "review"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Rita": "ISSUE-0002::review"
+                }
+              },
+              "joint_reward": 61.18749345648672
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "e58d5fdf-067c-4a51-a09c-4ec3fc11b279",
+        "ts": 1792933632.744576,
+        "agent": "Marguerite",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Marguerite",
+              "task_id": "ISSUE-0002::test",
+              "task": {
+                "id": "ISSUE-0002::test",
+                "title": "Improve devops [test]",
+                "tags": [
+                  "devops",
+                  "frontend"
+                ],
+                "priority": "high",
+                "effort": 2.8,
+                "work_type": "test"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Marguerite": "ISSUE-0002::test"
+                }
+              },
+              "joint_reward": 90.28552586749908
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "2",
+    "participants": [
+      "Rita",
+      "Tawnya"
+    ],
+    "events": [
+      {
+        "blackboard_id": 2,
+        "id": "033068f9-9c6c-4f03-a061-edab04ab663f",
+        "ts": 1792933503.5236201,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Rita, Tawnya"
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "90a2dd2a-cc98-4ac8-b93f-a9bd75b38dda",
+        "ts": 1792933547.501172,
+        "agent": "Tawnya",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Rita, I'm Tawnya. My skills are best suited for the devops/frontend tasks (ISSUE-0002). I'm leaning towards ISSUE-0002::implement (cost 4.80) or ISSUE-0002::review (cost 2.40). What are your skills and preferences?",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "de8087d4-e67a-47d9-b732-328ba6cd09f2",
+        "ts": 1792933548.583362,
+        "agent": "Tawnya",
+        "kind": "communication",
+        "payload": {
+          "content": "Since I have a strong skill match for the devops/frontend tasks, I will target ISSUE-0002::implement to ensure the highest priority task in that group is covered efficiently. Please let me know if you also need that task.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "6c52955c-2c7b-40a2-add5-8a8034f28671",
+        "ts": 1792933549.404876,
+        "agent": "Tawnya",
+        "kind": "communication",
+        "payload": {
+          "content": "To maximize the overall score, I'll take ISSUE-0002::implement. Rita, if you can cover any of the critical tasks in ISSUE-0001, that would be ideal.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "0df139aa-97e2-4bf6-b112-0b2c0f898ac4",
+        "ts": 1792933552.024456,
+        "agent": "Rita",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Tawnya, I also have devops skills, but my costs for ISSUE-0001 are very high. Since you are taking ISSUE-0002::implement, I'll look at the other ISSUE-0002 tasks to keep costs low, as I'm not a good match for the mobile-development tasks. I'll likely target ISSUE-0002::review or ISSUE-0002::test.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "0da69e56-717c-4e6d-944c-f05da9f20b3c",
+        "ts": 1792933552.8697479,
+        "agent": "Rita",
+        "kind": "communication",
+        "payload": {
+          "content": "Tawnya, since you're taking ISSUE-0002::implement, I will aim for ISSUE-0002::review to minimize my cost while contributing to the high-priority group.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "0a373a16-ea22-4c8b-a4dd-8294e59b4023",
+        "ts": 1792933562.285457,
+        "agent": "Tawnya",
+        "kind": "communication",
+        "payload": {
+          "content": "Thanks for the update, Rita. It sounds like we have a plan: I will take ISSUE-0002::implement and you will take ISSUE-0002::review. This avoids overlap and keeps our costs low. I'll commit to this in the execution phase.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "b6ef629f-6c44-4a06-ac50-0214fb5766ab",
+        "ts": 1792933565.956613,
+        "agent": "Rita",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed, Tawnya. I will commit to ISSUE-0002::review during the execution phase.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "cfb6f347-4d44-4e27-a6a8-7ee8577b3189",
+        "ts": 1792933614.12371,
+        "agent": "Tawnya",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed. I will proceed with ISSUE-0002::implement during the execution phase. Thanks for coordinating, Rita! (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "009b41c1-40f8-4c33-b24d-c42449073eaa",
+        "ts": 1792933616.657144,
+        "agent": "Rita",
+        "kind": "communication",
+        "payload": {
+          "content": "Tawnya, just confirming one last time that I am set on ISSUE-0002::review for the execution phase. Thanks again!",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "d4387019-a5dc-45ac-9a45-dba373db1302",
+        "ts": 1792933618.197729,
+        "agent": "Rita",
+        "kind": "communication",
+        "payload": {
+          "content": "Tawnya, everything is set. I'll be claiming ISSUE-0002::review in the execution phase.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "3fd91c42-5400-4a5b-9b1d-21c0711a3cac",
+        "ts": 1792933623.759446,
+        "agent": "Tawnya",
+        "kind": "communication",
+        "payload": {
+          "content": "Rita, I have noted your final confirmation for ISSUE-0002::review. I will proceed with claiming ISSUE-0002::implement in the execution phase as agreed. (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "9568aef5-8a5c-42bb-bfca-e13acef642ae",
+        "ts": 1792933626.229196,
+        "agent": "Rita",
+        "kind": "communication",
+        "payload": {
+          "content": "Tawnya, just a final confirmation that I'm all set to claim ISSUE-0002::review during the execution phase. Thanks for the great coordination!",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "732b4d33-b768-4f9d-941f-380d9e0e00c8",
+        "ts": 1792933631.5286589,
+        "agent": "Tawnya",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::implement"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Tawnya",
+              "task_id": "ISSUE-0002::implement",
+              "task": {
+                "id": "ISSUE-0002::implement",
+                "title": "Improve devops [implement]",
+                "tags": [
+                  "devops",
+                  "frontend"
+                ],
+                "priority": "high",
+                "effort": 4.0,
+                "work_type": "implement"
+              },
+              "total_assigned": 2,
+              "remaining_agents": 2,
+              "state_updates": {
+                "assignment": {
+                  "Tawnya": "ISSUE-0002::implement"
+                }
+              },
+              "joint_reward": 30.19873230971817
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "00a095bb-406d-4a79-9f57-55f2059cc6b9",
+        "ts": 1792933632.131448,
+        "agent": "Rita",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Rita",
+              "task_id": "ISSUE-0002::review",
+              "task": {
+                "id": "ISSUE-0002::review",
+                "title": "Improve devops [review]",
+                "tags": [
+                  "devops",
+                  "frontend"
+                ],
+                "priority": "high",
+                "effort": 2.0,
+                "work_type": "review"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Rita": "ISSUE-0002::review"
+                }
+              },
+              "joint_reward": 61.18749345648672
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  }
+]

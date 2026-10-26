@@ -1,0 +1,670 @@
+[
+  {
+    "blackboard_id": "0",
+    "participants": [
+      "Jeanene",
+      "Layla"
+    ],
+    "events": [
+      {
+        "blackboard_id": 0,
+        "id": "cf61ddcb-da1e-4325-84b4-d01292ad440a",
+        "ts": 1792931843.396246,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Jeanene, Layla"
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "834458dc-36a9-4f12-85b4-acc61b6732f8",
+        "ts": 1792931849.560194,
+        "agent": "Layla",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Jeanene, I'm Layla. I'm currently coordinating with other agents to ensure we cover the highest priority tasks efficiently. I'll let you know my intended task once I've aligned with the team. (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "898a9415-5f68-4617-8a47-c83ddba5d922",
+        "ts": 1792931858.051931,
+        "agent": "Jeanene",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Layla, I'm Jeanene. I have strong skills in testing and mobile-development. I'm currently coordinating with Pauline on ISSUE-0001, but I'm open to taking a high-priority task from ISSUE-0002 if it fits my capacity and skills better. Let me know your plans.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "28008a9f-9027-4e01-9271-117a3a07ca39",
+        "ts": 1792931859.954993,
+        "agent": "Jeanene",
+        "kind": "communication",
+        "payload": {
+          "content": "Layla, just to update you, I'm currently coordinating with Pauline. I'm considering ISSUE-0001::test or a task from ISSUE-0002. Please let me know if you are targeting any specific critical tasks in ISSUE-0002 so we don't overlap.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "49e09485-1bc1-4c69-affa-5cf26976722f",
+        "ts": 1792931864.1162372,
+        "agent": "Layla",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Jeanene, I've decided to target ISSUE-0002::review. Please keep this in mind for your planning to avoid any overlaps. Thanks!",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "4ba29526-4a2b-464c-9c1e-d14d011c87ae",
+        "ts": 1792931868.906631,
+        "agent": "Jeanene",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Layla, thanks for the update on ISSUE-0002::review. I've coordinated with Pauline and will be taking ISSUE-0001::test.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "62365821-7126-4ac3-8eaa-8cd870f08a6e",
+        "ts": 1792931872.625484,
+        "agent": "Layla",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Layla",
+              "task_id": "ISSUE-0002::review",
+              "task": {
+                "id": "ISSUE-0002::review",
+                "title": "Build ui-ux-design [review]",
+                "tags": [
+                  "ui-ux-design",
+                  "testing"
+                ],
+                "priority": "critical",
+                "effort": 4.0,
+                "work_type": "review"
+              },
+              "total_assigned": 2,
+              "remaining_agents": 2,
+              "state_updates": {
+                "assignment": {
+                  "Layla": "ISSUE-0002::review"
+                }
+              },
+              "joint_reward": 62.33705917730076
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "be7bbada-984a-4980-8b6b-7e7c04798ded",
+        "ts": 1792931873.762093,
+        "agent": "Jeanene",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Jeanene",
+              "task_id": "ISSUE-0001::test",
+              "task": {
+                "id": "ISSUE-0001::test",
+                "title": "Build mobile-development [test]",
+                "tags": [
+                  "mobile-development"
+                ],
+                "priority": "low",
+                "effort": 2.8,
+                "work_type": "test"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Jeanene": "ISSUE-0001::test"
+                }
+              },
+              "joint_reward": 106.30486988867293
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "1",
+    "participants": [
+      "Jeanene",
+      "Pauline"
+    ],
+    "events": [
+      {
+        "blackboard_id": 1,
+        "id": "93eeda8c-8531-4dfe-b7a7-8a5c23b9898b",
+        "ts": 1792931843.396254,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Jeanene, Pauline"
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "47cfe7c5-c909-404c-8123-655c9c770126",
+        "ts": 1792931853.337413,
+        "agent": "Pauline",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Jeanene, I'm planning to take one of the mobile-development tasks from ISSUE-0001. Let me know if you have any preferences or if you're also looking at those tasks.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "6cf63b8c-1541-43fc-896a-06a2613b43fa",
+        "ts": 1792931855.686543,
+        "agent": "Pauline",
+        "kind": "communication",
+        "payload": {
+          "content": "Jeanene, I'm leaning towards ISSUE-0001::triage as it's my lowest cost, but I'm open to others if it helps us cover more of the ISSUE-0001 tasks. What are you planning to take?",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "311a4a62-c9fc-432a-ab5b-6ada9feb4cce",
+        "ts": 1792931858.051949,
+        "agent": "Jeanene",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Pauline, since you're leaning towards ISSUE-0001::triage, I'll look at other options. I'm quite efficient with testing and mobile-development. I could take ISSUE-0001::test or potentially one of the critical tasks in ISSUE-0002, though my costs there are higher. If you take triage, I'll consider ISSUE-0001::test to help cover the mobile-development set.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "7ba2ddd7-2ac6-4462-bbae-cdc09159a60c",
+        "ts": 1792931859.955008,
+        "agent": "Jeanene",
+        "kind": "communication",
+        "payload": {
+          "content": "Pauline, let's stick with that: you take ISSUE-0001::triage, and I'll aim for ISSUE-0001::test, unless I see a critical need for me to jump on ISSUE-0002.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "2871d041-d35c-4ad2-96c8-33e63caccde1",
+        "ts": 1792931865.984683,
+        "agent": "Pauline",
+        "kind": "communication",
+        "payload": {
+          "content": "Jeanene, I'm confirmed for ISSUE-0001::triage. Please proceed with ISSUE-0001::test.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "f97b1397-5d91-41bd-b54e-8b90eb7bae74",
+        "ts": 1792931868.9066482,
+        "agent": "Jeanene",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed, Pauline. I will take ISSUE-0001::test. Thanks for coordinating!",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "a12f36d1-ef26-4128-92d2-fe5fa61e9e26",
+        "ts": 1792931873.191495,
+        "agent": "Pauline",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Pauline",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Build mobile-development [triage]",
+                "tags": [
+                  "mobile-development"
+                ],
+                "priority": "low",
+                "effort": 1.6,
+                "work_type": "triage"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Pauline": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 85.08410396876414
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "7d0e48ff-014c-4677-abe5-effd11373090",
+        "ts": 1792931873.762104,
+        "agent": "Jeanene",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Jeanene",
+              "task_id": "ISSUE-0001::test",
+              "task": {
+                "id": "ISSUE-0001::test",
+                "title": "Build mobile-development [test]",
+                "tags": [
+                  "mobile-development"
+                ],
+                "priority": "low",
+                "effort": 2.8,
+                "work_type": "test"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Jeanene": "ISSUE-0001::test"
+                }
+              },
+              "joint_reward": 106.30486988867293
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "2",
+    "participants": [
+      "Mona",
+      "Pauline"
+    ],
+    "events": [
+      {
+        "blackboard_id": 2,
+        "id": "0e607253-0758-4ed4-8ca6-82c84f10a938",
+        "ts": 1792931843.39626,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Mona, Pauline"
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "c27acb97-be24-4597-8898-5df06b346670",
+        "ts": 1792931845.692906,
+        "agent": "Mona",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Pauline, I'm looking at the critical tasks for ISSUE-0002. Let me know if you have a preference for any of the tasks so we can avoid overlaps.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "51a48a11-28b4-4696-a222-2fb6db04e64d",
+        "ts": 1792931853.337384,
+        "agent": "Pauline",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Mona, I specialize in mobile-development and my costs for ISSUE-0002 are very high. Please go ahead and take the critical tasks for ISSUE-0002. I will focus on the mobile-development tasks for ISSUE-0001.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "e32654df-48fc-4011-b5a1-6f53059fca06",
+        "ts": 1792931855.68659,
+        "agent": "Pauline",
+        "kind": "communication",
+        "payload": {
+          "content": "Mona, just confirming I'll stay away from ISSUE-0002. Thanks!",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "a36ad8f0-45c9-4645-9c1f-f76a28fbd585",
+        "ts": 1792931861.851149,
+        "agent": "Mona",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Pauline, just updating you that I will be taking one of the critical tasks for ISSUE-0002, specifically ISSUE-0002::test. Looking forward to a productive sprint!",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "1e666fa1-bae7-43ba-b7df-14b939ba73c3",
+        "ts": 1792931865.9847,
+        "agent": "Pauline",
+        "kind": "communication",
+        "payload": {
+          "content": "Mona, thanks for the update. I'll stick with ISSUE-0001::triage. Good luck with ISSUE-0002::test!",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "793b3a63-8816-4e09-a946-2ea33f55ec81",
+        "ts": 1792931872.043916,
+        "agent": "Mona",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Mona",
+              "task_id": "ISSUE-0002::test",
+              "task": {
+                "id": "ISSUE-0002::test",
+                "title": "Build ui-ux-design [test]",
+                "tags": [
+                  "ui-ux-design",
+                  "testing"
+                ],
+                "priority": "critical",
+                "effort": 5.6,
+                "work_type": "test"
+              },
+              "total_assigned": 1,
+              "remaining_agents": 3,
+              "state_updates": {
+                "assignment": {
+                  "Mona": "ISSUE-0002::test"
+                }
+              },
+              "joint_reward": 29.577454576381186
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "ba249293-d604-4d72-948c-c9d419cc208d",
+        "ts": 1792931873.191499,
+        "agent": "Pauline",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Pauline",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Build mobile-development [triage]",
+                "tags": [
+                  "mobile-development"
+                ],
+                "priority": "low",
+                "effort": 1.6,
+                "work_type": "triage"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Pauline": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 85.08410396876414
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "3",
+    "participants": [
+      "Layla",
+      "Mona"
+    ],
+    "events": [
+      {
+        "blackboard_id": 3,
+        "id": "4d7a5689-0f84-4a0a-9ea7-91a7c3c63502",
+        "ts": 1792931843.396273,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Layla, Mona"
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "452e3ef9-d9bd-4616-a6d7-e516a67a8c3f",
+        "ts": 1792931845.6927922,
+        "agent": "Mona",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Layla, I'm Mona. My top skill is testing. My lowest costs are for the critical tasks in ISSUE-0002, specifically ISSUE-0002::review (7.44) and ISSUE-0002::test (10.42). Let's coordinate to pick the highest priority tasks while minimizing our costs. What are your skills and costs?",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "e3489999-2925-48c3-b1f0-639679ac2e89",
+        "ts": 1792931849.5601249,
+        "agent": "Layla",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Mona! My top skills are testing (0.90) and mobile-development (0.77). My lowest costs are for ISSUE-0001 tasks, with ISSUE-0001::triage being the lowest (1.83). For the critical ISSUE-0002 tasks, my costs are quite high: review (7.24), test (11.74), and implement (18.48). Since you can handle the critical tasks more efficiently, I suggest you take one of the ISSUE-0002 tasks (perhaps the review since it's lower cost) and I'll take one of the ISSUE-0001 tasks to ensure we maximize the total tasks completed. Let me know if that works for you! (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "27712bc2-0b8a-41c4-a208-e35340aebfb7",
+        "ts": 1792931851.626063,
+        "agent": "Layla",
+        "kind": "communication",
+        "payload": {
+          "content": "Mona, just to refine: since my cost for ISSUE-0002::review is 7.24 and yours is 7.44, I am slightly cheaper for that specific critical task. However, my costs for the low-priority ISSUE-0001 tasks are much lower (e.g., triage at 1.83). To maximize our joint reward (tasks done + priority), it's better if we both take tasks. If you can take ISSUE-0002::test (10.42) and I take ISSUE-0002::review (7.24), we secure two critical tasks. Alternatively, if you prefer the review, I can take ISSUE-0001::triage to keep total cost very low. Let's aim for the criticals first. What do you think? (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "c89e0c84-1783-4a3f-b285-678cbfcf437b",
+        "ts": 1792931861.055201,
+        "agent": "Mona",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Layla, thanks for the update. Let's prioritize the critical tasks to maximize our joint reward. Since your cost for ISSUE-0002::review (7.24) is slightly lower than mine (7.44), and my cost for ISSUE-0002::test (10.42) is lower than yours (11.74), I propose: I will take ISSUE-0002::test and you take ISSUE-0002::review. This secures two critical tasks for our coalition. Does that work for you?",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "b5e3a5c5-a3fb-47af-ac33-e3ff129a6b3f",
+        "ts": 1792931864.116221,
+        "agent": "Layla",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Mona, that works for me! I agree: I will take ISSUE-0002::review and you take ISSUE-0002::test. This maximizes our priority sum and ensures we both contribute critical tasks to the sprint. I'll commit to this in the execution phase.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "c3af3dc7-908e-491b-8a47-1d062d42ac76",
+        "ts": 1792931872.0439198,
+        "agent": "Mona",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Mona",
+              "task_id": "ISSUE-0002::test",
+              "task": {
+                "id": "ISSUE-0002::test",
+                "title": "Build ui-ux-design [test]",
+                "tags": [
+                  "ui-ux-design",
+                  "testing"
+                ],
+                "priority": "critical",
+                "effort": 5.6,
+                "work_type": "test"
+              },
+              "total_assigned": 1,
+              "remaining_agents": 3,
+              "state_updates": {
+                "assignment": {
+                  "Mona": "ISSUE-0002::test"
+                }
+              },
+              "joint_reward": 29.577454576381186
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "df9cf15e-0b97-419d-a9ab-26d7ee8abbcb",
+        "ts": 1792931872.6254919,
+        "agent": "Layla",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Layla",
+              "task_id": "ISSUE-0002::review",
+              "task": {
+                "id": "ISSUE-0002::review",
+                "title": "Build ui-ux-design [review]",
+                "tags": [
+                  "ui-ux-design",
+                  "testing"
+                ],
+                "priority": "critical",
+                "effort": 4.0,
+                "work_type": "review"
+              },
+              "total_assigned": 2,
+              "remaining_agents": 2,
+              "state_updates": {
+                "assignment": {
+                  "Layla": "ISSUE-0002::review"
+                }
+              },
+              "joint_reward": 62.33705917730076
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,754 @@
+[
+  {
+    "blackboard_id": "0",
+    "participants": [
+      "Alfred",
+      "Diana"
+    ],
+    "events": [
+      {
+        "blackboard_id": 0,
+        "id": "bdfb65e3-4e69-462e-8936-71f59a5552db",
+        "ts": 1792933028.9751098,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Alfred, Diana"
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "13abd883-9155-43d0-af36-d4fd44c726c1",
+        "ts": 1792933031.660277,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Alfred and Tabatha, I'm Diana. I can take a critical task from ISSUE-0001. My lowest-cost options are triage, docs, or review (cost 2.13 each). Let me know which task you plan to claim so we avoid duplicates.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "8ed0a216-85ae-46fc-9716-7c44a829d46a",
+        "ts": 1792933036.689712,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Diana, I plan to claim ISSUE-0002::implement (high priority, effort 5.0). That leaves you free to pick a critical task from ISSUE-0001. Let me know if any conflict.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "edf1403e-0101-48dd-8a50-16157c87bfbc",
+        "ts": 1792933056.534507,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Alfred and Tabatha, thanks for sharing your plans. I'll take ISSUE-0001::triage (critical, cost 2.13) to avoid overlap.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "c6cf8ea9-9508-4940-bab2-1d55e6a8c6ad",
+        "ts": 1792933063.013655,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed: I'll take ISSUE-0002::implement (effort 5.0, high priority). Looks good with Diana's ISSUE-0001::triage and Hollis's ISSUE-0002::review. No conflicts.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "3079fc67-fd9a-4a78-9855-c180a95ac858",
+        "ts": 1792933085.271904,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirming: I will claim ISSUE-0001::triage (critical, cost 2.13). No conflicts with Alfred's ISSUE-0002::implement or Tabatha's ISSUE-0001::test.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "c04a6873-7ff5-4dfc-bbd5-c35cd46fc50b",
+        "ts": 1792933090.483707,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Final confirmation: Alfred will claim ISSUE-0002::implement (high priority, effort 5.0). No conflicts with Diana's ISSUE-0001::triage.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "a84af628-f828-4d42-9b42-c80bd7a74c04",
+        "ts": 1792933109.866943,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Final confirmation: Diana will claim ISSUE-0001::triage (critical, cost 2.13). No conflicts with Alfred's ISSUE-0002::implement or Tabatha's tasks.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "ce277d11-7aa7-42c1-a333-6601a467ee43",
+        "ts": 1792933113.818639,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Alfred confirming: I will claim ISSUE-0002::implement (high priority, effort 5.0). This aligns with Diana's ISSUE-0001::triage and Hollis's ISSUE-0002::review. No conflicts.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "e1a475aa-e086-4898-95f9-8766c23cb6e8",
+        "ts": 1792933133.698208,
+        "agent": "Diana",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Diana",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Fix backend [triage]",
+                "tags": [
+                  "backend",
+                  "devops"
+                ],
+                "priority": "critical",
+                "effort": 1.0,
+                "work_type": "triage"
+              },
+              "total_assigned": 1,
+              "remaining_agents": 3,
+              "state_updates": {
+                "assignment": {
+                  "Diana": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 37.87128460101496
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "a8c6fc59-257a-4932-8efd-6e7a0b503ac5",
+        "ts": 1792933134.95391,
+        "agent": "Alfred",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::implement"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Alfred",
+              "task_id": "ISSUE-0002::implement",
+              "task": {
+                "id": "ISSUE-0002::implement",
+                "title": "Fix ui-ux-design [implement]",
+                "tags": [
+                  "ui-ux-design"
+                ],
+                "priority": "high",
+                "effort": 5.0,
+                "work_type": "implement"
+              },
+              "total_assigned": 2,
+              "remaining_agents": 2,
+              "state_updates": {
+                "assignment": {
+                  "Alfred": "ISSUE-0002::implement"
+                }
+              },
+              "joint_reward": 66.39905294809586
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "1",
+    "participants": [
+      "Alfred",
+      "Hollis"
+    ],
+    "events": [
+      {
+        "blackboard_id": 1,
+        "id": "465497d5-1ef1-4b48-b64d-cd79c9d1819d",
+        "ts": 1792933028.975119,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Alfred, Hollis"
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "1f21c9f2-05ef-4bf4-875f-6842813b5d2a",
+        "ts": 1792933037.545881,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Hollis, I'm planning to take ISSUE-0002::implement (effort 5.0, high priority). Let me know your plan to avoid overlap.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "3167b92e-3189-4122-857b-69fb991c0f5c",
+        "ts": 1792933041.5753238,
+        "agent": "Hollis",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Alfred, thanks for letting me know. I'll go for ISSUE-0002::review (effort 2.5, high priority) to avoid overlap.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "3b18805d-4f52-41b3-a74e-540a9ad6139d",
+        "ts": 1792933064.745436,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed: I'll take ISSUE-0002::implement (effort 5.0, high priority). This matches Hollis taking ISSUE-0002::review and Diana taking ISSUE-0001::triage. No conflicts.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "b4274c4c-ce1d-42dc-a87b-3505334c634b",
+        "ts": 1792933074.133803,
+        "agent": "Hollis",
+        "kind": "communication",
+        "payload": {
+          "content": "I'll take ISSUE-0002::review (high priority) as discussed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "c7286b73-4388-4799-8939-ec2b62a5b6d6",
+        "ts": 1792933091.446455,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Final confirmation: Alfred will claim ISSUE-0002::implement (high priority, effort 5.0). No conflicts with Hollis's ISSUE-0002::review.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "f54019ee-513d-481a-a9b2-be4aad1fd961",
+        "ts": 1792933095.890662,
+        "agent": "Hollis",
+        "kind": "communication",
+        "payload": {
+          "content": "I'll take ISSUE-0002::review as previously discussed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "9d040f87-035e-448a-8a42-4c03e50f880c",
+        "ts": 1792933115.457382,
+        "agent": "Alfred",
+        "kind": "communication",
+        "payload": {
+          "content": "Alfred confirming: I will claim ISSUE-0002::implement (high priority, effort 5.0). This aligns with Hollis's ISSUE-0002::review and Diana's ISSUE-0001::triage. No conflicts.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "436f65b8-dbed-45fd-8b13-a256b4ffa0e2",
+        "ts": 1792933121.809549,
+        "agent": "Hollis",
+        "kind": "communication",
+        "payload": {
+          "content": "I'll take ISSUE-0002::review as discussed with Alfred. Looking forward to a smooth sprint.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "a4b4b7e5-4395-49c6-9870-e0e5da4661f7",
+        "ts": 1792933134.95392,
+        "agent": "Alfred",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::implement"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Alfred",
+              "task_id": "ISSUE-0002::implement",
+              "task": {
+                "id": "ISSUE-0002::implement",
+                "title": "Fix ui-ux-design [implement]",
+                "tags": [
+                  "ui-ux-design"
+                ],
+                "priority": "high",
+                "effort": 5.0,
+                "work_type": "implement"
+              },
+              "total_assigned": 2,
+              "remaining_agents": 2,
+              "state_updates": {
+                "assignment": {
+                  "Alfred": "ISSUE-0002::implement"
+                }
+              },
+              "joint_reward": 66.39905294809586
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "80d69cff-b60b-46df-821c-0037bd4301da",
+        "ts": 1792933136.49565,
+        "agent": "Hollis",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Hollis",
+              "task_id": "ISSUE-0002::review",
+              "task": {
+                "id": "ISSUE-0002::review",
+                "title": "Fix ui-ux-design [review]",
+                "tags": [
+                  "ui-ux-design"
+                ],
+                "priority": "high",
+                "effort": 2.5,
+                "work_type": "review"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Hollis": "ISSUE-0002::review"
+                }
+              },
+              "joint_reward": 98.5813586589745
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "2",
+    "participants": [
+      "Diana",
+      "Tabatha"
+    ],
+    "events": [
+      {
+        "blackboard_id": 2,
+        "id": "6ffec828-04b5-4358-9166-96da2f30b4a9",
+        "ts": 1792933028.975127,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Diana, Tabatha"
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "f2e266b6-8447-4b1b-b4b2-796f2ed4591d",
+        "ts": 1792933032.3799381,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Tabatha, I'm Diana. I can take a critical task from ISSUE-0001 (triage/docs/review) at low cost. Let me know your intended pick to avoid overlap.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "b501a16d-b7e8-447f-b630-6b13846e01ad",
+        "ts": 1792933049.917454,
+        "agent": "Tabatha",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Diana, thanks for the heads-up. To avoid overlap, I'm planning to take ISSUE-0001::test (critical, effort 1.4, cost 2.88). Let me know if that works for you.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "390161d6-e25b-41be-ac7f-eaaefd64d064",
+        "ts": 1792933058.8452759,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Tabatha, I'm planning to claim ISSUE-0001::triage (critical, cost 2.13). That should avoid conflict with your test task.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "e12ea6a9-5919-4e94-a3f0-eeb20df7e72d",
+        "ts": 1792933083.337746,
+        "agent": "Tabatha",
+        "kind": "communication",
+        "payload": {
+          "content": "Thanks Diana, I will take ISSUE-0001::test as planned. Let me know if anything changes. (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "a5e0854f-11ff-4a13-a9f3-f48858432556",
+        "ts": 1792933086.270818,
+        "agent": "Diana",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirming: I will claim ISSUE-0001::triage (critical, cost 2.13). No conflict with Tabatha's test task.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "e3cc0492-1826-4062-8c08-41426da73709",
+        "ts": 1792933101.95095,
+        "agent": "Tabatha",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Diana, confirming I will take ISSUE-0001::test as discussed. Looking forward to a smooth sprint.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "37363391-2e67-45dd-be7c-44f1c05e53b6",
+        "ts": 1792933129.2968261,
+        "agent": "Tabatha",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Diana, I'm still planning to take ISSUE-0001::test (critical, cost 2.88). Let me know if anything changes on your side.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "607f6b23-1305-4ddf-a5dd-c9d979e73827",
+        "ts": 1792933133.6982179,
+        "agent": "Diana",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Diana",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Fix backend [triage]",
+                "tags": [
+                  "backend",
+                  "devops"
+                ],
+                "priority": "critical",
+                "effort": 1.0,
+                "work_type": "triage"
+              },
+              "total_assigned": 1,
+              "remaining_agents": 3,
+              "state_updates": {
+                "assignment": {
+                  "Diana": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 37.87128460101496
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "ec278f1d-d67d-4888-98ec-f0bc4f601018",
+        "ts": 1792933139.868834,
+        "agent": "Tabatha",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Tabatha",
+              "task_id": "ISSUE-0001::test",
+              "task": {
+                "id": "ISSUE-0001::test",
+                "title": "Fix backend [test]",
+                "tags": [
+                  "backend",
+                  "devops"
+                ],
+                "priority": "critical",
+                "effort": 1.4,
+                "work_type": "test"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Tabatha": "ISSUE-0001::test"
+                }
+              },
+              "joint_reward": 135.70477457667545
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "3",
+    "participants": [
+      "Hollis",
+      "Tabatha"
+    ],
+    "events": [
+      {
+        "blackboard_id": 3,
+        "id": "5f78d2f4-bf3c-41bf-89dd-942de1be2219",
+        "ts": 1792933028.9751391,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Hollis, Tabatha"
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "5965fbb7-150c-4a30-9409-2b408df96aaf",
+        "ts": 1792933043.1812348,
+        "agent": "Hollis",
+        "kind": "communication",
+        "payload": {
+          "content": "My top feasible low-cost tasks: ISSUE-0002::review (cost 2.82, effort 2.5, high priority) and ISSUE-0002::test (cost 3.94, effort 3.5, high priority). I propose I take review and Tabatha take test to avoid overlap with Alfred's implement.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "02ac42cf-f500-4b95-9bf0-ad1a7cc021ed",
+        "ts": 1792933052.345515,
+        "agent": "Tabatha",
+        "kind": "communication",
+        "payload": {
+          "content": "Hollis, let's maximize our coalition reward: I'll take ISSUE-0001::test (critical, cost 2.88) and you take ISSUE-0002::review (high, cost 2.82). This avoids overlap with Diana and gives us both high-value tasks.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "dd7a64e7-eac0-46b5-887a-ade62feb9a50",
+        "ts": 1792933072.283318,
+        "agent": "Hollis",
+        "kind": "communication",
+        "payload": {
+          "content": "Agreed, I'll take ISSUE-0002::review (high priority) and you take ISSUE-0001::test (critical). This avoids overlap with Alfred's implement and fits our availabilities.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "a3261bd4-7e55-4dcf-9434-2bf888088d80",
+        "ts": 1792933097.651194,
+        "agent": "Hollis",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed: I'll take ISSUE-0002::review (high priority) and Tabatha will take ISSUE-0001::test (critical).",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "8dfedbf1-7ec3-4757-838f-423d4c817387",
+        "ts": 1792933124.343403,
+        "agent": "Hollis",
+        "kind": "communication",
+        "payload": {
+          "content": "All set: I'll claim ISSUE-0002::review (high priority) and Tabatha will take ISSUE-0001::test (critical).",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "6ec39b12-2e63-4d88-a371-8faaefa5b97b",
+        "ts": 1792933136.495657,
+        "agent": "Hollis",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Hollis",
+              "task_id": "ISSUE-0002::review",
+              "task": {
+                "id": "ISSUE-0002::review",
+                "title": "Fix ui-ux-design [review]",
+                "tags": [
+                  "ui-ux-design"
+                ],
+                "priority": "high",
+                "effort": 2.5,
+                "work_type": "review"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Hollis": "ISSUE-0002::review"
+                }
+              },
+              "joint_reward": 98.5813586589745
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "17fcd527-a312-4e74-ae0c-64e04e7e3d38",
+        "ts": 1792933139.868843,
+        "agent": "Tabatha",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Tabatha",
+              "task_id": "ISSUE-0001::test",
+              "task": {
+                "id": "ISSUE-0001::test",
+                "title": "Fix backend [test]",
+                "tags": [
+                  "backend",
+                  "devops"
+                ],
+                "priority": "critical",
+                "effort": 1.4,
+                "work_type": "test"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Tabatha": "ISSUE-0001::test"
+                }
+              },
+              "joint_reward": 135.70477457667545
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,35 @@
+COMMUNICATION STRUCTURE:
+- Board 0: members Cinthia, Paris. Posts: Cinthia 5, Paris 5.
+- Board 1: members Cinthia, Tiana. Posts: Tiana 7, Cinthia 3.
+- Board 2: members Nichelle, Paris. Posts: Nichelle 7, Paris 5.
+
+PER-AGENT SUMMARY:
+- Agent: Cinthia
+- Stated intentions: On Board 0, said she was leaning toward taking a devops task to keep cost low, but was open to security if needed. On Board 1, she proposed to Tiana that Tiana take ISSUE-0002::review and she take ISSUE-0001::triage. Later on Board 0, she proposed to Paris that Tiana take ISSUE-0002::review, Paris take ISSUE-0002::test, and she take ISSUE-0001::triage.
+- Requests or suggestions to others: On Board 0, asked Paris what he was considering and to avoid duplicates. On Board 1, asked Tiana for her final leaning and to avoid duplicates. On Board 0, asked Paris to confirm he would take ISSUE-0002::test.
+- Actions taken: Used assign_task to take ISSUE-0001::triage.
+- Consistency: consistent
+
+- Agent: Nichelle
+- Stated intentions: On Board 2, proposed she take ISSUE-0001::triage and Paris take ISSUE-0002::review. Later on Board 2, proposed a three-critical assignment: she take ISSUE-0002::implement, Paris take ISSUE-0002::test, and Cinthia take ISSUE-0002::review.
+- Requests or suggestions to others: On Board 2, asked Paris to share his availability, skills, and costs. On Board 2, asked Paris to coordinate with Cinthia on Board 0. On Board 2, asked Paris to confirm Cinthia’s agreement to the three-critical plan.
+- Actions taken: Used assign_task to take ISSUE-0002::implement.
+- Consistency: consistent
+
+- Agent: Paris
+- Stated intentions: On Board 0, said he was considering taking a security task (critical priority) to boost priority sum, possibly ISSUE-0002::review or test. On Board 2, agreed to Nichelle’s proposal that Nichelle take ISSUE-0001::triage and he take ISSUE-0002::review. Later on Board 2, agreed to the three-critical plan where he would take ISSUE-0002::test. On Board 0, proposed to Cinthia that Nichelle take ISSUE-0002::implement, he take ISSUE-0002::test, and Cinthia take ISSUE-0002::review.
+- Requests or suggestions to others: On Board 0, asked Cinthia if she was willing to take ISSUE-0002::review. On Board 2, asked Nichelle to confirm her costs and to wait for Cinthia’s response.
+- Actions taken: Used assign_task to take ISSUE-0002::review.
+- Consistency: inconsistent: stated he would take ISSUE-0002::test in the three-critical plan, but ultimately took ISSUE-0002::review.
+
+- Agent: Tiana
+- Stated intentions: On Board 1, said she was considering taking ISSUE-0002::review or ISSUE-0002::test. Proposed to Cinthia that she take ISSUE-0002::review and Cinthia take ISSUE-0001::triage. Repeatedly confirmed this plan.
+- Requests or suggestions to others: On Board 1, asked Cinthia what she was considering. On Board 1, asked Cinthia to confirm she would take ISSUE-0001::triage.
+- Actions taken: Used assign_task to take ISSUE-0002::review.
+- Consistency: consistent
+
+FINAL ALLOCATION:
+- Cinthia: ISSUE-0001::triage
+- Nichelle: ISSUE-0002::implement
+- Paris: ISSUE-0002::review
+- Tiana: ISSUE-0002::review

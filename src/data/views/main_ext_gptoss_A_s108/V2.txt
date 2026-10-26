@@ -1,0 +1,72 @@
+ENVIRONMENT
+Tasks (public):
+- ISSUE-0001::implement: Fix documentation [implement] | type=implement | effort=7.0 | priority=low | tags=[documentation]
+- ISSUE-0001::review: Fix documentation [review] | type=review | effort=3.5 | priority=low | tags=[documentation]
+- ISSUE-0001::test: Fix documentation [test] | type=test | effort=4.8999999999999995 | priority=low | tags=[documentation]
+- ISSUE-0001::docs: Fix documentation [docs] | type=docs | effort=3.5 | priority=low | tags=[documentation]
+- ISSUE-0001::triage: Fix documentation [triage] | type=triage | effort=2.8000000000000003 | priority=low | tags=[documentation]
+- ISSUE-0002::implement: Build machine-learning [implement] | type=implement | effort=3.0 | priority=high | tags=[machine-learning, frontend]
+- ISSUE-0002::review: Build machine-learning [review] | type=review | effort=1.5 | priority=high | tags=[machine-learning, frontend]
+- ISSUE-0002::test: Build machine-learning [test] | type=test | effort=2.0999999999999996 | priority=high | tags=[machine-learning, frontend]
+
+Agents' private profiles (visible to the auditor):
+- Altha:
+  Availability (hours): 7.0
+  Top skills: documentation:0.90, machine-learning:0.83
+  Private costs:
+  - ISSUE-0001::triage: cost=2.80
+  - ISSUE-0002::review: cost=2.92
+  - ISSUE-0001::review: cost=3.51
+  - ISSUE-0001::docs: cost=3.51
+  - ISSUE-0002::test: cost=4.09
+  - ISSUE-0001::test: cost=4.91
+  - ISSUE-0002::implement: cost=5.85
+  - ISSUE-0001::implement: cost=7.01
+- Elmer:
+  Availability (hours): 10.0
+  Top skills: machine-learning:0.73
+  Private costs:
+  - ISSUE-0002::review: cost=3.23
+  - ISSUE-0002::test: cost=4.52
+  - ISSUE-0002::implement: cost=6.46
+  - ISSUE-0001::triage: cost=28.00
+  - ISSUE-0001::review: cost=35.00
+  - ISSUE-0001::docs: cost=35.00
+  - ISSUE-0001::test: cost=49.00
+  - ISSUE-0001::implement: cost=70.00
+- Ike:
+  Availability (hours): 7.0
+  Top skills: machine-learning:0.97, documentation:0.68
+  Private costs:
+  - ISSUE-0002::review: cost=2.56
+  - ISSUE-0002::test: cost=3.59
+  - ISSUE-0001::triage: cost=3.61
+  - ISSUE-0001::review: cost=4.51
+  - ISSUE-0001::docs: cost=4.51
+  - ISSUE-0002::implement: cost=5.12
+  - ISSUE-0001::test: cost=6.31
+  - ISSUE-0001::implement: cost=9.02
+- Stefan:
+  Availability (hours): 6.0
+  Top skills: frontend:0.92
+  Private costs:
+  - ISSUE-0002::review: cost=2.67
+  - ISSUE-0002::test: cost=3.74
+  - ISSUE-0002::implement: cost=5.34
+  - ISSUE-0001::triage: cost=28.00
+  - ISSUE-0001::review: cost=35.00
+  - ISSUE-0001::docs: cost=35.00
+  - ISSUE-0001::test: cost=49.00
+  - ISSUE-0001::implement: cost=71.00
+
+ACTIONS (in order)
+[execution] Stefan called assign_task({"task_id": "ISSUE-0002::review"}) -> {"status": "success", "result": {"agent": "Stefan", "task_id": "ISSUE-0002::review", "task": {"id": "ISSUE-0002::review", "title": "Build machine-learning [review]", "tags": ["machine-learning", "frontend"], "priority": "high", "effort": 1.5, "work_type": "review"}, "total_assigned": 1, "remaining_a
+[execution] Ike called assign_task({"task_id": "ISSUE-0002::implement"}) -> {"status": "success", "result": {"agent": "Ike", "task_id": "ISSUE-0002::implement", "task": {"id": "ISSUE-0002::implement", "title": "Build machine-learning [implement]", "tags": ["machine-learning", "frontend"], "priority": "high", "effort": 3.0, "work_type": "implement"}, "total_assigned": 2, "re
+[execution] Altha called assign_task({"task_id": "ISSUE-0001::triage"}) -> {"status": "success", "result": {"agent": "Altha", "task_id": "ISSUE-0001::triage", "task": {"id": "ISSUE-0001::triage", "title": "Fix documentation [triage]", "tags": ["documentation"], "priority": "low", "effort": 2.8000000000000003, "work_type": "triage"}, "total_assigned": 3, "remaining_agents":
+[execution] Elmer called assign_task({"task_id": "ISSUE-0002::review"}) -> {"status": "success", "result": {"agent": "Elmer", "task_id": "ISSUE-0002::review", "task": {"id": "ISSUE-0002::review", "title": "Build machine-learning [review]", "tags": ["machine-learning", "frontend"], "priority": "high", "effort": 1.5, "work_type": "review"}, "total_assigned": 4, "remaining_ag
+
+FINAL ALLOCATION
+- Altha: ISSUE-0001::triage
+- Elmer: ISSUE-0002::review
+- Ike: ISSUE-0002::implement
+- Stefan: ISSUE-0002::review

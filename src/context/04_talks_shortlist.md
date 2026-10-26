@@ -1,0 +1,17 @@
+# 04: Which talks matter for a Track 2 + 3 project
+
+Source: the Schedule tab ([`docs/sprint/04_schedule.md`](../../docs/sprint/04_schedule.md)) plus speaker bios ([`docs/sprint/06_people_speakers_judges_sites.md`](../../docs/sprint/06_people_speakers_judges_sites.md)). **Only the Logistics transcript is local so far** (`docs/misc./transcripts/Logistics/`, already digested). The others need downloading from their Zoom recording pages; each Zoom recording has a transcript.
+
+| Priority | Talk | Why it matters for us | Recording |
+|---|---|---|---|
+| **1 (must)** | **Eugene Bagdasarian & Mason Nakamura** (UMass): Colosseum | Authors of the hub codebase for 2.1 / 2.3 / 3.1 and of the emergent-vs-attempted collusion distinction. Likely to explain the metric's pitfalls and what's still open. | [Zoom](https://us06web.zoom.us/rec/share/SLtIERSmnYAKrCwGoxZUzqrbaemhrc1sY5MK5bC4ABn8Umm-_0Z-5POQ7XE72S-o.0Ib5NkE3wRC0W-s8) |
+| **1 (must)** | **Matthew Lee** (Poseidon Research): "Defining AI Collusion" | The co-organiser's own definition. Poseidon built the starter repo and the definitions survey. Aligning our stated definition with theirs helps Impact and Presentation. | Live Sat 2pm ET; recording replaces the [RSVP link](https://luma.com/ai-collusion-research-sprint-matthew-lee) once processed |
+| **1 (must)** | **Khanh Linh Nguyen** (Obello / AI Safety Vietnam): overview of AI collusion research and the most useful topics for the sprint | An organiser-framed map of open problems. Also the TraceGuard author (2.2 monitoring rubric). | [Zoom](https://us06web.zoom.us/rec/share/-nFVY2zI_avnVtz3YVgcKTqcf7YsC82jHVoZeXmUm0IrKMbOJJqUJbpZDFH-505W.9-e45jMHFY6sZKUb) |
+| **2 (high)** | **Usman Anwar** (Cambridge): "Challenges in Detecting Steganography in LLM Transcripts" | Standards of evidence for transcript-based detection (2.2/2.3), and when detectors fail (3.1/3.4). | [Zoom](https://us06web.zoom.us/rec/share/JkMemdFL2w4RKayYZ8_oWceEWNhUna0WCJVj3fvKQbplB-RUM9F-odAjgVMCO1dt.Vw0QpuYpMiHO8cpn) |
+| **2 (high)** | **Jerick Shi** (The Voleon Group): llm-trust-breaking author | Plan → announce → act protocol: the say-vs-do signal for 2.2 and the swap harness for 3.3. | [Zoom](https://us06web.zoom.us/rec/share/IewcMVDe3TP6a8kLWIpeBOqI1PanmMLJOxuk0DxmJQxQWW4TF9apMmzWxvzYbYrn.OebH4QOoB150Unxc) |
+| **3 (useful)** | **Jurgis Kemeklis** (MIT AI Alignment / Redwood): "Mitigating Insider Threats from AIs with AI Control" | Trusted and untrusted monitoring and control protocols: framing for 3.2 (trusted agents) and 3.4 (monitor budgets). | [Zoom](https://us06web.zoom.us/rec/share/kasZtTRsr0gd1zo7ygNOsCWadi269G1CbKPcczOPG_cbGYBsOXcSA-4GZED1NruN.rGvgnEwsGVjFuHhc) |
+| 4 (optional) | Sumeet Motwani (Oxford): "We're Not Prepared for Steganographic Collusion" | Only if we pick a steganography or covert-carrier angle. | [Zoom](https://us06web.zoom.us/rec/share/wr0ZragDrlvWxW9Op6e4Ualj8rvmpnZmC57x37lTodZmn4hQxTJh25JokLsfJZwW.jRJ9EnZWfbbKUvQQ) |
+| 4 (optional) | Joan Velja (Oxford): "How concerned should we be by steganography?" | Same as above. | [Zoom](https://us06web.zoom.us/rec/share/qKuMGfYDWhuM0IshGIE0jKdhT8nS5PVRpbW0luxz-bPaiOBxrAXd5vg_puDG6jHF.EdVmjbgPm_2JbEaZ) |
+| done | Kamil Alaa (Apart): Sprint Logistics | Already digested. | local |
+
+**Next step:** download transcripts for the priority 1–2 talks into `docs/misc./transcripts/<Speaker>/`, then study them in the next request.

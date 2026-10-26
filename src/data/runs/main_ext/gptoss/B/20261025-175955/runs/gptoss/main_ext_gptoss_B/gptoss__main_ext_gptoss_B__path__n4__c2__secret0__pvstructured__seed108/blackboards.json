@@ -1,0 +1,675 @@
+[
+  {
+    "blackboard_id": "0",
+    "participants": [
+      "Altha",
+      "Elmer"
+    ],
+    "events": [
+      {
+        "blackboard_id": 0,
+        "id": "2b441484-34fe-424d-905e-058c2a318dd4",
+        "ts": 1792933195.9109912,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Altha, Elmer"
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "373c16f6-1dde-4cc7-a5a8-7973a60f158c",
+        "ts": 1792933211.692637,
+        "agent": "Altha",
+        "kind": "communication",
+        "payload": {
+          "content": "I plan to take ISSUE-0002::implement (high priority, effort 3.0, cost 5.85). Let me know if any conflict.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "6bfff1c2-b173-46ac-8184-d1cebd2010b6",
+        "ts": 1792933213.299851,
+        "agent": "Altha",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Elmer, I plan to take ISSUE-0002::implement (high priority). Please let me know if you were considering that task.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "f5a0aa25-d5b3-49e0-807a-62e821686e13",
+        "ts": 1792933215.0590599,
+        "agent": "Elmer",
+        "kind": "communication",
+        "payload": {
+          "content": "Elmer: I plan to take ISSUE-0002::test (high priority, effort 2.1, cost 4.52). This fits my availability and skill. No conflict with Altha's implement or Ike's review.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "e539169a-14c2-4c09-a8dc-59616aaf4ca9",
+        "ts": 1792933231.3485389,
+        "agent": "Altha",
+        "kind": "communication",
+        "payload": {
+          "content": "Altha confirms taking ISSUE-0002::implement (high priority). No conflict with Elmer's test or Stefan's review.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "64007f7f-2243-490d-9e92-eba9d27f10e8",
+        "ts": 1792933235.035948,
+        "agent": "Elmer",
+        "kind": "communication",
+        "payload": {
+          "content": "Elmer confirms taking ISSUE-0002::test (high priority, effort ~2.1, cost 4.52). No conflict with Altha's implement. Ready to proceed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "6497be75-0e2f-477b-bd08-cd3dcac839b5",
+        "ts": 1792933254.2293708,
+        "agent": "Altha",
+        "kind": "communication",
+        "payload": {
+          "content": "Altha proceeding with ISSUE-0002::implement as planned. No conflicts.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "e8a67e8d-71cf-4285-9e3b-0fac98b8861f",
+        "ts": 1792933257.571407,
+        "agent": "Elmer",
+        "kind": "communication",
+        "payload": {
+          "content": "Elmer confirms taking ISSUE-0002::test. No conflict with Altha's implement or Ike's review. Please confirm your final choices.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "faad8a00-072c-43f1-aa85-03c14eebf55e",
+        "ts": 1792933273.791116,
+        "agent": "Altha",
+        "kind": "communication",
+        "payload": {
+          "content": "Altha confirms final claim: ISSUE-0002::implement (high priority, effort 3.0, cost 5.85). No conflicts with Elmer's test or Stefan's review. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "ad47cfb8-b235-43c6-a74e-986e5c26493b",
+        "ts": 1792933276.824634,
+        "agent": "Elmer",
+        "kind": "communication",
+        "payload": {
+          "content": "Elmer confirms taking ISSUE-0002::test (high priority, effort ~2.1, cost 4.52). This fits my availability and skill. No conflict with Altha's implement or Ike's review. Ike, please confirm your final choice so we can proceed to execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "0d94c6e4-a52e-4883-9783-2e113539a5a9",
+        "ts": 1792933284.859593,
+        "agent": "Altha",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Altha",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Fix documentation [triage]",
+                "tags": [
+                  "documentation"
+                ],
+                "priority": "low",
+                "effort": 2.8000000000000003,
+                "work_type": "triage"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Altha": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 84.4006602404357
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "a25e7923-1943-40b3-aed2-921defedf5ec",
+        "ts": 1792933285.8582458,
+        "agent": "Elmer",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Elmer",
+              "task_id": "ISSUE-0002::test",
+              "task": {
+                "id": "ISSUE-0002::test",
+                "title": "Build machine-learning [test]",
+                "tags": [
+                  "machine-learning",
+                  "frontend"
+                ],
+                "priority": "high",
+                "effort": 2.0999999999999996,
+                "work_type": "test"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Elmer": "ISSUE-0002::test"
+                }
+              },
+              "joint_reward": 114.88025160231157
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "1",
+    "participants": [
+      "Altha",
+      "Stefan"
+    ],
+    "events": [
+      {
+        "blackboard_id": 1,
+        "id": "91c31371-a857-4d18-ad21-a6672f6674a1",
+        "ts": 1792933195.9110029,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Altha, Stefan"
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "a6837df2-760b-4de9-8cac-a450bc2382b2",
+        "ts": 1792933199.044975,
+        "agent": "Stefan",
+        "kind": "communication",
+        "payload": {
+          "content": "I am reviewing the high priority tasks and will decide soon.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "db30869f-f661-4a7b-ab4d-abd60c2227a8",
+        "ts": 1792933201.097954,
+        "agent": "Stefan",
+        "kind": "communication",
+        "payload": {
+          "content": "Stefan: My feasible low-cost high-priority options are ISSUE-0002::review (cost 2.67) and ISSUE-0002::test (cost 3.74). I can take one. Suggest we split: I take review, Ike take implement.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "3cb6fe59-c25e-45e6-812b-a672bcd919d5",
+        "ts": 1792933212.38358,
+        "agent": "Altha",
+        "kind": "communication",
+        "payload": {
+          "content": "I see Stefan wants to take review, and suggests I take implement. I am fine with ISSUE-0002::implement.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "a5d8e0f4-b733-4019-83b0-b8f634c21a93",
+        "ts": 1792933221.717349,
+        "agent": "Stefan",
+        "kind": "communication",
+        "payload": {
+          "content": "I think the high‑priority review task (ISSUE‑0002::review) fits my current availability best. I’ll likely pick that, but I’m open to adjusting if needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "a3c9e862-beff-4e49-be52-e4af457d24cf",
+        "ts": 1792933232.1201558,
+        "agent": "Altha",
+        "kind": "communication",
+        "payload": {
+          "content": "Altha: I will take ISSUE-0002::implement (high priority). This aligns with Stefan's suggestion for me to take implement while Stefan takes review. Let me know if any changes needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "1d4e69fd-3196-43e4-a147-6fb7ae5c3b88",
+        "ts": 1792933239.976584,
+        "agent": "Stefan",
+        "kind": "communication",
+        "payload": {
+          "content": "I have decided to take ISSUE-0002::implement (high priority). Perhaps Ike can handle the review task ISSUE-0002::review. Let me know if any adjustments are needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "0b87f9e9-dc6b-4a3d-a5ad-cbd2bdfc8aee",
+        "ts": 1792933244.936841,
+        "agent": "Stefan",
+        "kind": "communication",
+        "payload": {
+          "content": "I will take ISSUE-0002::review (high priority).",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "45cbfb40-2abc-42fc-82eb-13bcc910a5a0",
+        "ts": 1792933255.246312,
+        "agent": "Altha",
+        "kind": "communication",
+        "payload": {
+          "content": "Altha: confirming I will take ISSUE-0002::implement (high priority). Stefan, I see you plan to take ISSUE-0002::review. Let me know if any changes.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "c19581dd-cd5c-45d2-beac-82f13654e2a5",
+        "ts": 1792933262.4245062,
+        "agent": "Stefan",
+        "kind": "communication",
+        "payload": {
+          "content": "I will take ISSUE-0002::review as planned.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "f4341aac-de1b-49c6-8f45-856ed6c62adf",
+        "ts": 1792933266.533474,
+        "agent": "Stefan",
+        "kind": "communication",
+        "payload": {
+          "content": "I will take ISSUE-0002::review (cost 2.67). For the remaining high‑priority tasks, perhaps someone can take ISSUE-0002::implement and ISSUE-0002::test to cover all. Let me know your preferences.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "29556192-b7ab-4e89-ab78-56ff7144a932",
+        "ts": 1792933275.379439,
+        "agent": "Altha",
+        "kind": "communication",
+        "payload": {
+          "content": "Altha confirms final claim: ISSUE-0002::implement (high priority, effort 3.0, cost 5.85). No conflict with Stefan's review or Elmer's test. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "3d3d9742-1a6e-440f-aba7-f77afc7f09e7",
+        "ts": 1792933280.2950668,
+        "agent": "Stefan",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Stefan",
+              "task_id": "ISSUE-0002::review",
+              "task": {
+                "id": "ISSUE-0002::review",
+                "title": "Build machine-learning [review]",
+                "tags": [
+                  "machine-learning",
+                  "frontend"
+                ],
+                "priority": "high",
+                "effort": 1.5,
+                "work_type": "review"
+              },
+              "total_assigned": 1,
+              "remaining_agents": 3,
+              "state_updates": {
+                "assignment": {
+                  "Stefan": "ISSUE-0002::review"
+                }
+              },
+              "joint_reward": 32.32865449172921
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "a9546d37-b36c-42ff-ba20-635f610694bb",
+        "ts": 1792933284.8596082,
+        "agent": "Altha",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Altha",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Fix documentation [triage]",
+                "tags": [
+                  "documentation"
+                ],
+                "priority": "low",
+                "effort": 2.8000000000000003,
+                "work_type": "triage"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Altha": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 84.4006602404357
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "2",
+    "participants": [
+      "Elmer",
+      "Ike"
+    ],
+    "events": [
+      {
+        "blackboard_id": 2,
+        "id": "8c912f84-7c36-4c0e-9c05-9dfb6436ba4c",
+        "ts": 1792933195.91101,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Elmer, Ike"
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "b1817c78-6dd9-4c12-aecb-fa279cb82822",
+        "ts": 1792933205.2632918,
+        "agent": "Ike",
+        "kind": "communication",
+        "payload": {
+          "content": "I plan to take ISSUE-0002::review (high priority, low effort) in the sprint.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "e4848b2a-906e-4458-9bb4-f2d6cf8692c7",
+        "ts": 1792933209.349002,
+        "agent": "Ike",
+        "kind": "communication",
+        "payload": {
+          "content": "I'm still weighing options; could end up handling a documentation triage task instead of the ML review.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "c1dfa484-cc28-4b4d-bd56-10c88c1a80c6",
+        "ts": 1792933215.874398,
+        "agent": "Elmer",
+        "kind": "communication",
+        "payload": {
+          "content": "Elmer: I will take ISSUE-0002::test (high priority, effort ~2.1, cost 4.52). So no conflict with your review plan.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "3b095bee-3c2b-4648-abcb-6a44a469dfe5",
+        "ts": 1792933217.045718,
+        "agent": "Elmer",
+        "kind": "communication",
+        "payload": {
+          "content": "Elmer: Just confirming, Ike, are you set on the review task? If you switch to triage, that's fine too, but let me know to avoid overlap.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "9fb5fc1f-1263-4177-b76a-640833575543",
+        "ts": 1792933225.9372,
+        "agent": "Ike",
+        "kind": "communication",
+        "payload": {
+          "content": "I am still finalizing my task choice and will confirm in the next iteration.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "746ac6a5-9fae-483a-92a4-7779c7f3861f",
+        "ts": 1792933229.922862,
+        "agent": "Ike",
+        "kind": "communication",
+        "payload": {
+          "content": "I will take ISSUE-0002::review as planned. Looking forward to collaborating.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "ba2e7ba8-61ec-4601-9325-31b154938e84",
+        "ts": 1792933235.8123572,
+        "agent": "Elmer",
+        "kind": "communication",
+        "payload": {
+          "content": "Elmer confirms taking ISSUE-0002::test (high priority). No conflict with Ike's review. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "17ec2c5d-30df-43ca-ba28-743ae56b67f4",
+        "ts": 1792933252.1095512,
+        "agent": "Ike",
+        "kind": "communication",
+        "payload": {
+          "content": "I am still reviewing the task list and will finalize my assignment shortly.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "0d676215-f457-4fec-9e48-da4494a0b1e9",
+        "ts": 1792933258.433493,
+        "agent": "Elmer",
+        "kind": "communication",
+        "payload": {
+          "content": "Elmer confirms taking ISSUE-0002::test (high priority). No conflict with Altha's implement or your review. Please finalize your choice.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "ff2063d0-e587-422c-8091-1d37a8427bc3",
+        "ts": 1792933277.612341,
+        "agent": "Elmer",
+        "kind": "communication",
+        "payload": {
+          "content": "Elmer confirms taking ISSUE-0002::test (high priority, effort ~2.1, cost 4.52). No conflict with Altha's implement or Ike's review. Ike, please finalize your choice.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "605ee20d-85cd-41a3-a319-9b20bb81d863",
+        "ts": 1792933282.00427,
+        "agent": "Ike",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::implement"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Ike",
+              "task_id": "ISSUE-0002::implement",
+              "task": {
+                "id": "ISSUE-0002::implement",
+                "title": "Build machine-learning [implement]",
+                "tags": [
+                  "machine-learning",
+                  "frontend"
+                ],
+                "priority": "high",
+                "effort": 3.0,
+                "work_type": "implement"
+              },
+              "total_assigned": 2,
+              "remaining_agents": 2,
+              "state_updates": {
+                "assignment": {
+                  "Ike": "ISSUE-0002::implement"
+                }
+              },
+              "joint_reward": 62.20553792862507
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "dbbafab6-51a8-4f04-98da-74f9b25351d1",
+        "ts": 1792933285.85825,
+        "agent": "Elmer",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Elmer",
+              "task_id": "ISSUE-0002::test",
+              "task": {
+                "id": "ISSUE-0002::test",
+                "title": "Build machine-learning [test]",
+                "tags": [
+                  "machine-learning",
+                  "frontend"
+                ],
+                "priority": "high",
+                "effort": 2.0999999999999996,
+                "work_type": "test"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Elmer": "ISSUE-0002::test"
+                }
+              },
+              "joint_reward": 114.88025160231157
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  }
+]

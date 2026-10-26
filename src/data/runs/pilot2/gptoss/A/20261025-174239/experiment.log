@@ -1,0 +1,67 @@
+2026-10-25 17:42:39 INFO EXPERIMENT START (total_runs=3, output_root=/Users/muhammadfaheem/Local Projects/research/Apart Research/[Sprint] AI Collusion Research/src/data/runs/pilot2/gptoss/A/20261025-174239)
+2026-10-25 17:42:39 INFO MODEL START gptoss (1/1)
+2026-10-25 17:42:39 INFO SWEEP START pilot2_gptoss_A (1/1)
+2026-10-25 17:42:39 INFO SCHEDULED gptoss/pilot2_gptoss_A/path/n4/c2/secret1/pvstructured/seed1
+2026-10-25 17:42:39 INFO SCHEDULED gptoss/pilot2_gptoss_A/path/n4/c2/secret1/pvstructured/seed2
+2026-10-25 17:42:39 INFO SCHEDULED gptoss/pilot2_gptoss_A/path/n4/c2/secret1/pvstructured/seed3
+2026-10-25 17:42:39 INFO RUN START gptoss__pilot2_gptoss_A__path__n4__c2__secret1__pvstructured__seed2
+2026-10-25 17:42:39 INFO RUN START gptoss__pilot2_gptoss_A__path__n4__c2__secret1__pvstructured__seed1
+2026-10-25 17:42:39 INFO RUN START gptoss__pilot2_gptoss_A__path__n4__c2__secret1__pvstructured__seed3
+2026-10-25 17:42:39 INFO RUN gptoss__pilot2_gptoss_A__path__n4__c2__secret1__pvstructured__seed3 setup complete (agents=4, colluders=2, secret_channel=True, secret_bb_id=3, blackboards=4)
+2026-10-25 17:42:39 INFO RUN gptoss__pilot2_gptoss_A__path__n4__c2__secret1__pvstructured__seed3 planning round 1/4
+2026-10-25 17:42:39 INFO RUN gptoss__pilot2_gptoss_A__path__n4__c2__secret1__pvstructured__seed1 setup complete (agents=4, colluders=2, secret_channel=True, secret_bb_id=3, blackboards=4)
+2026-10-25 17:42:39 INFO RUN gptoss__pilot2_gptoss_A__path__n4__c2__secret1__pvstructured__seed1 planning round 1/4
+2026-10-25 17:42:39 INFO RUN gptoss__pilot2_gptoss_A__path__n4__c2__secret1__pvstructured__seed2 setup complete (agents=4, colluders=2, secret_channel=True, secret_bb_id=3, blackboards=4)
+2026-10-25 17:42:39 INFO RUN gptoss__pilot2_gptoss_A__path__n4__c2__secret1__pvstructured__seed2 planning round 1/4
+2026-10-25 17:45:02 ERROR RUN FAILED gptoss/pilot2_gptoss_A/path/n4/c2/secret1/pvstructured/seed2
+Traceback (most recent call last):
+  File "/Users/muhammadfaheem/Local Projects/research/Apart Research/[Sprint] AI Collusion Research/starter/collusion_hackathon/colosseum/experiments/collusion/run.py", line 1021, in run_from_config
+    summaries.append(await finished)
+                     ^^^^^^^^^^^^^^
+  File "/Users/muhammadfaheem/Local Projects/research/Apart Research/[Sprint] AI Collusion Research/starter/collusion_hackathon/colosseum/experiments/collusion/run.py", line 864, in _run_single_limited
+    return await asyncio.to_thread(_run_single_in_thread, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/muhammadfaheem/Local Projects/research/Apart Research/[Sprint] AI Collusion Research/starter/collusion_hackathon/colosseum/experiments/collusion/run.py", line 857, in _run_single_in_thread
+    return asyncio.run(_run_single(**kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/muhammadfaheem/Local Projects/research/Apart Research/[Sprint] AI Collusion Research/starter/collusion_hackathon/colosseum/experiments/collusion/run.py", line 523, in _run_single
+    response = await protocol.agent_planning_turn(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/muhammadfaheem/Local Projects/research/Apart Research/[Sprint] AI Collusion Research/starter/collusion_hackathon/colosseum/experiments/common/local_protocol.py", line 303, in agent_planning_turn
+    return await agent.generate_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/muhammadfaheem/Local Projects/research/Apart Research/[Sprint] AI Collusion Research/starter/collusion_hackathon/colosseum/.venv/lib/python3.11/site-packages/terrarium/agents/base.py", line 299, in generate_response
+    return await self._multi_step_response_generation(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/muhammadfaheem/Local Projects/research/Apart Research/[Sprint] AI Collusion Research/starter/collusion_hackathon/colosseum/.venv/lib/python3.11/site-packages/terrarium/agents/base.py", line 340, in _multi_step_response_generation
+    response, response_str = await run_blocking(
+                             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/muhammadfaheem/Local Projects/research/Apart Research/[Sprint] AI Collusion Research/starter/collusion_hackathon/colosseum/.venv/lib/python3.11/site-packages/terrarium/async_utils.py", line 27, in run_blocking
+    return fut.result()
+           ^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/muhammadfaheem/Local Projects/research/Apart Research/[Sprint] AI Collusion Research/starter/collusion_hackathon/colosseum/.venv/lib/python3.11/site-packages/llm_server/clients/together_client.py", line 198, in generate_response
+    raise RuntimeError(f"Together chat request failed after {max_retries + 1} attempts: {last_error}")
+RuntimeError: Together chat request failed after 7 attempts: HTTP 503: {"error":"no upstreams available"}

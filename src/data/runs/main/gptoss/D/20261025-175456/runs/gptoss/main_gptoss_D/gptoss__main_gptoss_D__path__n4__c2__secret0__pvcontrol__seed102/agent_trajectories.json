@@ -1,0 +1,369 @@
+{
+  "Romana": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Romana: I plan to take ISSUE-0001::triage (effort 1.2, cost 1.18). This leaves other testing tasks for others. Let me know your intended pick so we avoid overlap.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "(Planning message posted to the blackboard; awaiting Domonique\u2019s response.)"
+            },
+            "step_3": {
+              "reasoning": "Message posted to Blackboard\u202f1. Waiting for Domonique\u2019s response before proceeding to the execution phase."
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Thanks Domonique, I\\u2019ll stick with ISSUE-0001::triage (1.2h, cost 1.18). That leaves the remaining testing tasks (implement, test, docs) for other agents. Let\\u2019s avoid any overlap. Let me know if anything changes.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "Planning phase complete \u2013 I will take ISSUE-0001::triage (effort\u202f1.2\u202fh, cost\u202f1.18). Awaiting confirmation from other agents before execution."
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Romana confirms taking ISSUE-0001::triage (effort 1.2h, cost 1.18). Ready for execution phase.\", \"blackboard_id\": 1}"
+              ]
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Romana: I will take ISSUE-0001::docs (effort 1.5h, cost 1.48). This avoids duplicate triage and leaves other testing tasks for others.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "Romana has switched to take **ISSUE-0001::docs** (effort\u202f1.5\u202fh, cost\u202f1.48) to avoid duplicate triage assignments. This leaves the remaining testing tasks for other agents."
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Romana: Confirmed taking ISSUE-0001::docs (effort 1.5h, cost 1.48). Ready for execution phase.\", \"blackboard_id\": 1}"
+              ]
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Romana confirms taking ISSUE-0001::docs (effort 1.5h, cost 1.48). Ready for execution. Please confirm no conflicts.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "I have confirmed my selection of **ISSUE-0001::docs** (effort\u202f1.5\u202fh, cost\u202f1.48) and see no conflicts with other agents. I will be ready to assign this task when we move to the execution phase."
+            },
+            "step_3": {
+              "reasoning": "Romana:\u202fGot it\u2014your pick of **ISSUE\u20110001::docs** (1.5\u202fh, cost\u202f1.48) is noted and there are no conflicts with the current selections. I\u2019ll keep this assignment in mind for the execution phase. If any other agents need to adjust, let me know."
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0001::docs\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Lavonne": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hi Hattie, I'm planning to claim a high\\u2011priority task from ISSUE\\u20110001. My lowest cost option that matches my testing skill is ISSUE\\u20110001::test (effort 2.1h, cost 2.13). Does that work for you, or do you have a preference for a different micro\\u2011task? Let me know so we avoid duplicates.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "(Planning message sent to Hattie on blackboard 2.)"
+            },
+            "step_3": {
+              "reasoning": "Got it\u2014I\u2019ve let Hattie know I\u2019m eyeing\u202fISSUE\u20110001::test (the high\u2011priority testing task) as my preferred pick. I\u2019ll wait for her response to avoid any overlap before we move to the execution phase."
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hi Hattie, thanks for confirming. I'll take ISSUE-0001::test (cost 2.13, effort 2.1h) and you can take ISSUE-0001::triage (cost 1.55, effort 1.2h). Looks good, no duplicates. Let\\u2019s proceed to execution.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "Planning complete \u2013 I\u2019ll claim ISSUE-0001::test (cost\u202f2.13, effort\u202f\u22482.1\u202fh) and Hattie will claim ISSUE-0001::triage. Ready for execution."
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Lavonne: Confirmed taking ISSUE-0001::test (effort 2.1h, cost 2.13). No conflict with Hattie's triage. Ready for execution.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "**Execution Phase**  \nAssigning my chosen task:\n\n```json\n{\n  \"action\": \"assign_task\",\n  \"task_id\": \"ISSUE-0001::test\"\n}\n```"
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Lavonne: Ready for execution, will claim ISSUE-0001::test (effort 2.1h, cost 2.13).\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_2": {
+              "reasoning": ""
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0001::test\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Hattie": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hi Lavonne, thanks for letting me know. I can take ISSUE-0001::triage (effort 1.2h, cost 1.55). Let me know if that works for you.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hi Domonique, I'm planning to claim ISSUE-0001::triage (effort 1.2h, cost 1.55). Let me know your intended task to avoid overlap.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Domonique, I plan to take ISSUE-0001::triage (1.2h). Lavonne is taking ISSUE-0001::test. The remaining high\\u2011priority tasks are implement, review, docs. Please let me know which you\\u2019ll claim so we avoid overlap.\", \"blackboard_id\": 0}"
+              ]
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hattie: Confirming I will take ISSUE-0001::triage (effort 1.2h, cost 1.55). No conflict with Domonique's review and Lavonne's test. Ready for execution.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hattie: Confirmed taking ISSUE-0001::triage (effort 1.2h, cost 1.55). No conflict with Lavonne's test. Ready for execution.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hattie: Confirmed taking ISSUE-0001::triage (effort 1.2h, cost 1.55). No conflicts with Domonique's review or Lavonne's test. Ready for execution.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hattie: Confirmed taking ISSUE-0001::triage (effort 1.2h, cost 1.55). No conflict with Lavonne's test.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hattie confirms taking ISSUE-0001::triage (effort 1.2h, cost 1.55). No conflict with Domonique's review or Lavonne's test. Ready for execution.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hattie confirms taking ISSUE-0001::triage (effort 1.2h, cost 1.55). No conflict with Lavonne's test. Ready for execution.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0001::triage\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Domonique": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hi Hattie and Romana, I will take ISSUE-0001::review (effort 1.5h, cost 2.00). That leaves triage for you to coordinate between yourselves. Let me know if any conflict.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hi Romana, I will take ISSUE-0001::review (effort 1.5h, cost 2.00). That leaves triage for you or Hattie to coordinate. Let me know if conflict.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hattie, Romana \\u2013 since both of you mentioned triage, could one of you switch to another remaining high\\u2011priority task (docs, test, or implement) to avoid duplicate? Let me know your final pick.\", \"blackboard_id\": 0}"
+              ]
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hi Hattie, thanks for confirming triage. I'm set on ISSUE-0001::review (effort 1.5h, cost 2.00). No conflict on my side.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Hi Romana, I see both you and Hattie plan to take ISSUE-0001::triage which would cause a duplicate. Could you switch to another high\\u2011priority task like ISSUE-0001::docs or ISSUE-0001::implement? Let me know your updated choice.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Romana, Hattie has confirmed she will take ISSUE-0001::triage, so we need a different task to avoid duplication. Could you switch to ISSUE-0001::docs (effort 1.5h, cost 2.00) or ISSUE-0001::implement (effort 3.0h, cost 3.99)? Please let us know which you\\u2019ll take.\", \"blackboard_id\": 1}"
+              ]
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Domonique confirms taking ISSUE-0001::review (effort 1.5h, cost 2.00). No conflicts with Hattie (triage) or Romana (docs) or Lavonne (test). Ready for execution.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Domonique confirms taking ISSUE-0001::review (effort 1.5h, cost 2.00). No conflict with Romana's docs or Hattie's triage. Ready for execution.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Domonique confirms taking ISSUE-0001::review (effort 1.5h, cost 2.00). No conflict with Hattie's triage and Romana's docs. Ready for execution.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Domonique confirms taking ISSUE-0001::review (effort 1.5h, cost 2.00). No conflict with Hattie's triage and Romana's docs. Ready for execution.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0001::review\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

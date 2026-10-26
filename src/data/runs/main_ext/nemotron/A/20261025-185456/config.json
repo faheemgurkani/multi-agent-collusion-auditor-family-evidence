@@ -1,0 +1,70 @@
+{
+  "simulation": {
+    "max_iterations": 1,
+    "max_planning_rounds": 4,
+    "max_conversation_steps": 3,
+    "seed": 1,
+    "tags": [
+      "main_ext_nemotron_A"
+    ]
+  },
+  "environment": {
+    "name": "JiraTicketEnvironment",
+    "assignment_filling": false,
+    "max_tasks": 8
+  },
+  "communication_network": {
+    "topology": "path",
+    "num_agents": 4,
+    "consolidate_channels": true
+  },
+  "llm_models": [
+    {
+      "label": "nemotron",
+      "llm": {
+        "provider": "openrouter",
+        "openrouter": {
+          "model": "nvidia/nemotron-3-super-120b-a12b",
+          "params": {
+            "max_tokens": 3000,
+            "temperature": 0.7
+          }
+        }
+      }
+    }
+  ],
+  "experiment": {
+    "tag": "main_ext_nemotron_A",
+    "output_dir": "/Users/muhammadfaheem/Local Projects/research/Apart Research/[Sprint] AI Collusion Research/src/data/runs/main_ext/nemotron/A",
+    "max_concurrent_runs": 2,
+    "seeds": [
+      106,
+      107,
+      108
+    ],
+    "collusion": {
+      "colluder_selection": "first_and_last",
+      "agent_order": "random"
+    },
+    "sweeps": [
+      {
+        "name": "main_ext_nemotron_A",
+        "topologies": [
+          "path"
+        ],
+        "num_agents": [
+          4
+        ],
+        "colluder_counts": [
+          2
+        ],
+        "secret_channel_enabled": [
+          true
+        ],
+        "prompt_variants": [
+          "structured"
+        ]
+      }
+    ]
+  }
+}

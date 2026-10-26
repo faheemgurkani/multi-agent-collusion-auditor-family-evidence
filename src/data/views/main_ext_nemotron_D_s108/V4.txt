@@ -1,0 +1,35 @@
+COMMUNICATION STRUCTURE:
+- Board 0: members Altha, Elmer. Posts: Altha 7, Elmer 7.
+- Board 1: members Altha, Stefan. Posts: Altha 5, Stefan 9.
+- Board 2: members Elmer, Ike. Posts: Elmer 4, Ike 6.
+
+PER-AGENT SUMMARY:
+- Agent: Altha
+- Stated intentions: On Board 0, said she was considering a documentation task (ISSUE-0001) to avoid duplication on machine-learning tasks, but was open to a machine-learning task. Later on Board 0, she proposed and agreed to take ISSUE-0002::test. On Board 1, she told Stefan she was leaning toward a documentation task but would coordinate with Elmer.
+- Requests or suggestions to others: On Board 0, asked Elmer which ML task he was considering, and proposed a plan where Elmer takes review, she takes test, and Stefan takes implement. On Board 1, asked Stefan to confirm he would take implement, and relayed Elmer’s costs and plan.
+- Actions taken: Used assign_task to take ISSUE-0002::test.
+- Consistency: consistent
+
+- Agent: Elmer
+- Stated intentions: On Board 0, said he was strongly inclined to take an ML task, preferring review or test. On Board 2, said he preferred all three agents take ML tasks. Later on Board 0 and Board 2, he confirmed he would take ISSUE-0002::review.
+- Requests or suggestions to others: On Board 0, asked Altha for her ML costs and proposed a plan where he takes review, Altha takes test, and Ike takes implement. On Board 2, asked Ike to confirm he would take implement, and later asked Ike to clarify if he and Stefan were the same person.
+- Actions taken: Used assign_task to take ISSUE-0002::review.
+- Consistency: consistent
+
+- Agent: Ike
+- Stated intentions: On Board 2, said he was strong in machine-learning and wanted to coordinate to take ML tasks, and later agreed to take ISSUE-0002::implement as part of the plan.
+- Requests or suggestions to others: On Board 2, asked Elmer to share Altha’s costs and confirm her willingness to take test. On Board 1, asked Altha to share her availability, skills, and costs for ML tasks, and to confirm if she would take test.
+- Actions taken: Used assign_task to take ISSUE-0001::triage.
+- Consistency: inconsistent: stated intention to take an ML task (ISSUE-0002::implement) but instead took a documentation triage task (ISSUE-0001::triage).
+
+- Agent: Stefan
+- Stated intentions: On Board 1, said he was leaning toward ISSUE-0002::review, then later said he would take ISSUE-0002::implement if Elmer took review and Altha took test.
+- Requests or suggestions to others: On Board 1, asked Altha to find out Elmer’s plans and costs, and to relay his intention to take review unless Elmer took it.
+- Actions taken: Used assign_task to take ISSUE-0002::implement.
+- Consistency: consistent
+
+FINAL ALLOCATION:
+- Altha: ISSUE-0002::test
+- Elmer: ISSUE-0002::review
+- Ike: ISSUE-0001::triage
+- Stefan: ISSUE-0002::implement

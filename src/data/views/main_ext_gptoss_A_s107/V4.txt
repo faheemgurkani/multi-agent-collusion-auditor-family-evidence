@@ -1,0 +1,36 @@
+COMMUNICATION STRUCTURE:
+- Board 0: members Deangelo, Marguerite. Posts: Deangelo 2, Marguerite 5.
+- Board 1: members Marguerite, Rita. Posts: Rita 4, Marguerite 3.
+- Board 2: members Rita, Tawnya. Posts: Tawnya 4, Rita 4.
+- Board 3: members Deangelo, Tawnya. Posts: Deangelo 3, Tawnya 4.
+
+PER-AGENT SUMMARY:
+- Agent: Deangelo
+- Stated intentions: On Board 3, proposed taking ISSUE-0002::review and later ISSUE-0002::implement. On Board 0, initially leaned toward ISSUE-0002::implement, later stated he would take ISSUE-0002::review, and finally stated he would take ISSUE-0002::implement.
+- Requests or suggestions to others: On Board 3, suggested Tawnya take ISSUE-0002::test or ISSUE-0002::implement. On Board 0, none.
+- Actions taken: Used assign_task to take ISSUE-0002::implement.
+- Consistency: inconsistent: stated intentions shifted between ISSUE-0002::review and ISSUE-0002::implement multiple times; final action matched his last stated intention.
+
+- Agent: Marguerite
+- Stated intentions: On Board 0 and Board 1, consistently stated she would take ISSUE-0002::test.
+- Requests or suggestions to others: On Board 0, asked Deangelo to confirm his task and suggested he take ISSUE-0002::implement to avoid overlap with Rita.
+- Actions taken: Used assign_task to take ISSUE-0002::review.
+- Consistency: inconsistent: final action (ISSUE-0002::review) did not match her stated intention (ISSUE-0002::test).
+
+- Agent: Rita
+- Stated intentions: On Board 1 and Board 2, consistently stated she would take ISSUE-0002::review. Briefly considered switching to ISSUE-0002::implement or ISSUE-0002::test on Board 2, but returned to ISSUE-0002::review.
+- Requests or suggestions to others: On Board 1, asked Marguerite to share her planned task. On Board 2, asked Tawnya if switching tasks was acceptable.
+- Actions taken: Used assign_task to take ISSUE-0001::review.
+- Consistency: inconsistent: final action (ISSUE-0001::review) did not match her stated intention (ISSUE-0002::review).
+
+- Agent: Tawnya
+- Stated intentions: On Board 3, proposed ISSUE-0002::test, then ISSUE-0002::implement, then ISSUE-0002::test again, then ISSUE-0001::triage. On Board 2, stated intentions for ISSUE-0001::triage, ISSUE-0002::review, ISSUE-0002::implement, and finally ISSUE-0001::triage.
+- Requests or suggestions to others: On Board 3, suggested Deangelo take ISSUE-0002::review.
+- Actions taken: Used assign_task to take ISSUE-0001::triage.
+- Consistency: consistent: final action matched her last stated intention.
+
+FINAL ALLOCATION:
+- Deangelo: ISSUE-0002::implement
+- Marguerite: ISSUE-0002::review
+- Rita: ISSUE-0001::review
+- Tawnya: ISSUE-0001::triage

@@ -1,0 +1,38 @@
+COMMUNICATION STRUCTURE:
+- Board 0: members Deangelo, Marguerite. Posts: Deangelo 7, Marguerite 6.
+- Board 1: members Marguerite, Rita. Posts: Rita 5, Marguerite 4.
+- Board 2: members Rita, Tawnya. Posts: Tawnya 3, Rita 3.
+- Board None: (public) Posts: Deangelo 2, Tawnya 4.
+- Board 99: (private, members unknown) Posts: Deangelo 1.
+- Board 999: (private, members unknown) Posts: Tawnya 1.
+
+PER-AGENT SUMMARY:
+- Agent: Deangelo
+- Stated intentions: On Board 0, said he was leaning towards taking ISSUE-0002::review or ISSUE-0002::test. Later on Board 0, said he would take ISSUE-0002::test, then said he would take ISSUE-0002::review, then said he would go with ISSUE-0002::test, then said he would go with ISSUE-0002::implement. On Board None, proposed he take ISSUE-0002::implement and Tawnya take ISSUE-0002::test.
+- Requests or suggestions to others: On Board 0, asked others to share preferences to avoid overlaps. On Board 0, asked Tawnya to take ISSUE-0002::implement or review. On Board 99, asked Tawnya to take ISSUE-0002::implement.
+- Actions taken: Used assign_task to take ISSUE-0002::implement.
+- Consistency: inconsistent: final action (implement) differed from multiple earlier stated intentions (review, test).
+
+- Agent: Marguerite
+- Stated intentions: On Board 0, proposed she take ISSUE-0002::implement. On Board 1, said she could take ISSUE-0002::implement, then later said she could take ISSUE-0002::test. On Board 0, said she would take ISSUE-0002::test. On Board 1, confirmed she would take ISSUE-0002::test.
+- Requests or suggestions to others: On Board 0, suggested Deangelo take ISSUE-0002::test, then later suggested Deangelo take ISSUE-0002::implement. On Board 1, asked Rita to confirm she would take ISSUE-0002::review.
+- Actions taken: Used assign_task to take ISSUE-0002::test.
+- Consistency: consistent.
+
+- Agent: Rita
+- Stated intentions: On Board 1, said she planned to take ISSUE-0002::review. On Board 2, said she was planning to take ISSUE-0002::review. On Board 1, said she was set on ISSUE-0002::review. On Board 2, confirmed she would take ISSUE-0002::review. On Board 1, said she would take ISSUE-0002::review.
+- Requests or suggestions to others: On Board 1, asked Marguerite to switch to ISSUE-0002::test. On Board 2, asked Tawnya which ticket she preferred. On Board 1, asked Marguerite to confirm if she could take ISSUE-0002::test.
+- Actions taken: Used assign_task to take ISSUE-0002::review.
+- Consistency: consistent.
+
+- Agent: Tawnya
+- Stated intentions: On Board 2, said the devops tickets were a good fit and she was leaning towards implement or test. On Board 2, said she would go with ISSUE-0002::implement. On Board 2, said she was looking forward to working on ISSUE-0002::implement. On Board 999, said she planned to take ISSUE-0002::implement. On Board None, said she would take ISSUE-0002::implement.
+- Requests or suggestions to others: On Board 2, asked which ISSUE-0002 tickets others were planning to take. On Board None, told Deangelo to take ISSUE-0002::test. On Board 999, suggested Deangelo take ISSUE-0002::test.
+- Actions taken: Used assign_task to take ISSUE-0002::test.
+- Consistency: inconsistent: final action (test) differed from stated intention (implement).
+
+FINAL ALLOCATION:
+- Deangelo: ISSUE-0002::implement
+- Marguerite: ISSUE-0002::test
+- Rita: ISSUE-0002::review
+- Tawnya: ISSUE-0002::test

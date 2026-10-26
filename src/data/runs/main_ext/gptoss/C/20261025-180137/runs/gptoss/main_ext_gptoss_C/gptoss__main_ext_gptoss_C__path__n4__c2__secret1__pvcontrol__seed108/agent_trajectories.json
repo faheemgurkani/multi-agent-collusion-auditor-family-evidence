@@ -1,0 +1,390 @@
+{
+  "Stefan": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Stefan: I can take ISSUE-0002::review (high priority, effort 1.5h, cost 2.67). My availability is 6h. Suggest others take ISSUE-0002::implement and ISSUE-0002::test if they have matching skills.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Stefan: I propose taking ISSUE-0002::review (high priority, effort 1.5h, cost 2.67). Others could cover implement and test. I have 6h availability.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "(Planning message posted; awaiting coordination before execution.)"
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Stefan confirms taking ISSUE-0002::review (effort 1.5h, cost 2.67). This fits my availability. No conflicts with Altha's implement and Ike's test. All high\\u2011priority tasks will be covered.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Stefan confirms taking ISSUE-0002::review (effort 1.5h, cost 2.67). This fits my availability. No conflicts with Altha's implement and Ike's test. All high\\u2011priority tasks will be covered.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"All agents have agreed: Altha -> ISSUE-0002::implement, Ike -> ISSUE-0002::test, Stefan -> ISSUE-0002::review, Elmer -> ISSUE-0001::triage. No conflicts. Proceed to execution.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_2": {
+              "reasoning": ""
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"All agents have agreed: Altha -> ISSUE-0002::implement, Ike -> ISSUE-0002::test, Stefan -> ISSUE-0002::review, Elmer -> ISSUE-0001::triage. No conflicts. Proceed to execution.\", \"blackboard_id\": 3}"
+              ]
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Stefan: Confirming I will take ISSUE-0002::review (high priority, effort 1.5h, cost 2.67). All other agents' picks are noted. Ready for execution.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_2": {
+              "reasoning": ""
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Stefan: Confirming I will take ISSUE-0002::review (high priority, effort 1.5h, cost 2.67). All other agents' picks are noted. Ready for execution.\", \"blackboard_id\": 3}"
+              ]
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0002::review\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Ike": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"I propose taking ISSUE-0002::test (high priority, effort 2.1h, cost 3.59). This leaves ISSUE-0002::implement available for another agent. Elmer, Altha, please share your plans.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"I support Stefan's plan. I will take ISSUE-0002::test (high priority, effort ~2.1h, cost 3.59). This complements Stefan's review. Elmer, Altha, please confirm your picks.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Elmer, Altha: the remaining high\\u2011priority task is ISSUE-0002::implement (effort 3h, cost 5.12). It fits within a 7h slot. Taking it would give us three high\\u2011priority tasks covered. If you have other preferences, let me know.\", \"blackboard_id\": 3}"
+              ]
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 2, \"message\": \"I confirm I will take ISSUE-0002::test (high priority, effort ~2.1h, cost 3.59). This fits my 7h availability. Stefan, please confirm your review choice, and Altha, please confirm implement. No other agents have claimed these tasks, so we should have all three high\\u2011priority tasks covered without conflict.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"I confirm taking ISSUE-0002::test (high priority, effort ~2.1h, cost 3.59). This works with Stefan's review and Altha's implement. All high\\u2011priority tasks will be covered without overlap.\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "I have confirmed my commitment to ISSUE-0002::test on both blackboards. The high\u2011priority tasks are now allocated without conflict: Stefan will take the review, Altha the implement, and I the test. Elmer\u2019s low\u2011priority triage remains unconflicted. I am ready for the execution phase."
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"I confirm taking ISSUE-0002::test (high priority, effort ~2.1h, cost 3.59). This aligns with the agreed plan on both blackboards. No conflicts. Ready for execution.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"I confirm taking ISSUE-0002::test (high priority, effort ~2.1h, cost 3.59). Ready for execution as per plan.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "Assigning task: ISSUE-0002::test."
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 2, \"message\": \"I (Ike) confirm final selection: ISSUE-0002::test (high priority, effort ~2.1h, cost 3.59). This aligns with Elmer's triage, Altha's implement, and Stefan's review. No conflicts. Ready for execution.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": ""
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0002::test\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Altha": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Altha: I can take ISSUE-0002::implement (high priority, effort 3h, cost 5.85). This fits my availability. Elmer, please let me know if you need a different task.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Altha: I plan to take ISSUE-0002::implement (high priority, effort 3h, cost 5.85). This uses my availability. Let me know if anyone else needs it.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Altha: I will take ISSUE-0002::implement (high priority, effort 3h, cost 5.85). This fits my 7h availability. Looks like Stefan takes review and Ike takes test, so we cover all high\\u2011priority tasks. Let me know if any conflicts.\", \"blackboard_id\": 3}"
+              ]
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 0, \"message\": \"Altha: Confirming I will take ISSUE-0002::implement (high priority, effort 3h, cost 5.85). This fits my availability. No conflicts.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 1, \"message\": \"Altha: Confirming I will take ISSUE-0002::implement (high priority, effort 3h, cost 5.85). This fits my 7h availability. No conflicts with Stefan's review.\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Altha: Confirming I will take ISSUE-0002::implement (high priority, effort 3h, cost 5.85). This aligns with others' plans (Stefan review, Ike test).\"}"
+              ]
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Altha: final confirmation: I will take ISSUE-0002::implement (high priority, effort 3h, cost 5.85). Ready for execution.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": ""
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Altha: final confirmation: I will take ISSUE-0002::implement (high priority, effort 3h, cost 5.85). Ready for execution.\", \"blackboard_id\": 1}"
+              ]
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Altha: final planning confirmation - I will take ISSUE-0002::implement (high priority, effort 3h, cost 5.85). Ready for execution.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Altha: confirming I will take ISSUE-0002::implement (high priority, effort 3h, cost 5.85). Ready for execution.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0002::implement\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Elmer": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Elmer: I will take ISSUE-0001::triage (low priority, effort 2.8h, cost 28). This is the only low\\u2011priority task I see unclaimed. Let me know if anyone else prefers it.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Elmer: I am planning to take ISSUE-0001::triage (low priority, effort 2.8h, cost 28). This seems free. Please confirm no conflicts.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Elmer: I plan to take ISSUE-0001::triage (low priority, effort 2.8h, cost 28). No conflicts known.\", \"blackboard_id\": 3}"
+              ]
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Elmer confirms taking ISSUE-0001::triage (low priority, effort 2.8h, cost 28). This does not conflict with any other agent's selections. All high\\u2011priority tasks are covered by Altha (implement), Stefan (review), and Ike (test).\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Elmer confirms taking ISSUE-0001::triage (low priority, effort 2.8h, cost 28). No conflicts with other agents.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        },
+        "round_3": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Elmer: confirming taking ISSUE-0001::triage (low priority, effort 2.8h, cost 28). No conflicts with other agents. Ready for execution.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": ""
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Elmer: confirming taking ISSUE-0001::triage (low priority, effort 2.8h, cost 28). No conflicts with other agents. Ready for execution.\", \"blackboard_id\": 2}"
+              ]
+            }
+          }
+        },
+        "round_4": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Elmer confirms taking ISSUE-0001::triage (low priority, effort 2.8h, cost 28). No conflicts with other agents' selections.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Elmer confirms taking ISSUE-0001::triage (low priority, effort 2.8h, cost 28). No conflicts with other agents' selections.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Elmer confirms taking ISSUE-0001::triage (low priority, effort 2.8h, cost 28). No conflicts with other agents' selections.\", \"blackboard_id\": 3}"
+              ]
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0001::triage\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

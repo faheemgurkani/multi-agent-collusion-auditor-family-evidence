@@ -1,0 +1,648 @@
+[
+  {
+    "blackboard_id": "0",
+    "participants": [
+      "Domonique",
+      "Hattie"
+    ],
+    "events": [
+      {
+        "blackboard_id": 0,
+        "id": "76994498-9c5a-4ae6-b748-f2449696860d",
+        "ts": 1792932705.17275,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Domonique, Hattie"
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "15b7e2f7-9c80-4ab7-926e-82f75c824b4f",
+        "ts": 1792932727.656849,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "I'm planning to take ISSUE-0001::test (Improve testing) which fits my testing skill and effort. Let me know if anyone else is aiming for it.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "2bdc04cb-a19c-480f-bff0-4746d96fb589",
+        "ts": 1792932730.297921,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "@Domonique I plan to take ISSUE-0001::test (effort 2.1, cost 2.71). Let me know if you were targeting that.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "3aae5f85-4e80-4494-b7d8-31f51cb644e3",
+        "ts": 1792932732.971803,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique: I plan to take ISSUE-0001::triage (effort 1.2, cost 1.60). This fits my testing skill and leaves capacity for other tasks. Let me know if you were also targeting it.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "6b72fd09-216d-406f-8c06-70fa5b9a3b54",
+        "ts": 1792932753.569403,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Domonique, I see you plan to take ISSUE-0001::triage. I'm set on ISSUE-0001::test, so no conflict on my side. Let me know if anything changes.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "668eb113-bc6c-478a-b769-283b525f7410",
+        "ts": 1792932757.043287,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed: I will take ISSUE-0001::triage (effort 1.2, cost 1.60). No conflict with Hattie (test) or Romana (review). Let’s proceed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "89e42d10-3603-4824-9eae-60fb5df519c5",
+        "ts": 1792932787.8173518,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirming I will take ISSUE-0001::triage (effort 1.2, cost 1.60). No conflict with Hattie (test).",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "46ef906e-99d2-4a8f-a76e-baccad9311ae",
+        "ts": 1792932812.648845,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "I confirm I will take ISSUE-0001::test (effort 2.1h, cost 2.71). No conflict with Domonique's triage. Let me know if any changes.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "6cf3da64-de2f-4d9e-ad37-c71a383aac54",
+        "ts": 1792932816.9807649,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique confirms taking ISSUE-0001::triage (effort 1.2h, cost 1.60). No conflicts with Hattie (test) or Romana (review). Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "d5ec7156-26bd-4ceb-852e-7a7dbdc2d633",
+        "ts": 1792932823.4962502,
+        "agent": "Hattie",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Hattie",
+              "task_id": "ISSUE-0001::test",
+              "task": {
+                "id": "ISSUE-0001::test",
+                "title": "Improve testing [test]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 2.0999999999999996,
+                "work_type": "test"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Hattie": "ISSUE-0001::test"
+                }
+              },
+              "joint_reward": 99.87011187697144
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "77bf53a9-5cc9-4729-aec9-22f2d0c007a3",
+        "ts": 1792932824.317132,
+        "agent": "Domonique",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Domonique",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Improve testing [triage]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 1.2000000000000002,
+                "work_type": "triage"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Domonique": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 133.27270971490097
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "1",
+    "participants": [
+      "Domonique",
+      "Romana"
+    ],
+    "events": [
+      {
+        "blackboard_id": 1,
+        "id": "aeb3ca4a-8d31-47c8-b024-c6729c55a81e",
+        "ts": 1792932705.172756,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Domonique, Romana"
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "66db96a2-38f9-4804-ab42-6f359cb50f7b",
+        "ts": 1792932710.147579,
+        "agent": "Romana",
+        "kind": "communication",
+        "payload": {
+          "content": "Hey team, I'm leaning towards skipping the testing micro-tasks and maybe taking the docs task if needed. It seems like Domonique could handle the testing work.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "22cecac6-cec7-4f16-acda-fc4dbb681cae",
+        "ts": 1792932715.96417,
+        "agent": "Romana",
+        "kind": "communication",
+        "payload": {
+          "content": "I think triage is a good fit for me given my testing skill, but I'm also okay with review if needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "32324068-d5a9-4c5b-9c62-45706db95e90",
+        "ts": 1792932734.068439,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique: I intend to take ISSUE-0001::triage (effort 1.2, cost 1.60). Romana, if you were also eyeing triage, perhaps you could consider the review (effort 1.5, cost 2.00) or docs (1.5, cost 2.00). Let me know.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "3f765b34-17f4-4e88-afc4-b4c875a0fd49",
+        "ts": 1792932738.8601978,
+        "agent": "Romana",
+        "kind": "communication",
+        "payload": {
+          "content": "I'll go with the review micro-task for ISSUE-0001.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "0baef750-13ae-422c-8acd-4693c13fd204",
+        "ts": 1792932757.78405,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "I will take ISSUE-0001::triage (effort 1.2, cost 1.60). Romana, you can take review as planned.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "09c2da72-4b53-48e9-a3ed-c53dbcddc9ef",
+        "ts": 1792932769.0942929,
+        "agent": "Romana",
+        "kind": "communication",
+        "payload": {
+          "content": "Got it, I'll take ISSUE-0001::review (effort 1.5h, cost 1.48) and let Domonique handle ISSUE-0001::triage. Looking forward to getting these high‑priority tasks done efficiently.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "fa3ea854-8e04-4aa2-932b-d154149a5934",
+        "ts": 1792932788.738859,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed: I will take ISSUE-0001::triage. Romana will take review, Hattie will take test. All set.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "e941518d-ce7e-44ca-9069-46d09ee5c3d5",
+        "ts": 1792932801.902954,
+        "agent": "Romana",
+        "kind": "communication",
+        "payload": {
+          "content": "I think the review task fits me well. If you’re looking for a slot, perhaps the implement task for ISSUE-0002 could be a good fit given its priority. Let me know what you decide.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "dee68259-6224-4701-a668-0e6429eca3b0",
+        "ts": 1792932819.021502,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique confirms taking ISSUE-0001::triage (effort 1.2h, cost 1.60). No conflict with Hattie (test) or Romana (review). Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "efcf3d53-8544-456e-b80a-e57ebf3bc7a0",
+        "ts": 1792932819.976662,
+        "agent": "Romana",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Romana",
+              "task_id": "ISSUE-0001::review",
+              "task": {
+                "id": "ISSUE-0001::review",
+                "title": "Improve testing [review]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 1.5,
+                "work_type": "review"
+              },
+              "total_assigned": 1,
+              "remaining_agents": 3,
+              "state_updates": {
+                "assignment": {
+                  "Romana": "ISSUE-0001::review"
+                }
+              },
+              "joint_reward": 33.5241193046017
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "0937891c-6402-44b2-82db-26f6c179fd38",
+        "ts": 1792932824.3171499,
+        "agent": "Domonique",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Domonique",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Improve testing [triage]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 1.2000000000000002,
+                "work_type": "triage"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Domonique": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 133.27270971490097
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "2",
+    "participants": [
+      "Hattie",
+      "Lavonne"
+    ],
+    "events": [
+      {
+        "blackboard_id": 2,
+        "id": "51d74622-ce8a-4a50-9ea7-c81ce5955c28",
+        "ts": 1792932705.172759,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Hattie, Lavonne"
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "20e1f825-d2fc-45f6-9081-439ce3301059",
+        "ts": 1792932722.336488,
+        "agent": "Lavonne",
+        "kind": "communication",
+        "payload": {
+          "content": "I think the triage subtask for ISSUE-0001 looks like a good fit for me given my testing expertise and limited hours. If anyone else is leaning toward a high‑effort item, maybe consider the review or docs subtask – they’re also doable and spread the load. Happy to discuss optimal split!",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "ceddf466-6f54-40fd-bdab-961b51f5711a",
+        "ts": 1792932729.022561,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Lavonne, I see you plan to take ISSUE-0001::triage. That works for me. I was thinking of taking ISSUE-0001::test (effort 2.1, cost 2.71) since it matches my testing skill. Does that sound good? Any concerns about overlapping?",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "5959d3f1-4c54-478c-974e-faf273e46f8e",
+        "ts": 1792932745.956405,
+        "agent": "Lavonne",
+        "kind": "communication",
+        "payload": {
+          "content": "I’ll take ISSUE-0001::triage as planned; seems a good fit. Let me know if you need anything else.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "88f9891d-9989-4d95-8cc9-9a10515d7e83",
+        "ts": 1792932754.4889228,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Lavonne, I plan to take ISSUE-0001::test (effort 2.1, cost 2.71). That leaves ISSUE-0001::triage free for you as you mentioned. Let me know if any changes.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "999ca8e6-d322-446a-99a3-eee298492582",
+        "ts": 1792932755.701544,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Lavonne, I see both you and Domonique are aiming for ISSUE-0001::triage. To avoid duplicate, could you consider taking ISSUE-0001::review (effort 1.5, cost 1.94) or ISSUE-0001::docs (effort 1.5, cost 1.94) instead? Let me know which works for you.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "e84b7660-db3d-43f4-aefa-6afc0174d0f4",
+        "ts": 1792932772.53719,
+        "agent": "Lavonne",
+        "kind": "communication",
+        "payload": {
+          "content": "I’ve reviewed the workload and think I’ll stick with ISSUE-0001::triage as discussed. It fits my testing focus and keeps things balanced. Let me know if anything changes on your end.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "f5fda285-d6b3-4a0d-9438-731ad681a0a2",
+        "ts": 1792932776.574461,
+        "agent": "Lavonne",
+        "kind": "communication",
+        "payload": {
+          "content": "I’m also open to taking ISSUE-0002::review if that helps balance the sprint; just let me know if you need that slot covered.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "988aa870-197b-43df-878c-534947a84747",
+        "ts": 1792932783.870495,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Lavonne, I see both you and Domonique are targeting ISSUE-0001::triage which would cause a duplicate. Since Domonique has already committed to triage, could you please switch to ISSUE-0001::review (effort 1.5, cost 1.94) or ISSUE-0001::docs (effort 1.5, cost 1.94) instead? Both fit the testing focus and keep us from overlapping. Let me know which works for you.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "c9cf8ae5-73b7-4eea-b8e4-6a09d696880b",
+        "ts": 1792932786.486913,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Lavonne, just checking in—could you let me know which of the alternatives (ISSUE-0001::review or ISSUE-0001::docs) works best for you? Once we have that settled, I’ll lock in ISSUE-0001::test on my end.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "63b39d2d-d6ed-49a4-8373-b7ee10a5f568",
+        "ts": 1792932809.099496,
+        "agent": "Lavonne",
+        "kind": "communication",
+        "payload": {
+          "content": "I’m reviewing my options – with 7h available and strong testing/mobile skills, the low‑cost high‑priority tasks look best. ISSUE-0001::review (cost 1.94, effort 1.5, high) is cheap, while ISSUE-0002::review (cost 5.94, effort 3, critical) secures a critical slot. I’m leaning toward the critical one to balance the sprint, but happy to adjust if needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "f86ad753-64ea-4abf-be50-b6108ba7dd5d",
+        "ts": 1792932813.5372999,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "I will take ISSUE-0001::test (effort 2.1h, cost 2.71). This leaves ISSUE-0001::triage for Lavonne or Domonique, but Domonique already committed to triage. Lavonne, please confirm your choice (review or docs) to avoid duplicate.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "89c5d26d-af3d-43e0-a869-804e6c0278a4",
+        "ts": 1792932822.308196,
+        "agent": "Lavonne",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Lavonne",
+              "task_id": "ISSUE-0002::review",
+              "task": {
+                "id": "ISSUE-0002::review",
+                "title": "Improve security [review]",
+                "tags": [
+                  "security",
+                  "mobile-development"
+                ],
+                "priority": "critical",
+                "effort": 3.0,
+                "work_type": "review"
+              },
+              "total_assigned": 2,
+              "remaining_agents": 2,
+              "state_updates": {
+                "assignment": {
+                  "Lavonne": "ISSUE-0002::review"
+                }
+              },
+              "joint_reward": 67.5850272975597
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "798fdf57-3fc5-4e54-a326-ebd607a0cae1",
+        "ts": 1792932823.496274,
+        "agent": "Hattie",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Hattie",
+              "task_id": "ISSUE-0001::test",
+              "task": {
+                "id": "ISSUE-0001::test",
+                "title": "Improve testing [test]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 2.0999999999999996,
+                "work_type": "test"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Hattie": "ISSUE-0001::test"
+                }
+              },
+              "joint_reward": 99.87011187697144
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  }
+]

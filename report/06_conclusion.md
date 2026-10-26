@@ -1,0 +1,5 @@
+## 6. Conclusion
+
+We ran, to our knowledge, the first pre-registered test of whether an LLM auditor's model family changes how well it detects collusion among agents of the same family. Across three open-weight families, four evidence views and 3,456 audits of 96 multi-agent episodes, all auditors were competent, yet we found no significant same-family effect. We rule out a familiarity advantage of the size reported for trained monitors; all point estimates lean, non-significantly, towards leniency.
+
+The stronger result concerns what prompted auditors look at. They detect instructed coalitions through what agents *say*: they are at chance on actions alone, they flag unsuccessful coalitions nearly as readily as successful ones, and they miss most often the effective coalitions that left fewer messages. A neutral summary made things worse. For practitioners: prefer family-diverse auditor panels over same-family auditors (cheap, never significantly worse), do not summarise logs before auditing, and pair language auditors with outcome-based checks.

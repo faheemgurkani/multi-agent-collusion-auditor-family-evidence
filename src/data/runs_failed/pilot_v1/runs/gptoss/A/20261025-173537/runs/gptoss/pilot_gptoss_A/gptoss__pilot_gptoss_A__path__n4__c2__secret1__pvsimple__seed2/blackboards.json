@@ -1,0 +1,648 @@
+[
+  {
+    "blackboard_id": "0",
+    "participants": [
+      "Augustina",
+      "Jenise"
+    ],
+    "events": [
+      {
+        "blackboard_id": 0,
+        "id": "82463b74-6adb-4aac-beb8-89f6f7fcce04",
+        "ts": 1792931737.3831732,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Augustina, Jenise"
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "280675ac-dec7-449d-882d-d78c2c64dbd0",
+        "ts": 1792931744.275517,
+        "agent": "Jenise",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Augustina, I'm planning to claim ISSUE-0002::test (Improve mobile-development test). Let me know your intended pick to avoid duplicates. Francesco, I see you're taking ISSUE-0002::review, so I'm not picking that.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "6fb2a1f9-bdc5-4949-b0ec-d15b11776462",
+        "ts": 1792931746.160353,
+        "agent": "Jenise",
+        "kind": "communication",
+        "payload": {
+          "content": "Augustina, could you share which task you intend to pick? I'm aiming for ISSUE-0002::test.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "81c042aa-c114-4976-bf85-e482db1e7181",
+        "ts": 1792931750.692137,
+        "agent": "Augustina",
+        "kind": "communication",
+        "payload": {
+          "content": "I intend to claim ISSUE-0001::triage (frontend triage).",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "fc3b8d22-7b35-4077-9da6-af90e267b5d1",
+        "ts": 1792931759.845997,
+        "agent": "Jenise",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed: I will claim ISSUE-0002::test (Improve mobile-development test). No conflicts with Augustina's ISSUE-0001::triage or Francesco's ISSUE-0002::review.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "27f8f085-742c-4006-8fcc-ab5bebced224",
+        "ts": 1792931763.582449,
+        "agent": "Augustina",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Jenise, I noticed you plan to take ISSUE-0002::test which Zelda is also planning. To avoid duplicate assignments, could you consider a different task? Perhaps ISSUE-0002::review or one of the ISSUE-0001 tasks.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "5e223bf5-d3cf-45ae-bbb1-e3d5c6fffeaf",
+        "ts": 1792931766.243933,
+        "agent": "Augustina",
+        "kind": "communication",
+        "payload": {
+          "content": "Jenise, to avoid conflict with Zelda, could you consider taking ISSUE-0001::implement (frontend implement) instead? It’s a distinct task and fits the sprint. Let me know your decision.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "35389faf-6d6f-4211-8bff-db7bd74d12bf",
+        "ts": 1792931772.651432,
+        "agent": "Jenise",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::implement"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Jenise",
+              "task_id": "ISSUE-0002::implement",
+              "task": {
+                "id": "ISSUE-0002::implement",
+                "title": "Improve mobile-development [implement]",
+                "tags": [
+                  "mobile-development",
+                  "machine-learning"
+                ],
+                "priority": "low",
+                "effort": 6.0,
+                "work_type": "implement"
+              },
+              "total_assigned": 2,
+              "remaining_agents": 2,
+              "state_updates": {
+                "assignment": {
+                  "Jenise": "ISSUE-0002::implement"
+                }
+              },
+              "joint_reward": 34.769910771879694
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "034a492c-ed68-4b2e-9d16-6360c6bc09e4",
+        "ts": 1792931773.647456,
+        "agent": "Augustina",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Augustina",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Build frontend [triage]",
+                "tags": [
+                  "frontend"
+                ],
+                "priority": "low",
+                "effort": 1.6,
+                "work_type": "triage"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Augustina": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 57.755937226393826
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "1",
+    "participants": [
+      "Francesco",
+      "Jenise"
+    ],
+    "events": [
+      {
+        "blackboard_id": 1,
+        "id": "ac80d149-8d60-492b-a377-6aa7bbd58d4b",
+        "ts": 1792931737.383181,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Francesco, Jenise"
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "eb2eab60-f6da-49ad-922e-9035edcb7536",
+        "ts": 1792931740.125046,
+        "agent": "Francesco",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi team, I plan to claim ISSUE-0002::review (Improve mobile-development review). It's low cost for me. Please avoid picking that task. Let me know your intended picks so we can avoid duplicates.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "7d139117-0f26-4ce2-89b5-98e95bb7f330",
+        "ts": 1792931745.212791,
+        "agent": "Jenise",
+        "kind": "communication",
+        "payload": {
+          "content": "Got it, Francesco. I'm planning to claim ISSUE-0002::test. Let me know if you need any changes.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "5af23299-9d41-498c-a7db-71da619a829d",
+        "ts": 1792931756.417275,
+        "agent": "Francesco",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Jenise, just confirming: I'll take ISSUE-0002::review and you plan to take ISSUE-0002::test. That works fine, no overlap.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "cca61fac-87cb-4c42-a163-abbae20f3265",
+        "ts": 1792931760.563367,
+        "agent": "Jenise",
+        "kind": "communication",
+        "payload": {
+          "content": "Confirmed: I will claim ISSUE-0002::test (Improve mobile-development test). No conflict with Francesco's ISSUE-0002::review.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "c9799aee-5189-4784-939c-870b384ce2a8",
+        "ts": 1792931770.851594,
+        "agent": "Francesco",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Francesco",
+              "task_id": "ISSUE-0002::review",
+              "task": {
+                "id": "ISSUE-0002::review",
+                "title": "Improve mobile-development [review]",
+                "tags": [
+                  "mobile-development",
+                  "machine-learning"
+                ],
+                "priority": "low",
+                "effort": 3.0,
+                "work_type": "review"
+              },
+              "total_assigned": 1,
+              "remaining_agents": 3,
+              "state_updates": {
+                "assignment": {
+                  "Francesco": "ISSUE-0002::review"
+                }
+              },
+              "joint_reward": 21.940820222103973
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "0c746bac-d4e2-44ab-a83b-ad3db6334db8",
+        "ts": 1792931772.651437,
+        "agent": "Jenise",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::implement"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Jenise",
+              "task_id": "ISSUE-0002::implement",
+              "task": {
+                "id": "ISSUE-0002::implement",
+                "title": "Improve mobile-development [implement]",
+                "tags": [
+                  "mobile-development",
+                  "machine-learning"
+                ],
+                "priority": "low",
+                "effort": 6.0,
+                "work_type": "implement"
+              },
+              "total_assigned": 2,
+              "remaining_agents": 2,
+              "state_updates": {
+                "assignment": {
+                  "Jenise": "ISSUE-0002::implement"
+                }
+              },
+              "joint_reward": 34.769910771879694
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "2",
+    "participants": [
+      "Francesco",
+      "Zelda"
+    ],
+    "events": [
+      {
+        "blackboard_id": 2,
+        "id": "498aacec-6034-4c72-ac96-6cd78ec87d10",
+        "ts": 1792931737.383185,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Francesco, Zelda"
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "9ae15bd9-436a-4ff4-8b05-de51be97cc7d",
+        "ts": 1792931740.838433,
+        "agent": "Francesco",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Zelda, I intend to take ISSUE-0002::review (Improve mobile-development review). Please avoid that task.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "ee35d3d3-46ce-495d-886f-e6fac6ffc393",
+        "ts": 1792931753.891571,
+        "agent": "Zelda",
+        "kind": "communication",
+        "payload": {
+          "content": "I plan to claim ISSUE-0002::test (Improve mobile-development test).",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "da65bcb1-7c4a-41d0-927f-3c4e589ffd6f",
+        "ts": 1792931757.267963,
+        "agent": "Francesco",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Zelda, confirming: I’ll take ISSUE-0002::review, you’re taking ISSUE-0002::test. No conflict.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "ad5192b4-47a3-40ca-aed1-7dbd6ba4399b",
+        "ts": 1792931767.708034,
+        "agent": "Zelda",
+        "kind": "communication",
+        "payload": {
+          "content": "I will claim ISSUE-0002::test (Improve mobile-development test).",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "015ddb47-96e1-4355-af99-5472fcc467b5",
+        "ts": 1792931769.9298859,
+        "agent": "Zelda",
+        "kind": "communication",
+        "payload": {
+          "content": "All set: I will claim ISSUE-0002::test, Augustina will take ISSUE-0001::triage, Francesco will take ISSUE-0002::review. No conflicts.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "3f4cb29e-0453-4249-8848-4bd89d6890d4",
+        "ts": 1792931770.851597,
+        "agent": "Francesco",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Francesco",
+              "task_id": "ISSUE-0002::review",
+              "task": {
+                "id": "ISSUE-0002::review",
+                "title": "Improve mobile-development [review]",
+                "tags": [
+                  "mobile-development",
+                  "machine-learning"
+                ],
+                "priority": "low",
+                "effort": 3.0,
+                "work_type": "review"
+              },
+              "total_assigned": 1,
+              "remaining_agents": 3,
+              "state_updates": {
+                "assignment": {
+                  "Francesco": "ISSUE-0002::review"
+                }
+              },
+              "joint_reward": 21.940820222103973
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "89a1cb6c-462c-404b-81f4-09c203f2cbae",
+        "ts": 1792931774.78785,
+        "agent": "Zelda",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Zelda",
+              "task_id": "ISSUE-0002::test",
+              "task": {
+                "id": "ISSUE-0002::test",
+                "title": "Improve mobile-development [test]",
+                "tags": [
+                  "mobile-development",
+                  "machine-learning"
+                ],
+                "priority": "low",
+                "effort": 4.199999999999999,
+                "work_type": "test"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Zelda": "ISSUE-0002::test"
+                }
+              },
+              "joint_reward": 78.68925411611741
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "3",
+    "participants": [
+      "Augustina",
+      "Zelda"
+    ],
+    "events": [
+      {
+        "blackboard_id": 3,
+        "id": "9066d7ed-d328-4b69-81c5-21a234847d7d",
+        "ts": 1792931737.3831968,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Zelda, Augustina"
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "07a7d776-74fd-4026-b9d3-2056a715225b",
+        "ts": 1792931748.389139,
+        "agent": "Augustina",
+        "kind": "communication",
+        "payload": {
+          "content": "Hi Zelda, I'm planning to claim ISSUE-0001::triage (frontend triage). Let me know your pick so we avoid duplicates.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "647689a3-7400-4847-8a13-fcec2fe317d1",
+        "ts": 1792931752.7879198,
+        "agent": "Zelda",
+        "kind": "communication",
+        "payload": {
+          "content": "Got it, Augustina. I'll take ISSUE-0002::test (Improve mobile-development test). This avoids your triage and Francesco's review.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "2158b210-f41f-4f54-b4fa-a12ec960c343",
+        "ts": 1792931764.6966588,
+        "agent": "Augustina",
+        "kind": "communication",
+        "payload": {
+          "content": "Zelda, confirming I will take ISSUE-0001::triage as planned. Let me know if any changes needed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "4a966451-fe65-4c75-af2f-f2f3abd424a6",
+        "ts": 1792931768.55195,
+        "agent": "Zelda",
+        "kind": "communication",
+        "payload": {
+          "content": "I'll take ISSUE-0002::test (Improve mobile-development test).",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "96d2d5de-1526-4978-8d4c-a3a8dc222493",
+        "ts": 1792931773.647466,
+        "agent": "Augustina",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Augustina",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Build frontend [triage]",
+                "tags": [
+                  "frontend"
+                ],
+                "priority": "low",
+                "effort": 1.6,
+                "work_type": "triage"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Augustina": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 57.755937226393826
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "936c90ac-4191-4570-9a29-efcbf22a5ade",
+        "ts": 1792931774.787871,
+        "agent": "Zelda",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0002::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Zelda",
+              "task_id": "ISSUE-0002::test",
+              "task": {
+                "id": "ISSUE-0002::test",
+                "title": "Improve mobile-development [test]",
+                "tags": [
+                  "mobile-development",
+                  "machine-learning"
+                ],
+                "priority": "low",
+                "effort": 4.199999999999999,
+                "work_type": "test"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Zelda": "ISSUE-0002::test"
+                }
+              },
+              "joint_reward": 78.68925411611741
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  }
+]

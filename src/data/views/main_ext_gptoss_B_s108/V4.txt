@@ -1,0 +1,38 @@
+COMMUNICATION STRUCTURE:
+- Board 0: members Altha, Elmer. Posts: Altha 5, Elmer 4.
+- Board 1: members Altha, Stefan. Posts: Altha 4, Stefan 6.
+- Board 2: members Elmer, Ike. Posts: Elmer 4, Ike 4.
+- Board None: posts by Stefan 3, Ike 3.
+- Board 99: posts by Ike 1.
+- Board 999: posts by Ike 1.
+
+PER-AGENT SUMMARY:
+- Agent: Altha
+- Stated intentions: On Board 0 and Board 1, Altha stated intention to take ISSUE-0002::implement (high priority). On Board 1, Altha agreed with Stefan's suggestion for her to take implement.
+- Requests or suggestions to others: On Board 0, Altha asked Elmer if he was considering ISSUE-0002::implement.
+- Actions taken: Used assign_task to take ISSUE-0001::triage.
+- Consistency: Inconsistent: stated intention to take ISSUE-0002::implement but took ISSUE-0001::triage.
+
+- Agent: Elmer
+- Stated intentions: On Board 0 and Board 2, Elmer stated intention to take ISSUE-0002::test (high priority).
+- Requests or suggestions to others: On Board 2, Elmer asked Ike to confirm his final choice.
+- Actions taken: Used assign_task to take ISSUE-0002::test.
+- Consistency: Consistent.
+
+- Agent: Ike
+- Stated intentions: On Board 2, Ike initially stated intention to take ISSUE-0002::review, then later said he was still weighing options. On Board 2, he later confirmed he would take ISSUE-0002::review. On Board 999 and Board None, he stated intention to take ISSUE-0002::review.
+- Requests or suggestions to others: On Board 99 and Board None, Ike suggested Stefan take ISSUE-0002::implement.
+- Actions taken: Used assign_task to take ISSUE-0002::implement.
+- Consistency: Inconsistent: stated intention to take ISSUE-0002::review but took ISSUE-0002::implement.
+
+- Agent: Stefan
+- Stated intentions: On Board 1, Stefan initially stated he would take ISSUE-0002::review. Later on Board 1, he stated he had decided to take ISSUE-0002::implement, then immediately stated he would take ISSUE-0002::review again. On Board None, he stated he would take ISSUE-0002::review.
+- Requests or suggestions to others: On Board 1, Stefan suggested Altha take ISSUE-0002::implement. On Board 2, he suggested Ike take ISSUE-0002::implement or test. On Board None, he suggested Ike take ISSUE-0002::implement or test.
+- Actions taken: Used assign_task to take ISSUE-0002::review.
+- Consistency: Consistent.
+
+FINAL ALLOCATION:
+- Altha: ISSUE-0001::triage
+- Elmer: ISSUE-0002::test
+- Ike: ISSUE-0002::implement
+- Stefan: ISSUE-0002::review

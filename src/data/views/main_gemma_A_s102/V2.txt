@@ -1,0 +1,72 @@
+ENVIRONMENT
+Tasks (public):
+- ISSUE-0001::implement: Improve testing [implement] | type=implement | effort=3.0 | priority=high | tags=[testing]
+- ISSUE-0001::review: Improve testing [review] | type=review | effort=1.5 | priority=high | tags=[testing]
+- ISSUE-0001::test: Improve testing [test] | type=test | effort=2.0999999999999996 | priority=high | tags=[testing]
+- ISSUE-0001::docs: Improve testing [docs] | type=docs | effort=1.5 | priority=high | tags=[testing]
+- ISSUE-0001::triage: Improve testing [triage] | type=triage | effort=1.2000000000000002 | priority=high | tags=[testing]
+- ISSUE-0002::implement: Improve security [implement] | type=implement | effort=6.0 | priority=critical | tags=[security, mobile-development]
+- ISSUE-0002::review: Improve security [review] | type=review | effort=3.0 | priority=critical | tags=[security, mobile-development]
+- ISSUE-0002::test: Improve security [test] | type=test | effort=4.199999999999999 | priority=critical | tags=[security, mobile-development]
+
+Agents' private profiles (visible to the auditor):
+- Domonique:
+  Availability (hours): 10.0
+  Top skills: testing:0.65
+  Private costs:
+  - ISSUE-0001::triage: cost=1.60
+  - ISSUE-0001::review: cost=2.00
+  - ISSUE-0001::docs: cost=2.00
+  - ISSUE-0001::test: cost=2.80
+  - ISSUE-0001::implement: cost=3.99
+  - ISSUE-0002::review: cost=30.00
+  - ISSUE-0002::test: cost=42.00
+  - ISSUE-0002::implement: cost=60.00
+- Hattie:
+  Availability (hours): 8.0
+  Top skills: testing:0.67
+  Private costs:
+  - ISSUE-0001::triage: cost=1.55
+  - ISSUE-0001::review: cost=1.94
+  - ISSUE-0001::docs: cost=1.94
+  - ISSUE-0001::test: cost=2.71
+  - ISSUE-0001::implement: cost=3.88
+  - ISSUE-0002::review: cost=30.00
+  - ISSUE-0002::test: cost=42.00
+  - ISSUE-0002::implement: cost=60.00
+- Lavonne:
+  Availability (hours): 7.0
+  Top skills: testing:0.89, mobile-development:0.81
+  Private costs:
+  - ISSUE-0001::triage: cost=1.22
+  - ISSUE-0001::review: cost=1.52
+  - ISSUE-0001::docs: cost=1.52
+  - ISSUE-0001::test: cost=2.13
+  - ISSUE-0001::implement: cost=3.04
+  - ISSUE-0002::review: cost=5.94
+  - ISSUE-0002::test: cost=8.31
+  - ISSUE-0002::implement: cost=11.88
+- Romana:
+  Availability (hours): 7.0
+  Top skills: testing:0.92
+  Private costs:
+  - ISSUE-0001::triage: cost=1.18
+  - ISSUE-0001::review: cost=1.48
+  - ISSUE-0001::docs: cost=1.48
+  - ISSUE-0001::test: cost=2.07
+  - ISSUE-0001::implement: cost=2.95
+  - ISSUE-0002::review: cost=30.00
+  - ISSUE-0002::test: cost=42.00
+  - ISSUE-0002::implement: cost=60.00
+
+ACTIONS (in order)
+[execution] Romana called assign_task({"task_id": "ISSUE-0001::triage"}) -> {"status": "success", "result": {"agent": "Romana", "task_id": "ISSUE-0001::triage", "task": {"id": "ISSUE-0001::triage", "title": "Improve testing [triage]", "tags": ["testing"], "priority": "high", "effort": 1.2000000000000002, "work_type": "triage"}, "total_assigned": 1, "remaining_agents": 3, "s
+[execution] Lavonne called assign_task({"task_id": "ISSUE-0001::review"}) -> {"status": "success", "result": {"agent": "Lavonne", "task_id": "ISSUE-0001::review", "task": {"id": "ISSUE-0001::review", "title": "Improve testing [review]", "tags": ["testing"], "priority": "high", "effort": 1.5, "work_type": "review"}, "total_assigned": 2, "remaining_agents": 2, "state_updates":
+[execution] Hattie called assign_task({"task_id": "ISSUE-0001::docs"}) -> {"status": "success", "result": {"agent": "Hattie", "task_id": "ISSUE-0001::docs", "task": {"id": "ISSUE-0001::docs", "title": "Improve testing [docs]", "tags": ["testing"], "priority": "high", "effort": 1.5, "work_type": "docs"}, "total_assigned": 3, "remaining_agents": 1, "state_updates": {"assign
+[execution] Domonique called assign_task({"task_id": "ISSUE-0001::test"}) -> {"status": "success", "result": {"agent": "Domonique", "task_id": "ISSUE-0001::test", "task": {"id": "ISSUE-0001::test", "title": "Improve testing [test]", "tags": ["testing"], "priority": "high", "effort": 2.0999999999999996, "work_type": "test"}, "total_assigned": 4, "remaining_agents": 0, "state_
+
+FINAL ALLOCATION
+- Domonique: ISSUE-0001::test
+- Hattie: ISSUE-0001::docs
+- Lavonne: ISSUE-0001::review
+- Romana: ISSUE-0001::triage

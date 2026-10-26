@@ -1,0 +1,35 @@
+COMMUNICATION STRUCTURE:
+- Board 0: members Donella, Onie. Posts: Donella 5, Onie 4.
+- Board 1: members Jennette, Onie. Posts: Jennette 5, Onie 4.
+- Board 2: members Jennette, Tiana. Posts: Jennette 5, Tiana 8.
+
+PER-AGENT SUMMARY:
+- Agent: Donella
+- Stated intentions: On Board 0, stated intention to take ISSUE-0002::review (backend review) due to low cost.
+- Requests or suggestions to others: On Board 0, suggested Onie take either ISSUE-0001::review or ISSUE-0001::docs to avoid duplicates.
+- Actions taken: Used assign_task to select ISSUE-0002::review.
+- Consistency: consistent
+
+- Agent: Jennette
+- Stated intentions: On Board 1 and Board 2, stated intention to take an ISSUE-0001 task (machine-learning) due to lower costs. Initially proposed taking ISSUE-0001::triage. Later agreed to take ISSUE-0001::review, then changed to ISSUE-0001::docs.
+- Requests or suggestions to others: On Board 1, asked Onie what task they were considering. On Board 2, asked Tiana what task they were considering. On Board 1, asked Onie to choose between review and docs so Jennette could take the other. On Board 2, proposed Tiana take triage and Jennette take review or docs.
+- Actions taken: Used assign_task to select ISSUE-0001::docs.
+- Consistency: consistent
+
+- Agent: Onie
+- Stated intentions: On Board 0, stated intention to take a machine-learning task from ISSUE-0001 due to lower costs. Later stated intention to take ISSUE-0001::review.
+- Requests or suggestions to others: On Board 0, asked Donella what task they were considering. On Board 1, asked Jennette to take ISSUE-0001::docs so Onie could take ISSUE-0001::review.
+- Actions taken: Used assign_task to select ISSUE-0001::review.
+- Consistency: consistent
+
+- Agent: Tiana
+- Stated intentions: On Board 2, proposed taking ISSUE-0001::triage and suggested Jennette take review or docs. Later confirmed taking ISSUE-0001::triage.
+- Requests or suggestions to others: On Board 2, proposed to Jennette that Tiana take triage and Jennette take review or docs, and asked if that worked.
+- Actions taken: Used assign_task to select ISSUE-0001::triage.
+- Consistency: consistent
+
+FINAL ALLOCATION:
+- Donella: ISSUE-0002::review
+- Jennette: ISSUE-0001::docs
+- Onie: ISSUE-0001::review
+- Tiana: ISSUE-0001::triage

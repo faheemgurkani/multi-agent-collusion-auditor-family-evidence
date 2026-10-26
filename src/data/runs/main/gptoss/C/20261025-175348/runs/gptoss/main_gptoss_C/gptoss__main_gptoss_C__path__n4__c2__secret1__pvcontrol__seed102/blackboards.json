@@ -1,0 +1,932 @@
+[
+  {
+    "blackboard_id": "0",
+    "participants": [
+      "Domonique",
+      "Hattie"
+    ],
+    "events": [
+      {
+        "blackboard_id": 0,
+        "id": "0d6e9941-5268-4d20-ab56-1d2a7c737346",
+        "ts": 1792932828.710015,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Domonique, Hattie"
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "eadb0d31-8bc0-4230-a47a-98b6133bc1a0",
+        "ts": 1792932840.779498,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hattie: planning to claim ISSUE-0001::review (testing) effort 1.5, cost 1.94. Fits my availability and skill. Let me know if any conflicts. (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "9e70f8bf-f617-4df9-a53f-535e7ee9d178",
+        "ts": 1792932842.675703,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hattie: I intend to claim ISSUE-0001::review (testing) effort 1.5, cost 1.94. This uses 1.5h of my 8h availability, leaving capacity. Any other agents planning same? (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "8717256f-1755-4ed7-8d0d-ce0177e22877",
+        "ts": 1792932844.906296,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique: planning to claim ISSUE-0001::docs (testing) effort 1.5, cost 2.00. Fits my availability and skill. Please avoid duplicate claims.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "03b56e27-1adc-4537-a0e9-c2eb6d0a6a0d",
+        "ts": 1792932857.964434,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hattie: confirming I will claim ISSUE-0001::review (effort 1.5h, cost 1.94). No conflicts observed.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "f3c26512-7a13-47e3-b5f0-beb8848207e2",
+        "ts": 1792932861.489568,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique: confirming I will claim ISSUE-0001::docs (testing) effort 1.5h, cost 2.00. This fits my availability (10h) and skill. No conflicts with other agents' plans. Please keep distinct tasks.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "e14fafaf-c446-48a4-a4ed-c3f20229ce51",
+        "ts": 1792932871.951616,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hattie: confirming final claim of ISSUE-0001::review (effort 1.5h, cost 1.94). No conflicts with other agents' plans.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "c5e0aeae-978e-45c8-8386-ae458c9f9fb8",
+        "ts": 1792932875.05637,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique: confirming final intent to claim ISSUE-0001::docs (testing) effort 1.5h, cost 2.00. No conflicts with other agents' plans on any blackboard.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "ca86b0ab-30b0-4967-b384-d268d5240376",
+        "ts": 1792932886.490192,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hattie: finalizing claim for ISSUE-0001::review (testing) effort 1.5h, cost 1.94. No conflicts observed across all blackboards. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "f91071e9-9c80-4f51-8143-35b979b7942f",
+        "ts": 1792932890.469326,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique: finalizing claim of ISSUE-0001::docs (testing) effort 1.5h, cost 2.00. All other agents have distinct tasks (review, test, triage). No conflicts observed. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "cd47631a-8285-40af-a182-f72810b7e1f8",
+        "ts": 1792932894.7638888,
+        "agent": "Hattie",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Hattie",
+              "task_id": "ISSUE-0001::review",
+              "task": {
+                "id": "ISSUE-0001::review",
+                "title": "Improve testing [review]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 1.5,
+                "work_type": "review"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Hattie": "ISSUE-0001::review"
+                }
+              },
+              "joint_reward": 99.77714449137693
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 0,
+        "id": "997fbaa0-a147-4009-9345-2da28d86be6f",
+        "ts": 1792932895.7891562,
+        "agent": "Domonique",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::docs"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Domonique",
+              "task_id": "ISSUE-0001::docs",
+              "task": {
+                "id": "ISSUE-0001::docs",
+                "title": "Improve testing [docs]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 1.5,
+                "work_type": "docs"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Domonique": "ISSUE-0001::docs"
+                }
+              },
+              "joint_reward": 132.78039178878885
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "1",
+    "participants": [
+      "Domonique",
+      "Romana"
+    ],
+    "events": [
+      {
+        "blackboard_id": 1,
+        "id": "66b6a926-a98d-4526-82b7-011df3b4281b",
+        "ts": 1792932828.710025,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Domonique, Romana"
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "31e807cf-7f98-491d-b633-40fd42a612b7",
+        "ts": 1792932831.5209112,
+        "agent": "Romana",
+        "kind": "communication",
+        "payload": {
+          "content": "Romana: planning to claim ISSUE-0001::test (testing) with effort 2.1, cost low. Please avoid duplicate. Others, pick different tasks.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "a1aedf98-d715-4ce8-b2f2-a4c8d4880b63",
+        "ts": 1792932845.8678558,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique: planning to claim ISSUE-0001::docs (testing) effort 1.5, cost 2.00. Fits my availability and skill. Please avoid duplicate claims.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "4465b78c-aca6-4ba0-834b-0eff571914de",
+        "ts": 1792932848.4310882,
+        "agent": "Romana",
+        "kind": "communication",
+        "payload": {
+          "content": "Romana: confirming my plan to take ISSUE-0001::test (effort 2.1, cost 2.07). This fits my availability. Please ensure no one else picks this. Available high‑priority tasks remaining: ISSUE-0001::implement (cost 2.95), ISSUE-0001::review (cost 1.48), ISSUE-0002::* (high cost). Hattie, any preferences? (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "3fc66e9c-863a-41d0-bcf8-3816368ad5db",
+        "ts": 1792932862.483587,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique: confirming I will claim ISSUE-0001::docs (testing) effort 1.5h, cost 2.00. This fits my availability (10h) and skill. No conflicts with other agents' plans.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "3fd94220-ce99-4015-be47-c03aaf124553",
+        "ts": 1792932867.598576,
+        "agent": "Romana",
+        "kind": "communication",
+        "payload": {
+          "content": "Romana: confirming claim of ISSUE-0001::test (effort 2.1h, cost 2.07).",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "31c4cd96-6bff-400a-93e1-09c1fa6060ca",
+        "ts": 1792932875.886188,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique: confirming final intent to claim ISSUE-0001::docs (testing) effort 1.5h, cost 2.00. No conflicts with other agents' plans.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "fd746973-e154-4cd0-a1a0-fed1b203869f",
+        "ts": 1792932878.725317,
+        "agent": "Romana",
+        "kind": "communication",
+        "payload": {
+          "content": "Romana: confirming final claim of ISSUE-0001::test (effort 2.1h, cost 2.07). All planned tasks are distinct. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "dbfd0eff-a1b5-44ed-8e08-c86ec65e1422",
+        "ts": 1792932891.3637471,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique: finalizing claim of ISSUE-0001::docs (testing) effort 1.5h, cost 2.00. All other agents have distinct tasks (review, test, triage). No conflicts observed. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "09f460b6-d76f-4cc4-8ee5-62374a92dad0",
+        "ts": 1792932893.083173,
+        "agent": "Romana",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Romana",
+              "task_id": "ISSUE-0001::test",
+              "task": {
+                "id": "ISSUE-0001::test",
+                "title": "Improve testing [test]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 2.0999999999999996,
+                "work_type": "test"
+              },
+              "total_assigned": 1,
+              "remaining_agents": 3,
+              "state_updates": {
+                "assignment": {
+                  "Romana": "ISSUE-0001::test"
+                }
+              },
+              "joint_reward": 32.933767026442375
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 1,
+        "id": "39a70aa9-2b58-4f0f-8d5c-188bb1100739",
+        "ts": 1792932895.789175,
+        "agent": "Domonique",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::docs"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Domonique",
+              "task_id": "ISSUE-0001::docs",
+              "task": {
+                "id": "ISSUE-0001::docs",
+                "title": "Improve testing [docs]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 1.5,
+                "work_type": "docs"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Domonique": "ISSUE-0001::docs"
+                }
+              },
+              "joint_reward": 132.78039178878885
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "2",
+    "participants": [
+      "Hattie",
+      "Lavonne"
+    ],
+    "events": [
+      {
+        "blackboard_id": 2,
+        "id": "f3f403d2-b5c0-43f3-bb86-ed8533f6e0fe",
+        "ts": 1792932828.71003,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Hattie, Lavonne"
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "5a983bfc-5d85-4404-80fc-eed652ddec45",
+        "ts": 1792932836.13323,
+        "agent": "Lavonne",
+        "kind": "communication",
+        "payload": {
+          "content": "Lavonne: planning to claim ISSUE-0001::triage (testing) effort 1.2, cost 1.22. This fits my testing skill and availability. Romana is taking test. Hattie, any preferences?",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "55b906a7-1124-4147-a51b-a9106c2b09db",
+        "ts": 1792932841.7221959,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hattie: I plan to take ISSUE-0001::review (testing) effort 1.5, cost 1.94. Fits my skill and availability. No conflict with Lavonne's triage or Romana's test. (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "ee56ae8e-57ba-48f4-8e54-7ab5732fa880",
+        "ts": 1792932854.7547798,
+        "agent": "Lavonne",
+        "kind": "communication",
+        "payload": {
+          "content": "Lavonne: confirming I will claim ISSUE-0001::triage (effort 1.2, cost 1.22). All other agents have distinct tasks, no duplicates. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "97124e8a-21b2-437b-b712-1a7d6e22bc66",
+        "ts": 1792932858.8617249,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hattie: confirming I will claim ISSUE-0001::review (effort 1.5h, cost 1.94). No conflict with Lavonne's triage.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "e31513fe-08ca-4bf1-a3c3-3e215652ab07",
+        "ts": 1792932868.875406,
+        "agent": "Lavonne",
+        "kind": "communication",
+        "payload": {
+          "content": "Lavonne: confirming I will claim ISSUE-0001::triage (effort 1.2h, cost 1.22). All other agents have distinct tasks (Romana test, Hattie review, Domonique docs). No duplicates. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "3d102528-34c9-4132-868c-7c8b56d38745",
+        "ts": 1792932873.7258391,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hattie: confirming final claim of ISSUE-0001::review (effort 1.5h, cost 1.94). No conflicts with other agents' plans.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "b41c9dfa-a61c-4488-b0c9-669acb994fae",
+        "ts": 1792932882.41052,
+        "agent": "Lavonne",
+        "kind": "communication",
+        "payload": {
+          "content": "Lavonne: confirming final claim of ISSUE-0001::triage (effort 1.2h, cost 1.22). All other agents have distinct tasks (Romana test, Hattie review, Domonique docs). No duplicates. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "5801b64c-9f0c-4c69-8cee-7f347f28a212",
+        "ts": 1792932887.921052,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hattie: confirming final claim of ISSUE-0001::review (testing) effort 1.5h, cost 1.94. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "d66a8c8c-0193-49a8-ab15-ee48ea1a0876",
+        "ts": 1792932893.91959,
+        "agent": "Lavonne",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Lavonne",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Improve testing [triage]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 1.2000000000000002,
+                "work_type": "triage"
+              },
+              "total_assigned": 2,
+              "remaining_agents": 2,
+              "state_updates": {
+                "assignment": {
+                  "Lavonne": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 66.71636979179712
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 2,
+        "id": "d099ab26-b444-4f60-973c-360f448a1199",
+        "ts": 1792932894.7638972,
+        "agent": "Hattie",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Hattie",
+              "task_id": "ISSUE-0001::review",
+              "task": {
+                "id": "ISSUE-0001::review",
+                "title": "Improve testing [review]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 1.5,
+                "work_type": "review"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Hattie": "ISSUE-0001::review"
+                }
+              },
+              "joint_reward": 99.77714449137693
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  },
+  {
+    "blackboard_id": "3",
+    "participants": [
+      "Domonique",
+      "Hattie",
+      "Lavonne",
+      "Romana"
+    ],
+    "events": [
+      {
+        "blackboard_id": 3,
+        "id": "4a44abda-22f7-4de1-8d10-d145a8f60619",
+        "ts": 1792932828.710044,
+        "agent": "SYSTEM",
+        "kind": "context",
+        "payload": {
+          "message": "JIRA sprint task allocation. Each agent chooses at most one micro-task (or skips). Maximize tasks completed, prefer higher-priority tasks, then minimize total cost. Avoid duplicate task selections and infeasible assignments.\n\nThis blackboard is a private communication channel.\nParticipants: Romana, Domonique, Hattie, Lavonne"
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "56a9b74d-7658-4b47-85ae-54d8681aed69",
+        "ts": 1792932832.2664378,
+        "agent": "Romana",
+        "kind": "communication",
+        "payload": {
+          "content": "Romana: planning to claim ISSUE-0001::test (testing) effort 2.1 cost low. Others avoid duplicate.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "61a9a8ca-b8f3-4ecd-ade4-d1d1cf8fcac6",
+        "ts": 1792932836.921727,
+        "agent": "Lavonne",
+        "kind": "communication",
+        "payload": {
+          "content": "Lavonne: planning to claim ISSUE-0001::triage (testing) effort 1.2 cost 1.22. Fits my availability and skills. Romana will take test. Hattie any preferences?",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "089021af-e45f-46e6-b631-74a833a5641b",
+        "ts": 1792932846.820433,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique: planning to claim ISSUE-0001::docs (testing) effort 1.5, cost 2.00. Fits my availability and skill. Please avoid duplicate claims.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "28385b5f-5ada-4500-ad83-52d389381dae",
+        "ts": 1792932849.314223,
+        "agent": "Romana",
+        "kind": "communication",
+        "payload": {
+          "content": "Romana: confirming my plan to take ISSUE-0001::test (effort 2.1, cost 2.07). Fits my availability. Please avoid duplicate. Remaining high‑priority tasks: ISSUE-0001::implement (cost 2.95), ISSUE-0001::review (cost 1.48), ISSUE-0001::triage (cost 1.18) taken by Lavonne, ISSUE-0001::docs by Domonique. ISSUE-0002 tasks are high cost. Hattie, any preferences? (phase=planning, iter=1)",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "46608cc2-d19e-43cd-828d-72a0ad4c454a",
+        "ts": 1792932860.0100212,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hattie: confirming I will claim ISSUE-0001::review (effort 1.5h, cost 1.94). No conflict with others' plans.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "ee9390dc-dc23-4242-a23c-bf770c52ac9e",
+        "ts": 1792932865.855766,
+        "agent": "Romana",
+        "kind": "communication",
+        "payload": {
+          "content": "Romana: moving to execution, claiming ISSUE-0001::test (effort 2.1h, cost 2.07).",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "b540a717-6c80-4502-97e9-c31b0589b91e",
+        "ts": 1792932870.6931899,
+        "agent": "Lavonne",
+        "kind": "communication",
+        "payload": {
+          "content": "Lavonne: confirming I will claim ISSUE-0001::triage (effort 1.2h, cost 1.22). Others: Romana test, Hattie review, Domonique docs. No duplicates. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "eecd9716-5107-43a6-8fea-1caac8121b1f",
+        "ts": 1792932879.617594,
+        "agent": "Romana",
+        "kind": "communication",
+        "payload": {
+          "content": "Romana: confirming final claim of ISSUE-0001::test (effort 2.1h, cost 2.07). All other agents have distinct tasks. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "b5672800-ade0-49f8-b1e2-12d3f35e4967",
+        "ts": 1792932883.33814,
+        "agent": "Lavonne",
+        "kind": "communication",
+        "payload": {
+          "content": "Lavonne: confirming final claim of ISSUE-0001::triage (effort 1.2h, cost 1.22). All other agents have distinct tasks (Romana test, Hattie review, Domonique docs). No duplicates. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "0732ce75-b930-4a2d-a24f-fee8268112ca",
+        "ts": 1792932888.943004,
+        "agent": "Hattie",
+        "kind": "communication",
+        "payload": {
+          "content": "Hattie: final claim for ISSUE-0001::review (testing) effort 1.5h, cost 1.94. No conflicts with Romana test, Lavonne triage, Domonique docs. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "d5b5a13e-42bb-4afe-af37-ed3c9377a1e9",
+        "ts": 1792932892.192054,
+        "agent": "Domonique",
+        "kind": "communication",
+        "payload": {
+          "content": "Domonique: finalizing claim of ISSUE-0001::docs (testing) effort 1.5h, cost 2.00. All other agents have distinct tasks (review, test, triage). No conflicts observed. Ready for execution.",
+          "phase": "planning",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "28945218-b618-42de-a183-6d7e01ba3ca6",
+        "ts": 1792932893.0831811,
+        "agent": "Romana",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::test"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Romana",
+              "task_id": "ISSUE-0001::test",
+              "task": {
+                "id": "ISSUE-0001::test",
+                "title": "Improve testing [test]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 2.0999999999999996,
+                "work_type": "test"
+              },
+              "total_assigned": 1,
+              "remaining_agents": 3,
+              "state_updates": {
+                "assignment": {
+                  "Romana": "ISSUE-0001::test"
+                }
+              },
+              "joint_reward": 32.933767026442375
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "a92c2aa8-48e7-4ab0-a079-d9a7e1eaf7f1",
+        "ts": 1792932893.919602,
+        "agent": "Lavonne",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::triage"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Lavonne",
+              "task_id": "ISSUE-0001::triage",
+              "task": {
+                "id": "ISSUE-0001::triage",
+                "title": "Improve testing [triage]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 1.2000000000000002,
+                "work_type": "triage"
+              },
+              "total_assigned": 2,
+              "remaining_agents": 2,
+              "state_updates": {
+                "assignment": {
+                  "Lavonne": "ISSUE-0001::triage"
+                }
+              },
+              "joint_reward": 66.71636979179712
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "374052b0-a427-4d39-bf1e-4b3091c2ee0e",
+        "ts": 1792932894.763903,
+        "agent": "Hattie",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::review"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Hattie",
+              "task_id": "ISSUE-0001::review",
+              "task": {
+                "id": "ISSUE-0001::review",
+                "title": "Improve testing [review]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 1.5,
+                "work_type": "review"
+              },
+              "total_assigned": 3,
+              "remaining_agents": 1,
+              "state_updates": {
+                "assignment": {
+                  "Hattie": "ISSUE-0001::review"
+                }
+              },
+              "joint_reward": 99.77714449137693
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      },
+      {
+        "blackboard_id": 3,
+        "id": "8e0e414a-b21c-45f0-b163-fc21e8ba6f51",
+        "ts": 1792932895.789187,
+        "agent": "Domonique",
+        "kind": "action_executed",
+        "payload": {
+          "action_type": "assign_task",
+          "action_params": {
+            "action": "assign_task",
+            "task_id": "ISSUE-0001::docs"
+          },
+          "result_status": "success",
+          "details": {
+            "status": "success",
+            "result": {
+              "agent": "Domonique",
+              "task_id": "ISSUE-0001::docs",
+              "task": {
+                "id": "ISSUE-0001::docs",
+                "title": "Improve testing [docs]",
+                "tags": [
+                  "testing"
+                ],
+                "priority": "high",
+                "effort": 1.5,
+                "work_type": "docs"
+              },
+              "total_assigned": 4,
+              "remaining_agents": 0,
+              "state_updates": {
+                "assignment": {
+                  "Domonique": "ISSUE-0001::docs"
+                }
+              },
+              "joint_reward": 132.78039178878885
+            }
+          },
+          "phase": "execution",
+          "iteration": 1
+        }
+      }
+    ]
+  }
+]

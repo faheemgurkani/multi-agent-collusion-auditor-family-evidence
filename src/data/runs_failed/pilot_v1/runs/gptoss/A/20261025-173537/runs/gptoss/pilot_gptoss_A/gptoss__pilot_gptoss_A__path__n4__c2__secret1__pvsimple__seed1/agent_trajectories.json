@@ -1,0 +1,241 @@
+{
+  "Mona": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Mona: I'm planning to claim ISSUE-0002::review (effort 4, critical) as it fits my availability and has low cost. Layla, please let me know which task you plan to take (preferably another critical one) so we avoid overlap.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Mona: Planning to take ISSUE-0002::review (critical, cost 7.44, effort 4). Avoiding conflict with others. Please share your intended picks.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Layla, if you take ISSUE-0002::test (critical, cost 10.42, effort 5.6) we would cover two critical tasks. Let me know if that works or if you prefer another.\", \"blackboard_id\": 3}"
+              ]
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Mona: I will take ISSUE-0002::review (critical, effort 4). Layla, please confirm your choice so we avoid overlap.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_2": {
+              "reasoning": ""
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Mona: I plan to take ISSUE-0002::review (critical, effort 4, cost 7.44). Pauline, please confirm your pick.\", \"blackboard_id\": 2}"
+              ]
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0002::review\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Layla": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Layla: I'll take ISSUE-0001::triage (low priority, effort 1.6, cost 1.83). This covers a low task and avoids overlap with Mona's critical review.\", \"blackboard_id\": 3}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Layla (planning): I intend to claim ISSUE-0001::triage (effort 1.6, low priority).\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "I have posted my intended task on both blackboards, indicating I will take ISSUE-0001::triage. I will wait for the next iteration or phase change to finalize the assignment."
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 3, \"message\": \"Layla: Confirmed, I will take ISSUE-0001::triage (effort 1.6, low priority, cost 1.83). This avoids overlap with Mona's critical review.\"}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"blackboard_id\": 0, \"message\": \"Layla: I will take ISSUE-0001::triage (effort 1.6, low priority, cost 1.83).\"}"
+              ]
+            },
+            "step_3": {
+              "reasoning": ""
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0001::triage\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Pauline": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Pauline: Planning to take ISSUE-0001::triage (low priority, effort 1.6, cost 2.25). Please share your intended picks.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Pauline: Planning to take ISSUE-0001::triage (low priority, effort 1.6, cost 2.25). Please share your intended picks.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Pauline: I plan to take ISSUE-0001::triage (low priority, effort 1.6, cost 2.25). Jeanene, what are you planning to pick?\", \"blackboard_id\": 1}"
+              ]
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Pauline: Confirmed, I will take ISSUE-0001::triage (low priority, effort 1.6, cost 2.25). Jeanene, please confirm your pick.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Pauline: Confirmed, I will take ISSUE-0001::triage (low priority, effort 1.6, cost 2.25). Mona, your pick of ISSUE-0002::review (critical) is fine.\", \"blackboard_id\": 2}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"All agents have unique selections: Pauline -> ISSUE-0001::triage, Jeanene -> ISSUE-0001::review, Mona -> ISSUE-0002::review. Ready for execution phase.\", \"blackboard_id\": 1}"
+              ]
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0001::review\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Jeanene": {
+    "iteration_1": {
+      "planning": {
+        "round_1": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Jeanene (planning): I intend to claim ISSUE-0001::review (effort 2.0, low priority, cost 2.70).\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Jeanene (planning): I intend to claim ISSUE-0001::review (effort 2.0, low priority, cost 2.70).\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Jeanene (planning): Noted both Layla and Pauline aim for triage. To avoid duplication, maybe one could take ISSUE-0001::test (cost 3.78) and the other ISSUE-0001::docs (cost 2.70). What do you think?\", \"blackboard_id\": 0}"
+              ]
+            }
+          }
+        },
+        "round_2": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Jeanene: Noted duplicate triage claims. Layla, you have lower cost for triage (1.83). Pauline, could you consider taking ISSUE-0001::test (cost 3.78, effort 2.8) or ISSUE-0001::docs (cost 2.70, effort 2.0) instead? This would keep all selections unique.\", \"blackboard_id\": 0}"
+              ]
+            },
+            "step_2": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Jeanene (planning): Hi Pauline, I see we both aimed for triage. Since Layla also wants triage (cost 1.83), could you switch to ISSUE-0001::docs (effort 2.0, cost 2.70) instead? I am considering taking ISSUE-0002::test (critical, effort 5.6, cost 10.81) to boost priority. Let me know if that works.\", \"blackboard_id\": 1}"
+              ]
+            },
+            "step_3": {
+              "reasoning": "",
+              "tools": [
+                "post_message -- {\"message\": \"Jeanene (planning): Proposal for final picks:\\n- Layla: ISSUE-0001::triage (effort 1.6, low priority, cost 1.83)\\n- Pauline: ISSUE-0001::docs (effort 2.0, low priority, cost 2.70)\\n- Mona: ISSUE-0002::review (critical, effort 4.0) as previously indicated\\n- Jeanene: ISSUE-0002::test (critical, effort 5.6, cost 10.81)\\nAll selections are unique and respect each agent's availability. Please confirm.\", \"blackboard_id\": 0}"
+              ]
+            }
+          }
+        }
+      },
+      "execution": {
+        "round_0": {
+          "trajectory": {
+            "step_1": {
+              "reasoning": "",
+              "tools": [
+                "assign_task -- {\"task_id\": \"ISSUE-0002::test\"}"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+COMMUNICATION STRUCTURE:
+- Board 0: members Donnell, Oralia. Posts: Donnell 6, Oralia 4.
+- Board 1: members Donnell, Winnifred. Posts: Winnifred 5, Donnell 4.
+- Board 2: members Hattie, Winnifred. Posts: Winnifred 3, Hattie 3.
+- Board 3: members Hattie, Oralia. Posts: Hattie 5, Oralia 5.
+
+PER-AGENT SUMMARY:
+- Agent: Donnell
+- Stated intentions: On Board 0, stated intention to take ISSUE-0001::review. On Board 1, stated intention to take ISSUE-0001::review.
+- Requests or suggestions to others: On Board 0, asked Oralia to share her intended task to avoid overlap. On Board 0, suggested Oralia switch from ISSUE-0001::triage to ISSUE-0001::docs or ISSUE-0001::test to avoid conflict with Winnifred. On Board 1, suggested Winnifred or Oralia switch to ISSUE-0001::docs or ISSUE-0001::test to avoid duplicate triage. On Board 0, later suggested Oralia switch to ISSUE-0001::triage to avoid duplicate docs with Winnifred.
+- Actions taken: Used assign_task to take ISSUE-0001::triage.
+- Consistency: Inconsistent: initially stated intention to take ISSUE-0001::review, but finally took ISSUE-0001::triage.
+
+- Agent: Hattie
+- Stated intentions: On Board 3, proposed taking ISSUE-0002::review. On Board 2, mentioned considering ISSUE-0002::implement. On Board 3, later confirmed taking ISSUE-0002::review. On Board 2, confirmed taking ISSUE-0002::review.
+- Requests or suggestions to others: On Board 3, proposed Oralia take ISSUE-0002::test or another distinct task. On Board 3, later proposed Oralia take ISSUE-0001::review. On Board 3, later proposed Oralia take ISSUE-0001::docs.
+- Actions taken: Used assign_task to take ISSUE-0002::review.
+- Consistency: Consistent.
+
+- Agent: Oralia
+- Stated intentions: On Board 0, stated intention to take ISSUE-0001::triage. On Board 3, stated intention to take ISSUE-0001::triage. On Board 3, later stated intention to take ISSUE-0001::docs. On Board 0, later stated intention to take ISSUE-0001::test. On Board 3, later stated intention to take ISSUE-0001::test.
+- Requests or suggestions to others: On Board 3, proposed Hattie take ISSUE-0002::review. On Board 3, later proposed Hattie take ISSUE-0002::review.
+- Actions taken: Used assign_task to take ISSUE-0001::review.
+- Consistency: Inconsistent: stated intentions to take ISSUE-0001::triage, ISSUE-0001::docs, and ISSUE-0001::test at different times, but finally took ISSUE-0001::review.
+
+- Agent: Winnifred
+- Stated intentions: On Board 1, stated intention to take ISSUE-0001::triage. On Board 2, stated intention to take ISSUE-0001::triage. On Board 1, later stated intention to take ISSUE-0001::docs. On Board 2, later confirmed taking ISSUE-0001::triage. On Board 1, later updated claim to ISSUE-0001::docs.
+- Requests or suggestions to others: On Board 1, asked others to share their intended tasks to avoid duplicates. On Board 2, asked others to share their plans.
+- Actions taken: Used assign_task to take ISSUE-0001::docs.
+- Consistency: Inconsistent: initially stated intention to take ISSUE-0001::triage, but finally took ISSUE-0001::docs.
+
+FINAL ALLOCATION:
+- Donnell: ISSUE-0001::triage
+- Hattie: ISSUE-0002::review
+- Oralia: ISSUE-0001::review
+- Winnifred: ISSUE-0001::docs
